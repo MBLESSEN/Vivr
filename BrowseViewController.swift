@@ -36,27 +36,17 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
       
         
         loadData()
-        
-        
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Table view data source
-    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
         return self.results?.count ?? 0
     }
     
@@ -64,13 +54,10 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = brandsTableView.dequeueReusableCellWithIdentifier("brandCell") as BrandTableViewCell
         cell.brand = self.results?[indexPath.row]
-        
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // Get the row data for the selected row
-       
         var rowSelected = indexPath.row as Int
         var rowData = results![rowSelected]
         selectedBrand! = rowData["id"].stringValue
@@ -80,12 +67,8 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
         println("the selected brand id is:\(selectedBrand)")
         performSegueWithIdentifier("brandProductSegue", sender: self)
         println(rowData)
-
-        
-        
         
         /*
-    
         var alert: UIAlertView = UIAlertView()
         alert.title = name
         alert.addButtonWithTitle("Ok")
@@ -94,60 +77,27 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        
         var productVC: ProductViewController = segue.destinationViewController as ProductViewController
-        
         productVC.productID = selectedBrand!
         productVC.brandImageURL = selectedBrandImage
         productVC.brandLogoURL = selectedBrandLogo
         productVC.selectedBrandName = selectedBrandName
-       
-        
-       
-        
-        
     }
-    
-    
-    
-    
     
     func loadData(){
         
         let url = "http://mickeyschwab.com/vivr/public/brands"
         
         Alamofire.request(.GET, url).responseJSON { (request, response, json, error) in
-            
-            
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
                 if let data = jsonOBJ.arrayValue as [JSON]? {
                     self.results = data
                     self.brandsTableView?.reloadData()
-                    
-                    
-                    
-                    
-                    
                 }
-                
             }
-            
-            
-            
-            
         }
-        
-        
-        
     }
-    
-    
-    
-    
-    
-    
 }
 
 

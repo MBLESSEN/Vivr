@@ -81,7 +81,7 @@ class reviewViewController: UIViewController {
         "taste": taste,
         "flavor": flavor,
         "description": reviewContent.text,
-        "product_id": "8"
+        "product_id": productID
         
         
         ]
