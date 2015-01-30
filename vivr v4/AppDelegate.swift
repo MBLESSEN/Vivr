@@ -15,8 +15,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        self.applyTheme()
         // Override point for customization after application launch.
         return true
+    }
+    
+    func applyTheme() {
+        
+       
+        UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().tintColor = UIColor(red: 43.0/255, green: 169.0/255, blue: 41.0/255, alpha: 1.0)
+        UINavigationBar.appearance().backIndicatorImage = UIImage(named: "back");
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "back");
+        
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -100, vertical: 0.0), forBarMetrics: .Default);
     }
 
     func applicationWillResignActive(application: UIApplication) {
