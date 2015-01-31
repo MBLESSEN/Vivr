@@ -23,7 +23,7 @@ class ProductViewController: UIViewController, UITableViewDataSource {
     var productResults:[JSON]? = []
     var brandImageURL: String = ""
     var brandLogoURL:String = ""
-    
+    var brandDescription:String = ""
    
     @IBOutlet weak var productTableView: UITableView!
     @IBOutlet weak var brandImage: UIImageView!
@@ -34,6 +34,7 @@ class ProductViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         self.title = selectedBrandName
         var myImage = UIImage(named: "back.png");
+        brandAbout.text = brandDescription
        // UIBarButtonItem.appearance().setBackButtonBackgroundImage(myImage, forState: .Normal, barMetrics: .Default);
         //var backButtonLabel = ""
         //UIBarItem.appearance().title = backButtonLabel
@@ -99,8 +100,8 @@ class ProductViewController: UIViewController, UITableViewDataSource {
 
     
     func loadProductData() {
-        
-        let url = "http://mickeyschwab.com/vivr/public/brands/\(productID)/products"
+        let accessToken = KeychainService.loadToken()
+        let url = "http://mickeyschwab.com/vivr/public/brands/\(productID)/products?access_token=\(accessToken!)"
         
         Alamofire.request(.GET, url).responseJSON { (request, response, json, error) in
             if (json != nil) {

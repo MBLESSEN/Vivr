@@ -39,6 +39,8 @@
 		50BBB7F51A649BCA00D0978E /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BBB7F41A649BCA00D0978E /* ProductViewController.swift */; };
 		50BBB7FB1A65C93F00D0978E /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BBB7FA1A65C93F00D0978E /* ProductTableViewCell.swift */; };
 		50BCB78D1A7B2B6500EEC9D0 /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BCB78C1A7B2B6500EEC9D0 /* registerViewController.swift */; };
+		50C3B45E1A7C59B200EC39D1 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */; };
+		50C3B4641A7C5DC400EC39D1 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B4631A7C5DC400EC39D1 /* KeychainService.swift */; };
 		50FBFC041A72D7A100C6F07A /* clouds.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 50FBFC031A72D7A100C6F07A /* clouds.jpg */; };
 		50FBFC0A1A72DBF800C6F07A /* milkandhoneytest.png in Resources */ = {isa = PBXBuildFile; fileRef = 50FBFC091A72DBF800C6F07A /* milkandhoneytest.png */; };
 		50FBFC0C1A72E53600C6F07A /* like-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 50FBFC0B1A72E53600C6F07A /* like-48.png */; };
@@ -161,6 +163,8 @@
 		50BBB7F41A649BCA00D0978E /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		50BBB7FA1A65C93F00D0978E /* ProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 		50BCB78C1A7B2B6500EEC9D0 /* registerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
+		50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = loginViewController.swift; path = ../loginViewController.swift; sourceTree = "<group>"; };
+		50C3B4631A7C5DC400EC39D1 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		50FBFC031A72D7A100C6F07A /* clouds.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = clouds.jpg; path = ../../../clouds.jpg; sourceTree = "<group>"; };
 		50FBFC091A72DBF800C6F07A /* milkandhoneytest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = milkandhoneytest.png; sourceTree = "<group>"; };
 		50FBFC0B1A72E53600C6F07A /* like-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-48.png"; path = "../../../../../../var/folders/n3/9sxyx7c55r16ytk4blddk8fr0000gn/T/PNG/48/Very_Basic/like-48.png"; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 		501E04091A428F1900F93122 = {
 			isa = PBXGroup;
 			children = (
+				50C3B4631A7C5DC400EC39D1 /* KeychainService.swift */,
 				501E04141A428F1900F93122 /* vivr v4 */,
 				501E042C1A428F1900F93122 /* vivr v4Tests */,
 				501E04131A428F1900F93122 /* Products */,
@@ -211,8 +216,9 @@
 				50BBB7DF1A64986C00D0978E /* Haneke.xcodeproj */,
 				509FD1F21A6492CC003A7AEE /* Alamofire.xcodeproj */,
 				501E04171A428F1900F93122 /* AppDelegate.swift */,
-				50AD676C1A429A1700D2BD35 /* BrowseViewController.swift */,
+				50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */,
 				50BCB78C1A7B2B6500EEC9D0 /* registerViewController.swift */,
+				50AD676C1A429A1700D2BD35 /* BrowseViewController.swift */,
 				509FD1F01A649154003A7AEE /* BrandTableViewCell.swift */,
 				50632C4E1A70922500DD7EAA /* Main.storyboard */,
 				50BBB7F41A649BCA00D0978E /* ProductViewController.swift */,
@@ -464,6 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50C3B45E1A7C59B200EC39D1 /* loginViewController.swift in Sources */,
 				501E041C1A428F1900F93122 /* SecondViewController.swift in Sources */,
 				501E04181A428F1900F93122 /* AppDelegate.swift in Sources */,
 				505FB85F1A47698600584FF8 /* brandFlavorViewController.swift in Sources */,
@@ -471,6 +478,7 @@
 				501E041A1A428F1900F93122 /* FirstViewController.swift in Sources */,
 				509FD1F11A649154003A7AEE /* BrandTableViewCell.swift in Sources */,
 				50BCB78D1A7B2B6500EEC9D0 /* registerViewController.swift in Sources */,
+				50C3B4641A7C5DC400EC39D1 /* KeychainService.swift in Sources */,
 				509FD2171A6492FB003A7AEE /* SwiftyJSON.swift in Sources */,
 				50BBB7FB1A65C93F00D0978E /* ProductTableViewCell.swift in Sources */,
 				505FB8611A47734300584FF8 /* buzzViewController.swift in Sources */,

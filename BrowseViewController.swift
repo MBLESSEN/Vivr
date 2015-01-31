@@ -19,6 +19,7 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
     var selectedBrandLogo:String = ""
     var selectedBrand:String?  = ""
     var selectedBrandName:String = ""
+    var brandDescription:String = ""
     
     @IBOutlet weak var brandsTableView: UITableView!
     
@@ -64,6 +65,7 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
         selectedBrandImage = rowData["image"].stringValue
         selectedBrandLogo = rowData["logo"].stringValue
         selectedBrandName = rowData["name"].stringValue
+        brandDescription = rowData["description"].stringValue
         println("the selected brand id is:\(selectedBrand)")
         performSegueWithIdentifier("brandProductSegue", sender: self)
         println(rowData)
@@ -82,11 +84,13 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
         productVC.brandImageURL = selectedBrandImage
         productVC.brandLogoURL = selectedBrandLogo
         productVC.selectedBrandName = selectedBrandName
+        productVC.brandDescription = brandDescription   
     }
     
     func loadData(){
-        
-        let url = "http://mickeyschwab.com/vivr/public/brands"
+        let accessToken = KeychainService.loadToken()
+        println(accessToken)
+        let url = "http://mickeyschwab.com/vivr/public/brands?access_token=\(accessToken!)"
         
         Alamofire.request(.GET, url).responseJSON { (request, response, json, error) in
             if (json != nil) {

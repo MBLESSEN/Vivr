@@ -65,16 +65,33 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func loadProductData() {
+        
+        let accessToken = KeychainService.loadToken()
+        let productURL = "http://mickeyschwab.com/vivr/public/products/\(selectedProductID)?access_token=\(accessToken!)"
+        Alamofire.request(.GET, productURL).responseJSON { (request, response, json, error) in
+            if  (json != nil) {
+                var jsonOBJ = JSON(json!)
+                println(jsonOBJ)
+                self.taste.text = String(format: "%.1f", jsonOBJ["scores"]["taste"].floatValue)
+                self.flavor.text = String(format: "%.1f", jsonOBJ["scores"]["flavor"].floatValue)
+
+                self.vapor.text = String(format: "%.1f", jsonOBJ["scores"]["vapor"].floatValue)
+
+                self.throat.text = String(format: "%.1f", jsonOBJ["scores"]["throat"].floatValue)
+                
+            }
+        }
         productDescription.text = selectedDescription
         productName.text = selectedProduct
         let url = NSURL(string: selectedImage)
         productImage.hnk_setImageFromURL(url!)
         brandName.text = selectedBrand
+        
     }
     
     func loadReviews() {
-        
-        let url = "http://mickeyschwab.com/vivr/public/products/\(selectedProductID)/reviews"
+        let accessToken = KeychainService.loadToken()
+        let url = "http://mickeyschwab.com/vivr/public/products/\(selectedProductID)/reviews?access_token=\(accessToken!)"
         Alamofire.request(.GET, url).responseJSON { (request, response, json, error) in
             if  (json != nil) {
                 var jsonOBJ = JSON(json!)

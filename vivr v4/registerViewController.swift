@@ -35,7 +35,8 @@ class registerViewController: UIViewController {
             "password_confirmation": confirmPasswordEntered.text
         ]
         
-        Alamofire.request(.POST, "http://mickeyschwab.com/vivr/public/users", parameters: parameters, encoding: .JSON)
+        Alamofire.request(.POST, "http://mickeyschwab.com/vivr/public/users", parameters: parameters, encoding: .JSON) 
+        
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }

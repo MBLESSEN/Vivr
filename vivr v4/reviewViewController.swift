@@ -85,8 +85,8 @@ class reviewViewController: UIViewController {
         
         
         ]
-        
-        Alamofire.request(.POST, "http://mickeyschwab.com/vivr/public/brands/1/products/8/reviews", parameters: parameters, encoding: .JSON).response
+        let accessToken = KeychainService.loadToken()
+        Alamofire.request(.POST, "http://mickeyschwab.com/vivr/public/brands/1/products/\(productID)/reviews?access_token=\(accessToken!)", parameters: parameters, encoding: .JSON)
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
