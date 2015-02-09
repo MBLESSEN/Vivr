@@ -65,6 +65,10 @@ class reviewViewController: UIViewController {
         
     }
 
+    @IBAction func cancelPressed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
     
     @IBAction func submitReview(sender: AnyObject) {
         
@@ -75,18 +79,16 @@ class reviewViewController: UIViewController {
         
         
         let parameters: [ String : AnyObject] = [
-        "user_id": "1",
         "throat": throat,
         "vapor": vapor,
         "taste": taste,
         "flavor": flavor,
-        "description": reviewContent.text,
-        "product_id": productID
+        "description": reviewContent.text
         
         
         ]
-        let accessToken = KeychainService.loadToken()
-        Alamofire.request(.POST, "http://mickeyschwab.com/vivr/public/brands/1/products/\(productID)/reviews?access_token=\(accessToken!)", parameters: parameters, encoding: .JSON)
+
+        Alamofire.request(Router.AddReview(productID, parameters))
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }

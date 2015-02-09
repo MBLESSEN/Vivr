@@ -100,10 +100,8 @@ class ProductViewController: UIViewController, UITableViewDataSource {
 
     
     func loadProductData() {
-        let accessToken = KeychainService.loadToken()
-        let url = "http://mickeyschwab.com/vivr/public/brands/\(productID)/products?access_token=\(accessToken!)"
         
-        Alamofire.request(.GET, url).responseJSON { (request, response, json, error) in
+        Alamofire.request(Router.ReadBrandProducts(productID)).responseJSON { (request, response, json, error) in
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
                 if let data = jsonOBJ.arrayValue as [JSON]? {

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5015A99C1A788F940076D243 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 5015A99B1A788F940076D243 /* back.png */; };
 		5015A9A21A795CF40076D243 /* vivrTitleLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5015A9A11A795CF40076D243 /* vivrTitleLogo.png */; };
 		501E04181A428F1900F93122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E04171A428F1900F93122 /* AppDelegate.swift */; };
 		501E041A1A428F1900F93122 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E04191A428F1900F93122 /* FirstViewController.swift */; };
@@ -15,9 +14,14 @@
 		501E04211A428F1900F93122 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 501E04201A428F1900F93122 /* Images.xcassets */; };
 		501E04241A428F1900F93122 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 501E04221A428F1900F93122 /* LaunchScreen.xib */; };
 		501E04301A428F1900F93122 /* vivr_v4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E042F1A428F1900F93122 /* vivr_v4Tests.swift */; };
-		503ED4D51A76275E002EBA33 /* reviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503ED4D41A76275E002EBA33 /* reviewTableViewCell.swift */; };
 		504568D21A5DBA95009838D2 /* award image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 504568D11A5DBA95009838D2 /* award image.jpg */; };
 		504568D41A5DBFB0009838D2 /* userImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 504568D31A5DBFB0009838D2 /* userImage.png */; };
+		504D7BC21A88493E00E3463C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50632C4E1A70922500DD7EAA /* Main.storyboard */; };
+		504D7BC41A8849B600E3463C /* reviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504D7BC31A8849B600E3463C /* reviewTableViewCell.swift */; };
+		504D7BC61A886BD300E3463C /* productBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 504D7BC51A886BD300E3463C /* productBackground.png */; };
+		504D7BC91A8870B100E3463C /* PTSans.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 504D7BC81A8870B100E3463C /* PTSans.ttc */; };
+		504D7BCB1A88733300E3463C /* PTSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 504D7BCA1A88733300E3463C /* PTSans-Bold.ttf */; };
+		504D7BCC1A8887E400E3463C /* BrandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509FD1F01A649154003A7AEE /* BrandTableViewCell.swift */; };
 		505FB8531A44D69600584FF8 /* cosmic.png in Resources */ = {isa = PBXBuildFile; fileRef = 505FB8521A44D69600584FF8 /* cosmic.png */; };
 		505FB8551A44D75700584FF8 /* Milk-and-Honey.png in Resources */ = {isa = PBXBuildFile; fileRef = 505FB8541A44D75700584FF8 /* Milk-and-Honey.png */; };
 		505FB8571A44D7B400584FF8 /* transparentNavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 505FB8561A44D7B400584FF8 /* transparentNavBar.png */; };
@@ -28,8 +32,6 @@
 		505FB8651A48D57900584FF8 /* reviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505FB8641A48D57900584FF8 /* reviewViewController.swift */; };
 		505FB8C31A4F723D00584FF8 /* slider values.png in Resources */ = {isa = PBXBuildFile; fileRef = 505FB8C21A4F723D00584FF8 /* slider values.png */; };
 		505FB8C71A4F765000584FF8 /* slider values copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 505FB8C61A4F765000584FF8 /* slider values copy.png */; };
-		50632C501A70922500DD7EAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50632C4E1A70922500DD7EAA /* Main.storyboard */; };
-		509FD1F11A649154003A7AEE /* BrandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509FD1F01A649154003A7AEE /* BrandTableViewCell.swift */; };
 		509FD2171A6492FB003A7AEE /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509FD2161A6492FB003A7AEE /* SwiftyJSON.swift */; };
 		509FD21A1A64935F003A7AEE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509FD1F91A6492CC003A7AEE /* Alamofire.framework */; };
 		50AD676D1A429A1700D2BD35 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD676C1A429A1700D2BD35 /* BrowseViewController.swift */; };
@@ -41,6 +43,11 @@
 		50BCB78D1A7B2B6500EEC9D0 /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BCB78C1A7B2B6500EEC9D0 /* registerViewController.swift */; };
 		50C3B45E1A7C59B200EC39D1 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */; };
 		50C3B4641A7C5DC400EC39D1 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B4631A7C5DC400EC39D1 /* KeychainService.swift */; };
+		50C3B4661A7C9E3B00EC39D1 /* scoreBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 50C3B4651A7C9E3A00EC39D1 /* scoreBubble.png */; };
+		50F253231A85C45A0057B2AC /* buzzCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F253221A85C45A0057B2AC /* buzzCell.swift */; };
+		50F253291A85C4D10057B2AC /* vivrCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F253281A85C4D10057B2AC /* vivrCell.swift */; };
+		50F2532B1A85C4EF0057B2AC /* newCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F2532A1A85C4EF0057B2AC /* newCell.swift */; };
+		50F2532D1A88253F0057B2AC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F2532C1A88253F0057B2AC /* Router.swift */; };
 		50FBFC041A72D7A100C6F07A /* clouds.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 50FBFC031A72D7A100C6F07A /* clouds.jpg */; };
 		50FBFC0A1A72DBF800C6F07A /* milkandhoneytest.png in Resources */ = {isa = PBXBuildFile; fileRef = 50FBFC091A72DBF800C6F07A /* milkandhoneytest.png */; };
 		50FBFC0C1A72E53600C6F07A /* like-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 50FBFC0B1A72E53600C6F07A /* like-48.png */; };
@@ -129,7 +136,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5015A99B1A788F940076D243 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = ../../../../../../var/folders/n3/9sxyx7c55r16ytk4blddk8fr0000gn/T/PNG/24/Arrows/back.png; sourceTree = "<group>"; };
 		5015A9A11A795CF40076D243 /* vivrTitleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vivrTitleLogo.png; sourceTree = "<group>"; };
 		501E04121A428F1900F93122 /* vivr v4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "vivr v4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		501E04161A428F1900F93122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -141,9 +147,12 @@
 		501E04291A428F1900F93122 /* vivr v4Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "vivr v4Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		501E042E1A428F1900F93122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		501E042F1A428F1900F93122 /* vivr_v4Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vivr_v4Tests.swift; sourceTree = "<group>"; };
-		503ED4D41A76275E002EBA33 /* reviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reviewTableViewCell.swift; sourceTree = "<group>"; };
 		504568D11A5DBA95009838D2 /* award image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "award image.jpg"; sourceTree = "<group>"; };
 		504568D31A5DBFB0009838D2 /* userImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userImage.png; sourceTree = "<group>"; };
+		504D7BC31A8849B600E3463C /* reviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reviewTableViewCell.swift; sourceTree = "<group>"; };
+		504D7BC51A886BD300E3463C /* productBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = productBackground.png; path = ../../../productBackground.png; sourceTree = "<group>"; };
+		504D7BC81A8870B100E3463C /* PTSans.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = PTSans.ttc; path = ../../../../../../Library/Fonts/PTSans.ttc; sourceTree = "<group>"; };
+		504D7BCA1A88733300E3463C /* PTSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PTSans-Bold.ttf"; path = "../../../../Downloads/onlinefontconverter.com/converted-files/PTSans-Bold.ttf"; sourceTree = "<group>"; };
 		505FB8521A44D69600584FF8 /* cosmic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cosmic.png; sourceTree = "<group>"; };
 		505FB8541A44D75700584FF8 /* Milk-and-Honey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Milk-and-Honey.png"; sourceTree = "<group>"; };
 		505FB8561A44D7B400584FF8 /* transparentNavBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transparentNavBar.png; sourceTree = "<group>"; };
@@ -165,6 +174,11 @@
 		50BCB78C1A7B2B6500EEC9D0 /* registerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
 		50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = loginViewController.swift; path = ../loginViewController.swift; sourceTree = "<group>"; };
 		50C3B4631A7C5DC400EC39D1 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		50C3B4651A7C9E3A00EC39D1 /* scoreBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scoreBubble.png; sourceTree = "<group>"; };
+		50F253221A85C45A0057B2AC /* buzzCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = buzzCell.swift; sourceTree = "<group>"; };
+		50F253281A85C4D10057B2AC /* vivrCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vivrCell.swift; sourceTree = "<group>"; };
+		50F2532A1A85C4EF0057B2AC /* newCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newCell.swift; sourceTree = "<group>"; };
+		50F2532C1A88253F0057B2AC /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		50FBFC031A72D7A100C6F07A /* clouds.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = clouds.jpg; path = ../../../clouds.jpg; sourceTree = "<group>"; };
 		50FBFC091A72DBF800C6F07A /* milkandhoneytest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = milkandhoneytest.png; sourceTree = "<group>"; };
 		50FBFC0B1A72E53600C6F07A /* like-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-48.png"; path = "../../../../../../var/folders/n3/9sxyx7c55r16ytk4blddk8fr0000gn/T/PNG/48/Very_Basic/like-48.png"; sourceTree = "<group>"; };
@@ -217,6 +231,7 @@
 				509FD1F21A6492CC003A7AEE /* Alamofire.xcodeproj */,
 				501E04171A428F1900F93122 /* AppDelegate.swift */,
 				50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */,
+				50F2532C1A88253F0057B2AC /* Router.swift */,
 				50BCB78C1A7B2B6500EEC9D0 /* registerViewController.swift */,
 				50AD676C1A429A1700D2BD35 /* BrowseViewController.swift */,
 				509FD1F01A649154003A7AEE /* BrandTableViewCell.swift */,
@@ -224,12 +239,16 @@
 				50BBB7F41A649BCA00D0978E /* ProductViewController.swift */,
 				50BBB7FA1A65C93F00D0978E /* ProductTableViewCell.swift */,
 				501E04191A428F1900F93122 /* FirstViewController.swift */,
+				504D7BC31A8849B600E3463C /* reviewTableViewCell.swift */,
 				501E041B1A428F1900F93122 /* SecondViewController.swift */,
 				505FB8641A48D57900584FF8 /* reviewViewController.swift */,
 				509FD2161A6492FB003A7AEE /* SwiftyJSON.swift */,
 				505FB8601A47734300584FF8 /* buzzViewController.swift */,
+				50F253221A85C45A0057B2AC /* buzzCell.swift */,
+				50F253281A85C4D10057B2AC /* vivrCell.swift */,
+				50F2532A1A85C4EF0057B2AC /* newCell.swift */,
 				505FB85E1A47698600584FF8 /* brandFlavorViewController.swift */,
-				503ED4D41A76275E002EBA33 /* reviewTableViewCell.swift */,
+				50C3B4651A7C9E3A00EC39D1 /* scoreBubble.png */,
 				505FB8C21A4F723D00584FF8 /* slider values.png */,
 				50FBFC031A72D7A100C6F07A /* clouds.jpg */,
 				504568D31A5DBFB0009838D2 /* userImage.png */,
@@ -238,13 +257,15 @@
 				50FBFC091A72DBF800C6F07A /* milkandhoneytest.png */,
 				505FB8C61A4F765000584FF8 /* slider values copy.png */,
 				505FB85C1A44DB4B00584FF8 /* stars.png */,
+				504D7BCA1A88733300E3463C /* PTSans-Bold.ttf */,
+				504D7BC81A8870B100E3463C /* PTSans.ttc */,
 				50FBFC0D1A72E62100C6F07A /* share-48.png */,
 				504568D11A5DBA95009838D2 /* award image.jpg */,
 				505FB8561A44D7B400584FF8 /* transparentNavBar.png */,
 				505FB8541A44D75700584FF8 /* Milk-and-Honey.png */,
 				505FB8621A48C5A400584FF8 /* recently added test.png */,
+				504D7BC51A886BD300E3463C /* productBackground.png */,
 				505FB8521A44D69600584FF8 /* cosmic.png */,
-				5015A99B1A788F940076D243 /* back.png */,
 				501E04201A428F1900F93122 /* Images.xcassets */,
 				501E04221A428F1900F93122 /* LaunchScreen.xib */,
 				501E04151A428F1900F93122 /* Supporting Files */,
@@ -438,21 +459,24 @@
 				505FB8C31A4F723D00584FF8 /* slider values.png in Resources */,
 				50FBFC0C1A72E53600C6F07A /* like-48.png in Resources */,
 				5015A9A21A795CF40076D243 /* vivrTitleLogo.png in Resources */,
+				504D7BC61A886BD300E3463C /* productBackground.png in Resources */,
 				505FB8C71A4F765000584FF8 /* slider values copy.png in Resources */,
 				505FB8551A44D75700584FF8 /* Milk-and-Honey.png in Resources */,
-				50632C501A70922500DD7EAA /* Main.storyboard in Resources */,
 				505FB8631A48C5A400584FF8 /* recently added test.png in Resources */,
 				505FB85D1A44DB4B00584FF8 /* stars.png in Resources */,
+				504D7BC91A8870B100E3463C /* PTSans.ttc in Resources */,
 				505FB8571A44D7B400584FF8 /* transparentNavBar.png in Resources */,
 				501E04241A428F1900F93122 /* LaunchScreen.xib in Resources */,
 				50FBFC0A1A72DBF800C6F07A /* milkandhoneytest.png in Resources */,
 				501E04211A428F1900F93122 /* Images.xcassets in Resources */,
+				50C3B4661A7C9E3B00EC39D1 /* scoreBubble.png in Resources */,
 				50FBFC0E1A72E62100C6F07A /* share-48.png in Resources */,
 				505FB8531A44D69600584FF8 /* cosmic.png in Resources */,
 				50FBFC041A72D7A100C6F07A /* clouds.jpg in Resources */,
+				504D7BC21A88493E00E3463C /* Main.storyboard in Resources */,
 				504568D41A5DBFB0009838D2 /* userImage.png in Resources */,
 				504568D21A5DBA95009838D2 /* award image.jpg in Resources */,
-				5015A99C1A788F940076D243 /* back.png in Resources */,
+				504D7BCB1A88733300E3463C /* PTSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,17 +496,21 @@
 			files = (
 				50C3B45E1A7C59B200EC39D1 /* loginViewController.swift in Sources */,
 				501E041C1A428F1900F93122 /* SecondViewController.swift in Sources */,
+				50F2532B1A85C4EF0057B2AC /* newCell.swift in Sources */,
 				501E04181A428F1900F93122 /* AppDelegate.swift in Sources */,
 				505FB85F1A47698600584FF8 /* brandFlavorViewController.swift in Sources */,
+				50F253231A85C45A0057B2AC /* buzzCell.swift in Sources */,
+				50F2532D1A88253F0057B2AC /* Router.swift in Sources */,
 				50AD676D1A429A1700D2BD35 /* BrowseViewController.swift in Sources */,
+				504D7BC41A8849B600E3463C /* reviewTableViewCell.swift in Sources */,
 				501E041A1A428F1900F93122 /* FirstViewController.swift in Sources */,
-				509FD1F11A649154003A7AEE /* BrandTableViewCell.swift in Sources */,
 				50BCB78D1A7B2B6500EEC9D0 /* registerViewController.swift in Sources */,
 				50C3B4641A7C5DC400EC39D1 /* KeychainService.swift in Sources */,
 				509FD2171A6492FB003A7AEE /* SwiftyJSON.swift in Sources */,
 				50BBB7FB1A65C93F00D0978E /* ProductTableViewCell.swift in Sources */,
 				505FB8611A47734300584FF8 /* buzzViewController.swift in Sources */,
-				503ED4D51A76275E002EBA33 /* reviewTableViewCell.swift in Sources */,
+				504D7BCC1A8887E400E3463C /* BrandTableViewCell.swift in Sources */,
+				50F253291A85C4D10057B2AC /* vivrCell.swift in Sources */,
 				50BBB7F51A649BCA00D0978E /* ProductViewController.swift in Sources */,
 				505FB8651A48D57900584FF8 /* reviewViewController.swift in Sources */,
 			);

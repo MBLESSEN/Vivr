@@ -13,7 +13,9 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var mainTable: UITableView!
     @IBOutlet weak var controller: UISegmentedControl!
-    let cellIdentifier: String = "buzzCell"
+    
+    
+    var cellIdentifier: String = "vivrCell"
     var whatsHot:[JSON]? = []
 
     override func viewDidLoad() {
@@ -22,6 +24,9 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var imageView = UIImageView(image: logo)
         self.navigationItem.titleView = imageView
 
+
+        
+
         // Do any additional setup after loading the view.
     }
 
@@ -29,13 +34,25 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     @IBAction func changeData(sender: AnyObject) {
         
         if controller.selectedSegmentIndex == 0 {
-            
-            
+            cellIdentifier = "buzzCell"
+            mainTable.rowHeight = 200
+            mainTable.reloadData()
+        }
+        if controller.selectedSegmentIndex == 1 {
+            cellIdentifier = "vivrCell"
+            mainTable.rowHeight = 400
+            mainTable.reloadData()
+        }
+        if controller.selectedSegmentIndex == 2 {
+            cellIdentifier = "newCell"
+            mainTable.reloadData()
         }
     }
+
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
@@ -55,12 +72,18 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as UITableViewCell
-        
-        
-        
-        
+        if (cellIdentifier == "buzzCell"){
+        var cell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as buzzCell
         return cell
+        }
+        else if (cellIdentifier == "vivrCell") {
+            var cell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as vivrCell
+            return cell
+        }
+        else {
+            var cell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as newCell
+            return cell
+        }
     }
     
 

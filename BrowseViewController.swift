@@ -21,6 +21,7 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
     var selectedBrandName:String = ""
     var brandDescription:String = ""
     
+    
     @IBOutlet weak var brandsTableView: UITableView!
     
     override func viewDidLoad() {
@@ -32,8 +33,6 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
 
         tabBarController?.tabBar.backgroundColor = UIColor.whiteColor()
         tabBarController?.tabBar.translucent = false
-        
-        //navigationController?.navigationBar.translucent = false
       
         
         loadData()
@@ -88,11 +87,8 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
     }
     
     func loadData(){
-        let accessToken = KeychainService.loadToken()
-        println(accessToken)
-        let url = "http://mickeyschwab.com/vivr/public/brands?access_token=\(accessToken!)"
         
-        Alamofire.request(.GET, url).responseJSON { (request, response, json, error) in
+        Alamofire.request(Router.ReadBrands()).responseJSON { (request, response, json, error) in
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
                 if let data = jsonOBJ.arrayValue as [JSON]? {

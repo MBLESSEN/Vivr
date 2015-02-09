@@ -44,6 +44,9 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
         self.title = selectedBrand
         loadReviews()
         loadProductData()
+        reviewTableView.estimatedRowHeight = 60.0
+        reviewTableView.rowHeight = UITableViewAutomaticDimension
+        
 
     }
     
@@ -62,13 +65,12 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBAction func favoriteSelected(sender: AnyObject) {
         
+        Alamofire.request(Router.Favorite(selectedProductID))
+        
     }
     
     func loadProductData() {
-        
-        let accessToken = KeychainService.loadToken()
-        let productURL = "http://mickeyschwab.com/vivr/public/products/\(selectedProductID)?access_token=\(accessToken!)"
-        Alamofire.request(.GET, productURL).responseJSON { (request, response, json, error) in
+        Alamofire.request(Router.ReadProductData(selectedProductID)).responseJSON { (request, response, json, error) in
             if  (json != nil) {
                 var jsonOBJ = JSON(json!)
                 println(jsonOBJ)
@@ -85,14 +87,12 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
         productName.text = selectedProduct
         let url = NSURL(string: selectedImage)
         productImage.hnk_setImageFromURL(url!)
-        brandName.text = selectedBrand
+        
         
     }
     
     func loadReviews() {
-        let accessToken = KeychainService.loadToken()
-        let url = "http://mickeyschwab.com/vivr/public/products/\(selectedProductID)/reviews?access_token=\(accessToken!)"
-        Alamofire.request(.GET, url).responseJSON { (request, response, json, error) in
+        Alamofire.request(Router.ReadReviews(selectedProductID)).responseJSON { (request, response, json, error) in
             if  (json != nil) {
                 var jsonOBJ = JSON(json!)
                 if let data = jsonOBJ.arrayValue as [JSON]? {

@@ -17,6 +17,10 @@ class loginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        println(KeychainService.loadToken())
+        if (KeychainService.loadToken() != nil){
+            self.performSegueWithIdentifier("loginSuccess", sender: self)
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -28,6 +32,15 @@ class loginViewController: UIViewController {
     
     @IBAction func loginPressed(sender: AnyObject) {
         
+   
+        if (KeychainService.loadToken() != nil) {
+            println(KeychainService.loadToken())
+            
+            self.performSegueWithIdentifier("loginSuccess", sender: self)
+            
+        }
+        
+        else {
         let parameters  : [ String : AnyObject] = [
             "grant_type": "password",
             "client_id": "1",
@@ -41,13 +54,9 @@ class loginViewController: UIViewController {
                 var jsonOBJ = JSON(json!)
                     KeychainService.saveToken(jsonOBJ["access_token"].stringValue)
                     self.performSegueWithIdentifier("loginSuccess", sender: self)
-
-                
-                
-            
             }
         }
-        
+        }
         
     }
 

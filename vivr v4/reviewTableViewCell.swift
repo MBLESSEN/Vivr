@@ -17,6 +17,7 @@ class reviewTableViewCell: UITableViewCell {
     @IBOutlet weak var userFlavor: UILabel!
     @IBOutlet weak var userThroat: UILabel!
     @IBOutlet weak var userVapor: UILabel!
+    @IBOutlet weak var reputation: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,5 +47,11 @@ class reviewTableViewCell: UITableViewCell {
         
         
     }
+    
+    @IBAction func up(sender: AnyObject) {
+        
+    }
 
+    @IBAction func down(sender: AnyObject) {
+    }
 }
