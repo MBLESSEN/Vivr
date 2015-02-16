@@ -19,6 +19,7 @@ enum Router: URLRequestConvertible {
     case ReadReviews(String)
     case ReadProductData(String)
     case Favorite(String)
+    case readFeed()
 
     
     var method: Alamofire.Method {
@@ -35,6 +36,8 @@ enum Router: URLRequestConvertible {
             return .GET
         case .Favorite:
             return .POST
+        case .readFeed:
+            return .GET
         
         }
     }
@@ -53,6 +56,8 @@ enum Router: URLRequestConvertible {
             return "/products/\(id)/reviews"
         case .Favorite(let id):
             return "/products/\(id)/favorite"
+        case .readFeed:
+            return "/activity"
         }
     }
     

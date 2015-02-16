@@ -108,18 +108,28 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return self.reviewResults?.count ?? 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.reviewResults?.count ?? 0
+        return 1
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: reviewTableViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as reviewTableViewCell
-        cell.review = self.reviewResults?[indexPath.row]
+        cell.review = self.reviewResults?[indexPath.section]
         return cell
+    }
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            let headerCell = tableView.dequeueReusableCellWithIdentifier("ReviewHeaderCell") as vivrHeaderCell
+            headerCell.userInfo = reviewResults?[section]
+            headerCell.backgroundColor = UIColor.whiteColor()
+            return headerCell
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40.0
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

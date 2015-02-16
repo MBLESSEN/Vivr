@@ -10,8 +10,6 @@
 import UIKit
 
 class reviewTableViewCell: UITableViewCell {
-    @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var reviewContent: UILabel!
     @IBOutlet weak var userTaste: UILabel!
     @IBOutlet weak var userFlavor: UILabel!
@@ -37,8 +35,12 @@ class reviewTableViewCell: UITableViewCell {
         }
     
     }
+    var vivrFeed: JSON? {
+        didSet {
+            self.loadReviews()
+        }
+    }
     func loadReviews() {
-        self.userName.text = self.review?["user"]["username"].string
         self.reviewContent.text = self.review?["description"].string
         self.userTaste.text = self.review?["taste"].stringValue
         self.userFlavor.text = self.review?["flavor"].stringValue

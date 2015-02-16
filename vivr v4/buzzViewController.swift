@@ -14,21 +14,24 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var mainTable: UITableView!
     @IBOutlet weak var controller: UISegmentedControl!
     
-    
     var cellIdentifier: String = "vivrCell"
     var whatsHot:[JSON]? = []
-
+    var feedReviewResults:[JSON]? = []
+    var feedProductResults:[JSON]? = []
+    var feedUserResults:[JSON]? = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        var logo = UIImage(named: "vivrTitleLogo")
+        var logo = UIImage(named: "logoWhiteBorder")?.imageWithRenderingMode(.AlwaysOriginal)
         var imageView = UIImageView(image: logo)
         self.navigationItem.titleView = imageView
-
-
-        
-
-        // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        mainTable.estimatedRowHeight = 200.0
+        mainTable.rowHeight = UITableViewAutomaticDimension
+        loadFeed()
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -36,28 +39,49 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func changeData(sender: AnyObject) {
-        
-        if controller.selectedSegmentIndex == 0 {
+        switch controller.selectedSegmentIndex{
+        case 0:
             cellIdentifier = "buzzCell"
             mainTable.rowHeight = 200
             mainTable.reloadData()
-        }
-        if controller.selectedSegmentIndex == 1 {
+        case 1:
             cellIdentifier = "vivrCell"
-            mainTable.rowHeight = 400
+            mainTable.rowHeight = UITableViewAutomaticDimension
             mainTable.reloadData()
-        }
-        if controller.selectedSegmentIndex == 2 {
+        case 2:
             cellIdentifier = "newCell"
             mainTable.reloadData()
+        default:
+            println("no segment")
+            
         }
+ 
     }
-
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (cellIdentifier == "vivrCell") {
+            return 40.0
+        }
+        else {
+            return 0.0
+        }
+        
+        
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if (cellIdentifier == "vivrCell") {
+            let headerCell = mainTable.dequeueReusableCellWithIdentifier("HeaderCell") as vivrHeaderCell
+            headerCell.backgroundColor = UIColor.whiteColor()
+            return headerCell
+        }
+        return nil
+    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 1
+        return self.feedReviewResults?.count ?? 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,24 +89,44 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Return the number of rows in the section.
         return 1
     }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
-    }
+
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if (cellIdentifier == "buzzCell"){
-        var cell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as buzzCell
-        return cell
+        
+        switch cellIdentifier{
+            case "buzzCell":
+                var buzzcell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as buzzCell
+                return buzzcell
+            case "vivrCell":
+                var vivrcell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as vivrCell
+                vivrcell.review = self.feedReviewResults![indexPath.section]
+                return vivrcell
+            default:
+                var newcell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as newCell
+                return newcell
+
+            
+            
         }
-        else if (cellIdentifier == "vivrCell") {
-            var cell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as vivrCell
-            return cell
-        }
-        else {
-            var cell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as newCell
-            return cell
+    }
+    
+    func loadFeed() {
+        Alamofire.request(Router.readFeed()).responseJSON { (request, response, json, error) in
+            if (json != nil) {
+                var jsonOBJ = JSON(json!)
+                if let reviewData = jsonOBJ["reviews"].arrayValue as [JSON]? {
+                    self.feedReviewResults = reviewData
+                }
+                if let productData = jsonOBJ["products"].arrayValue as [JSON]? {
+                    self.feedProductResults = productData
+                }
+                if let userData = jsonOBJ["users"].arrayValue as [JSON]? {
+                    self.feedUserResults = userData
+                }
+                self.mainTable.reloadData()
+                
+            }
         }
     }
     

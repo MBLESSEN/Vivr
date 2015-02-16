@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor(red: 43.0/255, green: 169.0/255, blue: 41.0/255, alpha: 1.0)
         UINavigationBar.appearance().backIndicatorImage = UIImage(named: "back");
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "back");
-        
+        UINavigationBar.appearance().translucent = true;
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -100, vertical: 0.0), forBarMetrics: .Default);
     }
 
