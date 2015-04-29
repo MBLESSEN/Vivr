@@ -22,9 +22,16 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
     var brandDescription:String = ""
     
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var brandsTableView: UITableView!
     
     override func viewDidLoad() {
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        
         super.viewDidLoad()
         var logo = UIImage(named: "vivrTitleLogo")
         var imageView = UIImageView(image: logo)
@@ -89,9 +96,12 @@ class BrowseViewController: UIViewController, UITableViewDataSource {
     func loadData(){
         
         Alamofire.request(Router.ReadBrands()).responseJSON { (request, response, json, error) in
+            println(request)
+            println(response)
+            println(error)
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
-                if let data = jsonOBJ.arrayValue as [JSON]? {
+                if let data = jsonOBJ["data"].arrayValue as [JSON]? {
                     self.results = data
                     self.brandsTableView?.reloadData()
                 }

@@ -31,12 +31,10 @@ class BrandTableViewCell: UITableViewCell {
     
     func loadBrand() {
         self.brandLabel.text = self.brand?["name"].string
+        self.flavorCount.text = self.brand?["product_count"].stringValue
         if let urlString = self.brand?["logo"] {
             let url = NSURL(string: urlString.stringValue)
             self.brandImage.hnk_setImageFromURL(url!)
-            if let data = brand?.arrayValue as [JSON]? {
-                println("the flavor count is \(String(data.count))")
-                self.flavorCount.text = String(data.count)
 
             }
 
@@ -45,4 +43,4 @@ class BrandTableViewCell: UITableViewCell {
     }
 
 
-}
+

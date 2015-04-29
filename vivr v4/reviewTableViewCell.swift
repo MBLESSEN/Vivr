@@ -17,6 +17,10 @@ class reviewTableViewCell: UITableViewCell {
     @IBOutlet weak var userVapor: UILabel!
     @IBOutlet weak var reputation: UILabel!
 
+    @IBOutlet weak var helpfull: UIButton?
+    
+    var likeImage = UIImage(named: "likeFilled")?.imageWithRenderingMode(.AlwaysTemplate)
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -40,13 +44,51 @@ class reviewTableViewCell: UITableViewCell {
             self.loadReviews()
         }
     }
+    var helpfullState:String? {
+        didSet {
+            helpfull!.layer.borderWidth = 1
+            helpfull!.layer.cornerRadius = 4
+            helpfull!.setImage(likeImage, forState: .Normal)
+            helpfull!.imageEdgeInsets = UIEdgeInsetsMake(5,7.5, 5, 47.5)
+            buttonState()
+        }
+    }
+    func buttonState() {
+        switch helpfullState! {
+        case "isLiked":
+            helpfull!.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 0)
+            helpfull!.layer.borderColor = (UIColor.purpleColor()).CGColor
+            helpfull!.tintColor = UIColor.whiteColor()
+            helpfull!.backgroundColor = UIColor.purpleColor()
+            helpfull!.setTitle("Helpful", forState: .Normal)
+        case "notLiked":
+            helpfull!.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 0)
+            helpfull!.layer.borderColor = (UIColor.lightGrayColor()).CGColor
+            helpfull!.tintColor = UIColor.lightGrayColor()
+            helpfull!.backgroundColor = UIColor.whiteColor()
+            helpfull!.setTitle("Helpful", forState: .Normal)
+        default:
+            println("error")
+            
+        }
+    }
+    
+    @IBAction func helpfullPressed(sender: AnyObject) {
+        switch helpfullState! {
+        case "isLiked":
+            helpfullState = "notLiked"
+        case "notLiked":
+            helpfullState = "isLiked"
+        default:
+            println("error")
+        }
+        self.buttonState()
+    }
+    
     func loadReviews() {
         self.reviewContent.text = self.review?["description"].string
-        self.userTaste.text = self.review?["taste"].stringValue
-        self.userFlavor.text = self.review?["flavor"].stringValue
-        self.userVapor.text = self.review?["vapor"].stringValue
-        self.userThroat.text = self.review?["throat"].stringValue
-        
+        self.reviewContent.sizeToFit()
+                
         
     }
     

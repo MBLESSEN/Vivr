@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().backIndicatorImage = UIImage(named: "back");
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "back");
         UINavigationBar.appearance().translucent = true;
-        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -100, vertical: 0.0), forBarMetrics: .Default);
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 2, vertical: -1.0), forBarMetrics: .Default);
     }
 
     func applicationWillResignActive(application: UIApplication) {

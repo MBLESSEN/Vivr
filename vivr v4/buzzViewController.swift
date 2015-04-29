@@ -9,16 +9,22 @@
 import UIKit
 import Alamofire
 
-class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, VivrCellDelegate, VivrHeaderCellDelegate {
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var mainTable: UITableView!
     @IBOutlet weak var controller: UISegmentedControl!
-    
+    var selectedUserID:String = ""
+    var productID:String = ""
+    var reviewID:String = ""
+    var segueIdentifier: String = ""
     var cellIdentifier: String = "vivrCell"
     var whatsHot:[JSON]? = []
     var feedReviewResults:[JSON]? = []
     var feedProductResults:[JSON]? = []
     var feedUserResults:[JSON]? = []
+    var selectedReview: String = ""
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +35,27 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.navigationController?.navigationBar.shadowImage = UIImage()
         mainTable.estimatedRowHeight = 200.0
         mainTable.rowHeight = UITableViewAutomaticDimension
+        refreshControl = UIRefreshControl()
+        refreshControl.alpha = 1
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: "reload", forControlEvents:UIControlEvents.ValueChanged)
+        mainTable.addSubview(refreshControl)
+        
+        self.refreshControl.layer.zPosition = mainTable.layer.zPosition-1
         loadFeed()
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain , target: nil, action: nil)
     }
     
-
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.tintColor = UIColor(red: 43.0/255, green: 169.0/255, blue: 41.0/255, alpha: 1.0)
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -58,6 +81,51 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
  
     }
     
+    func reload(){
+        loadFeed()
+        println("refreshing")
+        refreshControl.endRefreshing()
+    }
+    
+    func tappedUser(cell: vivrHeaderCell) {
+        self.segueIdentifier = "toUserSegue"
+        selectedUserID = cell.userID
+        performSegueWithIdentifier(segueIdentifier, sender: cell)
+    }
+    
+    func tappedCommentButton(cell: vivrCell) {
+        self.segueIdentifier = "buzzToComments"
+        reviewID = cell.reviewID
+        productID = cell.productID
+        performSegueWithIdentifier(segueIdentifier, sender: cell)
+        
+    }
+    
+    func tappedProductButton(cell: vivrCell) {
+        self.segueIdentifier = "buzzToProduct"
+        productID = cell.productID
+        performSegueWithIdentifier(segueIdentifier, sender: cell)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch segueIdentifier {
+        case "buzzToComments":
+            var reviewVC: commentsViewController = segue.destinationViewController as commentsViewController
+            reviewVC.reviewID = self.reviewID
+            reviewVC.productID = self.productID
+        case "buzzToProduct":
+            var productVC: brandFlavorViewController = segue.destinationViewController as brandFlavorViewController
+            productVC.selectedProductID = self.productID
+        case "toUserSegue":
+            var userVC: anyUserViewController = segue.destinationViewController as anyUserViewController
+            userVC.userID = self.selectedUserID
+            //userVC.automaticallyAdjustsScrollViewInsets = false
+        default:
+            println("noSegue")
+            
+        }
+    }
+    
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (cellIdentifier == "vivrCell") {
             return 40.0
@@ -71,8 +139,9 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if (cellIdentifier == "vivrCell") {
-            let headerCell = mainTable.dequeueReusableCellWithIdentifier("HeaderCell") as vivrHeaderCell
-            headerCell.backgroundColor = UIColor.whiteColor()
+            let headerCell = mainTable.dequeueReusableCellWithIdentifier("vivrHeaderCell") as vivrHeaderCell
+            headerCell.userInfo = self.feedReviewResults![section]
+            headerCell.cellDelegate = self
             return headerCell
         }
         return nil
@@ -101,6 +170,9 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
             case "vivrCell":
                 var vivrcell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as vivrCell
                 vivrcell.review = self.feedReviewResults![indexPath.section]
+                vivrcell.reviewID = self.feedReviewResults![indexPath.section]["id"].stringValue
+                vivrcell.helpfullState = "notLiked"
+                vivrcell.cellDelegate = self
                 return vivrcell
             default:
                 var newcell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as newCell
@@ -110,6 +182,8 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
         }
     }
+
+    
     
     func loadFeed() {
         Alamofire.request(Router.readFeed()).responseJSON { (request, response, json, error) in
@@ -130,6 +204,9 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    @IBAction func loadMore(sender: AnyObject) {
+        
+    }
 
     
     

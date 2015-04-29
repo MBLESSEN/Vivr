@@ -41,6 +41,7 @@ class loginViewController: UIViewController {
         }
         
         else {
+
         let parameters  : [ String : AnyObject] = [
             "grant_type": "password",
             "client_id": "1",
@@ -49,11 +50,12 @@ class loginViewController: UIViewController {
             "password": password.text
         ]
         
-        Alamofire.request(.POST, "http://mickeyschwab.com/vivr/public/oauth/access-token", parameters: parameters).responseJSON { (request, response, json, error) in
+        Alamofire.request(.POST, "http://mickeyschwab.com/vivr-dev/public/oauth/access-token", parameters: parameters).responseJSON { (request, response, json, error) in
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
                     KeychainService.saveToken(jsonOBJ["access_token"].stringValue)
                     self.performSegueWithIdentifier("loginSuccess", sender: self)
+                    println("the new access token is \(KeychainService.loadToken())")
             }
         }
         }
@@ -69,5 +71,6 @@ class loginViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
 
 }

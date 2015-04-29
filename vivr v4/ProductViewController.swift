@@ -35,9 +35,6 @@ class ProductViewController: UIViewController, UITableViewDataSource {
         self.title = selectedBrandName
         var myImage = UIImage(named: "back.png");
         brandAbout.text = brandDescription
-       // UIBarButtonItem.appearance().setBackButtonBackgroundImage(myImage, forState: .Normal, barMetrics: .Default);
-        //var backButtonLabel = ""
-        //UIBarItem.appearance().title = backButtonLabel
         println(productID)
         loadImages()
         loadProductData()
@@ -51,9 +48,9 @@ class ProductViewController: UIViewController, UITableViewDataSource {
     
     func loadImages() {
         let imageURL = NSURL(string: brandImageURL)
-        self.brandImage.hnk_setImageFromURL(imageURL!)
+        //self.brandImage.hnk_setImageFromURL(imageURL!)
         let logoURL = NSURL(string: brandLogoURL)
-        self.brandLogo.hnk_setImageFromURL(logoURL!)
+        //self.brandLogo.hnk_setImageFromURL(logoURL!)
         
     }
     
@@ -70,12 +67,7 @@ class ProductViewController: UIViewController, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var rowSelected = indexPath.row as Int
         var rowData = productResults![rowSelected]
-        selectedProduct = rowData["name"].stringValue
-        selectedImage = rowData["image"].stringValue
-        selectedDescription = rowData["description"].stringValue
         selectedProductID = rowData["id"].stringValue
-        println(selectedProduct)
-        println(selectedDescription)
         performSegueWithIdentifier("selectedProduct", sender: self)
         /*
         
@@ -90,10 +82,6 @@ class ProductViewController: UIViewController, UITableViewDataSource {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         println("prepare for segue:\(selectedBrand)")
         var productVC: brandFlavorViewController = segue.destinationViewController as brandFlavorViewController
-        productVC.selectedProduct = selectedProduct
-        productVC.selectedImage = selectedImage
-        productVC.selectedDescription = selectedDescription
-        productVC.selectedBrand = selectedBrandName
         productVC.selectedProductID = selectedProductID
     }
 
@@ -102,9 +90,11 @@ class ProductViewController: UIViewController, UITableViewDataSource {
     func loadProductData() {
         
         Alamofire.request(Router.ReadBrandProducts(productID)).responseJSON { (request, response, json, error) in
+            println(request)
+            println(error)
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
-                if let data = jsonOBJ.arrayValue as [JSON]? {
+                if let data = jsonOBJ["data"].arrayValue as [JSON]? {
                     self.productResults = data
                     self.productTableView?.reloadData()
                     println(self.productResults)

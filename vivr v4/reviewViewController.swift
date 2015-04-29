@@ -9,33 +9,128 @@
 import UIKit
 import Alamofire
 
-class reviewViewController: UIViewController {
+class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
-    @IBOutlet weak var reviewContent: UITextView!
-    @IBOutlet weak var tasteSlider: UISlider!
-    @IBOutlet weak var vaporSlider: UISlider!
-    @IBOutlet weak var hitSlider: UISlider!
-    @IBOutlet weak var flavorSlider: UISlider!
     var lastTasteStep: Float!
     var stepValue: Float!
     var productID:String = ""
- 
+    
+    
+    @IBOutlet weak var reviewNavBar: UINavigationBar!
+    @IBOutlet weak var reviewText: UITextView!
+    @IBOutlet weak var floatRatingView: FloatRatingView!
+    @IBOutlet weak var vaporControl: UISegmentedControl!
+    @IBOutlet weak var throatControl: UISegmentedControl!
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var middleView: UIView!
+    @IBOutlet weak var clearButton: UIBarButtonItem!
     
     override func viewDidLoad() {
+        println(productID)
         super.viewDidLoad()
-        
         stepValue = 1
-        lastTasteStep = tasteSlider.value / stepValue
+        clearButton.enabled = false
+        clearButton.title = ""
+        reviewText.text = "Write a comment..."
+        reviewText.textColor = UIColor.lightGrayColor()
+        var endKeyboardRecognizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        var endKeyboardRecognizer2 = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        var endKeyboardRecognizer3 = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        var endKeyboardRecognizer4 = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        topView.addGestureRecognizer(endKeyboardRecognizer)
+        floatRatingView.addGestureRecognizer(endKeyboardRecognizer2)
+        middleView.addGestureRecognizer(endKeyboardRecognizer3)
+        //lastTasteStep = tasteSlider.value / stepValue
         
 
         // Do any additional setup after loading the view.
     }
 
+    func hideKeyboard() {
+        reviewText.becomeFirstResponder()
+        reviewText.endEditing(true)
+        self.clearButton.title = ""
+        self.clearButton.enabled = false
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func cancelPressed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        self.clearButton.enabled = true
+        self.clearButton.title = "clear"
+        if reviewText.textColor == UIColor.lightGrayColor() {
+            reviewText.text = nil
+            reviewText.textColor = UIColor.blackColor()
+        }
+    }
+    func textViewDidEndEditing(textView: UITextView) {
+        if textView.text.isEmpty {
+            reviewText.text = "Write a comment..."
+            reviewText.textColor = UIColor.lightGrayColor()
+        }
+    }
+    
+    @IBAction func clearText(sender: AnyObject) {
+        reviewText.text = ""
+        reviewText.textColor = UIColor.lightGrayColor()
+    }
+    
+    
+    @IBAction func submitPressed(sender: AnyObject) {
+        if reviewText.text.isEmpty {
+            let emptyAlert = UIAlertController(title: "oops!", message: "Please enter a review", preferredStyle: UIAlertControllerStyle.Alert)
+            emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(emptyAlert, animated: true, completion: nil)
+        }
+        switch reviewText.text {
+        case nil:
+            let emptyAlert = UIAlertController(title: "oops!", message: "Please enter a review", preferredStyle: UIAlertControllerStyle.Alert)
+            emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(emptyAlert, animated: true, completion: nil)
+        case "Write a comment...":
+            let emptyAlert = UIAlertController(title: "oops!", message: "Please enter a review", preferredStyle: UIAlertControllerStyle.Alert)
+            emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(emptyAlert, animated: true, completion: nil)
+        default:
+            let vapor = (vaporControl.selectedSegmentIndex + 1)
+            let throat = (throatControl.selectedSegmentIndex + 1)
+            let score = self.floatRatingView.rating + 1
+            
+            let parameters: [ String : AnyObject] = [
+                "throat": throat,
+                "vapor": vapor,
+                "description": reviewText.text,
+                "score": score
+                
+            ]
+            
+            
+            Alamofire.request(Router.AddReview(productID, parameters)).responseJSON { (request, response, json, error) in
+                println(request)
+                println(response)
+                println(json)
+                println(error)
+            }
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
+            
+            
+        }
+    }
+    
+    
+}
+    
+    
+    
+    /*
     @IBAction func flavorChanged(sender: AnyObject) {
         var newStep:Float = roundf((flavorSlider.value) / stepValue)
         
@@ -85,13 +180,18 @@ class reviewViewController: UIViewController {
         "flavor": flavor,
         "description": reviewContent.text
         
-        
         ]
 
-        Alamofire.request(Router.AddReview(productID, parameters))
+        Alamofire.request(Router.AddReview(productID, parameters)).responseJSON { (request, response, json, error) in
+            println(request)
+            println(response)
+            println(json)
+            println(error)
+        }
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+*/
 
     /*
     // MARK: - Navigation
@@ -103,4 +203,4 @@ class reviewViewController: UIViewController {
     }
     */
 
-}
+

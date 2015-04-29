@@ -8,15 +8,25 @@
 
 import UIKit
 
+protocol VivrHeaderCellDelegate {
+    
+    func tappedUser(cell: vivrHeaderCell)
+    
+}
+
 class vivrHeaderCell: UITableViewCell {
     
     @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var timeStamp: UILabel!
+    @IBOutlet weak var userNameButton: UIButton!
+    @IBOutlet weak var floatRatingView: FloatRatingView!
 
+    var cellDelegate: VivrHeaderCellDelegate?
+    var userID:String = ""
+    var userName:String = ""
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -25,24 +35,47 @@ class vivrHeaderCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+
+    @IBAction func toUser(sender: AnyObject) {
+        cellDelegate?.tappedUser(self)
+    }
+    
     var userInfo:JSON? {
         didSet {
-            self.loadReviews()
+            self.loadInfo()
             
         }
         
     }
-    func loadReviews() {
-        self.userName.text = self.userInfo?["user"]["username"].string
-        
+    var rating:String? {
+        didSet {
+            self.floatRatingView.emptyImage = UIImage(named: "StarEmpty")
+            self.floatRatingView.fullImage = UIImage(named: "StarFull")
+            if let rating = self.userInfo?["score"].stringValue{
+                var number = (rating as NSString).floatValue
+                self.floatRatingView.rating = number
+                self.floatRatingView.userInteractionEnabled = false
+                
+            }
+        }
     }
     
-    @IBAction func up(sender: AnyObject) {
-        
-    }
-    
-    @IBAction func down(sender: AnyObject) {
-    }
+    func loadInfo() {
+        println(userInfo)
+        if let theUserName = self.userInfo?["user"]["username"].stringValue {
+                self.userName = theUserName
+                self.userNameButton.setTitle(theUserName, forState:UIControlState.Normal)
+                userNameButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
 
+        }
+        if let theUserID = self.userInfo?["user"]["id"].stringValue {
+            self.userID = theUserID
+        }
+        
+
+    }
+    
+    
+    
 
 }
