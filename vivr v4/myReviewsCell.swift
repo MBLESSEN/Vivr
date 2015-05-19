@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import Alamofire
 import Haneke
 
 protocol reviewCellDelegate {
     func tappedProductbutton(cell: myReviewsCell)
+    func tappedCommentButton(cell: myReviewsCell)
+    func reloadAPI(cell: myReviewsCell)
 }
 
 class myReviewsCell: UITableViewCell {
@@ -25,7 +28,7 @@ class myReviewsCell: UITableViewCell {
     @IBOutlet weak var likebutton: UIButton!
     @IBOutlet weak var commentsButton: UIButton!
     @IBOutlet weak var helpfullLabel: UILabel!
-    
+    var reviewID:String?
     var productID:String?
     var likeImage = UIImage(named: "likeFilled")?.imageWithRenderingMode(.AlwaysTemplate)
     var cellDelegate: reviewCellDelegate? = nil
@@ -43,7 +46,7 @@ class myReviewsCell: UITableViewCell {
         
     }
     
-    var state:String? {
+    var state:Bool? {
         didSet{
             buttonState()
         }
@@ -54,27 +57,33 @@ class myReviewsCell: UITableViewCell {
         
     }
     
+    @IBAction func toComments(sender: AnyObject) {
+        cellDelegate?.tappedCommentButton(self)
+    }
     @IBAction func likePressed(sender: AnyObject) {
         switch state! {
-            case "isLiked":
-                state = "notLiked"
-            case "notLiked":
-                state = "isLiked"
+            case true:
+                state = false
+                Alamofire.request(Router.notHelpful(productID!, reviewID!))
+            case false:
+                state = true
+                Alamofire.request(Router.isHelpful(productID!, reviewID!))
         default:
             println("error")
         }
         self.buttonState()
+        self.cellDelegate?.reloadAPI(self)
     }
     
     func buttonState() {
         switch state! {
-        case "isLiked":
+        case true:
             likebutton.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 0)
             likebutton.layer.borderColor = (UIColor.purpleColor()).CGColor
             likebutton.tintColor = UIColor.whiteColor()
             likebutton.backgroundColor = UIColor.purpleColor()
             likebutton.setTitle("Helpful", forState: .Normal)
-        case "notLiked":
+        case false:
             likebutton.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 0)
             likebutton.layer.borderColor = (UIColor.lightGrayColor()).CGColor
             likebutton.tintColor = UIColor.lightGrayColor()
@@ -89,12 +98,13 @@ class myReviewsCell: UITableViewCell {
     
     var review:JSON? {
         didSet {
-            self.loadReview()
+            //self.loadReview()
         }
     }
     
     func loadReview() {
         self.productID = self.review?["product"]["id"].stringValue
+        self.reviewID = self.review?["id"].stringValue
         self.productName.text = self.review?["product"]["name"].string
         self.productReview.text = self.review?["description"].string
         if let urlString = self.review?["product"]["image"] {

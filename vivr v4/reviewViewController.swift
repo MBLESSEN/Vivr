@@ -9,11 +9,12 @@
 import UIKit
 import Alamofire
 
-class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
+class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate, flavorTagsDelegate {
 
     var lastTasteStep: Float!
     var stepValue: Float!
     var productID:String = ""
+    var blurView:UIView = UIView()
     
     
     @IBOutlet weak var reviewNavBar: UINavigationBar!
@@ -77,6 +78,26 @@ class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         }
     }
     
+    func didSubmit(view: addFlavorTagsView) {
+        blurView.removeFromSuperview()
+    }
+    
+    func didCancel(view: addFlavorTagsView) {
+        blurView.removeFromSuperview()
+    }
+    
+
+    
+    @IBAction func addTags(sender: AnyObject) {
+        var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        blurView.frame = self.view.bounds
+        blurView.backgroundColor = UIColor.blackColor()
+        blurView.alpha = 0.8
+        self.view.addSubview(blurView)
+        var tags: addFlavorTagsView = storyboard.instantiateViewControllerWithIdentifier("tags") as addFlavorTagsView
+        tags.viewDelegate = self
+        self.presentViewController(tags, animated: true, completion: nil)
+    }
     @IBAction func clearText(sender: AnyObject) {
         reviewText.text = ""
         reviewText.textColor = UIColor.lightGrayColor()

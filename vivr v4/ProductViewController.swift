@@ -38,7 +38,10 @@ class ProductViewController: UIViewController, UITableViewDataSource {
         println(productID)
         loadImages()
         loadProductData()
-
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }
 
     override func didReceiveMemoryWarning() {

@@ -26,8 +26,8 @@ class MyFavoritesController: UICollectionViewController, UICollectionViewDelegat
             
         }
         override func viewWillAppear(animated: Bool) {
-            navigationController?.navigationBarHidden = false
             loadFavorites()
+            configureNavigation()
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     
@@ -35,8 +35,14 @@ class MyFavoritesController: UICollectionViewController, UICollectionViewDelegat
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.
         }
+    
+    func configureNavigation(){
+        navigationController?.navigationBarHidden = false
+        navigationController?.navigationBar.barTintColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
+        navigationController?.navigationBar.translucent = false
+    }
 
-        
+    
         override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
             //#warning Incomplete method implementation -- Return the number of sections
             return 1
@@ -76,7 +82,7 @@ class MyFavoritesController: UICollectionViewController, UICollectionViewDelegat
                     println(response)
                     println(json)
                     var jsonOBJ = JSON(json!)
-                    if let data = jsonOBJ.arrayValue as [JSON]? {
+                    if let data = jsonOBJ["data"].arrayValue as [JSON]? {
                         self.myFavorites = data
                         println(self.myFavorites)
                         self.favoriteCollection.reloadData()

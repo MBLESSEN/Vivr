@@ -9,6 +9,16 @@
 import UIKit
 import Alamofire
 
+struct myData {
+    static var myProfileID:String = ""
+    static var myProfileName:String = ""
+    static var favoritesCount:String = ""
+    static var reviewsCount:String = ""
+    static var wishlistCount:String = ""
+    static var hardWare:String?
+    static var bio:String?
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -18,19 +28,80 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         self.applyTheme()
+        self.loadProfileData()
         // Override point for customization after application launch.
         return true
     }
     
     func applyTheme() {
         
-       
+        let backImage = UIImage(named: "back")?.imageWithRenderingMode(.AlwaysTemplate)
         UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
         UINavigationBar.appearance().tintColor = UIColor(red: 43.0/255, green: 169.0/255, blue: 41.0/255, alpha: 1.0)
-        UINavigationBar.appearance().backIndicatorImage = UIImage(named: "back");
-        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "back");
         UINavigationBar.appearance().translucent = true;
-        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 2, vertical: -1.0), forBarMetrics: .Default);
+    }
+    
+    func loadProfileData() {
+        Alamofire.request(Router.readCurrentUser()).responseJSON { (request, response, json, error) in
+            if (json != nil) {
+                var jsonOBJ = JSON(json!)
+                if let id = jsonOBJ["id"].stringValue as String? {
+                    myData.myProfileID = id
+                    Alamofire.request(Router.readUserReviews(id)).responseJSON { (request, response, json, error) in
+                        if (json != nil) {
+                            var jsonOBJ = JSON(json!)
+                            if let rcount = jsonOBJ["total"].stringValue as String? {
+                                myData.reviewsCount = rcount
+                            }
+                            
+                        }
+                    }
+                    Alamofire.request(Router.readUserFavorites(id)).responseJSON { (request, response, json, error) in
+                        if (json != nil) {
+                            var jsonOBJ = JSON(json!)
+                            if let fcount = jsonOBJ["total"].stringValue as String? {
+                                myData.favoritesCount = fcount
+                            }
+                        }
+                    }
+                    Alamofire.request(Router.readWishlist(id)).responseJSON { (request, response, json, error) in
+                        if (json != nil) {
+                            var jsonOBJ = JSON(json!)
+                            if let wcount = jsonOBJ["total"].stringValue as String? {
+                                myData.wishlistCount = wcount
+                            }
+                        }
+                    }
+                }
+                if let name = jsonOBJ["username"].stringValue as String? {
+                    myData.myProfileName = name
+                }
+                if let hardware = jsonOBJ["hardware"].stringValue as String? {
+                    myData.hardWare = hardware
+                }
+                if let bio = jsonOBJ["bio"].stringValue as String? {
+                    myData.bio = bio
+                }
+            }
+        }
+    
+        Alamofire.request(Router.readUserReviews(myData.myProfileID)).responseJSON { (request, response, json, error) in
+            if (json != nil) {
+                var jsonOBJ = JSON(json!)
+                if let rcount = jsonOBJ["total"].stringValue as String? {
+                    myData.reviewsCount = rcount
+                }
+                
+            }
+        }
+        Alamofire.request(Router.readUserFavorites(myData.myProfileID)).responseJSON { (request, response, json, error) in
+            if (json != nil) {
+                var jsonOBJ = JSON(json!)
+                if let fcount = jsonOBJ["total"].stringValue as String? {
+                    myData.favoritesCount = fcount
+                }
+            }
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {

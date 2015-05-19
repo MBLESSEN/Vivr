@@ -11,39 +11,47 @@ import UIKit
 protocol VivrHeaderCellDelegate {
     
     func tappedUser(cell: vivrHeaderCell)
+    func tappedProductButton(cell: vivrHeaderCell)
     
 }
+
 
 class vivrHeaderCell: UITableViewCell {
     
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var timeStamp: UILabel!
-    @IBOutlet weak var userNameButton: UIButton!
+    @IBOutlet weak var userNameButton: UIButton?
     @IBOutlet weak var floatRatingView: FloatRatingView!
+    @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var helpfullButton: UIButton!
+    @IBOutlet weak var wishListButton: UIButton!
 
+    var productID:String?
+    var colorPicker:DBImageColorPicker?
     var cellDelegate: VivrHeaderCellDelegate?
     var userID:String = ""
-    var userName:String = ""
+    var userName:String = "" 
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = UITableViewCellSelectionStyle.None
     }
+    
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
-    
-
     @IBAction func toUser(sender: AnyObject) {
         cellDelegate?.tappedUser(self)
     }
+    @IBAction func toProduct(sender: AnyObject) {
+        cellDelegate?.tappedProductButton(self)
+    }
+    
     
     var userInfo:JSON? {
         didSet {
             self.loadInfo()
-            
         }
         
     }
@@ -55,27 +63,19 @@ class vivrHeaderCell: UITableViewCell {
                 var number = (rating as NSString).floatValue
                 self.floatRatingView.rating = number
                 self.floatRatingView.userInteractionEnabled = false
-                
             }
         }
     }
-    
     func loadInfo() {
-        println(userInfo)
+        //colorPicker = DBImageColorPicker(fromImage: productImage.image, withBackgroundType: DBImageColorPickerBackgroundType.FooterSide)
+        //self.contentView.backgroundColor = colorPicker?.backgroundColor
         if let theUserName = self.userInfo?["user"]["username"].stringValue {
                 self.userName = theUserName
-                self.userNameButton.setTitle(theUserName, forState:UIControlState.Normal)
-                userNameButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-
+                self.userNameButton!.setTitle(theUserName, forState:UIControlState.Normal)
+                userNameButton!.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         }
         if let theUserID = self.userInfo?["user"]["id"].stringValue {
             self.userID = theUserID
         }
-        
-
     }
-    
-    
-    
-
 }

@@ -7,17 +7,29 @@
 //
 
 import UIKit
+import Alamofire
 
 class menuController: UITableViewController {
     
+    @IBOutlet weak var wishListCount: UILabel!
+    @IBOutlet weak var reviewsCount: UILabel!
+    @IBOutlet weak var favoritesCount: UILabel!
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var favoritesCell: UITableViewCell!
+    
+    var segueIdentifier:String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        tableView.layoutMargins = UIEdgeInsetsMake(0, -15, 0, 0)
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        self.userName.text = myData.myProfileName
+        self.favoritesCount.text = myData.favoritesCount
+        self.reviewsCount.text = myData.reviewsCount
+        self.wishListCount.text = myData.wishlistCount
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,18 +48,33 @@ class menuController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 4
+        return 11
     }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
-
-        // Configure the cell...
-
-        return cell
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (tableView.respondsToSelector(Selector("layoutMargins"))) {
+            tableView.layoutMargins = UIEdgeInsetsMake(0, -15, 0, 0)
+        }
+        
+        if (tableView.respondsToSelector(Selector("separatorInset"))) {
+        tableView.separatorInset = UIEdgeInsetsMake(0,-15,0,0)
+        }
+        
+        if (cell.respondsToSelector(Selector("layoutMargins"))) {
+            cell.layoutMargins = UIEdgeInsetsZero
+        }
     }
-    */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let path = self.tableView.indexPathForSelectedRow()
+        if (path!.row == 9) {
+            let wishVC: wishListViewControler = segue.destinationViewController as wishListViewControler
+            wishVC.userID = myData.myProfileID
+        }
+    }
+    
+
+    
 
     /*
     // Override to support conditional editing of the table view.

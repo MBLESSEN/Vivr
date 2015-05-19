@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="PTSans.ttc">
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Regular</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Regular</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Regular</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Regular</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Walkthrough View Controller-->
+        <scene sceneID="ULh-96-UyW">
+            <objects>
+                <viewController storyboardIdentifier="master" id="WDd-i5-jhe" customClass="BWWalkthroughViewController" customModule="vivr_v4" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ztm-3Q-pzx"/>
+                        <viewControllerLayoutGuide type="bottom" id="B4J-qq-03X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MNd-I7-vgi">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dimitri" translatesAutoresizingMaskIntoConstraints="NO" id="5aq-bl-lYR">
+                                <rect key="frame" x="0.0" y="20" width="600" height="505"/>
+                            </imageView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="QrB-UJ-dHl">
+                                <rect key="frame" x="281" y="480" width="39" height="37"/>
+                            </pageControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dM6-eR-SBc">
+                                <rect key="frame" x="0.0" y="525" width="600" height="75"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bW4-Gj-3Ej">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="75"/>
+                                        <color key="backgroundColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="20"/>
+                                        <state key="normal" title="LOG IN">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toLogin:" destination="WDd-i5-jhe" eventType="touchUpInside" id="Vv4-WJ-JSE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sZP-In-1Fi">
+                                        <rect key="frame" x="300" y="0.0" width="300" height="75"/>
+                                        <color key="backgroundColor" red="0.16862745100000001" green="0.66274509800000003" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="20"/>
+                                        <state key="normal" title="SIGN UP">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toSignUp:" destination="WDd-i5-jhe" eventType="touchUpInside" id="joR-9N-Pvr"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1137254902" green="0.48627450979999998" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="sZP-In-1Fi" firstAttribute="top" secondItem="dM6-eR-SBc" secondAttribute="top" id="6DM-lK-1xI"/>
+                                    <constraint firstItem="bW4-Gj-3Ej" firstAttribute="top" secondItem="dM6-eR-SBc" secondAttribute="top" id="Wu4-B7-o7X"/>
+                                    <constraint firstAttribute="bottom" secondItem="sZP-In-1Fi" secondAttribute="bottom" id="aIa-lG-SEu"/>
+                                    <constraint firstItem="sZP-In-1Fi" firstAttribute="leading" secondItem="bW4-Gj-3Ej" secondAttribute="trailing" id="cMp-iK-vdm"/>
+                                    <constraint firstItem="bW4-Gj-3Ej" firstAttribute="leading" secondItem="dM6-eR-SBc" secondAttribute="leading" id="jX0-eG-1Ih"/>
+                                    <constraint firstAttribute="bottom" secondItem="bW4-Gj-3Ej" secondAttribute="bottom" id="mJn-pf-4n5"/>
+                                    <constraint firstAttribute="trailing" secondItem="sZP-In-1Fi" secondAttribute="trailing" id="rpq-OK-Svh"/>
+                                    <constraint firstItem="sZP-In-1Fi" firstAttribute="width" secondItem="bW4-Gj-3Ej" secondAttribute="width" id="skU-Mg-U9i"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vivrMainLogo" translatesAutoresizingMaskIntoConstraints="NO" id="tkx-rB-xAM">
+                                <rect key="frame" x="210" y="84" width="180" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="EoC-8x-mBd"/>
+                                    <constraint firstAttribute="height" constant="60" id="qwW-ds-Wii"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" secondItem="dM6-eR-SBc" secondAttribute="height" multiplier="8:1" id="4cy-wo-v4X"/>
+                            <constraint firstItem="bW4-Gj-3Ej" firstAttribute="top" secondItem="5aq-bl-lYR" secondAttribute="bottom" id="H1x-1E-cAi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5aq-bl-lYR" secondAttribute="trailing" constant="-16" id="QI9-Ql-qOY"/>
+                            <constraint firstItem="B4J-qq-03X" firstAttribute="top" secondItem="dM6-eR-SBc" secondAttribute="bottom" id="RHm-4F-cvQ"/>
+                            <constraint firstAttribute="centerX" secondItem="tkx-rB-xAM" secondAttribute="centerX" id="YK5-ad-Xl7"/>
+                            <constraint firstItem="tkx-rB-xAM" firstAttribute="top" secondItem="ztm-3Q-pzx" secondAttribute="bottom" constant="64" id="atK-HL-M83"/>
+                            <constraint firstItem="5aq-bl-lYR" firstAttribute="leading" secondItem="MNd-I7-vgi" secondAttribute="leadingMargin" constant="-16" id="eL4-K1-BSi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dM6-eR-SBc" secondAttribute="trailing" constant="-16" id="fTd-Kl-eiI"/>
+                            <constraint firstItem="dM6-eR-SBc" firstAttribute="leading" secondItem="MNd-I7-vgi" secondAttribute="leadingMargin" constant="-16" id="gmM-bZ-tpc"/>
+                            <constraint firstAttribute="centerX" secondItem="QrB-UJ-dHl" secondAttribute="centerX" id="net-gF-ZY7"/>
+                            <constraint firstItem="5aq-bl-lYR" firstAttribute="top" secondItem="ztm-3Q-pzx" secondAttribute="bottom" id="ojq-Rf-mLV"/>
+                            <constraint firstItem="B4J-qq-03X" firstAttribute="top" secondItem="dM6-eR-SBc" secondAttribute="bottom" id="pbu-Dh-DTp"/>
+                            <constraint firstItem="sZP-In-1Fi" firstAttribute="top" secondItem="QrB-UJ-dHl" secondAttribute="bottom" constant="8" id="yrb-tQ-e3c"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundImage" destination="5aq-bl-lYR" id="7ed-eX-7yD"/>
+                        <outlet property="pageControl" destination="QrB-UJ-dHl" id="Dqf-pP-0Cs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tjg-Yr-mhe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="563" y="243"/>
+        </scene>
+        <!--Walkthrough Page View Controller-->
+        <scene sceneID="ZV1-kd-XRF">
+            <objects>
+                <viewController storyboardIdentifier="page1" id="pIu-60-7vj" customClass="BWWalkthroughPageViewController" customModule="vivr_v4" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RjX-py-fHz"/>
+                        <viewControllerLayoutGuide type="bottom" id="iwA-RW-9mP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zm7-ay-Sjo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vivr helps you Explore, Discover, and Enjoy your favorite juices!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BrG-tJ-Wcf">
+                                <rect key="frame" x="48" y="400" width="504" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="iYV-rY-if5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgh-8L-Bav">
+                                <rect key="frame" x="262" y="410.5" width="77.5" height="21.5"/>
+                                <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BrG-tJ-Wcf" firstAttribute="top" secondItem="fgh-8L-Bav" secondAttribute="bottom" constant="-32" id="Kag-RJ-iwi"/>
+                            <constraint firstItem="iwA-RW-9mP" firstAttribute="top" secondItem="BrG-tJ-Wcf" secondAttribute="bottom" constant="100" id="OJK-Ek-wQB"/>
+                            <constraint firstAttribute="centerX" secondItem="fgh-8L-Bav" secondAttribute="centerX" id="Sj1-Se-GpZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BrG-tJ-Wcf" secondAttribute="trailing" constant="32" id="U84-8w-OZf"/>
+                            <constraint firstItem="BrG-tJ-Wcf" firstAttribute="leading" secondItem="zm7-ay-Sjo" secondAttribute="leadingMargin" constant="32" id="kOD-xn-YuJ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dc3-da-csN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1303" y="333"/>
+        </scene>
+        <!--Walkthrough Page View Controller-->
+        <scene sceneID="a0V-hh-78B">
+            <objects>
+                <viewController storyboardIdentifier="page2" id="nBC-u8-2cD" customClass="BWWalkthroughPageViewController" customModule="vivr_v4" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Buo-fd-9VT"/>
+                        <viewControllerLayoutGuide type="bottom" id="xep-VY-SLJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NxF-B2-7jZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Browse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DUW-oc-YJg">
+                                <rect key="frame" x="268.5" y="410.5" width="63" height="21.5"/>
+                                <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore the top juices in the world, trending flavors, and the best juices for you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Qp-Gs-mPM">
+                                <rect key="frame" x="48" y="400" width="504" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="pkA-Dg-2kH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="DUW-oc-YJg" secondAttribute="centerX" id="Bog-Ho-IAV"/>
+                            <constraint firstItem="1Qp-Gs-mPM" firstAttribute="top" secondItem="DUW-oc-YJg" secondAttribute="bottom" constant="-32" id="DBa-7m-yMt"/>
+                            <constraint firstItem="xep-VY-SLJ" firstAttribute="top" secondItem="1Qp-Gs-mPM" secondAttribute="bottom" constant="100" id="IBC-8e-yO7"/>
+                            <constraint firstItem="1Qp-Gs-mPM" firstAttribute="leading" secondItem="NxF-B2-7jZ" secondAttribute="leadingMargin" constant="32" id="YGd-rV-f4K"/>
+                            <constraint firstItem="1Qp-Gs-mPM" firstAttribute="trailing" secondItem="NxF-B2-7jZ" secondAttribute="trailingMargin" constant="-32" id="ids-Gz-rM8"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wqO-sp-9jx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1992" y="333"/>
+        </scene>
+        <!--Walkthrough Page View Controller-->
+        <scene sceneID="74V-aS-FhS">
+            <objects>
+                <viewController storyboardIdentifier="page3" id="qdJ-TL-VdC" customClass="BWWalkthroughPageViewController" customModule="vivr_v4" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CsF-pD-R7C"/>
+                        <viewControllerLayoutGuide type="bottom" id="9zW-xr-CeK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RDG-dN-323">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Learn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUk-LF-kBN">
+                                <rect key="frame" x="268.5" y="410.5" width="63" height="21.5"/>
+                                <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interested in something? Read what people have to say and find the flavors best for you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RH0-9v-tEv">
+                                <rect key="frame" x="48" y="400" width="504" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="ZPV-cj-zTz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9zW-xr-CeK" firstAttribute="top" secondItem="RH0-9v-tEv" secondAttribute="bottom" constant="100" id="Dyy-XR-YYv"/>
+                            <constraint firstItem="RH0-9v-tEv" firstAttribute="trailing" secondItem="RDG-dN-323" secondAttribute="trailingMargin" constant="-32" id="KiJ-B3-oJm"/>
+                            <constraint firstItem="RH0-9v-tEv" firstAttribute="top" secondItem="hUk-LF-kBN" secondAttribute="bottom" constant="-32" id="SsD-Lq-dh9"/>
+                            <constraint firstAttribute="centerX" secondItem="hUk-LF-kBN" secondAttribute="centerX" id="h5i-L8-VEK"/>
+                            <constraint firstItem="RH0-9v-tEv" firstAttribute="leading" secondItem="RDG-dN-323" secondAttribute="leadingMargin" constant="32" id="qOV-Hl-nKo"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7uS-uE-EpX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2643" y="333"/>
+        </scene>
+        <!--Walkthrough Page View Controller-->
+        <scene sceneID="AmQ-2m-dlj">
+            <objects>
+                <viewController storyboardIdentifier="page4" id="JvW-4T-Bmh" customClass="BWWalkthroughPageViewController" customModule="vivr_v4" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uPw-qN-qqF"/>
+                        <viewControllerLayoutGuide type="bottom" id="cMR-e1-oOa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8Hx-ec-kPT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Track" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Fl-ol-phP">
+                                <rect key="frame" x="268.5" y="410.5" width="63" height="21.5"/>
+                                <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep track of your favorites, and build your wishlist. Never forget a great juice!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrQ-Zh-J8B">
+                                <rect key="frame" x="48" y="400" width="504" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Ag2-Ju-d9G"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vrQ-Zh-J8B" firstAttribute="trailing" secondItem="8Hx-ec-kPT" secondAttribute="trailingMargin" constant="-32" id="7pM-c8-NkK"/>
+                            <constraint firstItem="vrQ-Zh-J8B" firstAttribute="leading" secondItem="8Hx-ec-kPT" secondAttribute="leadingMargin" constant="32" id="fBL-XH-NXz"/>
+                            <constraint firstAttribute="centerX" secondItem="3Fl-ol-phP" secondAttribute="centerX" id="h6k-Gc-Ltg"/>
+                            <constraint firstItem="cMR-e1-oOa" firstAttribute="top" secondItem="vrQ-Zh-J8B" secondAttribute="bottom" constant="100" id="p9w-TU-Qss"/>
+                            <constraint firstItem="vrQ-Zh-J8B" firstAttribute="top" secondItem="3Fl-ol-phP" secondAttribute="bottom" constant="-32" id="vNq-Lx-CRP"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nXG-iy-CTm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3303" y="333"/>
+        </scene>
+        <!--Walkthrough Page View Controller-->
+        <scene sceneID="nED-fs-9IA">
+            <objects>
+                <viewController storyboardIdentifier="page5" id="Dqx-yc-PnU" customClass="BWWalkthroughPageViewController" customModule="vivr_v4" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OnR-Lh-LIE"/>
+                        <viewControllerLayoutGuide type="bottom" id="jJp-nc-gyF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CWE-zW-bLW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mJ-59-zWE">
+                                <rect key="frame" x="268.5" y="410.5" width="63" height="21.5"/>
+                                <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share your thoughts and favorites to your friends and others in the vivr community. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZE-wo-cRF">
+                                <rect key="frame" x="48" y="400" width="504" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="dLq-BJ-j3K"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CZE-wo-cRF" firstAttribute="leading" secondItem="CWE-zW-bLW" secondAttribute="leadingMargin" constant="32" id="4iE-UB-RKW"/>
+                            <constraint firstItem="CZE-wo-cRF" firstAttribute="top" secondItem="1mJ-59-zWE" secondAttribute="bottom" constant="-32" id="7vp-qa-TTv"/>
+                            <constraint firstAttribute="centerX" secondItem="1mJ-59-zWE" secondAttribute="centerX" id="9ch-et-taB"/>
+                            <constraint firstItem="CZE-wo-cRF" firstAttribute="trailing" secondItem="CWE-zW-bLW" secondAttribute="trailingMargin" constant="-32" id="u7S-DM-EyK"/>
+                            <constraint firstItem="jJp-nc-gyF" firstAttribute="top" secondItem="CZE-wo-cRF" secondAttribute="bottom" constant="100" id="vAe-oJ-v7P"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CRk-zf-JzR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3947" y="333"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="dimitri" width="2448" height="3264"/>
+        <image name="vivrMainLogo" width="704" height="246"/>
+    </resources>
+</document>

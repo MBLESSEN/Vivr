@@ -13,8 +13,10 @@ import Foundation
 enum Router: URLRequestConvertible {
     static let baseURLString = "http://mickeyschwab.com/vivr-dev/public"
     
+    case PostComment(String, String, [String: AnyObject])
     case ReadBrands()
     case ReadBrandProducts(String)
+    case readAllProducts()
     case AddReview(String, [String: AnyObject])
     case ReadReviews(String)
     case ReadProductData(String)
@@ -22,21 +24,34 @@ enum Router: URLRequestConvertible {
     case Favorite(String)
     case unFavorite(String)
     case readFeed()
+    case readFeedFiletered(String, String?, String?)
     case readCurrentUser()
     case readUser(String)
     case readUserReviews(String)
     case readUserFavorites(String)
     case readUserComments(String)
     case readComments(String, String)
+    case readCommentsAPI(String, String)
+    case readWishlist(String)
+    case addToWish(String)
+    case removeWish(String)
+    case isHelpful(String, String)
+    case notHelpful(String, String)
+    case loadAllTags()
+    case editProfile([String: AnyObject])
 
     
     var method: Alamofire.Method {
         switch self {
         case .AddReview:
             return .POST
+        case .PostComment:
+            return .POST
         case .ReadBrands:
             return .GET
         case .ReadBrandProducts:
+            return .GET
+        case .readAllProducts():
             return .GET
         case .ReadReviews:
             return .GET
@@ -50,6 +65,8 @@ enum Router: URLRequestConvertible {
             return .DELETE
         case .readFeed:
             return .GET
+        case .readFeedFiletered:
+            return .GET
         case .readCurrentUser:
             return .GET
         case .readUser:
@@ -62,6 +79,22 @@ enum Router: URLRequestConvertible {
             return .GET
         case .readComments:
             return .GET
+        case .readCommentsAPI:
+            return .GET
+        case .readWishlist:
+            return .GET
+        case .addToWish:
+            return .POST
+        case .removeWish:
+            return .DELETE
+        case .isHelpful:
+            return .POST
+        case .notHelpful:
+            return .DELETE
+        case .loadAllTags:
+            return .GET
+        case .editProfile:
+            return .PUT
         
         }
     }
@@ -70,10 +103,14 @@ enum Router: URLRequestConvertible {
         switch self {
         case .AddReview(let id, _):
             return "/products/\(id)/reviews"
+        case .PostComment(let pid, let rid, _):
+            return "/products/\(pid)/reviews/\(rid)/comments"
         case .ReadBrands:
             return "/brands"
         case .ReadBrandProducts(let id):
             return "/brands/\(id)/products"
+        case .readAllProducts():
+            return "/products"
         case .ReadProductData(let id):
             return "/products/\(id)"
         case .ReadProductTags(let id):
@@ -86,6 +123,8 @@ enum Router: URLRequestConvertible {
             return "/products/\(id)/favorites"
         case .readFeed:
             return "/activity"
+        case .readFeedFiletered(let id1, let id2, let id3):
+            return "/activity?tags=\(id1)"
         case .readCurrentUser:
             return "/profile"
         case .readUser(let id):
@@ -98,6 +137,23 @@ enum Router: URLRequestConvertible {
             return "/users/\(id)/comments"
         case .readComments(let pid, let rid):
             return "/products/\(pid)/reviews/\(rid)"
+        case .readCommentsAPI(let pid , let rid):
+            return "/products/\(pid)/reviews/\(rid)/comments"
+        case .readWishlist(let id):
+            return "/users/\(id)/wishlist"
+        case .addToWish(let id):
+            return "/products/\(id)/wishlist"
+        case .removeWish(let id):
+            return "/products/\(id)/wishlist"
+        case .isHelpful(let pid, let rid):
+            return "/products/\(pid)/reviews/\(rid)/helpful"
+        case .notHelpful(let pid, let rid):
+            return "/products/\(pid)/reviews/\(rid)/helpful"
+        case .loadAllTags():
+            return "/tags"
+        case .editProfile(_):
+            return "/profile"
+            
         }
     }
     
@@ -115,6 +171,10 @@ enum Router: URLRequestConvertible {
         switch self {
         case .AddReview(_, let parameters):
             return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
+        case .editProfile(let parameters):
+            return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
+        case .PostComment(_, _, let parameters):
+            return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0 
         default:
             return mutableURLRequest
         }

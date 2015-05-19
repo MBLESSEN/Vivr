@@ -14,22 +14,45 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
 
     @IBOutlet weak var flavorName: UILabel!
     @IBOutlet weak var commentsTable: UITableView!
+    @IBOutlet weak var commentField: UITextField!
+    @IBOutlet weak var keyBoardViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var commentView: UIView!
     
     var reviewID: String = ""
     var productID: String = ""
     var commentResults:[JSON]? = []
     var results:JSON? = ""
     var segueIdentifier:String = ""
+    var commentcount:Int?
+    var bottomOfReviewPoint:CGPoint?
+    var keyboardActive:Bool?
+    var titleLabel:UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var endKeyboardRecongnizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        self.view.addGestureRecognizer(endKeyboardRecongnizer)
+        startObservingKeyboardEvents()
         commentsTable.rowHeight = UITableViewAutomaticDimension
 
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
+        configureNavBar()
         loadData()
+    }
+    
+    func configureNavBar() {
+    titleLabel = UILabel(frame: CGRectMake(0, 0, 60, 20))
+    titleLabel!.text = "Comments"
+    titleLabel!.textColor = UIColor.whiteColor()
+    titleLabel!.font = UIFont(name: "PTSans-Bold", size: 17)
+    self.navigationItem.titleView = titleLabel
+    navigationController?.navigationBar.translucent = false
+    navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+    navigationController?.navigationItem.backBarButtonItem?.tintColor = UIColor.whiteColor()
+    navigationController?.navigationBar.barTintColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,6 +60,51 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    func hideKeyboard() {
+        if(keyboardActive == true) {
+        commentField.becomeFirstResponder()
+        commentField.endEditing(true)
+        }
+    }
+    
+    private func startObservingKeyboardEvents() {
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:Selector("keyboardWillShow:"),
+            name:UIKeyboardWillShowNotification,
+            object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:Selector("keyboardWillHide:"),
+            name:UIKeyboardWillHideNotification,
+            object:nil)
+    }
+    
+    private func stopObservingKeyboardEvents() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
+                UIView.animateWithDuration(2, animations: { () -> Void in
+                self.keyBoardViewBottomConstraint.constant = keyboardSize.height + 2
+                    self.view.layoutIfNeeded()
+                    self.keyboardActive = true
+                })
+            }
+        }
+    }
+    func keyboardWillHide(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
+                UIView.animateWithDuration(2, animations: { () -> Void in
+                    self.keyBoardViewBottomConstraint.constant = 8
+                    self.view.layoutIfNeeded()
+                    self.keyboardActive = false
+                })
+            }
+        }
+    }
     
     func tappedProductButton(cell: vivrCell) {
         self.segueIdentifier = "commentsToProduct"
@@ -46,6 +114,35 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tappedCommentButton(cell: vivrCell) {
         
+    }
+    
+    func reloadAPI(cell: vivrCell) {
+        self.loadData()
+    }
+    
+    @IBAction func submitCommentTapped(sender: AnyObject) {
+        let text = commentField.text
+        if (text != nil) {
+        let parameters: [String : AnyObject] = [
+            "description": text
+        ]
+        
+        Alamofire.request(Router.PostComment(productID, reviewID, parameters)).responseJSON { (request, response, json, error) in
+            if (error != nil) {
+                println("error")
+            }
+            
+        }
+            commentField.text = nil
+            hideKeyboard()
+        }
+        else {
+            let emptyTextAlert = UIAlertController(title: "oops!", message: "You didnt enter a comment", preferredStyle: UIAlertControllerStyle.Alert)
+            emptyTextAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(emptyTextAlert, animated: true, completion: nil)
+        }
+        loadData()
+        commentsTable.reloadData()
     }
     
     
@@ -60,7 +157,15 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
         case 0:
             return 1
         default:
-            return self.commentResults?.count ?? 0
+            let count = self.commentResults?.count ?? 0
+            self.commentcount = count
+            switch count {
+            case 0:
+                return 1
+            default:
+                return count
+                
+            }
         }
     }
     
@@ -71,12 +176,23 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
         case 0:
             var theReview = commentsTable.dequeueReusableCellWithIdentifier("review") as vivrCell
             theReview.reviewAndComment = results!
+            if let state = results!["current_helpful"].boolValue as Bool? {
+                theReview.helpfullState = state 
+            }
+            theReview.wishlistState = true
             theReview.cellDelegate = self
             return theReview
         default:
-            var comment = commentsTable.dequeueReusableCellWithIdentifier("comment") as commentCell
-            comment.comment = commentResults?[indexPath.row]
-            return comment
+            switch commentcount! {
+            case 0:
+                let emptyCell = commentsTable.dequeueReusableCellWithIdentifier("noCommentCell") as UITableViewCell
+                
+                return emptyCell
+            default:
+                var comment = commentsTable.dequeueReusableCellWithIdentifier("comment") as commentCell
+                comment.comment = commentResults?[indexPath.row]
+                return comment
+            }
         }
         
     }

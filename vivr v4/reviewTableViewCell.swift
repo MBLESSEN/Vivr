@@ -16,11 +16,12 @@ class reviewTableViewCell: UITableViewCell {
     @IBOutlet weak var userThroat: UILabel!
     @IBOutlet weak var userVapor: UILabel!
     @IBOutlet weak var reputation: UILabel!
-
-    @IBOutlet weak var helpfull: UIButton?
+    @IBOutlet weak var helpfulLabel: UILabel!
+    @IBOutlet weak var helpfull: UIButton!
+    @IBOutlet weak var throat: UILabel!
+    @IBOutlet weak var vapor: UILabel!
     
     var likeImage = UIImage(named: "likeFilled")?.imageWithRenderingMode(.AlwaysTemplate)
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -88,8 +89,50 @@ class reviewTableViewCell: UITableViewCell {
     func loadReviews() {
         self.reviewContent.text = self.review?["description"].string
         self.reviewContent.sizeToFit()
-                
-        
+        if let helpfullCount = self.review?["helpful_count"].stringValue {
+            switch helpfullCount {
+                case "0":
+                self.helpfulLabel.text = "Was this helpful?"
+            default:
+                self.helpfulLabel.text = "\(helpfullCount) found this helpful"
+            }
+        }
+        if let throatHit = self.review?["throat"].int {
+            var value:String?
+            switch throatHit {
+            case 1:
+                value = "Feather"
+            case 2:
+                value = "Light"
+            case 3:
+                value = "Mild"
+            case 4:
+                value = "Harsh"
+            case 5:
+                value = "Very Harsh"
+            default:
+                value = "invalid"
+            }
+            self.throat.text = ("\(value!) throat hit")
+        }
+        if let vaporProduction = self.review?["vapor"].int {
+            var value:String?
+            switch vaporProduction {
+            case 1:
+                value = "Very low"
+            case 2:
+                value = "Low"
+            case 3:
+                value = "Average"
+            case 4:
+                value = "High"
+            case 5:
+                value = "Cloudy"
+            default:
+                value = "invalid"
+            }
+            self.vapor.text = ("\(value!) vapor production")
+        }
     }
     
     @IBAction func up(sender: AnyObject) {

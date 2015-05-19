@@ -7,12 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		501090BD1B0AA05500EFC546 /* help-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 501090BC1B0AA05500EFC546 /* help-50.png */; };
+		501233741B02AAB400D8E4ED /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501233731B02AAB400D8E4ED /* TagCell.swift */; };
+		50142E9B1AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50142E991AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift */; };
+		50142E9C1AF69BD2004ED2A2 /* BWWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50142E9A1AF69BD2004ED2A2 /* BWWalkthroughViewController.swift */; };
+		50142EA71AF6AA40004ED2A2 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50142EA61AF6AA40004ED2A2 /* Walkthrough.storyboard */; };
 		501E04181A428F1900F93122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E04171A428F1900F93122 /* AppDelegate.swift */; };
 		501E041C1A428F1900F93122 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E041B1A428F1900F93122 /* SecondViewController.swift */; };
 		501E04211A428F1900F93122 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 501E04201A428F1900F93122 /* Images.xcassets */; };
 		501E04241A428F1900F93122 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 501E04221A428F1900F93122 /* LaunchScreen.xib */; };
 		501E04301A428F1900F93122 /* vivr_v4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E042F1A428F1900F93122 /* vivr_v4Tests.swift */; };
+		501F38281B069C6500242DCF /* wishListViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501F38271B069C6500242DCF /* wishListViewControler.swift */; };
 		502337E51A8C21AE00A56BA7 /* vivrHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502337E41A8C21AE00A56BA7 /* vivrHeaderCell.swift */; };
+		502DFC7C1AF9988F0052EF50 /* anyUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502DFC7B1AF9988F0052EF50 /* anyUserProfileView.swift */; };
 		5033791D1AD2ED7F00567436 /* productCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5033791C1AD2ED7F00567436 /* productCell.swift */; };
 		503379231AD2EE7100567436 /* flavorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503379221AD2EE7100567436 /* flavorCell.swift */; };
 		504D7BC21A88493E00E3463C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50632C4E1A70922500DD7EAA /* Main.storyboard */; };
@@ -37,11 +44,20 @@
 		5072DAA01A9D670F00A64CAB /* commentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5072DA9F1A9D670F00A64CAB /* commentsViewController.swift */; };
 		5072DAA21A9D682100A64CAB /* commentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5072DAA11A9D682100A64CAB /* commentCell.swift */; };
 		5072DAA41A9E60C600A64CAB /* commentsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5072DAA31A9E60C600A64CAB /* commentsButton.swift */; };
+		507F2DDB1AFFFA0200BBAA67 /* B68UIFloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507F2DDA1AFFFA0200BBAA67 /* B68UIFloatLabelTextField.swift */; };
+		507F2DE31AFFFE2200BBAA67 /* editProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507F2DE21AFFFE2200BBAA67 /* editProfileController.swift */; };
+		507F2DE51B0115DE00BBAA67 /* settingsMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507F2DE41B0115DE00BBAA67 /* settingsMainController.swift */; };
+		50985CDB1AFC38B2007BB4DD /* DBImageColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 50985CD81AFC38B2007BB4DD /* DBImageColorPicker.m */; };
+		50985CDC1AFC38B2007BB4DD /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 50985CDA1AFC38B2007BB4DD /* UIImage+Color.m */; };
 		509FD2171A6492FB003A7AEE /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509FD2161A6492FB003A7AEE /* SwiftyJSON.swift */; };
+		50A5DB5E1B01356800EF3A67 /* findFriendsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A5DB5D1B01356800EF3A67 /* findFriendsViewViewController.swift */; };
+		50A5DB641B0141CC00EF3A67 /* editPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A5DB631B0141CC00EF3A67 /* editPaymentViewController.swift */; };
+		50A5DB661B01474B00EF3A67 /* addFlavorTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */; };
 		50A65E9C1A917A2C00BCBD77 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A65E8D1A9179D200BCBD77 /* Alamofire.framework */; };
 		50AD676D1A429A1700D2BD35 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD676C1A429A1700D2BD35 /* BrowseViewController.swift */; };
 		50BCB78D1A7B2B6500EEC9D0 /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BCB78C1A7B2B6500EEC9D0 /* registerViewController.swift */; };
-		50C2C6331AC4A167006E9EBB /* anyUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C2C6321AC4A167006E9EBB /* anyUserViewController.swift */; };
+		50C192AE1B072406008B557F /* tempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C192AD1B072406008B557F /* tempo.swift */; };
+		50C192B41B0A608D008B557F /* newFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C192B31B0A608D008B557F /* newFavoritesViewController.swift */; };
 		50C2C63C1AC720EE006E9EBB /* anyFavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C2C63B1AC720EE006E9EBB /* anyFavoritesController.swift */; };
 		50C2C6421AC75DDA006E9EBB /* footerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C2C6411AC75DDA006E9EBB /* footerCell.swift */; };
 		50C2C6441ACA0C09006E9EBB /* myFavoritesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C2C6431ACA0C09006E9EBB /* myFavoritesCell.swift */; };
@@ -147,6 +163,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		501090BC1B0AA05500EFC546 /* help-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help-50.png"; sourceTree = "<group>"; };
+		501233731B02AAB400D8E4ED /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
+		50142E991AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWWalkthroughPageViewController.swift; sourceTree = "<group>"; };
+		50142E9A1AF69BD2004ED2A2 /* BWWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWWalkthroughViewController.swift; sourceTree = "<group>"; };
+		50142EA61AF6AA40004ED2A2 /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
 		501E04121A428F1900F93122 /* vivr v4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "vivr v4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		501E04161A428F1900F93122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		501E04171A428F1900F93122 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,7 +177,9 @@
 		501E04291A428F1900F93122 /* vivr v4Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "vivr v4Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		501E042E1A428F1900F93122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		501E042F1A428F1900F93122 /* vivr_v4Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vivr_v4Tests.swift; sourceTree = "<group>"; };
+		501F38271B069C6500242DCF /* wishListViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wishListViewControler.swift; sourceTree = "<group>"; };
 		502337E41A8C21AE00A56BA7 /* vivrHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vivrHeaderCell.swift; sourceTree = "<group>"; };
+		502DFC7B1AF9988F0052EF50 /* anyUserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = anyUserProfileView.swift; sourceTree = "<group>"; };
 		5033791C1AD2ED7F00567436 /* productCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = productCell.swift; sourceTree = "<group>"; };
 		503379221AD2EE7100567436 /* flavorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = flavorCell.swift; sourceTree = "<group>"; };
 		504D7BC31A8849B600E3463C /* reviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reviewTableViewCell.swift; sourceTree = "<group>"; };
@@ -177,13 +200,25 @@
 		5072DA9F1A9D670F00A64CAB /* commentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentsViewController.swift; sourceTree = "<group>"; };
 		5072DAA11A9D682100A64CAB /* commentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentCell.swift; sourceTree = "<group>"; };
 		5072DAA31A9E60C600A64CAB /* commentsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentsButton.swift; sourceTree = "<group>"; };
+		507F2DDA1AFFFA0200BBAA67 /* B68UIFloatLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = B68UIFloatLabelTextField.swift; sourceTree = "<group>"; };
+		507F2DE21AFFFE2200BBAA67 /* editProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editProfileController.swift; sourceTree = "<group>"; };
+		507F2DE41B0115DE00BBAA67 /* settingsMainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingsMainController.swift; sourceTree = "<group>"; };
+		50985CD71AFC38B2007BB4DD /* DBImageColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBImageColorPicker.h; sourceTree = "<group>"; };
+		50985CD81AFC38B2007BB4DD /* DBImageColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBImageColorPicker.m; sourceTree = "<group>"; };
+		50985CD91AFC38B2007BB4DD /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
+		50985CDA1AFC38B2007BB4DD /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		509FD1F01A649154003A7AEE /* BrandTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandTableViewCell.swift; sourceTree = "<group>"; };
 		509FD1F21A6492CC003A7AEE /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = SOURCE_ROOT; };
 		509FD2161A6492FB003A7AEE /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "../../../vivr libraries/SwiftyJSON-master 2/Source/SwiftyJSON.swift"; sourceTree = "<group>"; };
+		50A5DB5D1B01356800EF3A67 /* findFriendsViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = findFriendsViewViewController.swift; sourceTree = "<group>"; };
+		50A5DB631B0141CC00EF3A67 /* editPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editPaymentViewController.swift; sourceTree = "<group>"; };
+		50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addFlavorTagsView.swift; sourceTree = "<group>"; };
 		50AD676C1A429A1700D2BD35 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewController.swift; path = "vivr v4/BrowseViewController.swift"; sourceTree = SOURCE_ROOT; };
 		50BBB7F41A649BCA00D0978E /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		50BBB7FA1A65C93F00D0978E /* ProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 		50BCB78C1A7B2B6500EEC9D0 /* registerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
+		50C192AD1B072406008B557F /* tempo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tempo.swift; sourceTree = "<group>"; };
+		50C192B31B0A608D008B557F /* newFavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newFavoritesViewController.swift; sourceTree = "<group>"; };
 		50C2C6321AC4A167006E9EBB /* anyUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = anyUserViewController.swift; sourceTree = "<group>"; };
 		50C2C63B1AC720EE006E9EBB /* anyFavoritesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = anyFavoritesController.swift; sourceTree = "<group>"; };
 		50C2C6411AC75DDA006E9EBB /* footerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = footerCell.swift; sourceTree = "<group>"; };
@@ -244,22 +279,28 @@
 			children = (
 				50F213F21AD71A4500E64DA1 /* Haneke.xcodeproj */,
 				50632C4E1A70922500DD7EAA /* Main.storyboard */,
+				50142EA61AF6AA40004ED2A2 /* Walkthrough.storyboard */,
+				50985CD21AFC389A007BB4DD /* colorPicker */,
 				50EC0ED51AEC346F002D1D40 /* SWRevealController */,
 				50EC0ED41AEC3390002D1D40 /* Views */,
 				50EC0ED31AEC3386002D1D40 /* cells */,
 				501E04171A428F1900F93122 /* AppDelegate.swift */,
+				507F2DDA1AFFFA0200BBAA67 /* B68UIFloatLabelTextField.swift */,
+				50C192AD1B072406008B557F /* tempo.swift */,
+				50142E991AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift */,
+				50142E9A1AF69BD2004ED2A2 /* BWWalkthroughViewController.swift */,
 				50C3B4631A7C5DC400EC39D1 /* KeychainService.swift */,
 				50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */,
 				5072DAA31A9E60C600A64CAB /* commentsButton.swift */,
 				50F2532C1A88253F0057B2AC /* Router.swift */,
 				50BCB78C1A7B2B6500EEC9D0 /* registerViewController.swift */,
-				5072DA9F1A9D670F00A64CAB /* commentsViewController.swift */,
 				5065BF191AD49E5200D34AAA /* FloatRatingView.swift */,
 				501E041B1A428F1900F93122 /* SecondViewController.swift */,
 				509FD2161A6492FB003A7AEE /* SwiftyJSON.swift */,
 				504D7BC81A8870B100E3463C /* PTSans.ttc */,
 				504D7BCA1A88733300E3463C /* PTSans-Bold.ttf */,
 				501E04201A428F1900F93122 /* Images.xcassets */,
+				501090BC1B0AA05500EFC546 /* help-50.png */,
 				501E04221A428F1900F93122 /* LaunchScreen.xib */,
 				501E04151A428F1900F93122 /* Supporting Files */,
 			);
@@ -291,6 +332,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		50985CD21AFC389A007BB4DD /* colorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				50985CD71AFC38B2007BB4DD /* DBImageColorPicker.h */,
+				50985CD81AFC38B2007BB4DD /* DBImageColorPicker.m */,
+				50985CD91AFC38B2007BB4DD /* UIImage+Color.h */,
+				50985CDA1AFC38B2007BB4DD /* UIImage+Color.m */,
+			);
+			name = colorPicker;
+			sourceTree = "<group>";
+		};
 		50A65E871A9179D200BCBD77 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +358,7 @@
 			children = (
 				5065BF131AD4996A00D34AAA /* attributesCell.swift */,
 				509FD1F01A649154003A7AEE /* BrandTableViewCell.swift */,
+				501233731B02AAB400D8E4ED /* TagCell.swift */,
 				50F253221A85C45A0057B2AC /* buzzCell.swift */,
 				5072DAA11A9D682100A64CAB /* commentCell.swift */,
 				506785CF1AAE630700598D4B /* FavoriteCollectionCell.swift */,
@@ -330,14 +383,23 @@
 			children = (
 				50C2C63B1AC720EE006E9EBB /* anyFavoritesController.swift */,
 				50C2C6321AC4A167006E9EBB /* anyUserViewController.swift */,
+				502DFC7B1AF9988F0052EF50 /* anyUserProfileView.swift */,
+				50A5DB5D1B01356800EF3A67 /* findFriendsViewViewController.swift */,
 				505FB85E1A47698600584FF8 /* brandFlavorViewController.swift */,
 				50AD676C1A429A1700D2BD35 /* BrowseViewController.swift */,
+				507F2DE21AFFFE2200BBAA67 /* editProfileController.swift */,
 				505FB8601A47734300584FF8 /* buzzViewController.swift */,
+				50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */,
+				507F2DE41B0115DE00BBAA67 /* settingsMainController.swift */,
+				501F38271B069C6500242DCF /* wishListViewControler.swift */,
+				50C192B31B0A608D008B557F /* newFavoritesViewController.swift */,
+				5072DA9F1A9D670F00A64CAB /* commentsViewController.swift */,
 				506785CD1AAE54EA00598D4B /* MyFavoritesController.swift */,
 				50BBB7F41A649BCA00D0978E /* ProductViewController.swift */,
 				505FB8641A48D57900584FF8 /* reviewViewController.swift */,
 				505F1D7C1A99744B0011BCE8 /* userViewController.swift */,
 				5055C90D1AEC4300001287B2 /* menuController.swift */,
+				50A5DB631B0141CC00EF3A67 /* editPaymentViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -504,8 +566,10 @@
 				504D7BC91A8870B100E3463C /* PTSans.ttc in Resources */,
 				501E04241A428F1900F93122 /* LaunchScreen.xib in Resources */,
 				501E04211A428F1900F93122 /* Images.xcassets in Resources */,
+				50142EA71AF6AA40004ED2A2 /* Walkthrough.storyboard in Resources */,
 				504D7BC21A88493E00E3463C /* Main.storyboard in Resources */,
 				504D7BCB1A88733300E3463C /* PTSans-Bold.ttf in Resources */,
+				501090BD1B0AA05500EFC546 /* help-50.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,8 +590,10 @@
 				50C3B45E1A7C59B200EC39D1 /* loginViewController.swift in Sources */,
 				505F1D7F1A9979F50011BCE8 /* profileCell.swift in Sources */,
 				501E041C1A428F1900F93122 /* SecondViewController.swift in Sources */,
+				50A5DB661B01474B00EF3A67 /* addFlavorTagsView.swift in Sources */,
+				502DFC7C1AF9988F0052EF50 /* anyUserProfileView.swift in Sources */,
 				505F1D7D1A99744B0011BCE8 /* userViewController.swift in Sources */,
-				50C2C6331AC4A167006E9EBB /* anyUserViewController.swift in Sources */,
+				507F2DE51B0115DE00BBAA67 /* settingsMainController.swift in Sources */,
 				506785D01AAE630700598D4B /* FavoriteCollectionCell.swift in Sources */,
 				5065BF141AD4996A00D34AAA /* attributesCell.swift in Sources */,
 				50F2532B1A85C4EF0057B2AC /* newCell.swift in Sources */,
@@ -535,30 +601,42 @@
 				501E04181A428F1900F93122 /* AppDelegate.swift in Sources */,
 				50C2C63C1AC720EE006E9EBB /* anyFavoritesController.swift in Sources */,
 				505FB85F1A47698600584FF8 /* brandFlavorViewController.swift in Sources */,
+				50142E9C1AF69BD2004ED2A2 /* BWWalkthroughViewController.swift in Sources */,
 				50EC0ECD1AEB0CFB002D1D40 /* loadMoreCell.swift in Sources */,
+				50C192AE1B072406008B557F /* tempo.swift in Sources */,
 				50F253231A85C45A0057B2AC /* buzzCell.swift in Sources */,
 				504DEAAC1A9185C300398961 /* ProductViewController.swift in Sources */,
 				5033791D1AD2ED7F00567436 /* productCell.swift in Sources */,
+				507F2DDB1AFFFA0200BBAA67 /* B68UIFloatLabelTextField.swift in Sources */,
 				50F2532D1A88253F0057B2AC /* Router.swift in Sources */,
 				5072DAA41A9E60C600A64CAB /* commentsButton.swift in Sources */,
 				50AD676D1A429A1700D2BD35 /* BrowseViewController.swift in Sources */,
 				504D7BC41A8849B600E3463C /* reviewTableViewCell.swift in Sources */,
 				505F1D811A997A8A0011BCE8 /* myReviewsCell.swift in Sources */,
+				50C192B41B0A608D008B557F /* newFavoritesViewController.swift in Sources */,
 				50BCB78D1A7B2B6500EEC9D0 /* registerViewController.swift in Sources */,
 				5055C90E1AEC4300001287B2 /* menuController.swift in Sources */,
+				50985CDC1AFC38B2007BB4DD /* UIImage+Color.m in Sources */,
+				501F38281B069C6500242DCF /* wishListViewControler.swift in Sources */,
 				5072DAA21A9D682100A64CAB /* commentCell.swift in Sources */,
+				50142E9B1AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift in Sources */,
 				50C2C6421AC75DDA006E9EBB /* footerCell.swift in Sources */,
 				5065BF1A1AD49E5200D34AAA /* FloatRatingView.swift in Sources */,
+				50A5DB5E1B01356800EF3A67 /* findFriendsViewViewController.swift in Sources */,
+				50985CDB1AFC38B2007BB4DD /* DBImageColorPicker.m in Sources */,
 				50C3B4641A7C5DC400EC39D1 /* KeychainService.swift in Sources */,
 				509FD2171A6492FB003A7AEE /* SwiftyJSON.swift in Sources */,
+				507F2DE31AFFFE2200BBAA67 /* editProfileController.swift in Sources */,
 				506785CE1AAE54EA00598D4B /* MyFavoritesController.swift in Sources */,
 				505FB8611A47734300584FF8 /* buzzViewController.swift in Sources */,
 				50C2C6441ACA0C09006E9EBB /* myFavoritesCell.swift in Sources */,
 				5072DAA01A9D670F00A64CAB /* commentsViewController.swift in Sources */,
+				501233741B02AAB400D8E4ED /* TagCell.swift in Sources */,
 				503379231AD2EE7100567436 /* flavorCell.swift in Sources */,
 				502337E51A8C21AE00A56BA7 /* vivrHeaderCell.swift in Sources */,
 				50EC0ED91AEC34A1002D1D40 /* SWRevealViewController.m in Sources */,
 				504D7BCC1A8887E400E3463C /* BrandTableViewCell.swift in Sources */,
+				50A5DB641B0141CC00EF3A67 /* editPaymentViewController.swift in Sources */,
 				50F253291A85C4D10057B2AC /* vivrCell.swift in Sources */,
 				505FB8651A48D57900584FF8 /* reviewViewController.swift in Sources */,
 			);
@@ -696,6 +774,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "vivr v4/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "vivr v4/vivr v4-Bridging-Header.h";
@@ -710,6 +789,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "vivr v4/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "vivr v4/vivr v4-Bridging-Header.h";

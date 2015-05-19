@@ -13,9 +13,9 @@ import Alamofire
 class anyFavoritesController: UICollectionViewController, UICollectionViewDelegateFlowLayout, favoritesCellDelegate {
     
     @IBOutlet var favoriteCollection: UICollectionView!
-    var userID:String = ""
     var myFavorites:[JSON]? = []
     var userName:String = ""
+    var userID:String?
     var segueIdentifier:String = ""
     var productID:String = ""
     let reuseIdentifier = "cell"
@@ -25,17 +25,21 @@ class anyFavoritesController: UICollectionViewController, UICollectionViewDelega
         }
         super.viewDidLoad()
         self.navigationItem.title = "\(userName)'s Favorites"
-        navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
         
         
     }
+    
     override func viewWillAppear(animated: Bool) {
-        navigationController?.navigationBar.tintColor = UIColor(red: 43.0/255, green: 169.0/255, blue: 41.0/255, alpha: 1.0)
+        loadFavorites()
+        configureNavigation()
+        self.automaticallyAdjustsScrollViewInsets = true 
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+    }
+    func configureNavigation(){
+        navigationController?.navigationBar.barTintColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         navigationController?.navigationBar.translucent = false
         navigationController?.navigationBarHidden = false
-        self.automaticallyAdjustsScrollViewInsets = true 
-        loadFavorites()
-        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }
     
     override func didReceiveMemoryWarning() {
@@ -80,13 +84,13 @@ class anyFavoritesController: UICollectionViewController, UICollectionViewDelega
     
     func loadFavorites(){
         
-        Alamofire.request(Router.readUserFavorites(userID)).responseJSON { (request, response, json, error) in
+        Alamofire.request(Router.readUserFavorites(userID!)).responseJSON { (request, response, json, error) in
             if (json != nil) {
                 println(request)
                 println(response)
                 println(json)
                 var jsonOBJ = JSON(json!)
-                if let data = jsonOBJ.arrayValue as [JSON]? {
+                if let data = jsonOBJ["data"].arrayValue as [JSON]? {
                     self.myFavorites = data
                     println(self.myFavorites)
                     self.favoriteCollection.reloadData()

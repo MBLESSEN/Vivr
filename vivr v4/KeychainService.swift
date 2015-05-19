@@ -66,7 +66,7 @@ class KeychainService: NSObject {
         var contentsOfKeychain: NSString?
         
         if let op = opaque? {
-            let retrievedData = Unmanaged<NSData>.fromOpaque(op).takeUnretainedValue()
+           let retrievedData = Unmanaged<NSData>.fromOpaque(op).takeUnretainedValue()
             
             // Convert the data retrieved from the keychain into a string
             contentsOfKeychain = NSString(data: retrievedData, encoding: NSUTF8StringEncoding)

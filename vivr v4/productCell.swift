@@ -37,7 +37,7 @@ class productCell: UITableViewCell {
     
     func loadData() {
         self.productDescription.text = self.product!["description"].string
-        self.productDescription.sizeToFit()
+        //self.productDescription.sizeToFit()
         self.flavorName.text = self.product!["name"].string
         self.flavorName.sizeToFit()
         //self.floatRatingView.rating

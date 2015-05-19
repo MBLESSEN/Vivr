@@ -10,24 +10,69 @@ import UIKit
 import Alamofire
 
 
-class loginViewController: UIViewController {
+class loginViewController: UIViewController, BWWalkthroughViewControllerDelegate, loginDelegate {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var walkthroughContainer: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         println(KeychainService.loadToken())
+        configureNavBar()
         if (KeychainService.loadToken() != nil){
             self.performSegueWithIdentifier("loginSuccess", sender: self)
         }
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        showWalkthrough()
+        navigationController?.navigationBar.hidden = true
+    }
+    
+    func configureNavBar(){
+        let backItem = UIBarButtonItem(title: "", style: .Bordered, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backItem
+    }
+    
+    func showWalkthrough() {
+        let stb = UIStoryboard(name: "Walkthrough", bundle: nil)
+        let master = stb.instantiateViewControllerWithIdentifier("master") as BWWalkthroughViewController
+        master.viewDelegate = self
+        let pageOne = stb.instantiateViewControllerWithIdentifier("page1") as UIViewController
+        let pageTwo = stb.instantiateViewControllerWithIdentifier("page2") as UIViewController
+        let pageThree = stb.instantiateViewControllerWithIdentifier("page3") as UIViewController
+        let pageFour = stb.instantiateViewControllerWithIdentifier("page4") as UIViewController
+        let pageFive = stb.instantiateViewControllerWithIdentifier("page5") as UIViewController
+        master.delegate = self
+        
+        master.addViewController(pageOne)
+        master.addViewController(pageTwo)
+        master.addViewController(pageThree)
+        master.addViewController(pageFour)
+        master.addViewController(pageFive)
+        
+        
+        self.addChildViewController(master)
+        master.view.frame = self.walkthroughContainer.frame
+        walkthroughContainer.addSubview(master.view)
+        master.didMoveToParentViewController(self)
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func tappedLoginButton(view: BWWalkthroughViewController) {
+        performSegueWithIdentifier("loginSucess", sender: self)
+    }
+    
+    func tappedRegisterButton(view: BWWalkthroughViewController) {
+        performSegueWithIdentifier("registerSegue", sender: self)
     }
     
     @IBAction func loginPressed(sender: AnyObject) {

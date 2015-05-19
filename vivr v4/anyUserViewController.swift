@@ -7,11 +7,13 @@ class anyUserViewController: UIViewController, reviewCellDelegate {
     var userID: String = ""
     var segueIdentifier: String = ""
     var collectionReuseIdentifier = "cell"
-    var userName:String = ""
+    var userName:String?
+    var userImage:String = ""
     var reviewsCount:String?
     var favoritesCount:String?
     var commentsCount:String?
     var selectedProductID:String?
+    var reviewID:String?
 
     @IBOutlet weak var profileTable: UITableView!
     
@@ -19,12 +21,20 @@ class anyUserViewController: UIViewController, reviewCellDelegate {
         super.viewDidLoad()
         self.profileTable.contentInset = UIEdgeInsetsMake(-44,0,0,0);
         //automaticallyAdjustsScrollViewInsets = false
-        loadProfile()
-        loadMyReviews()
         
     }
     
     override func viewWillAppear(animated: Bool) {
+        loadProfile()
+        loadMyReviews()
+        configureNavigation()
+        profileTable.estimatedRowHeight = 400
+        profileTable.rowHeight = UITableViewAutomaticDimension
+        profileTable.reloadData()
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+    }
+    
+    func configureNavigation() {
         navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         //automaticallyAdjustsScrollViewInsets = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
@@ -32,11 +42,6 @@ class anyUserViewController: UIViewController, reviewCellDelegate {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.translucent = false
         navigationController?.navigationBarHidden = false
-        profileTable.estimatedRowHeight = 300
-        profileTable.rowHeight = UITableViewAutomaticDimension
-        profileTable.reloadData()
-        
-        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,16 +58,26 @@ class anyUserViewController: UIViewController, reviewCellDelegate {
         self.selectedProductID = cell.productID
         performSegueWithIdentifier(segueIdentifier, sender: self)
     }
+    func tappedCommentButton(cell: myReviewsCell) {
+        self.segueIdentifier = "anyUserToComments"
+        self.selectedProductID = cell.productID
+        self.reviewID = cell.reviewID
+        performSegueWithIdentifier(segueIdentifier, sender: self)
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier {
         case "anyUserToFavorites":
             var favoritesVC: anyFavoritesController = segue.destinationViewController as anyFavoritesController
             favoritesVC.userID = self.userID
-            favoritesVC.userName = self.userName
+            favoritesVC.userName = self.userName!
         case "anyUserToFlavor":
-        var productVC: brandFlavorViewController = segue.destinationViewController as brandFlavorViewController
+            var productVC: brandFlavorViewController = segue.destinationViewController as brandFlavorViewController
             productVC.selectedProductID = selectedProductID
+        case "anyUserToComments":
+            var commentsVC: commentsViewController = segue.destinationViewController as commentsViewController
+            commentsVC.productID = selectedProductID!
+            commentsVC.reviewID = reviewID!
         default:
             println("no segue")
         }
@@ -83,23 +98,20 @@ class anyUserViewController: UIViewController, reviewCellDelegate {
             return self.myReviews?.count ?? 0
         }
     }
-
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         switch indexPath.section{
         case 0:
-            var profile = profileTable.dequeueReusableCellWithIdentifier("profileCell", forIndexPath: indexPath) as profileCell
+            var profile = self.profileTable.dequeueReusableCellWithIdentifier("profileCell", forIndexPath: indexPath) as profileCell
             profile.favoritesCount.text =  "0"
             profile.reviewsCount.text = self.reviewsCount ?? "0"
-            profile.commentsCount.text = self.commentsCount ?? "0"
             profile.profile = self.userID
             return profile
         default:
             var cell = profileTable.dequeueReusableCellWithIdentifier("myReviews", forIndexPath: indexPath) as myReviewsCell
             cell.review = self.myReviews?[indexPath.row]
             cell.cellDelegate = self
-            cell.state = "notLiked"
             return cell
         }
     }
@@ -107,10 +119,12 @@ class anyUserViewController: UIViewController, reviewCellDelegate {
 
     func loadProfile(){
         
-        Alamofire.request(Router.readUser(self.userID)).responseJSON { (request, response, json, error) in
+        Alamofire.request(Router.readUser(userID)).responseJSON { (request, response, json, error) in
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
-                self.userName = jsonOBJ["username"].string!
+                if let name = jsonOBJ["username"].stringValue as String? {
+                    self.userName = name
+                }
             }
         }
     }

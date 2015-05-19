@@ -41,9 +41,6 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     override func viewDidLoad() {
-        if self.revealViewController() != nil {
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
         super.viewDidLoad()
         println("id is \(selectedProductID)")
         mainTable.estimatedRowHeight = 100.0
@@ -51,15 +48,20 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     override func viewWillAppear(animated: Bool) {
-        checkFavorites()
-        navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
-        navigationController?.navigationBar.tintColor = UIColor(red: 43.0/255, green: 169.0/255, blue: 41.0/255, alpha: 1.0)
-        navigationController?.navigationBar.translucent = false
+        configureNavBar()
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         loadProductData()
         loadReviews()
         loadTags()
         self.navigationItem.rightBarButtonItems = [reviewButton]
         self.mainTable.reloadData()
+    }
+    
+    func configureNavBar() {
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain , target: nil, action: nil)
+        navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.tintColor = UIColor(red: 43.0/255, green: 169.0/255, blue: 41.0/255, alpha: 1.0)
+        navigationController?.navigationBar.translucent = false
     }
     
     override func viewDidLayoutSubviews() {
@@ -101,38 +103,6 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
         self.navigationItem.rightBarButtonItems = [reviewButton, currentLikeButton!]
 
     }
-    func checkFavorites() {
-        Alamofire.request(Router.readCurrentUser()).responseJSON { (request, response, json, error) in
-            if (json != nil) {
-                let userJson = JSON(json!)
-                if let id = userJson["id"].stringValue as String? {
-                    self.userID = id
-                    Alamofire.request(Router.readUserFavorites(self.userID!)).responseJSON { (request, response, json, error) in
-                        if (json != nil) {
-                            let jsonOBJ = JSON(json!)
-                            if let data = jsonOBJ.arrayValue as [JSON]? {
-                                self.favoritesList = data
-                                for (index: String, subJson: JSON) in jsonOBJ {
-                                    if let favoriteID = self.favoritesList?[index.toInt()!]["product"]["id"].stringValue {
-                                        self.favoritesIDList.append(favoriteID)
-                                        
-                                    }
-                                }
-                                println(self.favoritesIDList)
-                                for id in self.favoritesIDList {
-                                    if (self.selectedProductID! == id as String) {
-                                        self.isFavorite = true
-                                    }
-                                }
-                                self.setFavorite()
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-    }
     
     @IBAction func favoriteSelected(sender: AnyObject) {
         
@@ -142,6 +112,8 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
             println(json)
             println(error)
         }
+        
+        
         
     }
     
@@ -156,6 +128,10 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
                     }
                     if let pv = self.productData?["scores"]["vapor"].int as Int? {
                     self.productVapor = pv
+                    }
+                    if let favoriteState = self.productData?["current_favorite"].boolValue as Bool? {
+                    self.isFavorite = favoriteState
+                    self.setFavorite()
                     }
                 }
                 }
@@ -201,6 +177,9 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
         self.segueIdentifier = "flavorToUser"
         selectedUserID = cell.userID
         performSegueWithIdentifier(segueIdentifier, sender: cell)
+    }
+    
+    func tappedProductButton(cell: vivrHeaderCell) {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -272,8 +251,8 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
                 var reviewVC: reviewViewController = segue.destinationViewController as reviewViewController
                 reviewVC.productID = self.selectedProductID!
             case "flavorToUser":
-                var userVC: anyUserViewController = segue.destinationViewController as anyUserViewController
-                userVC.userID = self.selectedUserID
+                var userVC: anyUserProfileView = segue.destinationViewController as anyUserProfileView
+                userVC.selectedUserID = self.selectedUserID
         default:
             println("no segue")
             

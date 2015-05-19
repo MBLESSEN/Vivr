@@ -8,29 +8,40 @@
 
 import UIKit
 import Alamofire
+import Haneke
+
+protocol profileDelegate {
+    func reloadUI(cell: profileCell)
+}
 
 class profileCell: UITableViewCell {
 
+    @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var favoritesButton: UIButton!
     @IBOutlet weak var reviewsButton: UIButton!
     @IBOutlet weak var commentsButton: UIButton!
     @IBOutlet weak var favoritesCount: UILabel!
     @IBOutlet weak var reviewsCount: UILabel!
-    @IBOutlet weak var commentsCount: UILabel!
+    @IBOutlet weak var wishCount: UILabel!
+    @IBOutlet weak var bio: UILabel!
+    @IBOutlet weak var hardware: UILabel!
+    var cellDelegate:profileDelegate? = nil
     
-    var profile:String? {
-        didSet {
-            self.loadProfile()
-        }
-    }
-    
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        userName.sizeToFit() 
         favoritesButton.layer.cornerRadius = 3
         reviewsButton.layer.cornerRadius = 3
         commentsButton.layer.cornerRadius = 3
+        userImage.layer.zPosition = userImage.layer.zPosition + 4
+        self.userImage.layer.cornerRadius = self.userImage.frame.size.width / 2
+        self.userImage.clipsToBounds = true
+        self.userImage.layer.borderWidth = 3.0
+        self.userImage.layer.borderColor = UIColor.whiteColor().CGColor
+
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -38,17 +49,8 @@ class profileCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    func loadProfile(){
-        
-        Alamofire.request(Router.readUser(self.profile!)).responseJSON { (request, response, json, error) in
-            if (json != nil) {
-                var jsonOBJ = JSON(json!)
-                self.userName.text = jsonOBJ["username"].string
 
-            }
-        }
-    }
+   
     
 
 }

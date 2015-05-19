@@ -38,6 +38,19 @@ class commentCell: UITableViewCell {
             self.userName.setTitle(theUserName, forState:UIControlState.Normal)
             userName.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         }
-        self.commentContent.text = self.comment?["description"].stringValue
+        if let date = self.comment?["created_at"].stringValue as String?{
+            let dateFor:NSDateFormatter = NSDateFormatter()
+            dateFor.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            let theDate:NSDate = dateFor.dateFromString(date)!
+            let tempoDate = Tempo(date: theDate)
+            let timeStamp = tempoDate.timeAgoNow()
+            if let commentString = self.comment?["description"].stringValue as String? {
+                var comment = NSMutableAttributedString(string: commentString + "  -  ")
+                let x = NSAttributedString(string: timeStamp, attributes: [NSForegroundColorAttributeName:UIColor.lightGrayColor()])
+                comment.appendAttributedString(x)
+                self.commentContent.attributedText = comment
+                self.commentContent.sizeToFit() 
+            }
+        }
     }
 }
