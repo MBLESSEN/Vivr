@@ -20,7 +20,7 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
-		<string>../..Alamofire</string>
+		<string>../..Alamofire/</string>
 		<key>E8C5BAFC1A0C517EA2446C4E82CE04CEBC30892C</key>
 		<string>../..</string>
 	</dict>
@@ -36,17 +36,17 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E8C5BAFC1A0C517EA2446C4E82CE04CEBC30892C</string>
+			<string>67620B5EFA902936DF04070AF595B76AB0333747</string>
 			<key>IDESourceControlWCCName</key>
-			<string>vivr_v4</string>
+			<string>Alamofire</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>67620B5EFA902936DF04070AF595B76AB0333747</string>
+			<string>E8C5BAFC1A0C517EA2446C4E82CE04CEBC30892C</string>
 			<key>IDESourceControlWCCName</key>
-			<string>vivr_v4Alamofire</string>
+			<string>vivr_v4</string>
 		</dict>
 	</array>
 </dict>

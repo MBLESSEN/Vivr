@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class commentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, VivrCellDelegate {
+class commentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, VivrCellDelegate, CommentCellDelegate {
     
 
     @IBOutlet weak var flavorName: UILabel!
@@ -18,6 +18,7 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var keyBoardViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var commentView: UIView!
     
+    var selectedUserID:String?
     var reviewID: String = ""
     var productID: String = ""
     var commentResults:[JSON]? = []
@@ -33,14 +34,15 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
         var endKeyboardRecongnizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
         self.view.addGestureRecognizer(endKeyboardRecongnizer)
         startObservingKeyboardEvents()
-        commentsTable.rowHeight = UITableViewAutomaticDimension
 
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         configureNavBar()
         loadData()
+        configureTableView()
     }
     
     func configureNavBar() {
@@ -53,6 +55,7 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     navigationController?.navigationBar.tintColor = UIColor.whiteColor()
     navigationController?.navigationItem.backBarButtonItem?.tintColor = UIColor.whiteColor()
     navigationController?.navigationBar.barTintColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
+    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain , target: nil, action: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,6 +68,11 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
         commentField.becomeFirstResponder()
         commentField.endEditing(true)
         }
+    }
+    
+    func configureTableView() {
+        commentsTable.estimatedRowHeight = 700 
+        commentsTable.rowHeight = UITableViewAutomaticDimension
     }
     
     private func startObservingKeyboardEvents() {
@@ -98,7 +106,7 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
         if let userInfo = notification.userInfo {
             if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
                 UIView.animateWithDuration(2, animations: { () -> Void in
-                    self.keyBoardViewBottomConstraint.constant = 8
+                    self.keyBoardViewBottomConstraint.constant = 0
                     self.view.layoutIfNeeded()
                     self.keyboardActive = false
                 })
@@ -116,33 +124,65 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    func helpfulTrue(cell: vivrCell) {
+        
+        
+    }
+    func helpfulFalse(cell: vivrCell) {
+        
+        
+    }
+    func wishlistTrue(cell: vivrCell) {
+        
+        
+    }
+    func wishlistFalse(cell: vivrCell) {
+        
+        
+    }
+    
+    func tappedUserButton(cell: vivrCell) {
+        self.segueIdentifier = "toUserSegue"
+        selectedUserID = cell.userID!
+        performSegueWithIdentifier(segueIdentifier, sender: cell)
+    }
+    
+   func tappedCommentUserButton(cell: commentCell) {
+        self.segueIdentifier = "toUserSegue"
+        selectedUserID = cell.userID!
+        performSegueWithIdentifier(segueIdentifier, sender: cell)
+    }
+    
     func reloadAPI(cell: vivrCell) {
         self.loadData()
     }
     
     @IBAction func submitCommentTapped(sender: AnyObject) {
-        let text = commentField.text
+        var text = commentField.text
         if (text != nil) {
-        let parameters: [String : AnyObject] = [
+        var parameters: [String : AnyObject] = [
             "description": text
         ]
         
         Alamofire.request(Router.PostComment(productID, reviewID, parameters)).responseJSON { (request, response, json, error) in
             if (error != nil) {
                 println("error")
+            }else{
+                self.commentField.text = ""
+                self.hideKeyboard()
+                self.loadData()
+                println("success")
             }
             
         }
-            commentField.text = nil
-            hideKeyboard()
+
         }
         else {
             let emptyTextAlert = UIAlertController(title: "oops!", message: "You didnt enter a comment", preferredStyle: UIAlertControllerStyle.Alert)
             emptyTextAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(emptyTextAlert, animated: true, completion: nil)
         }
-        loadData()
-        commentsTable.reloadData()
+        
     }
     
     
@@ -174,23 +214,26 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         switch indexPath.section{
         case 0:
-            var theReview = commentsTable.dequeueReusableCellWithIdentifier("review") as vivrCell
+            var theReview = commentsTable.dequeueReusableCellWithIdentifier("review") as! vivrCell
             theReview.reviewAndComment = results!
             if let state = results!["current_helpful"].boolValue as Bool? {
                 theReview.helpfullState = state 
             }
             theReview.wishlistState = true
             theReview.cellDelegate = self
+            theReview.preservesSuperviewLayoutMargins = false 
             return theReview
         default:
             switch commentcount! {
             case 0:
-                let emptyCell = commentsTable.dequeueReusableCellWithIdentifier("noCommentCell") as UITableViewCell
+                let emptyCell = commentsTable.dequeueReusableCellWithIdentifier("noCommentCell") as! UITableViewCell
                 
                 return emptyCell
             default:
-                var comment = commentsTable.dequeueReusableCellWithIdentifier("comment") as commentCell
+                var comment = commentsTable.dequeueReusableCellWithIdentifier("comment") as! commentCell
                 comment.comment = commentResults?[indexPath.row]
+                comment.cellDelegate = self 
+                comment.preservesSuperviewLayoutMargins = false 
                 return comment
             }
         }
@@ -199,15 +242,17 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func loadData(){
         Alamofire.request(Router.readComments(productID, reviewID)).responseJSON { (request, response, json, error) in
-            println(json)
             if (json != nil) {
+                println(request)
+                println(response)
+                println(json)
+                println(error)
                 var jsonOBJ = JSON(json!)
                 if let commentData = jsonOBJ["comments"].arrayValue as [JSON]? {
                     self.commentResults = commentData
                 }
                 if let data = jsonOBJ as JSON? {
                     self.results = data
-                    
                 }
                 self.commentsTable.reloadData()
             }
@@ -218,8 +263,11 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier {
         case "commentsToProduct":
-            var productVC: brandFlavorViewController = segue.destinationViewController as brandFlavorViewController
+            var productVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
             productVC.selectedProductID = self.productID
+        case "toUserSegue":
+            var userVC: anyUserProfileView = segue.destinationViewController as! anyUserProfileView
+            userVC.selectedUserID = self.selectedUserID
         default:
             println("noSegue")
             

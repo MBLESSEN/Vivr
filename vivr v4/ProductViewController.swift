@@ -42,6 +42,8 @@ class ProductViewController: UIViewController, UITableViewDataSource {
     
     override func viewWillAppear(animated: Bool) {
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain , target: nil, action: nil)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,8 +60,9 @@ class ProductViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = productTableView.dequeueReusableCellWithIdentifier("productCell") as ProductTableViewCell
+        let cell = productTableView.dequeueReusableCellWithIdentifier("productCell") as! ProductTableViewCell
         cell.products = self.productResults?[indexPath.row]
+        cell.preservesSuperviewLayoutMargins = false 
         return cell
     }
     
@@ -84,7 +87,7 @@ class ProductViewController: UIViewController, UITableViewDataSource {
    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         println("prepare for segue:\(selectedBrand)")
-        var productVC: brandFlavorViewController = segue.destinationViewController as brandFlavorViewController
+        var productVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
         productVC.selectedProductID = selectedProductID
     }
 

@@ -16,6 +16,7 @@ class menuController: UITableViewController {
     @IBOutlet weak var favoritesCount: UILabel!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var favoritesCell: UITableViewCell!
+    @IBOutlet weak var userImage: UIImageView!
     
     var segueIdentifier:String?
 
@@ -30,6 +31,9 @@ class menuController: UITableViewController {
         self.favoritesCount.text = myData.favoritesCount
         self.reviewsCount.text = myData.reviewsCount
         self.wishListCount.text = myData.wishlistCount
+        userImage.hnk_setImageFromURL(myData.userImage!)
+        self.userImage.layer.cornerRadius = self.userImage.frame.size.width / 2
+        self.userImage.clipsToBounds = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,10 +71,6 @@ class menuController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let path = self.tableView.indexPathForSelectedRow()
-        if (path!.row == 9) {
-            let wishVC: wishListViewControler = segue.destinationViewController as wishListViewControler
-            wishVC.userID = myData.myProfileID
-        }
     }
     
 

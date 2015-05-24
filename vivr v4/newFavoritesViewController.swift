@@ -17,13 +17,17 @@ class newFavoritesViewController: UIViewController, UITableViewDataSource, produ
     var userNameLabel:UILabel?
     var segueIdentifier:String?
     var selectedProductID:String?
+    var isLoadingProducts = false
     
-    @IBOutlet weak var wishlistTable: UITableView!
+    var favorites:Array<Favorite>?
+    var favoritesWrapper:FavoriteWrapper?
+    
+    @IBOutlet weak var favoritesTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        wishlistTable.contentInset = UIEdgeInsetsZero
-        wishlistTable.rowHeight = 220
+        favoritesTable.contentInset = UIEdgeInsetsZero
+        favoritesTable.rowHeight = 220
         self.automaticallyAdjustsScrollViewInsets = false
         // Do any additional setup after loading the view.
     }
@@ -50,7 +54,7 @@ class newFavoritesViewController: UIViewController, UITableViewDataSource, produ
     
     var userID:String? {
         didSet{
-            loadWishlist()
+            loadFirstFavorite()
         }
     }
     
@@ -63,21 +67,21 @@ class newFavoritesViewController: UIViewController, UITableViewDataSource, produ
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch wishCount {
         case 0:
-            let cell = wishlistTable.dequeueReusableCellWithIdentifier("myEmptyWishlist") as UITableViewCell
+            let cell = favoritesTable.dequeueReusableCellWithIdentifier("myEmptyWishlist") as! UITableViewCell
             return cell
         default:
-            return loadWishListCell(indexPath)
+            return loadFavoriteCell(indexPath)
         }
         
     }
     
-    func loadWishListCell(indexPath:NSIndexPath) -> ProductTableViewCell {
-        let cell = wishlistTable.dequeueReusableCellWithIdentifier("favoriteCell") as ProductTableViewCell
-        if (wishlist != nil){
-            let wishIndex = wishlist![indexPath.row]
-            cell.productLabel.text = wishIndex["product"]["name"].stringValue
-            cell.productBrandName!.text = wishIndex["product"]["brand"]["name"].stringValue
-            cell.productID = wishIndex["product"]["id"].stringValue
+    func loadFavoriteCell(indexPath:NSIndexPath) -> ProductTableViewCell {
+        let cell = favoritesTable.dequeueReusableCellWithIdentifier("favoriteCell") as! ProductTableViewCell
+        if self.favorites != nil && self.favorites!.count >= indexPath.row {
+            let favorite = self.favorites![indexPath.row]
+            cell.productLabel.text = favorite.product?.name
+            cell.productBrandName!.text = favorite.brand?.name
+            cell.productID = String(stringInterpolationSegment: favorite.productID!)
             cell.cellDelegate = self
         }
         return cell
@@ -85,33 +89,66 @@ class newFavoritesViewController: UIViewController, UITableViewDataSource, produ
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.wishCount = wishlist?.count ?? 1
-        return self.wishCount
+        if self.favorites == nil {
+            return 1
+        }
+        return self.favorites!.count
     }
     
-    func loadWishlist() {
-        Alamofire.request(Router.readUserFavorites(userID!)).responseJSON {(request, response, json, error) in
-            if (json != nil) {
-                let jsonOBJ = JSON(json!)
-                if let data = jsonOBJ["data"].arrayValue as [JSON]? {
-                    self.wishlist = data
-                    self.wishlistTable.reloadData()
-                }
-                
-            }
-        }
-    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier!{
         case "favoriteToProduct":
-            let productVC:brandFlavorViewController = segue.destinationViewController as brandFlavorViewController
+            let productVC:brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
             productVC.selectedProductID = selectedProductID
         default:
             println("no segue")
         }
     }
+    func loadFirstFavorite() {
+        self.favorites = []
+        isLoadingProducts = true
+        Favorite.getProducts(userID!, completionHandler: { (productWrapper, error) in
+            if error != nil {
+                self.isLoadingProducts = false
+                var alert = UIAlertController(title: "Error", message: "could not load first favorites", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            self.addFavoriteFromWrapper(productWrapper)
+            self.isLoadingProducts = false
+            self.favoritesTable.reloadData()
+        })
+    }
+    func loadMoreFavorites() {
+        isLoadingProducts = true
+        if self.favorites != nil && self.favoritesWrapper != nil && self.favorites!.count < self.favoritesWrapper!.count
+        {
+            Favorite.getMoreProducts(userID!, wrapper: self.favoritesWrapper, completionHandler: { (moreWrapper, error) in
+                if error != nil
+                {
+                    self.isLoadingProducts = false
+                    var alert = UIAlertController(title: "Error", message: "Could not load more favorites", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                println("got More")
+                self.addFavoriteFromWrapper(moreWrapper)
+                self.isLoadingProducts = false
+                self.favoritesTable.reloadData()
+            })
+        }
+    }
     
+    func addFavoriteFromWrapper(wrapper: FavoriteWrapper?) {
+        self.favoritesWrapper = wrapper
+        wishCount = favoritesWrapper!.count!
+        if self.favorites == nil {
+            self.favorites = self.favoritesWrapper?.Products
+        }else if self.favoritesWrapper != nil && self.favoritesWrapper!.Products != nil{
+            self.favorites = self.favorites! + self.favoritesWrapper!.Products!
+        }
+    }
     
     /*
     // MARK: - Navigation

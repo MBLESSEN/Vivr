@@ -63,7 +63,7 @@ class wishListViewControler: UIViewController, UITableViewDataSource, productCel
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch wishCount {
         case 0:
-            let cell = wishlistTable.dequeueReusableCellWithIdentifier("myEmptyWishlist") as UITableViewCell
+            let cell = wishlistTable.dequeueReusableCellWithIdentifier("myEmptyWishlist") as! UITableViewCell
             return cell
         default:
             return loadWishListCell(indexPath)
@@ -72,7 +72,7 @@ class wishListViewControler: UIViewController, UITableViewDataSource, productCel
     }
     
     func loadWishListCell(indexPath:NSIndexPath) -> ProductTableViewCell {
-        let cell = wishlistTable.dequeueReusableCellWithIdentifier("wishListCell") as ProductTableViewCell
+        let cell = wishlistTable.dequeueReusableCellWithIdentifier("wishListCell") as! ProductTableViewCell
         if (wishlist != nil){
         let wishIndex = wishlist![indexPath.row]
         cell.productLabel.text = wishIndex["product"]["name"].stringValue
@@ -105,7 +105,7 @@ class wishListViewControler: UIViewController, UITableViewDataSource, productCel
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier!{
         case "wishToProduct":
-            let productVC:brandFlavorViewController = segue.destinationViewController as brandFlavorViewController
+            let productVC:brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
             productVC.selectedProductID = selectedProductID
         default:
             println("no segue")

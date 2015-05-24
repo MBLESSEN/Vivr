@@ -16,7 +16,7 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var mainTable: UITableView!
     @IBOutlet weak var controller: UISegmentedControl!
-    var selectedUserID:String = ""
+    var selectedUserID:String?
     var productID:String = ""
     var reviewID:String = ""
     var segueIdentifier: String = ""
@@ -29,12 +29,17 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var refreshControl: UIRefreshControl!
     let screenSize = UIScreen.mainScreen().bounds
     var topHeaderCell:vivrHeaderCell?
+    var currentPage:Int = 1
+    var helpfulCount:Int?
+    var feedReviews:Array<ActivityFeedReviews>?
+    var activityWrapper:ActivityWrapper?
+    var isLoadingFeed = false
+    
     @IBOutlet weak var loadMoreView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
-        loadFeed()
         configureTableView()
     }
     
@@ -66,6 +71,7 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     override func viewWillAppear(animated: Bool) {
+        loadFirstActivity()
         navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
         navigationController?.navigationBar.tintColor = UIColor(red: 43.0/255, green: 169.0/255, blue: 41.0/255, alpha: 1.0)
         if self.revealViewController() != nil {
@@ -115,6 +121,11 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
         refreshControl.endRefreshing()
     }
     
+    func tappedUserButton(cell: vivrCell) {
+        self.segueIdentifier = "toUserSegue"
+        selectedUserID = cell.userID!
+        performSegueWithIdentifier(segueIdentifier, sender: cell)
+    }
     
     func tappedUser(cell: vivrHeaderCell) {
         self.segueIdentifier = "toUserSegue"
@@ -137,20 +148,48 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func reloadAPI(cell: vivrCell) {
-        loadFeed()
+        if let section = cell.cellID as Int? {
+            println(section)
+            let indexPath = NSIndexPath(forRow: 0, inSection: section)
+        mainTable.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+        }
+    }
+    func helpfulFalse(cell: vivrCell) {
+        if let reviewID = cell.cellID as Int? {
+            feedReviews![reviewID].currentHelpful = false
+            feedReviews![reviewID].helpfulCount = feedReviews![reviewID].helpfulCount! - 1
+        }
+    }
+    
+    func helpfulTrue(cell: vivrCell) {
+        if let reviewID = cell.cellID as Int? {
+            feedReviews![reviewID].currentHelpful = true
+            feedReviews![reviewID].helpfulCount = feedReviews![reviewID].helpfulCount! + 1
+        }
+    }
+    
+    func wishlistFalse(cell: vivrCell) {
+        if let reviewID = cell.cellID as Int? {
+            feedReviews![reviewID].product?.currentWishlist = false
+        }
+    }
+    func wishlistTrue(cell: vivrCell) {
+        if let reviewID = cell.cellID as Int? {
+            feedReviews![reviewID].product?.currentWishlist = true
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier {
         case "buzzToComments":
-            var reviewVC: commentsViewController = segue.destinationViewController as commentsViewController
+            var reviewVC: commentsViewController = segue.destinationViewController as! commentsViewController
             reviewVC.reviewID = self.reviewID
             reviewVC.productID = self.productID
         case "buzzToProduct":
-            var productVC: brandFlavorViewController = segue.destinationViewController as brandFlavorViewController
+            var productVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
             productVC.selectedProductID = self.productID
         case "toUserSegue":
-            var userVC: anyUserProfileView = segue.destinationViewController as anyUserProfileView
+            var userVC: anyUserProfileView = segue.destinationViewController as! anyUserProfileView
             userVC.selectedUserID = self.selectedUserID
             //userVC.automaticallyAdjustsScrollViewInsets = false
         default:
@@ -174,16 +213,19 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if (cellIdentifier == "vivrCell") {
-            let headerCell = mainTable.dequeueReusableCellWithIdentifier("vivrHeaderCell") as vivrHeaderCell
+            let headerCell = mainTable.dequeueReusableCellWithIdentifier("vivrHeaderCell") as! vivrHeaderCell
             topHeaderCell = headerCell
-            headerCell.productID = self.feedReviewResults![section]["product"]["id"].stringValue
+            headerCell.productID = self.feedReviews![section].productID
             headerCell.cellDelegate = self
-            headerCell.layer.zPosition = headerCell.layer.zPosition-1
-            return headerCell
+            headerCell.layer.zPosition = headerCell.layer.zPosition - 1
+            headerCell.contentView.layer.zPosition = headerCell.contentView.layer.zPosition - 1
+            headerCell.contentView.userInteractionEnabled = false 
+            return headerCell.contentView
         }
         return nil
     }
     
+    /*
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         switch cellIdentifier {
             case "vivrCell":
@@ -195,13 +237,176 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
         }
     }
+*/
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        switch cellIdentifier {
+            case "vivrCell":
+                if self.feedReviews == nil {
+                    return 0
+            }
+            return self.feedReviews!.count
+            case "newCell":
+                return 1
+        default:
+            return 1
+        }
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        switch cellIdentifier {
+            case "featuredCell":
+                let noNewProductsView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height))
+                noNewProductsView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+                let checkBackLabel = UILabel(frame: CGRectMake(0, 0, 200, 80.0))
+                checkBackLabel.numberOfLines = 3
+                checkBackLabel.textAlignment = NSTextAlignment.Center
+                checkBackLabel.center = CGPointMake(self.view.center.x, self.view.center.y-100)
+                checkBackLabel.textColor = UIColor.lightGrayColor()
+                checkBackLabel.text = "Check back for featured products and updates from vivr headquarters"
+                noNewProductsView.addSubview(checkBackLabel)
+                var newcell = mainTable.dequeueReusableCellWithIdentifier("newCell") as! newCell
+                newcell.contentView.addSubview(noNewProductsView)
+                noNewProductsView.layer.zPosition = noNewProductsView.layer.zPosition + 1
+                return newcell
+            case "vivrCell":
+                return vivrCellAtIndexPath(indexPath)
+            
+        default:
+            let noNewProductsView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height))
+            noNewProductsView.backgroundColor = UIColor.groupTableViewBackgroundColor()
+            let checkBackLabel = UILabel(frame: CGRectMake(0, 0, 200, 80.0))
+            checkBackLabel.numberOfLines = 3
+            checkBackLabel.textAlignment = NSTextAlignment.Center
+            checkBackLabel.center = CGPointMake(self.view.center.x, self.view.center.y-100)
+            checkBackLabel.textColor = UIColor.lightGrayColor()
+            checkBackLabel.text = "Check back for new products!"
+            noNewProductsView.addSubview(checkBackLabel)
+            var newcell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as! newCell
+            newcell.contentView.addSubview(noNewProductsView)
+            noNewProductsView.layer.zPosition = noNewProductsView.layer.zPosition + 1
+            return newcell
+            
+        }
+    }
+
+    func vivrCellAtIndexPath(indexPath:NSIndexPath) -> vivrCell {
+        let vivrcell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! vivrCell
+        if self.feedReviews != nil && self.feedReviews!.count >= indexPath.section {
+            if let section = indexPath.section as Int? {
+                vivrcell.cellID = section
+            }
+        let review = self.feedReviews![indexPath.section]
+            vivrcell.userID = review.userID
+            vivrcell.productID = review.productID!
+            vivrcell.reviewID = review.reviewID!
+            if let date = review.createdAt {
+                let dateFor:NSDateFormatter = NSDateFormatter()
+                dateFor.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                let theDate:NSDate = dateFor.dateFromString(date)!
+                let tempoDate = Tempo(date: theDate)
+                let timeStamp = tempoDate.timeAgoNow()
+                if let reviewString = review.description {
+                    var review = NSMutableAttributedString(string: reviewString + "  -  ")
+                    let x = NSAttributedString(string: timeStamp, attributes: [NSForegroundColorAttributeName : UIColor.lightGrayColor()])
+                    review.appendAttributedString(x)
+                    vivrcell.reviewDescription.attributedText = review
+                    vivrcell.reviewDescription.sizeToFit()
+                    
+                }
+            }
+            vivrcell.userName.text = review.user?.userName
+            vivrcell.flavorName.text = review.product?.name
+            vivrcell.flavorName.sizeToFit()
+            if let rating = review.score {
+                let number = (rating as NSString).floatValue
+                vivrcell.floatRatingView.rating = number
+                vivrcell.floatRatingView.userInteractionEnabled = false
+            }
+            if let throatHit = review.throat {
+                var value:String?
+                switch throatHit {
+                case 1:
+                    value = "Feather"
+                case 2:
+                    value = "Light"
+                case 3:
+                    value = "Mild"
+                case 4:
+                    value = "Harsh"
+                case 5:
+                    value = "Very Harsh"
+                default:
+                    value = "invalid"
+                }
+                vivrcell.throat.text = ("\(value!) throat hit")
+            }
+            if let vaporProduction = review.vapor {
+                var value:String?
+                switch vaporProduction {
+                case 1:
+                    value = "Very low"
+                case 2:
+                    value = "Low"
+                case 3:
+                    value = "Average"
+                case 4:
+                    value = "High"
+                case 5:
+                    value = "Cloudy"
+                default:
+                    value = "invalid"
+                }
+                vivrcell.vapor.text = ("\(value!) vapor production")
+            }
+            vivrcell.helpfullState = review.currentHelpful
+            vivrcell.wishlistState = review.product?.currentWishlist
+            if let helpfullCount = review.helpfulCount {
+                helpfulCount = helpfullCount
+                switch helpfulCount! {
+                case 0:
+                    vivrcell.helpfullLabel.text = "Was this helpful?"
+                default:
+                    vivrcell.helpfullLabel.text = "\(helpfulCount!) found this helpful"
+                }
+            }
+            if let productID = review.productID {
+                if let reviewID = review.reviewID {
+                    Alamofire.request(Router.readCommentsAPI(productID, reviewID)).responseJSON { (request, response, json, error) in
+                        if (json != nil) {
+                            var jsonOBJ = JSON(json!)
+                            if let commentsCount = jsonOBJ["total"].stringValue as String? {
+                                vivrcell.commentButton.setTitle("\(commentsCount) comments", forState: .Normal)
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            vivrcell.cellDelegate = self
+            
+            let rowsToLoadFromBottom = 5
+            let rowsLoaded = self.feedReviews!.count
+            if (!self.isLoadingFeed && (indexPath.section >= (rowsLoaded - rowsToLoadFromBottom))) {
+                let totalRows = self.activityWrapper!.count!
+                let remainingFeedToLoad = totalRows - rowsLoaded
+                if (remainingFeedToLoad > 0) {
+                    self.loadMoreActivity()
+                }
+            }
+            
+            
+        }
+        return vivrcell
+    }
+    
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return 1
     }
-    
+        /*
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -216,20 +421,23 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 checkBackLabel.textColor = UIColor.lightGrayColor()
                 checkBackLabel.text = "Check back for featured products and updates from vivr headquarters"
                 noNewProductsView.addSubview(checkBackLabel)
-                var newcell = mainTable.dequeueReusableCellWithIdentifier("newCell") as newCell
+                var newcell = mainTable.dequeueReusableCellWithIdentifier("newCell") as! newCell
                 newcell.contentView.addSubview(noNewProductsView)
                 noNewProductsView.layer.zPosition = noNewProductsView.layer.zPosition + 1
                 return newcell
             case "vivrCell":
-                var vivrcell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as vivrCell
+                var vivrcell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as! vivrCell
                 vivrcell.review = self.feedReviewResults![indexPath.section]
                 vivrcell.reviewID = self.feedReviewResults![indexPath.section]["id"].stringValue
                 if let state = self.feedReviewResults![indexPath.section]["current_helpful"].boolValue as Bool?{
                     vivrcell.helpfullState = state
                 }
-                vivrcell.wishlistState = true 
+                if let wstate = self.feedReviewResults![indexPath.section]["product"]["current_wishlist"].boolValue as Bool? {
+                    vivrcell.wishlistState = wstate
+                }
                 vivrcell.cellDelegate = self
                 vivrcell.layer.zPosition = vivrcell.layer.zPosition
+                //vivrcell.preservesSuperviewLayoutMargins = false
                 return vivrcell
             default:
                 let noNewProductsView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height))
@@ -241,18 +449,62 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 checkBackLabel.textColor = UIColor.lightGrayColor()
                 checkBackLabel.text = "Check back for new products!"
                 noNewProductsView.addSubview(checkBackLabel)
-                var newcell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as newCell
+                var newcell = mainTable.dequeueReusableCellWithIdentifier(cellIdentifier) as! newCell
                 newcell.contentView.addSubview(noNewProductsView)
                 noNewProductsView.layer.zPosition = noNewProductsView.layer.zPosition + 1
                 return newcell
             
         }
     }
-
+*/
     
+    func loadFirstActivity() {
+        self.feedReviews = []
+        isLoadingFeed = true
+        ActivityFeedReviews.getReviews({ (activityWrapper, error) in
+            if error != nil {
+                self.isLoadingFeed = false
+                var alert = UIAlertController(title: "Error", message: "could not load first activity", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            self.addReviewFromWrapper(activityWrapper)
+            self.isLoadingFeed = false
+            self.mainTable.reloadData()
+            })
+    }
+    
+    func loadMoreActivity() {
+        isLoadingFeed = true
+        if self.feedReviews != nil && self.activityWrapper != nil && self.feedReviews!.count < self.activityWrapper!.count
+        {
+            ActivityFeedReviews.getMoreReviews(self.activityWrapper, completionHandler: { (moreWrapper, error) in
+                if error != nil
+                {
+                    self.isLoadingFeed = false
+                    var alert = UIAlertController(title: "Error", message: "Could not load more activity", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                println("got More")
+                self.addReviewFromWrapper(moreWrapper)
+                self.isLoadingFeed = false
+                self.mainTable.reloadData()
+            })
+        }
+    }
+    
+    func addReviewFromWrapper(wrapper: ActivityWrapper?) {
+        self.activityWrapper = wrapper
+        if self.feedReviews == nil {
+            self.feedReviews = self.activityWrapper?.ActivityReviews
+        }else if self.activityWrapper != nil && self.activityWrapper!.ActivityReviews != nil{
+            self.feedReviews = self.feedReviews! + self.activityWrapper!.ActivityReviews!
+        }
+    }
     
     func loadFeed() {
-        Alamofire.request(Router.readFeed()).responseJSON { (request, response, json, error) in
+        Alamofire.request(Router.readFeed(currentPage)).responseJSON { (request, response, json, error) in
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
                 if let reviewData = jsonOBJ["data"].arrayValue as [JSON]? {
@@ -270,23 +522,10 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func loadMore(sender: AnyObject) {
-        
     }
     
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        /*
-        let cells = mainTable.visibleCells()
-        let vivrHelpButton = cells[0] as vivrCell
-        let vivrCellHelpButtonOrigin = vivrHelpButton.helpfull!.frame.origin.y
-        let adjustedCellOriginY = Float(vivrCellHelpButtonOrigin)
-        let finalY = CGPointMake(8, CGFloat(adjustedCellOriginY))
-        let convertedY = vivrHelpButton.helpfull!.convertPoint(vivrHelpButton.helpfull!.center, toView: nil).y
-        let adjustedY = Float(convertedY)
-        topHeaderCell?.helpfullButton.center = CGPointMake(8, CGFloat(adjustedY))
-        println("VivrCell Y \(adjustedY)")
-        println("headerButton is at position to header \(topHeaderCell?.helpfullButton.frame.origin.y)")
-        //println(topHeaderCell?.helpfullButton.frame.origin)
-        */
     }
     
     

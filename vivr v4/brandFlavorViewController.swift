@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 
-class brandFlavorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, VivrHeaderCellDelegate {
+class brandFlavorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, VivrHeaderCellDelegate, ReviewCellDelegate, brandFlavorDelegate {
     
     var userID:String?
     var revCount:String = ""
@@ -26,10 +26,8 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
     var favoritesList:[JSON]? = []
     var favoritesIDList:[AnyObject] = []
     var isFavorite:Bool = false
+    var selectedReviewID:String?
     
-    var reviewButton = UIBarButtonItem(image: UIImage(named: "addReview"), style: .Plain, target: nil, action: "addReview")
-    let likeButtonEmpty:UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "likeEmpty"), style: .Plain, target: nil, action: "favoritePressed")
-    let likeButtonFilled:UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "likeFilled"), style: .Plain, target: nil, action: "favoritePressed")
     
     @IBOutlet weak var mainTable: UITableView!
 
@@ -53,7 +51,7 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
         loadProductData()
         loadReviews()
         loadTags()
-        self.navigationItem.rightBarButtonItems = [reviewButton]
+        self.navigationItem.rightBarButtonItems = []
         self.mainTable.reloadData()
     }
     
@@ -70,38 +68,6 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    func addReview() {
-        segueIdentifier = "reviewSegue"
-        self.performSegueWithIdentifier("reviewSegue", sender: self)
-    }
-    
-    func favoritePressed() {
-        if (currentLikeButton == likeButtonEmpty){
-            Alamofire.request(Router.Favorite(selectedProductID!))
-            currentLikeButton = likeButtonFilled
-            
-        }else {
-            Alamofire.request(Router.unFavorite(selectedProductID!))
-            currentLikeButton = likeButtonEmpty
-            
-        }
-        self.currentLikeButton!.target = self
-        self.navigationItem.rightBarButtonItems = [reviewButton, currentLikeButton!]
-    }
-    
-    func setFavorite() {
-        switch isFavorite {
-        case true:
-            currentLikeButton = likeButtonFilled
-        default:
-            currentLikeButton = likeButtonEmpty
-        }
-        self.currentLikeButton!.target = self
-        self.reviewButton.target = self
-        self.navigationItem.rightBarButtonItems = [reviewButton, currentLikeButton!]
-
     }
     
     @IBAction func favoriteSelected(sender: AnyObject) {
@@ -128,10 +94,6 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
                     }
                     if let pv = self.productData?["scores"]["vapor"].int as Int? {
                     self.productVapor = pv
-                    }
-                    if let favoriteState = self.productData?["current_favorite"].boolValue as Bool? {
-                    self.isFavorite = favoriteState
-                    self.setFavorite()
                     }
                 }
                 }
@@ -173,6 +135,11 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
 
     }
     
+    func toReview(cell: productCell) {
+        segueIdentifier = "reviewSegue"
+        self.performSegueWithIdentifier("reviewSegue", sender: self)
+    }
+    
     func tappedUser(cell: vivrHeaderCell) {
         self.segueIdentifier = "flavorToUser"
         selectedUserID = cell.userID
@@ -180,6 +147,15 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tappedProductButton(cell: vivrHeaderCell) {
+    }
+    
+    func reloadAPI(cell: reviewTableViewCell) {
+        loadReviews()
+    }
+    func tappedFlavorReviewCommentbutton(cell: reviewTableViewCell) {
+        self.segueIdentifier = "flavorToComments"
+        selectedReviewID = cell.reviewID
+        performSegueWithIdentifier(segueIdentifier, sender: self)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -196,31 +172,45 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let product: productCell = mainTable.dequeueReusableCellWithIdentifier("productCell") as productCell
+            let product: productCell = mainTable.dequeueReusableCellWithIdentifier("productCell") as! productCell
+            product.productID = productData!["id"].stringValue
             product.product = productData
             product.reviewCount.text = ("(\(revCount) reviews)")
+            product.favoriteState = productData!["current_favorite"].boolValue
+            product.wishState = productData!["current_wishlist"].boolValue
+            product.reviewState = false
+            product.cellDelegate = self
+            product.preservesSuperviewLayoutMargins = false
             return product
         case 1:
-            let attribute: attributesCell = mainTable.dequeueReusableCellWithIdentifier("Attributes") as attributesCell
+            let attribute: attributesCell = mainTable.dequeueReusableCellWithIdentifier("Attributes") as! attributesCell
             attribute.product = productData
+            attribute.preservesSuperviewLayoutMargins = false
             return attribute
         case 2:
-            let flavor: flavorCell = mainTable.dequeueReusableCellWithIdentifier("flavorCell") as flavorCell
+            let flavor: flavorCell = mainTable.dequeueReusableCellWithIdentifier("flavorCell") as! flavorCell
             flavor.flavors = productData
+            flavor.preservesSuperviewLayoutMargins = false
             return flavor
         case 3:
-            let reviewHeader: UITableViewCell = mainTable.dequeueReusableCellWithIdentifier("Reviews") as UITableViewCell
+            let reviewHeader: UITableViewCell = mainTable.dequeueReusableCellWithIdentifier("Reviews") as! UITableViewCell
+            reviewHeader.preservesSuperviewLayoutMargins = false
             return reviewHeader
         default:
-            let review: reviewTableViewCell = mainTable.dequeueReusableCellWithIdentifier("reviewCell") as reviewTableViewCell
+            let review: reviewTableViewCell = mainTable.dequeueReusableCellWithIdentifier("reviewCell") as! reviewTableViewCell
+            review.productID = reviewResults![indexPath.section - 4]["product_id"].stringValue
             review.review = reviewResults?[indexPath.section - 4]
-            review.helpfullState = "notLiked"
+            if let state = self.reviewResults![indexPath.section - 4]["current_helpful"].boolValue as Bool?{
+                review.helpfullState = state
+            }
             mainTable.rowHeight = UITableViewAutomaticDimension
+            review.cellDelegate = self
+            review.preservesSuperviewLayoutMargins = false 
             return review
         }
     }
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            let headerCell = tableView.dequeueReusableCellWithIdentifier("ReviewHeaderCell") as vivrHeaderCell
+            let headerCell = tableView.dequeueReusableCellWithIdentifier("ReviewHeaderCell") as! vivrHeaderCell
             headerCell.userInfo = reviewResults?[section - 4]
             headerCell.rating = reviewResults?[section-4]["score"].stringValue
             headerCell.backgroundColor = UIColor.whiteColor()
@@ -248,11 +238,15 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier {
             case "reviewSegue":
-                var reviewVC: reviewViewController = segue.destinationViewController as reviewViewController
+                var reviewVC: reviewViewController = segue.destinationViewController as! reviewViewController
                 reviewVC.productID = self.selectedProductID!
             case "flavorToUser":
-                var userVC: anyUserProfileView = segue.destinationViewController as anyUserProfileView
+                var userVC: anyUserProfileView = segue.destinationViewController as! anyUserProfileView
                 userVC.selectedUserID = self.selectedUserID
+            case "flavorToComments":
+                var commentVC: commentsViewController = segue.destinationViewController as! commentsViewController
+                commentVC.reviewID = selectedReviewID!
+                commentVC.productID = selectedProductID!
         default:
             println("no segue")
             

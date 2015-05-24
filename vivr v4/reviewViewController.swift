@@ -27,6 +27,8 @@ class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     @IBOutlet weak var clearButton: UIBarButtonItem!
     
     override func viewDidLoad() {
+        self.view.preservesSuperviewLayoutMargins = true
+        configureNavBar()
         println(productID)
         super.viewDidLoad()
         stepValue = 1
@@ -45,6 +47,9 @@ class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         
 
         // Do any additional setup after loading the view.
+    }
+    
+    func configureNavBar() {
     }
 
     func hideKeyboard() {
@@ -94,7 +99,7 @@ class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         blurView.backgroundColor = UIColor.blackColor()
         blurView.alpha = 0.8
         self.view.addSubview(blurView)
-        var tags: addFlavorTagsView = storyboard.instantiateViewControllerWithIdentifier("tags") as addFlavorTagsView
+        var tags: addFlavorTagsView = storyboard.instantiateViewControllerWithIdentifier("tags") as! addFlavorTagsView
         tags.viewDelegate = self
         self.presentViewController(tags, animated: true, completion: nil)
     }

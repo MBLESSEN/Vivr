@@ -71,7 +71,7 @@ public class B68UIFloatLabelTextField: UITextField {
   }
   
   //MARK: Unsupported Initializers
-  override init () {
+  init () {
     fatalError("Using the init() initializer directly is not supported. use init(frame:) instead")
   }
   
@@ -132,7 +132,7 @@ public class B68UIFloatLabelTextField: UITextField {
   func applyFonts() {
     floatingLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption2)
     
-    let textStyle = self.font.fontDescriptor().fontAttributes()["NSCTFontUIUsageAttribute"] as String
+    let textStyle = self.font.fontDescriptor().fontAttributes()["NSCTFontUIUsageAttribute"] as! String
     font = UIFont.preferredFontForTextStyle(textStyle)
   }
   

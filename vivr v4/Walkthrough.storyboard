@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="PTSans-Bold.ttf">
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+        </mutableArray>
         <mutableArray key="PTSans.ttc">
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
         </mutableArray>
     </customFonts>
@@ -81,7 +83,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vivrMainLogo" translatesAutoresizingMaskIntoConstraints="NO" id="tkx-rB-xAM">
-                                <rect key="frame" x="210" y="84" width="180" height="60"/>
+                                <rect key="frame" x="210" y="148" width="180" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="EoC-8x-mBd"/>
                                     <constraint firstAttribute="height" constant="60" id="qwW-ds-Wii"/>
@@ -95,7 +97,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="5aq-bl-lYR" secondAttribute="trailing" constant="-16" id="QI9-Ql-qOY"/>
                             <constraint firstItem="B4J-qq-03X" firstAttribute="top" secondItem="dM6-eR-SBc" secondAttribute="bottom" id="RHm-4F-cvQ"/>
                             <constraint firstAttribute="centerX" secondItem="tkx-rB-xAM" secondAttribute="centerX" id="YK5-ad-Xl7"/>
-                            <constraint firstItem="tkx-rB-xAM" firstAttribute="top" secondItem="ztm-3Q-pzx" secondAttribute="bottom" constant="64" id="atK-HL-M83"/>
+                            <constraint firstItem="tkx-rB-xAM" firstAttribute="top" secondItem="ztm-3Q-pzx" secondAttribute="bottom" constant="128" id="atK-HL-M83"/>
                             <constraint firstItem="5aq-bl-lYR" firstAttribute="leading" secondItem="MNd-I7-vgi" secondAttribute="leadingMargin" constant="-16" id="eL4-K1-BSi"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dM6-eR-SBc" secondAttribute="trailing" constant="-16" id="fTd-Kl-eiI"/>
                             <constraint firstItem="dM6-eR-SBc" firstAttribute="leading" secondItem="MNd-I7-vgi" secondAttribute="leadingMargin" constant="-16" id="gmM-bZ-tpc"/>
@@ -127,7 +129,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vivr helps you Explore, Discover, and Enjoy your favorite juices!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BrG-tJ-Wcf">
-                                <rect key="frame" x="48" y="400" width="504" height="100"/>
+                                <rect key="frame" x="48" y="428" width="504" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="iYV-rY-if5"/>
                                 </constraints>
@@ -145,7 +147,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="BrG-tJ-Wcf" firstAttribute="top" secondItem="fgh-8L-Bav" secondAttribute="bottom" constant="-32" id="Kag-RJ-iwi"/>
-                            <constraint firstItem="iwA-RW-9mP" firstAttribute="top" secondItem="BrG-tJ-Wcf" secondAttribute="bottom" constant="100" id="OJK-Ek-wQB"/>
+                            <constraint firstItem="iwA-RW-9mP" firstAttribute="top" secondItem="BrG-tJ-Wcf" secondAttribute="bottom" constant="72" id="OJK-Ek-wQB"/>
                             <constraint firstAttribute="centerX" secondItem="fgh-8L-Bav" secondAttribute="centerX" id="Sj1-Se-GpZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BrG-tJ-Wcf" secondAttribute="trailing" constant="32" id="U84-8w-OZf"/>
                             <constraint firstItem="BrG-tJ-Wcf" firstAttribute="leading" secondItem="zm7-ay-Sjo" secondAttribute="leadingMargin" constant="32" id="kOD-xn-YuJ"/>
@@ -175,7 +177,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore the top juices in the world, trending flavors, and the best juices for you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Qp-Gs-mPM">
-                                <rect key="frame" x="48" y="400" width="504" height="100"/>
+                                <rect key="frame" x="48" y="428" width="504" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="pkA-Dg-2kH"/>
                                 </constraints>
@@ -188,7 +190,7 @@
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="DUW-oc-YJg" secondAttribute="centerX" id="Bog-Ho-IAV"/>
                             <constraint firstItem="1Qp-Gs-mPM" firstAttribute="top" secondItem="DUW-oc-YJg" secondAttribute="bottom" constant="-32" id="DBa-7m-yMt"/>
-                            <constraint firstItem="xep-VY-SLJ" firstAttribute="top" secondItem="1Qp-Gs-mPM" secondAttribute="bottom" constant="100" id="IBC-8e-yO7"/>
+                            <constraint firstItem="xep-VY-SLJ" firstAttribute="top" secondItem="1Qp-Gs-mPM" secondAttribute="bottom" constant="72" id="IBC-8e-yO7"/>
                             <constraint firstItem="1Qp-Gs-mPM" firstAttribute="leading" secondItem="NxF-B2-7jZ" secondAttribute="leadingMargin" constant="32" id="YGd-rV-f4K"/>
                             <constraint firstItem="1Qp-Gs-mPM" firstAttribute="trailing" secondItem="NxF-B2-7jZ" secondAttribute="trailingMargin" constant="-32" id="ids-Gz-rM8"/>
                         </constraints>
@@ -217,7 +219,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interested in something? Read what people have to say and find the flavors best for you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RH0-9v-tEv">
-                                <rect key="frame" x="48" y="400" width="504" height="100"/>
+                                <rect key="frame" x="48" y="428" width="504" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="ZPV-cj-zTz"/>
                                 </constraints>
@@ -228,7 +230,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9zW-xr-CeK" firstAttribute="top" secondItem="RH0-9v-tEv" secondAttribute="bottom" constant="100" id="Dyy-XR-YYv"/>
+                            <constraint firstItem="9zW-xr-CeK" firstAttribute="top" secondItem="RH0-9v-tEv" secondAttribute="bottom" constant="72" id="Dyy-XR-YYv"/>
                             <constraint firstItem="RH0-9v-tEv" firstAttribute="trailing" secondItem="RDG-dN-323" secondAttribute="trailingMargin" constant="-32" id="KiJ-B3-oJm"/>
                             <constraint firstItem="RH0-9v-tEv" firstAttribute="top" secondItem="hUk-LF-kBN" secondAttribute="bottom" constant="-32" id="SsD-Lq-dh9"/>
                             <constraint firstAttribute="centerX" secondItem="hUk-LF-kBN" secondAttribute="centerX" id="h5i-L8-VEK"/>
@@ -259,7 +261,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep track of your favorites, and build your wishlist. Never forget a great juice!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrQ-Zh-J8B">
-                                <rect key="frame" x="48" y="400" width="504" height="100"/>
+                                <rect key="frame" x="48" y="428" width="504" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Ag2-Ju-d9G"/>
                                 </constraints>
@@ -273,7 +275,7 @@
                             <constraint firstItem="vrQ-Zh-J8B" firstAttribute="trailing" secondItem="8Hx-ec-kPT" secondAttribute="trailingMargin" constant="-32" id="7pM-c8-NkK"/>
                             <constraint firstItem="vrQ-Zh-J8B" firstAttribute="leading" secondItem="8Hx-ec-kPT" secondAttribute="leadingMargin" constant="32" id="fBL-XH-NXz"/>
                             <constraint firstAttribute="centerX" secondItem="3Fl-ol-phP" secondAttribute="centerX" id="h6k-Gc-Ltg"/>
-                            <constraint firstItem="cMR-e1-oOa" firstAttribute="top" secondItem="vrQ-Zh-J8B" secondAttribute="bottom" constant="100" id="p9w-TU-Qss"/>
+                            <constraint firstItem="cMR-e1-oOa" firstAttribute="top" secondItem="vrQ-Zh-J8B" secondAttribute="bottom" constant="72" id="p9w-TU-Qss"/>
                             <constraint firstItem="vrQ-Zh-J8B" firstAttribute="top" secondItem="3Fl-ol-phP" secondAttribute="bottom" constant="-32" id="vNq-Lx-CRP"/>
                         </constraints>
                     </view>
@@ -301,7 +303,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share your thoughts and favorites to your friends and others in the vivr community. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZE-wo-cRF">
-                                <rect key="frame" x="48" y="400" width="504" height="100"/>
+                                <rect key="frame" x="48" y="428" width="504" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="dLq-BJ-j3K"/>
                                 </constraints>
@@ -316,7 +318,7 @@
                             <constraint firstItem="CZE-wo-cRF" firstAttribute="top" secondItem="1mJ-59-zWE" secondAttribute="bottom" constant="-32" id="7vp-qa-TTv"/>
                             <constraint firstAttribute="centerX" secondItem="1mJ-59-zWE" secondAttribute="centerX" id="9ch-et-taB"/>
                             <constraint firstItem="CZE-wo-cRF" firstAttribute="trailing" secondItem="CWE-zW-bLW" secondAttribute="trailingMargin" constant="-32" id="u7S-DM-EyK"/>
-                            <constraint firstItem="jJp-nc-gyF" firstAttribute="top" secondItem="CZE-wo-cRF" secondAttribute="bottom" constant="100" id="vAe-oJ-v7P"/>
+                            <constraint firstItem="jJp-nc-gyF" firstAttribute="top" secondItem="CZE-wo-cRF" secondAttribute="bottom" constant="72" id="vAe-oJ-v7P"/>
                         </constraints>
                     </view>
                 </viewController>

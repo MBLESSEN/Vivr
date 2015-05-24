@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol CommentCellDelegate {
+    func tappedCommentUserButton(cell: commentCell)
+}
+
 class commentCell: UITableViewCell {
     
     @IBOutlet weak var userName: UIButton!
     @IBOutlet weak var commentContent: UILabel!
     
+    var userID:String?
+    var cellDelegate:CommentCellDelegate? = nil
     var user:String = ""
     
     var comment:JSON?{
@@ -31,8 +37,12 @@ class commentCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    @IBAction func tappedUser(sender: AnyObject) {
+        cellDelegate?.tappedCommentUserButton(self)
+    }
 
     func loadComment() {
+        userID = self.comment?["user"]["id"].stringValue
         if let theUserName = self.comment?["user"]["username"].stringValue {
             self.user = theUserName
             self.userName.setTitle(theUserName, forState:UIControlState.Normal)

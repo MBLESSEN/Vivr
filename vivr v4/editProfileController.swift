@@ -64,10 +64,10 @@ class editProfileController: UITableViewController {
         
     }
     func readProfile() {
-        if let bioText = myData.bio? as String? {
+        if let bioText = myData.bio as String? {
             self.bio.text = bioText
         }
-        if let hardwareText = myData.hardWare? as String? {
+        if let hardwareText = myData.hardWare as String? {
             self.hardWare.text = hardwareText
         }
         if let userNameText = myData.myProfileName as String? {

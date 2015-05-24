@@ -73,7 +73,7 @@ class addFlavorTagsView: UIViewController, UITableViewDataSource, UITableViewDel
     func checkSelectedTags() {
         let selectedTagCells:NSArray = tagTable.indexPathsForSelectedRows()!
         for index in selectedTagCells {
-            let cell = tagTable.cellForRowAtIndexPath(index as NSIndexPath) as TagCell
+            let cell = tagTable.cellForRowAtIndexPath(index as! NSIndexPath) as! TagCell
             let tagID = cell.tagID!
             selectedTags.addObject(tagID)
         }
@@ -89,11 +89,11 @@ class addFlavorTagsView: UIViewController, UITableViewDataSource, UITableViewDel
         return tagList?.count ?? 0
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as TagCell
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! TagCell
     }
     
     func tagCellAtIndexPath(indexPath:NSIndexPath) -> TagCell {
-        let cell = tagTable.dequeueReusableCellWithIdentifier("tag") as TagCell
+        let cell = tagTable.dequeueReusableCellWithIdentifier("tag") as! TagCell
         if (tagList != nil) {
             let tagIndex = tagList![indexPath.row]
             cell.tagName.text = tagIndex["name"].stringValue

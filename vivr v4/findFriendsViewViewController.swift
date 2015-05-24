@@ -26,7 +26,7 @@ class findFriendsViewViewController: UIViewController, UITableViewDelegate, UITa
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = friendsTable.dequeueReusableCellWithIdentifier("userCell") as UITableViewCell
+        let cell = friendsTable.dequeueReusableCellWithIdentifier("userCell") as! UITableViewCell
         return cell
         
     }

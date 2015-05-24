@@ -17,6 +17,7 @@ struct myData {
     static var wishlistCount:String = ""
     static var hardWare:String?
     static var bio:String?
+    static var userImage:NSURL?
 }
 
 @UIApplicationMain
@@ -45,9 +46,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Alamofire.request(Router.readCurrentUser()).responseJSON { (request, response, json, error) in
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
+                if let urlString = jsonOBJ["image"].stringValue as String? {
+                    let url = NSURL(string: urlString)
+                    myData.userImage = url!
+                }
                 if let id = jsonOBJ["id"].stringValue as String? {
                     myData.myProfileID = id
-                    Alamofire.request(Router.readUserReviews(id)).responseJSON { (request, response, json, error) in
+                    Alamofire.request(Router.readUserReviews(id, 1)).responseJSON { (request, response, json, error) in
                         if (json != nil) {
                             var jsonOBJ = JSON(json!)
                             if let rcount = jsonOBJ["total"].stringValue as String? {
@@ -56,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
                         }
                     }
-                    Alamofire.request(Router.readUserFavorites(id)).responseJSON { (request, response, json, error) in
+                    Alamofire.request(Router.readUserFavorites(id, 1)).responseJSON { (request, response, json, error) in
                         if (json != nil) {
                             var jsonOBJ = JSON(json!)
                             if let fcount = jsonOBJ["total"].stringValue as String? {
@@ -85,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     
-        Alamofire.request(Router.readUserReviews(myData.myProfileID)).responseJSON { (request, response, json, error) in
+        Alamofire.request(Router.readUserReviews(myData.myProfileID, 1)).responseJSON { (request, response, json, error) in
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
                 if let rcount = jsonOBJ["total"].stringValue as String? {
@@ -94,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             }
         }
-        Alamofire.request(Router.readUserFavorites(myData.myProfileID)).responseJSON { (request, response, json, error) in
+        Alamofire.request(Router.readUserFavorites(myData.myProfileID, 1)).responseJSON { (request, response, json, error) in
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
                 if let fcount = jsonOBJ["total"].stringValue as String? {

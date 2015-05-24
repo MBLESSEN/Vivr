@@ -13,8 +13,6 @@ import Haneke
 class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDelegate {
     var myFavorites:[JSON]? = []
     var myFavoritesData:JSON?
-    var myReviews:[JSON]? = []
-    var myReviewsData:JSON?
     var myWishlist:[JSON]? = []
     var myWishlistData:JSON?
     var userData:JSON?
@@ -26,6 +24,10 @@ class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDele
     var userNameLabel:UILabel?
     var profileCellHeight:CGFloat?
 
+    var isLoadingReviews = false
+    var userReviews:Array<ActivityFeedReviews>?
+    var userReviewsWrapper:ActivityWrapper?
+    
     @IBOutlet weak var profileTable:UITableView!
     @IBOutlet weak var navBackground: UIView!
     
@@ -35,7 +37,7 @@ class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDele
         self.profileTable.contentInset = UIEdgeInsetsMake(-44,0,0,0)
     }
     override func viewWillAppear(animated: Bool) {
-        
+        loadFirstReviews()
         configureTableView()
         configureNavBar()
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
@@ -87,21 +89,7 @@ class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDele
                 }
             }
         }
-        Alamofire.request(Router.readUserReviews(selectedUserID!)).responseJSON { (request, response, json, error) in
-            if (json != nil) {
-                var jsonOBJ = JSON(json!)
-                if let reviewData = jsonOBJ as JSON? {
-                    self.myReviewsData = reviewData
-                    self.reloadTableViewContent()
-                }
-                if let reviews = jsonOBJ["data"].arrayValue as [JSON]? {
-                    self.myReviews = reviews
-                    self.reloadTableViewContent()
-                }
-                
-            }
-        }
-        Alamofire.request(Router.readUserFavorites(selectedUserID!)).responseJSON { (request, response, json, error) in
+        Alamofire.request(Router.readUserFavorites(selectedUserID!, 1)).responseJSON { (request, response, json, error) in
             if (json != nil) {
                 var jsonOBJ = JSON(json!)
                 if let favoriteData = jsonOBJ as JSON? {
@@ -135,7 +123,7 @@ class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDele
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.profileTable.reloadData()
         })
-        topCell = (profileTable.cellForRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 0)) as profileCell)
+        topCell = (profileTable.cellForRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 0)) as! profileCell)
         profileCellHeight = topCell?.frame.height
     }
     func reloadAPI(cell: myReviewsCell) {
@@ -156,7 +144,10 @@ class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDele
         case 0:
             return 1
         default:
-            return self.myReviews?.count ?? 0
+            if self.userReviews == nil {
+                return 0
+            }
+            return self.userReviews!.count
         }
     }
     
@@ -172,17 +163,22 @@ class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDele
     
     
     func profileCellAtIndexPath(indexPath:NSIndexPath) -> profileCell {
-        let cell = self.profileTable.dequeueReusableCellWithIdentifier("profileCell") as profileCell
-        if (userData != nil && myReviewsData != nil && myFavoritesData != nil && myWishlistData != nil) {
+        let cell = self.profileTable.dequeueReusableCellWithIdentifier("profileCell") as! profileCell
+        if (userData != nil && myFavoritesData != nil && myWishlistData != nil) {
         setImageForProfile(cell, indexPath: indexPath)
         generateLabel()
+        let review = userReviewsWrapper!
         cell.userName.text = userData!["username"].stringValue
         cell.bio.text = userData!["bio"].stringValue
         cell.hardware.text = userData!["hardware"].stringValue
-        cell.reviewsCount.text = myReviewsData!["total"].stringValue
+            if let reviewCount = review.count {
+                let reviewString = String(stringInterpolationSegment: reviewCount)
+                cell.reviewsCount.text = reviewString
+            }
         cell.favoritesCount.text = myFavoritesData!["total"].stringValue
         cell.wishCount.text = myWishlistData!["total"].stringValue
         }
+        cell.preservesSuperviewLayoutMargins = false
         return cell
     }
     func generateLabel() {
@@ -193,12 +189,22 @@ class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDele
     }
     
     func reviewCellAtIndexPath(indexPath:NSIndexPath) -> myReviewsCell {
-        let cell = self.profileTable.dequeueReusableCellWithIdentifier("myReviews") as myReviewsCell
-        if (myReviews != nil) {
+        let cell = self.profileTable.dequeueReusableCellWithIdentifier("myReviews") as! myReviewsCell
+        if self.userReviews != nil && self.userReviews!.count >= indexPath.row {
         setImageForReview(cell, indexPath: indexPath)
         setReviewForCell(cell, indexPath: indexPath)
+            let rowsToLoadFromBottom = 5
+            let rowsLoaded = self.userReviews!.count
+            if (!self.isLoadingReviews && (indexPath.row >= (rowsLoaded - rowsToLoadFromBottom))) {
+                let totalRows = self.userReviewsWrapper!.count!
+                let remainingFeedToLoad = totalRows - rowsLoaded
+                if (remainingFeedToLoad > 0) {
+                    self.loadMoreReviews()
+                }
+            }
         }
         cell.cellDelegate = self
+        cell.preservesSuperviewLayoutMargins = false
         return cell
     }
     
@@ -210,25 +216,26 @@ class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDele
     }
     
     func setImageForReview(cell:myReviewsCell, indexPath:NSIndexPath) {
-        if let imageString = myReviews![indexPath.row]["image"].stringValue as String? {
+        let review = userReviews![indexPath.row]
+        if let imageString = review.product?.image {
             let url = NSURL(string: imageString)
-            cell.productImage.hnk_setImageFromURL(url!)
+            //cell.productImage.hnk_setImageFromURL(url!)
         }
     }
     func setReviewForCell(cell:myReviewsCell, indexPath:NSIndexPath) {
-        let reviewIndex = myReviews![indexPath.row]
-        cell.state = reviewIndex["current_helpful"].bool 
-        cell.productID = reviewIndex["product"]["id"].stringValue
-        cell.reviewID = reviewIndex["id"].stringValue
-        cell.productName.text = reviewIndex["product"]["name"].stringValue
-        cell.productReview.text = reviewIndex["description"].stringValue
-        cell.brandName.text = reviewIndex["product"]["brand"]["name"].string
-        if let rating = reviewIndex["score"].stringValue as String?{
+        let review = userReviews![indexPath.row]
+        cell.state = review.currentHelpful
+        cell.productID = review.productID
+        cell.reviewID = review.reviewID
+        cell.productName.text = review.product?.name
+        cell.productReview.text = review.description
+        cell.brandName.text = review.brand?.name 
+        if let rating = review.score {
             let number = (rating as NSString).floatValue
             cell.floatRatingView.rating = number
             cell.floatRatingView.userInteractionEnabled = false
         }
-        if let throatHit = reviewIndex["throat"].int {
+        if let throatHit = review.throat {
             var value:String?
             switch throatHit {
             case 1:
@@ -246,7 +253,7 @@ class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDele
             }
             cell.throat.text = ("\(value!) throat hit")
         }
-        if let vaporProduction = reviewIndex["vapor"].int {
+        if let vaporProduction = review.vapor {
             var value:String?
             switch vaporProduction {
             case 1:
@@ -264,25 +271,26 @@ class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDele
             }
             cell.vapor.text = ("\(value!) vapor production")
         }
-        if let helpfullCount = reviewIndex["helpful_count"].stringValue as String? {
+        if let helpfullCount = review.helpfulCount {
             switch helpfullCount {
-            case "0":
+            case 0:
                 cell.helpfullLabel.text = "Was this helpful?"
             default:
                 cell.helpfullLabel.text = "\(helpfullCount) people found this helpful"
             }
         }
+        
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier! {
         case "anyUserToFavorites":
-            var favoritesVC: newFavoritesViewController = segue.destinationViewController as newFavoritesViewController
+            var favoritesVC: newFavoritesViewController = segue.destinationViewController as! newFavoritesViewController
             favoritesVC.userID = selectedUserID!
         case "anyUserToFlavor":
-            var productVC: brandFlavorViewController = segue.destinationViewController as brandFlavorViewController
+            var productVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
             productVC.selectedProductID = selectedProductID
         case "anyUserToWishlist":
-            let wishVC: wishListViewControler = segue.destinationViewController as wishListViewControler
+            let wishVC: wishListViewControler = segue.destinationViewController as! wishListViewControler
             wishVC.userID = selectedUserID
         default:
             println("no segue")
@@ -308,6 +316,51 @@ class anyUserProfileView: UIViewController, reviewCellDelegate, UIScrollViewDele
             topCell?.userName.hidden = false
         }
     }
+    func loadFirstReviews() {
+        self.userReviews = []
+        isLoadingReviews = true
+        ActivityFeedReviews.getUserReviews(selectedUserID!, completionHandler: { (activityWrapper, error) in
+            if error != nil {
+                self.isLoadingReviews = false
+                var alert = UIAlertController(title: "Error", message: "could not load first activity", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            self.addReviewFromWrapper(activityWrapper)
+            self.isLoadingReviews = false
+            self.profileTable.reloadData()
+        })
+    }
+    
+    func loadMoreReviews() {
+        isLoadingReviews = true
+        if self.userReviews != nil && self.userReviewsWrapper != nil && self.userReviews!.count < self.userReviewsWrapper!.count
+        {
+            ActivityFeedReviews.getMoreUserReviews(selectedUserID!, wrapper: self.userReviewsWrapper, completionHandler: { (moreWrapper, error) in
+                if error != nil
+                {
+                    self.isLoadingReviews = false
+                    var alert = UIAlertController(title: "Error", message: "Could not load more activity", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                println("got More")
+                self.addReviewFromWrapper(moreWrapper)
+                self.isLoadingReviews = false
+                self.profileTable.reloadData()
+            })
+        }
+    }
+    
+    func addReviewFromWrapper(wrapper: ActivityWrapper?) {
+        self.userReviewsWrapper = wrapper
+        if self.userReviews == nil {
+            self.userReviews = self.userReviewsWrapper?.ActivityReviews
+        }else if self.userReviewsWrapper != nil && self.userReviewsWrapper!.ActivityReviews != nil{
+            self.userReviews = self.userReviews! + self.userReviewsWrapper!.ActivityReviews!
+        }
+    }
+
     
     
 

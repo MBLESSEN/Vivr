@@ -16,7 +16,11 @@ protocol VivrCellDelegate {
     
     func tappedCommentButton(cell: vivrCell)
     func reloadAPI(cell: vivrCell)
-    
+    func tappedUserButton(cell: vivrCell)
+    func helpfulTrue(cell: vivrCell)
+    func helpfulFalse(cell: vivrCell)
+    func wishlistTrue(cell: vivrCell)
+    func wishlistFalse(cell: vivrCell)
 }
 
 class vivrCell: UITableViewCell{
@@ -38,6 +42,8 @@ class vivrCell: UITableViewCell{
     @IBOutlet weak var productButton: UIButton!
     @IBOutlet weak var hardwareLabel: UILabel?
     
+    var cellID:Int?
+    var userID:String?
     var reviewID: String = ""
     var cellDelegate: VivrCellDelegate? = nil
     var productID: String = ""
@@ -102,7 +108,7 @@ class vivrCell: UITableViewCell{
         }
     }
     
-    var review:JSON? {
+    var review:ActivityFeedReviews? {
         didSet {
             self.loadReviews()
         }
@@ -115,9 +121,12 @@ class vivrCell: UITableViewCell{
     }
     
     @IBAction func toComments(sender: AnyObject) {
-            cellDelegate?.tappedCommentButton(self)
+        cellDelegate?.tappedCommentButton(self)
     }
     
+    @IBAction func toUser(sender: AnyObject) {
+        cellDelegate?.tappedUserButton(self)
+    }
     
 
     @IBAction func helpfullPressed(sender: AnyObject) {
@@ -128,15 +137,16 @@ class vivrCell: UITableViewCell{
         case true:
             helpfullState = false
             Alamofire.request(Router.notHelpful(productID, reviewID))
+            cellDelegate?.helpfulFalse(self)
         case false:
             helpfullState = true
             Alamofire.request(Router.isHelpful(productID, reviewID))
+            cellDelegate?.helpfulTrue(self)
         default:
             println("error")
         }
-        self.helpfulButtonState()
-        cellDelegate?.reloadAPI(self)
-        
+        helpfulButtonState()
+        self.cellDelegate?.reloadAPI(self)
     }
 
     @IBAction func wishlistPressed(sender: AnyObject) {
@@ -148,13 +158,15 @@ class vivrCell: UITableViewCell{
         case true:
             wishlistState = false
             Alamofire.request(Router.removeWish(productID))
+            cellDelegate?.wishlistFalse(self)
         case false:
             wishlistState = true
             Alamofire.request(Router.addToWish(productID))
+            cellDelegate?.wishlistTrue(self)
         default:
             println("error")
         }
-        self.wishlistButtonState()
+        wishlistButtonState()
         cellDelegate?.reloadAPI(self)
     }
     func wishlistButtonState(){
@@ -199,6 +211,9 @@ class vivrCell: UITableViewCell{
         
     }
     func loadReviews() {
+        
+        /*
+        userID = review!["user"]["id"].stringValue
         self.reviewID = self.review!["id"].stringValue
         self.productID = self.review!["product"]["id"].stringValue
         if let user = self.review?["user"]["username"].stringValue {
@@ -291,14 +306,15 @@ class vivrCell: UITableViewCell{
                 
             }
         }
-
+    */
     }
     
     func loadData() {
+        userID = self.reviewAndComment!["user"]["id"].stringValue 
         self.reviewID = self.reviewAndComment!["id"].stringValue
         self.productID = self.reviewAndComment!["product"]["id"].stringValue
-        if let user = self.reviewAndComment?["user"]["username"].stringValue {
-            self.userName.text = "\(user)"
+        if let user = self.reviewAndComment!["user"]["username"].stringValue as String?{
+            self.userName.text = user
         }
         self.reviewDescription.text = self.reviewAndComment!["description"].string
         self.reviewDescription.sizeToFit()

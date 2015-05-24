@@ -54,8 +54,8 @@ class flavorCell: UITableViewCell {
             self.contentView.addSubview(labelFrame)
             let views:NSDictionary = ["view": labelFrame]
             for (labelKey, labelObject) in views {
-                contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-24-[\(labelKey)]-16-|", options: .allZeros, metrics: nil, views: views))
-                contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-16-[\(labelKey)]-16-|", options: .allZeros, metrics: nil, views: views))
+                contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-24-[\(labelKey)]-16-|", options: .allZeros, metrics: nil, views: views as [NSObject : AnyObject]))
+                contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-16-[\(labelKey)]-16-|", options: .allZeros, metrics: nil, views: views as [NSObject : AnyObject]))
             }
         }
         /*

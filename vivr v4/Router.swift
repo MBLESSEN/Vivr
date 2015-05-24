@@ -16,19 +16,19 @@ enum Router: URLRequestConvertible {
     case PostComment(String, String, [String: AnyObject])
     case ReadBrands()
     case ReadBrandProducts(String)
-    case readAllProducts()
+    case readAllProducts(Int)
     case AddReview(String, [String: AnyObject])
     case ReadReviews(String)
     case ReadProductData(String)
     case ReadProductTags(String)
     case Favorite(String)
     case unFavorite(String)
-    case readFeed()
+    case readFeed(Int)
     case readFeedFiletered(String, String?, String?)
     case readCurrentUser()
     case readUser(String)
-    case readUserReviews(String)
-    case readUserFavorites(String)
+    case readUserReviews(String, Int)
+    case readUserFavorites(String, Int)
     case readUserComments(String)
     case readComments(String, String)
     case readCommentsAPI(String, String)
@@ -51,7 +51,7 @@ enum Router: URLRequestConvertible {
             return .GET
         case .ReadBrandProducts:
             return .GET
-        case .readAllProducts():
+        case .readAllProducts:
             return .GET
         case .ReadReviews:
             return .GET
@@ -109,8 +109,8 @@ enum Router: URLRequestConvertible {
             return "/brands"
         case .ReadBrandProducts(let id):
             return "/brands/\(id)/products"
-        case .readAllProducts():
-            return "/products"
+        case .readAllProducts(let id):
+            return "/products?page=\(id)"
         case .ReadProductData(let id):
             return "/products/\(id)"
         case .ReadProductTags(let id):
@@ -121,18 +121,18 @@ enum Router: URLRequestConvertible {
             return "/products/\(id)/favorites"
         case .unFavorite(let id):
             return "/products/\(id)/favorites"
-        case .readFeed:
-            return "/activity"
+        case .readFeed(let id):
+            return "/activity?page=\(id)"
         case .readFeedFiletered(let id1, let id2, let id3):
             return "/activity?tags=\(id1)"
         case .readCurrentUser:
             return "/profile"
         case .readUser(let id):
             return "/users/\(id)"
-        case .readUserReviews(let id):
-            return "/users/\(id)/reviews"
-        case .readUserFavorites(let id):
-            return "/users/\(id)/favorites"
+        case .readUserReviews(let id, let pageid):
+            return "/users/\(id)/reviews?page=\(pageid)"
+        case .readUserFavorites(let id, let pageid):
+            return "/users/\(id)/favorites?page=\(pageid)"
         case .readUserComments(let id):
             return "/users/\(id)/comments"
         case .readComments(let pid, let rid):
@@ -153,6 +153,7 @@ enum Router: URLRequestConvertible {
             return "/tags"
         case .editProfile(_):
             return "/profile"
+            
             
         }
     }

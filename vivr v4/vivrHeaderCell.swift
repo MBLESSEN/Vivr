@@ -25,6 +25,7 @@ class vivrHeaderCell: UITableViewCell {
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var helpfullButton: UIButton!
     @IBOutlet weak var wishListButton: UIButton!
+    @IBOutlet weak var userHardware: UILabel!
 
     var productID:String?
     var colorPicker:DBImageColorPicker?
