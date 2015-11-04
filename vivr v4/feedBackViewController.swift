@@ -7,24 +7,66 @@
 //
 
 import UIKit
+import Alamofire
 
-class feedBackViewController: UIViewController, UITableViewDataSource {
+class feedBackViewController: UIViewController {
 
-    @IBOutlet weak var feedBackTable: UITableView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var submitbottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var form: UITextView!
+    
+    var keyboardActive: Bool?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        feedBackTable.estimatedRowHeight = 300
-        feedBackTable.rowHeight = UITableViewAutomaticDimension
-        // Do any additional setup after loading the view.
+        let keyboardRecongnizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        self.view.addGestureRecognizer(keyboardRecongnizer)
+        startObservingKeyboardEvents()
+
     }
 
     override func viewWillAppear(animated: Bool) {
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        form.becomeFirstResponder()
+    }
+    func hideKeyboard() {
+        if(keyboardActive == true) {
+            self.becomeFirstResponder()
+            self.view.endEditing(true)
         }
+    }
+    
+    private func startObservingKeyboardEvents() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    private func stopObservingKeyboardEvents() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
+                UIView.animateWithDuration(2, animations: { () -> Void in
+                    self.submitbottomConstraint.constant = keyboardSize.height
+                    self.view.layoutIfNeeded()
+                    self.keyboardActive = true
+                })
+            }
+        }
+    }
+    func keyboardWillHide(notification: NSNotification) {
+                UIView.animateWithDuration(2, animations: { () -> Void in
+                    self.submitbottomConstraint.constant = -150
+                    self.view.layoutIfNeeded()
+                    self.keyboardActive = false
+                })
+    }
+    
+    @IBAction func closePressed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,29 +74,29 @@ class feedBackViewController: UIViewController, UITableViewDataSource {
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+    @IBAction func submitPressed(sender: AnyObject) {
+        if form.text.isEmpty {
+            let emptyAlert = UIAlertController(title: "oops!", message: "Please enter your feedback", preferredStyle: UIAlertControllerStyle.Alert)
+            emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(emptyAlert, animated: true, completion: nil)
+        }else {
+            let feedBackText = form.text
+            let parameters: [String : AnyObject] = [
+                "description" : feedBackText
+            ]
+            
+            Alamofire.request(Router.submitFeedback(parameters)).responseJSON { (response) in
+                if response.result.isFailure {
+                    let emptyAlert = UIAlertController(title: "oops!", message: "You're feedback failed to submit, please try again", preferredStyle: UIAlertControllerStyle.Alert)
+                    emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(emptyAlert, animated: true, completion: nil)
+                }else {
+                    let emptyAlert = UIAlertController(title: "Success!", message: "Thank you for your feedback", preferredStyle: UIAlertControllerStyle.Alert)
+                    emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { action in
+                    self.dismissViewControllerAnimated(true, completion: nil)}))
+                    self.presentViewController(emptyAlert, animated: true, completion: nil)
+                }
+            }
+        }
     }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = feedBackTable.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
-        return cell
-        
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

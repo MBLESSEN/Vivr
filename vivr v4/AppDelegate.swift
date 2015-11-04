@@ -7,107 +7,214 @@
 //
 
 import UIKit
+import CoreData
 import Alamofire
 
 struct myData {
-    static var myProfileID:String = ""
+    static var myProfileID:Int?
     static var myProfileName:String = ""
-    static var favoritesCount:String = ""
-    static var reviewsCount:String = ""
-    static var wishlistCount:String = ""
+    static var favoritesCount:Int?
+    static var reviewsCount:Int?
+    static var wishlistCount:Int?
     static var hardWare:String?
     static var bio:String?
-    static var userImage:NSURL?
+    static var userImage:UIImage = UIImage()
+    static var authToken: String?
+    static var refreshToken: String?
+    static var imageHeight: CGFloat?
+    static var brandFlavorImageHeight: CGFloat?
+    static var productImageHeight: CGFloat?
+    static var user: User?
+    static var userWrapper: UserDataWrapper?
+    static var boxes_count: Int?
+    
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate{
 
+    var initialNavController = UINavigationController()
     var window: UIWindow?
+    var isLoggedIn: Bool?
+    var isLoadingUserData = false
+    var loggedOut = false
+    var userData: User?
+    var userWrapper: UserDataWrapper?
 
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        initializeMixPanel()
+        if loggedOut == false {
+            if let refresh = KeychainWrapper.stringForKey("refreshToken") as String? {
+                print(refresh)
+            }
+            if let authKey = KeychainWrapper.stringForKey("authToken") as String? {
+                print(authKey)
+                
+                if authKey == "" {
+                    isLoggedIn = false
+                }else {
+                    self.loadProfileData()
+                    self.login()
+                    self.isLoggedIn = true
+                    self.loggedOut = false
+                }
         
+        }
+        if (UIScreen.mainScreen().bounds.width < 370) {
+                myData.imageHeight = 200
+                myData.brandFlavorImageHeight = 200
+                myData.productImageHeight = 160
+            }else{
+                myData.imageHeight = 220
+                myData.brandFlavorImageHeight = 240
+                myData.productImageHeight = 180
+            }
         self.applyTheme()
-        self.loadProfileData()
-        // Override point for customization after application launch.
         return true
+        }
+        return true
+        
     }
     
-    func applyTheme() {
+    func initializeMixPanel() {
+       // Mixpanel.sharedInstanceWithToken("c1599b606c61921e73a4c5d6f1e2491b")
+       // let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        //mixpanel.track("App Launched")
+    }
+    /*
+    func storeUserData(user: User) {
+        var context:NSManagedObjectContext = self.managedObjectContext!
         
-        let backImage = UIImage(named: "back")?.imageWithRenderingMode(.AlwaysTemplate)
-        UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
+        var newUserData: AnyObject = NSEntityDescription.insertNewObjectForEntityForName("UserData", inManagedObjectContext: context)
+        newUserData.setValue(user.ID, forKey: "userID")
+        newUserData.setValue(user.userName, forKey: "userName")
+        newUserData.setValue(user.image, forKey: "userImage")
+        newUserData.setValue(user.bio, forKey: "bio")
+        newUserData.setValue(user.hardWare, forKey: "hardware")
+        newUserData.setValue(user.review_count, forKey: "juice_count")
+        newUserData.setValue(user.box_count, forKey: "boxes_count")
+        newUserData.setValue(user.wishlist_count, forKey: "wish_count")
+        newUserData.setValue(user.favorite_count, forKey: "favorite_count")
+        var error: NSError?
+        if !context.save(&error) {
+            println("error saving to core data")
+        }
+        createUserStruct()
+        
+        
+    }*/
+    
+
+    
+    func storeUserData(user: User) {
+        myData.myProfileID = user.ID
+        myData.myProfileName = user.userName!
+        if let imageURL = user.image {
+            if imageURL != "" {
+            let url = NSURL(string: imageURL)
+            if let data = NSData(contentsOfURL: url!) {
+                myData.userImage = UIImage(data: data)!
+            }
+            }else {
+                let image = UIImage(named:"user_100")
+                myData.userImage = image!
+            }
+        }
+        myData.reviewsCount = user.review_count
+        if user.bio == "" {
+            myData.bio = "I am a new user on vivr!"
+        }
+        else{
+            myData.bio = user.bio
+        }
+        if user.hardWare == "" {
+        myData.hardWare =  "Let everyone know what hardware youre using."
+        }else {
+            myData.hardWare = user.hardWare
+        }
+        myData.wishlistCount = user.wishlist_count
+        myData.favoritesCount = user.favorite_count
+        myData.boxes_count = user.box_count
+    }
+    
+    func createUserStruct() {
+        let context:NSManagedObjectContext = self.managedObjectContext!
+        let request = NSFetchRequest(entityName: "UserData")
+        request.returnsObjectsAsFaults = false
+        let results:NSArray = try! context.executeFetchRequest(request)
+        if results.count > 0 {
+            let data = results[0] as! NSManagedObject
+            myData.myProfileName = data.valueForKey("userName") as! String
+            myData.myProfileID = data.valueForKey("userID") as? Int
+            if let imageURL = data.valueForKey("userImage") as? String {
+                let url = NSURL(string: imageURL)
+                if let data = NSData(contentsOfURL: url!) {
+                    myData.userImage = UIImage(data: data)!
+                }
+            }
+            myData.reviewsCount = data.valueForKey("juice_count") as? Int
+            myData.bio = data.valueForKey("bio") as? String
+            myData.hardWare = data.valueForKey("hardware") as? String
+            myData.wishlistCount = data.valueForKey("wish_count") as? Int
+            myData.favoritesCount = data.valueForKey("favorite_count") as? Int
+            
+            
+        }
+        
+    }
+    
+    func logout() {
+        window?.rootViewController = nil
+        KeychainWrapper.removeObjectForKey("authToken")
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let initialViewController = storyBoard.instantiateViewControllerWithIdentifier("Walk") as! loginViewController
+        initialNavController = UINavigationController(rootViewController: initialViewController)
+        self.window?.rootViewController = initialNavController
+        self.window?.makeKeyAndVisible()
+        
+    }
+    
+    
+    func login() {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let initialViewController = storyBoard.instantiateViewControllerWithIdentifier("HomeView") as! UITabBarController
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+    }
+
+    
+    func applyTheme() {
+       // UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
         UINavigationBar.appearance().tintColor = UIColor(red: 43.0/255, green: 169.0/255, blue: 41.0/255, alpha: 1.0)
         UINavigationBar.appearance().translucent = true;
     }
     
-    func loadProfileData() {
-        Alamofire.request(Router.readCurrentUser()).responseJSON { (request, response, json, error) in
-            if (json != nil) {
-                var jsonOBJ = JSON(json!)
-                if let urlString = jsonOBJ["image"].stringValue as String? {
-                    let url = NSURL(string: urlString)
-                    myData.userImage = url!
-                }
-                if let id = jsonOBJ["id"].stringValue as String? {
-                    myData.myProfileID = id
-                    Alamofire.request(Router.readUserReviews(id, 1)).responseJSON { (request, response, json, error) in
-                        if (json != nil) {
-                            var jsonOBJ = JSON(json!)
-                            if let rcount = jsonOBJ["total"].stringValue as String? {
-                                myData.reviewsCount = rcount
-                            }
-                            
-                        }
-                    }
-                    Alamofire.request(Router.readUserFavorites(id, 1)).responseJSON { (request, response, json, error) in
-                        if (json != nil) {
-                            var jsonOBJ = JSON(json!)
-                            if let fcount = jsonOBJ["total"].stringValue as String? {
-                                myData.favoritesCount = fcount
-                            }
-                        }
-                    }
-                    Alamofire.request(Router.readWishlist(id)).responseJSON { (request, response, json, error) in
-                        if (json != nil) {
-                            var jsonOBJ = JSON(json!)
-                            if let wcount = jsonOBJ["total"].stringValue as String? {
-                                myData.wishlistCount = wcount
-                            }
-                        }
-                    }
-                }
-                if let name = jsonOBJ["username"].stringValue as String? {
-                    myData.myProfileName = name
-                }
-                if let hardware = jsonOBJ["hardware"].stringValue as String? {
-                    myData.hardWare = hardware
-                }
-                if let bio = jsonOBJ["bio"].stringValue as String? {
-                    myData.bio = bio
-                }
-            }
-        }
-    
-        Alamofire.request(Router.readUserReviews(myData.myProfileID, 1)).responseJSON { (request, response, json, error) in
-            if (json != nil) {
-                var jsonOBJ = JSON(json!)
-                if let rcount = jsonOBJ["total"].stringValue as String? {
-                    myData.reviewsCount = rcount
-                }
-                
-            }
-        }
-        Alamofire.request(Router.readUserFavorites(myData.myProfileID, 1)).responseJSON { (request, response, json, error) in
-            if (json != nil) {
-                var jsonOBJ = JSON(json!)
-                if let fcount = jsonOBJ["total"].stringValue as String? {
-                    myData.favoritesCount = fcount
-                }
+    func addUserDataFromWrapper(wrapper: UserDataWrapper?) {
+        self.userWrapper = wrapper
+        if self.userData == nil {
+            self.userData = self.userWrapper?.UserData?.first
+            if userData != nil {
+                storeUserData(self.userData!)
             }
         }
     }
+    
+    
+    func loadProfileData() {
+        isLoadingUserData = true
+        self.userData = nil
+        User.getMyUserData(0, completionHandler: { (userDataWrapper, error) in
+            if error != nil {
+                self.isLoadingUserData = false
+                print("error in load Profile")
+            }
+            self.addUserDataFromWrapper(userDataWrapper)
+            self.isLoadingUserData = false
+        })
+        
+    }
+    
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -129,7 +236,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        self.saveContext()
     }
+    
+    // MARK: - Core Data stack
+    
+    lazy var applicationDocumentsDirectory: NSURL = {
+        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.xxxx.ProjectName" in the application's documents Application Support directory.
+        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        return urls[urls.count-1] 
+        }()
+    
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+        let modelURL = NSBundle.mainBundle().URLForResource("userData", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        }()
+    
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
+        // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
+        // Create the coordinator and store
+        var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("vivr_v4.sqlite")
+        var error: NSError? = nil
+        var failureReason = "There was an error creating or loading the application's saved data."
+        let mOptions = [NSMigratePersistentStoresAutomaticallyOption: true,
+            NSInferMappingModelAutomaticallyOption: true]
+        do {
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: mOptions)
+        } catch var error1 as NSError {
+            error = error1
+            coordinator = nil
+            // Report any error we got.
+            var dict = [String: AnyObject]()
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            dict[NSUnderlyingErrorKey] = error
+            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            // Replace this with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog("Unresolved error \(error), \(error!.userInfo)")
+            abort()
+        } catch {
+            fatalError()
+        }
+        
+        return coordinator
+        }()
+    
+    lazy var managedObjectContext: NSManagedObjectContext? = {
+        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
+        let coordinator = self.persistentStoreCoordinator
+        if coordinator == nil {
+            return nil
+        }
+        var managedObjectContext = NSManagedObjectContext()
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+        }()
+    
+    // MARK: - Core Data Saving support
+    
+    func saveContext () {
+        if let moc = self.managedObjectContext {
+            var error: NSError? = nil
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error1 as NSError {
+                    error = error1
+                    // Replace this implementation with code to handle the error appropriately.
+                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+                    abort()
+                }
+            }
+        }
+    }
+    
 
 
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 // MARK: - Protocols -
 
@@ -21,10 +22,10 @@ Probably the Walkthrough is presented by this delegate.
     @objc optional func walkthroughNextButtonPressed()               //
     @objc optional func walkthroughPrevButtonPressed()               //
     @objc optional func walkthroughPageDidChange(pageNumber:Int)     // Called when current page changes
-
+    
 }
 
-/** 
+/**
 Walkthrough Page:
 The walkthrough page represents any page added to the Walkthrough.
 At the moment it's only used to perform custom animations on didScroll.
@@ -56,10 +57,42 @@ protocol loginDelegate {
     @IBOutlet var prevButton:UIButton?
     @IBOutlet var closeButton:UIButton?
     @IBOutlet weak var backgroundImage: UIImageView!
-
+    @IBOutlet weak var login: UIButton!
+    @IBOutlet weak var signUp: UIButton!
+    @IBOutlet weak var middleConstraint: NSLayoutConstraint!
+    @IBOutlet weak var equalWidths: NSLayoutConstraint!
+    @IBOutlet weak var loginViewBottom: NSLayoutConstraint!
+    @IBOutlet weak var formView: UIView!
+    @IBOutlet weak var form: UIView!
+    @IBOutlet weak var loginForm: UIView!
+    @IBOutlet weak var formViewBottom: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewContentHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewContent: UIView!
+    @IBOutlet weak var scrollViewTopConstraint: NSLayoutConstraint!
+    
+    
+    //login Variables
+    @IBOutlet weak var email: B68UIFloatLabelTextField!
+    @IBOutlet weak var password: B68UIFloatLabelTextField!
+    @IBOutlet weak var loginButton: UIButton!
+    
+    //signup Variables
+    @IBOutlet weak var emailEntered: B68UIFloatLabelTextField!
+    @IBOutlet weak var userNameEntered: B68UIFloatLabelTextField!
+    @IBOutlet weak var passwordEntered: B68UIFloatLabelTextField!
+    @IBOutlet weak var confirmPasswordEntered: B68UIFloatLabelTextField!
+    @IBOutlet weak var createButton: UIButton!
+    
+    
+    var keyboardActive:Bool?
+    var loginActive = false
+    var signUpActive = false
     var timer = NSTimer()
     var timerState:String = "on"
     var viewDelegate: loginDelegate? = nil
+    var formIsActive = false
     
     var currentPage:Int{    // The index of the current page (readonly)
         get{
@@ -78,7 +111,7 @@ protocol loginDelegate {
     
     // MARK: - Overrides -
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         // Setup the scrollview
         scrollview = UIScrollView()
         scrollview.showsHorizontalScrollIndicator = false
@@ -96,12 +129,16 @@ protocol loginDelegate {
         controllers = Array()
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let endKeyboardRecongnizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        self.view.addGestureRecognizer(endKeyboardRecongnizer)
+        startObservingKeyboardEvents()
         timer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
         timerState = "on"
-        var timerGesture = UITapGestureRecognizer(target: self, action: "stopStart")
+        let timerGesture = UITapGestureRecognizer(target: self, action: "stopStart")
         self.view.addGestureRecognizer(timerGesture)
         backgroundImage.layer.zPosition = backgroundImage.layer.zPosition - 4
         // Initialize UIScrollView
@@ -109,7 +146,7 @@ protocol loginDelegate {
         
     }
     
-
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
@@ -118,18 +155,78 @@ protocol loginDelegate {
         pageControl?.currentPage = 0
         
         scrollview.delegate = self
-        scrollview.setTranslatesAutoresizingMaskIntoConstraints(false)
+        scrollview.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(scrollview, atIndex: 0) //scrollview is inserted as first view of the hierarchy
         
         // Set scrollview related constraints
         
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[scrollview]-0-|", options:nil, metrics: nil, views: ["scrollview":scrollview]))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[scrollview]-0-|", options:nil, metrics: nil, views: ["scrollview":scrollview]))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[scrollview]-0-|", options:[], metrics: nil, views: ["scrollview":scrollview]))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[scrollview]-0-|", options:[], metrics: nil, views: ["scrollview":scrollview]))
         
+    }
+    
+    private func startObservingKeyboardEvents() {
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:Selector("keyboardWillShow:"),
+            name:UIKeyboardWillShowNotification,
+            object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:Selector("keyboardWillHide:"),
+            name:UIKeyboardWillHideNotification,
+            object:nil)
+    }
+    
+    private func stopObservingKeyboardEvents() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {/*
+        if let userInfo = notification.userInfo {
+            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
+                UIView.animateWithDuration(2, animations: { () -> Void in
+                    if self.loginActive == true {
+                        self.scrollViewContentHeight.constant = UIScreen.mainScreen().bounds.height - 275.0
+                        self.scrollViewTopConstraint.constant = UIScreen.mainScreen().bounds.height - 75 - self.formView.frame.height - keyboardSize.height - 20
+                    }
+                    //self.loginViewBottom.constant = self.loginViewBottom.constant + keyboardSize.height
+                    //self.formViewBottom.constant = keyboardSize.height
+                    self.scrollViewBottomConstraint.constant = keyboardSize.height
+                    self.view.layoutIfNeeded()
+                    self.keyboardActive = true
+                })
+            }
+        }
+*/
+    }
+    func keyboardWillHide(notification: NSNotification) {
+        /*
+        scrollViewContentHeight.constant = 20.0
+        if let userInfo = notification.userInfo {
+            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
+                UIView.animateWithDuration(2, animations: { () -> Void in
+                    //self.formViewBottom.constant = 0
+                    //self.loginViewBottom.constant = self.loginViewBottom.constant - keyboardSize.height
+                    self.scrollViewTopConstraint.constant = 0
+                    self.scrollViewBottomConstraint.constant = 0
+                    self.view.layoutIfNeeded()
+                    self.keyboardActive = false
+                })
+            }
+        }
+*/
+    }
+    
+    func hideKeyboard() {
+        if(keyboardActive == true) {
+            self.becomeFirstResponder()
+            self.view.endEditing(true)
+        }
     }
     
     @IBAction func toLogin(sender: AnyObject) {
         viewDelegate?.tappedLoginButton(self)
+        
     }
     @IBAction func toSignUp(sender: AnyObject) {
         viewDelegate?.tappedRegisterButton(self)
@@ -137,8 +234,10 @@ protocol loginDelegate {
     
     func stopStart() {
         timer.invalidate()
-    
+        
     }
+    
+    
     
     func update() {
         if (currentPage + 1) < controllers.count {
@@ -183,7 +282,7 @@ protocol loginDelegate {
         }
     }
     
-    // TODO: If you want to implement a "skip" option 
+    // TODO: If you want to implement a "skip" option
     // connect a button to this IBAction and implement the delegate with the skipWalkthrough
     @IBAction func close(sender: AnyObject){
         delegate?.walkthroughCloseButtonPressed?()
@@ -191,8 +290,8 @@ protocol loginDelegate {
     
     /**
     addViewController
-    Add a new page to the walkthrough. 
-    To have information about the current position of the page in the walkthrough add a UIVIewController which implements BWWalkthroughPage    
+    Add a new page to the walkthrough.
+    To have information about the current position of the page in the walkthrough add a UIVIewController which implements BWWalkthroughPage
     */
     func addViewController(vc:UIViewController)->Void{
         
@@ -200,7 +299,7 @@ protocol loginDelegate {
         
         // Setup the viewController view
         
-        vc.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        vc.view.translatesAutoresizingMaskIntoConstraints = false
         scrollview.addSubview(vc.view)
         
         // Constraints
@@ -209,14 +308,14 @@ protocol loginDelegate {
         
         // - Generic cnst
         
-        vc.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[view(h)]", options:nil, metrics: metricDict, views: ["view":vc.view]))
-        vc.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[view(w)]", options:nil, metrics: metricDict, views: ["view":vc.view]))
-        scrollview.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[view]|", options:nil, metrics: nil, views: ["view":vc.view,]))
+        vc.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[view(h)]", options:[], metrics: metricDict, views: ["view":vc.view]))
+        vc.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[view(w)]", options:[], metrics: metricDict, views: ["view":vc.view]))
+        scrollview.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[view]|", options:[], metrics: nil, views: ["view":vc.view,]))
         
         // cnst for position: 1st element
         
         if controllers.count == 1{
-            scrollview.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]", options:nil, metrics: nil, views: ["view":vc.view,]))
+            scrollview.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]", options:[], metrics: nil, views: ["view":vc.view,]))
             
             // cnst for position: other elements
             
@@ -225,18 +324,18 @@ protocol loginDelegate {
             let previousVC = controllers[controllers.count-2]
             let previousView = previousVC.view;
             
-            scrollview.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[previousView]-0-[view]", options:nil, metrics: nil, views: ["previousView":previousView,"view":vc.view]))
+            scrollview.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[previousView]-0-[view]", options:[], metrics: nil, views: ["previousView":previousView,"view":vc.view]))
             
             if let cst = lastViewConstraint{
-                scrollview.removeConstraints(cst as [AnyObject])
+                scrollview.removeConstraints(cst as! [NSLayoutConstraint])
             }
-            lastViewConstraint = NSLayoutConstraint.constraintsWithVisualFormat("H:[view]-0-|", options:nil, metrics: nil, views: ["view":vc.view])
-            scrollview.addConstraints(lastViewConstraint! as [AnyObject])
+            lastViewConstraint = NSLayoutConstraint.constraintsWithVisualFormat("H:[view]-0-|", options:[], metrics: nil, views: ["view":vc.view])
+            scrollview.addConstraints(lastViewConstraint! as! [NSLayoutConstraint])
         }
     }
-
-    /** 
-    Update the UI to reflect the current walkthrough situation 
+    
+    /**
+    Update the UI to reflect the current walkthrough situation
     **/
     
     private func updateUI(){
@@ -271,7 +370,7 @@ protocol loginDelegate {
         for var i=0; i < controllers.count; i++ {
             
             if let vc = controllers[i] as? BWWalkthroughPage{
-            
+                
                 let mx = ((scrollview.contentOffset.x + view.bounds.size.width) - (view.bounds.size.width * CGFloat(i))) / view.bounds.size.width
                 
                 // While sliding to the "next" slide (from right to left), the "current" slide changes its offset from 1.0 to 2.0 while the "next" slide changes it from 0.0 to 1.0
@@ -301,10 +400,10 @@ protocol loginDelegate {
     
     /* WIP */
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        println("CHANGE")
+        print("CHANGE", terminator: "")
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        println("SIZE")
+        print("SIZE", terminator: "")
     }
 }

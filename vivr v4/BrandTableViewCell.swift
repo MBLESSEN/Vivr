@@ -14,15 +14,20 @@ class BrandTableViewCell: UITableViewCell {
     @IBOutlet weak var brandImage: UIImageView!
     @IBOutlet weak var brandLabel: UILabel!
     @IBOutlet weak var flavorCount: UILabel!
+    @IBOutlet weak var flavorsLabel: UILabel!
+    @IBOutlet weak var averageRatingLabel: UILabel!
+    @IBOutlet weak var averageRating: UILabel!
+    
+    var brandID: Int?
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
     
     
-    var brand:JSON? {
+    var brand:Brand? {
         didSet {
             self.loadBrand()
         }
@@ -30,10 +35,12 @@ class BrandTableViewCell: UITableViewCell {
     }
     
     func loadBrand() {
-        self.brandLabel.text = self.brand?["name"].string
-        self.flavorCount.text = self.brand?["product_count"].stringValue
-        if let urlString = self.brand?["logo"] {
-            let url = NSURL(string: urlString.stringValue)
+        self.brandLabel.text = brand?.name
+        print(brand?.name, terminator: "")
+        self.flavorCount.text = "\(brand?.productCount!)"
+        if let urlString = self.brand!.image as String? {
+            print(urlString, terminator: "")
+            let url = NSURL(string: urlString)
             self.brandImage.hnk_setImageFromURL(url!)
 
             }

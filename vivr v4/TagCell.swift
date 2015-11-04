@@ -9,10 +9,12 @@
 import UIKit
 
 class TagCell: UITableViewCell {
-
+    
+    @IBOutlet weak var selectedIndicator: UIImageView!
     var selectedTags = []
-    var selectedState = false
     var tagID:String?
+    let check = UIImage(named: "checkmark")
+    
     @IBOutlet weak var tagName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,7 +23,12 @@ class TagCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        println(selected)
+        switch selected {
+        case true:
+            selectedIndicator.image = check
+        default:
+            selectedIndicator.image = nil
+        }
     }
     
 

@@ -8,19 +8,23 @@
 
 import UIKit
 import Alamofire
+import AssetsLibrary
+import SwiftyJSON
 
-class editProfileController: UITableViewController {
+class editProfileController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var fullName: B68UIFloatLabelTextField!
     @IBOutlet weak var hardWare: B68UIFloatLabelTextField!
     @IBOutlet weak var bio: B68UIFloatLabelTextField!
     @IBOutlet weak var website: B68UIFloatLabelTextField!
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var userImage: UIImageView!
     
     var parameters: Dictionary <String,AnyObject> = [:]
     var nameData:Bool = false
     var hardWareData:Bool = false
     var bioData:Bool = false
-    
+    var isChangingUserImage = false
+    var imageData:NSData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +38,28 @@ class editProfileController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        configureNavBar()
+    }
+    
+    func configureNavBar() {
+        let navbarFont = UIFont(name: "PTSans-Bold", size: 17) ?? UIFont.systemFontOfSize(17)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain , target: nil, action: nil)
+        navigationController?.navigationBar.tintColor = UIColor(red: 43.0/255, green: 169.0/255, blue: 41.0/255, alpha: 1.0)
+        navigationController?.navigationBar.barTintColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: navbarFont, NSForegroundColorAttributeName:UIColor.whiteColor()]
+    }
+    
     func configureTextFields() {
+        userImage.layer.cornerRadius = self.userImage.frame.size.width / 2
+        userImage.clipsToBounds = true
+        userImage.layer.borderWidth = 3.0
+        userImage.layer.borderColor = UIColor(white: 1.0, alpha: 0.5).CGColor
         fullName.borderStyle = UITextBorderStyle.None
         hardWare.borderStyle = UITextBorderStyle.None
         bio.borderStyle = UITextBorderStyle.None
-        //website.borderStyle = UITextBorderStyle.None
+        website.borderStyle = UITextBorderStyle.None
     }
 
     @IBAction func cancelEdit(sender: AnyObject) {
@@ -73,11 +94,26 @@ class editProfileController: UITableViewController {
         if let userNameText = myData.myProfileName as String? {
             self.fullName.text = userNameText
         }
-        
+        if let image = myData.userImage as UIImage? {
+            userImage.image = image
+        }
+    }
+    
+    @IBAction func editUserImage(sender: AnyObject) {
+        let pickerC = UIImagePickerController()
+        pickerC.delegate = self
+        self.presentViewController(pickerC, animated: true, completion: nil)
+    }
+  
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        myData.userImage = image
+        userImage.image = image
+        isChangingUserImage = true
     }
     
     func checkName(){
-        if (fullName.text.isEmpty) {
+        if (fullName.text!.isEmpty) {
             nameData = false
         }else if (fullName.text == nil) {
             nameData = false
@@ -85,11 +121,11 @@ class editProfileController: UITableViewController {
             nameData = false
         }else {
             nameData = true
-            parameters.updateValue(fullName.text, forKey: "username")
+            parameters.updateValue(fullName.text!, forKey: "username")
         }
     }
     func checkHardWare(){
-        if (hardWare.text.isEmpty) {
+        if (hardWare.text!.isEmpty) {
             hardWareData = false
         }else if (hardWare.text == nil) {
             hardWareData = false
@@ -97,12 +133,12 @@ class editProfileController: UITableViewController {
             hardWareData = false
         }else {
             hardWareData = true
-            parameters.updateValue(hardWare.text, forKey: "hardware")
+            parameters.updateValue(hardWare.text!, forKey: "hardware")
         }
         
     }
     func checkBio(){
-        if (bio.text.isEmpty) {
+        if (bio.text!.isEmpty) {
             bioData = false
         }else if (bio.text == nil) {
             bioData = false
@@ -110,7 +146,7 @@ class editProfileController: UITableViewController {
             bioData = false
         }else {
             bioData = true
-            parameters.updateValue(bio.text, forKey: "bio")
+            parameters.updateValue(bio.text!, forKey: "bio")
         }
         
     }
@@ -119,20 +155,10 @@ class editProfileController: UITableViewController {
         checkHardWare()
         checkBio()
         
-        Alamofire.request(Router.editProfile(parameters)).responseJSON { (request, response, json, error) in
-            println(request)
-            println(response)
-            println(json)
-            println(error)
-            if (json != nil){
-                let jsonOBJ = JSON(json!)
-                if let data = jsonOBJ["username"].arrayValue as [JSON]?{
-                    if let error = data[0].stringValue as String?{
-                    let emptyAlert = UIAlertController(title: "oops!", message: error, preferredStyle: UIAlertControllerStyle.Alert)
-                    emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(emptyAlert, animated: true, completion: nil)
-                }
-                }
+        Alamofire.request(Router.editProfile(parameters)).responseJSON { (response) in
+            let error = response.result.error
+            if response.result.isFailure {
+                print(error)
             }else {
                 let emptyAlert = UIAlertController(title: "submitted", message: "Your profile was updated", preferredStyle: UIAlertControllerStyle.Alert)
                 emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
@@ -142,7 +168,51 @@ class editProfileController: UITableViewController {
             
             
         }
+        if isChangingUserImage == true {
+            print("attempting to post", terminator: "")
+        createMultipart(myData.userImage, callback: { success in
+            print("upload function performed", terminator: "")
+            if success {
+                print("it posted", terminator: "")
+            }
+        })
+        }
+        
     }
+    
+    func createMultipart(image: UIImage, callback: Bool -> Void){
+        // use SwiftyJSON to convert a dictionary to JSON
+        let parameterJSON = JSON([
+            "id_user": "test"
+            ])
+        // JSON stringify
+        let parameterString = parameterJSON.rawString(NSUTF8StringEncoding, options: [])
+        let jsonParameterData = parameterString!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+        // convert image to binary
+        let imageData = UIImageJPEGRepresentation(image, 0.7)
+        // upload is part of AlamoFire
+        upload(
+            Router.uploadProfile(),
+            multipartFormData: { multipartFormData in
+                // fileData: puts it in "files"
+                multipartFormData.appendBodyPart(data: jsonParameterData!, name: "goesIntoFile", fileName: "json.txt", mimeType: "application/json")
+                multipartFormData.appendBodyPart(data: imageData!, name: "file", fileName: "iosFile.jpg", mimeType: "image/jpg")
+                // data: puts it in "form"
+                multipartFormData.appendBodyPart(data: jsonParameterData!, name: "goesIntoForm")
+            },
+            encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .Success(let upload, _, _):
+                    upload.responseJSON { response in
+                        callback(true)
+                    }
+                case .Failure(_):
+                    callback(false)
+                }
+            }
+        )
+    }
+    
     
 }
 

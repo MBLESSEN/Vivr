@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class commentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, VivrCellDelegate, CommentCellDelegate {
     
@@ -21,36 +22,43 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     var selectedUserID:String?
     var reviewID: String = ""
     var productID: String = ""
-    var commentResults:[JSON]? = []
-    var results:JSON? = ""
+    var commentResults:[SwiftyJSON.JSON]? = []
+    var results:SwiftyJSON.JSON? = ""
+    var productResults:SwiftyJSON.JSON? = ""
     var segueIdentifier:String = ""
     var commentcount:Int?
     var bottomOfReviewPoint:CGPoint?
     var keyboardActive:Bool?
     var titleLabel:UILabel?
+    var activeWishlistContainer:UIView?
+    var review: ActivityFeedReviews?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var endKeyboardRecongnizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        let endKeyboardRecongnizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
         self.view.addGestureRecognizer(endKeyboardRecongnizer)
         startObservingKeyboardEvents()
+        configureNavBarTitle()
 
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         configureNavBar()
         loadData()
         configureTableView()
+        self.tabBarController!.tabBar.hidden = true
+    }
+    
+    func configureNavBarTitle() {
+        titleLabel = UILabel(frame: CGRectMake(0, 0, 60, 20))
+        titleLabel!.text = "Comments"
+        titleLabel!.textColor = UIColor.whiteColor()
+        titleLabel!.font = UIFont(name: "PTSans-Bold", size: 17)
+        self.navigationItem.titleView = titleLabel
     }
     
     func configureNavBar() {
-    titleLabel = UILabel(frame: CGRectMake(0, 0, 60, 20))
-    titleLabel!.text = "Comments"
-    titleLabel!.textColor = UIColor.whiteColor()
-    titleLabel!.font = UIFont(name: "PTSans-Bold", size: 17)
-    self.navigationItem.titleView = titleLabel
     navigationController?.navigationBar.translucent = false
     navigationController?.navigationBar.tintColor = UIColor.whiteColor()
     navigationController?.navigationItem.backBarButtonItem?.tintColor = UIColor.whiteColor()
@@ -93,7 +101,7 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func keyboardWillShow(notification: NSNotification) {
         if let userInfo = notification.userInfo {
-            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
+            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
                 UIView.animateWithDuration(2, animations: { () -> Void in
                 self.keyBoardViewBottomConstraint.constant = keyboardSize.height + 2
                     self.view.layoutIfNeeded()
@@ -103,15 +111,11 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     func keyboardWillHide(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
                 UIView.animateWithDuration(2, animations: { () -> Void in
                     self.keyBoardViewBottomConstraint.constant = 0
                     self.view.layoutIfNeeded()
                     self.keyboardActive = false
                 })
-            }
-        }
     }
     
     func tappedProductButton(cell: vivrCell) {
@@ -125,19 +129,201 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func helpfulTrue(cell: vivrCell) {
-        
+        cell.helpfullState = true
+        review!.currentHelpful = true
+        review!.helpfulCount = review!.helpfulCount! + 1
+        if let helpfulCount = self.review!.helpfulCount {
+        switch helpfulCount {
+        case 0:
+            cell.helpfullLabel.text = "Was this helpful?"
+        default:
+            cell.helpfullLabel.text = "\(helpfulCount) found this helpful"
+        }
+        }
         
     }
     func helpfulFalse(cell: vivrCell) {
-        
+        cell.helpfullState = false
+        review!.currentHelpful = false
+        review!.helpfulCount = review!.helpfulCount! - 1
+        if let helpfulCount = self.review!.helpfulCount {
+        switch helpfulCount {
+        case 0:
+            cell.helpfullLabel.text = "Was this helpful?"
+        default:
+            cell.helpfullLabel.text = "\(helpfulCount) found this helpful"
+        }
+        }
         
     }
+    
     func wishlistTrue(cell: vivrCell) {
+        activeWishlistContainer = UIView(frame: cell.productImageWrapper.bounds)
+        cell.productImageWrapper.addSubview(activeWishlistContainer!)
+        activeWishlistContainer?.userInteractionEnabled = false
+        let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0))
+        circle.layer.cornerRadius = 25.0
         
+        let startingColor = UIColor(red: (118/255.0), green: (48.0/255.0), blue: (157/255.0), alpha: 1.0)
+        circle.backgroundColor = startingColor
+        
+        activeWishlistContainer!.addSubview(circle)
+        circle.center = CGPointMake(activeWishlistContainer!.bounds.width/2, activeWishlistContainer!.bounds.height/2)
+        activeWishlistContainer!.clipsToBounds = true
+        print(circle.frame, terminator: "")
+        let plus = UIImage(named: "plusWhite")
+        let plusImage = UIImageView(image: plus)
+        plusImage.frame = CGRectMake(0, 0, 25, 25)
+        self.activeWishlistContainer!.addSubview(plusImage)
+        plusImage.center = circle.center
+        UIView.animateWithDuration(
+            // duration
+            0.15,
+            // delay
+            delay: 0.3,
+            options: [],
+            animations: {
+                
+                let scaleTransform = CGAffineTransformMakeScale(10.0, 10.0)
+                
+                circle.transform = scaleTransform
+                
+            }, completion: {finished in
+                UIView.animateWithDuration(
+                    // duration
+                    0.2,
+                    // delay
+                    delay: 0.1,
+                    options: [],
+                    animations: {
+                        plusImage.frame.offsetInPlace(dx: -80, dy: 0)
+                        
+                    }, completion: {finished in
+                        let label = UILabel(frame: CGRectMake(0, 0, 160, 25))
+                        label.text = "Added to wishlist"
+                        label.font = UIFont(name: "PTSans-Bold", size: 20)
+                        label.textColor = UIColor.whiteColor()
+                        self.activeWishlistContainer!.addSubview(label)
+                        label.center = circle.center
+                        label.frame.offsetInPlace(dx: 400, dy: 0)
+                        UIView.animateWithDuration(
+                            // duration
+                            0.1,
+                            // delay
+                            delay: 0,
+                            options: [],
+                            animations: {
+                                label.frame.offsetInPlace(dx: -386, dy: 0)
+                                
+                            }, completion: {finished in
+                                UIView.animateWithDuration(
+                                    // duration
+                                    1.2,
+                                    // delay
+                                    delay: 0.1,
+                                    options: [],
+                                    animations: {
+                                        circle.alpha = 0.0
+                                        label.alpha = 0.0
+                                        plusImage.alpha = 0.0
+                                        
+                                    }, completion: {finished in
+                                        //self.reloadAPI(cell)
+                                    }
+                                )
+                            }
+                        )
+                    }
+                )
+                
+            }
+        )
+        
+
         
     }
     func wishlistFalse(cell: vivrCell) {
+        activeWishlistContainer = UIView(frame: cell.productImageWrapper.bounds)
+        cell.productImageWrapper.addSubview(activeWishlistContainer!)
+        activeWishlistContainer?.userInteractionEnabled = false
+        let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0))
+        circle.layer.cornerRadius = 25.0
         
+        let startingColor = UIColor(red: (118/255.0), green: (48.0/255.0), blue: (157/255.0), alpha: 1.0)
+        circle.backgroundColor = startingColor
+        
+        activeWishlistContainer!.addSubview(circle)
+        circle.center = CGPointMake(activeWishlistContainer!.bounds.width/2, activeWishlistContainer!.bounds.height/2)
+        activeWishlistContainer!.clipsToBounds = true
+        print(circle.frame, terminator: "")
+        let plus = UIImage(named: "minusWhite")
+        let plusImage = UIImageView(image: plus)
+        plusImage.frame = CGRectMake(0, 0, 25, 25)
+        self.activeWishlistContainer!.addSubview(plusImage)
+        plusImage.center = circle.center
+        UIView.animateWithDuration(
+            // duration
+            0.15,
+            // delay
+            delay: 0.3,
+            options: [],
+            animations: {
+                
+                let scaleTransform = CGAffineTransformMakeScale(10.0, 10.0)
+                
+                circle.transform = scaleTransform
+                
+            }, completion: {finished in
+                UIView.animateWithDuration(
+                    // duration
+                    0.2,
+                    // delay
+                    delay: 0.1,
+                    options: [],
+                    animations: {
+                        plusImage.frame.offsetInPlace(dx: -100, dy: 0)
+                        
+                    }, completion: {finished in
+                        let label = UILabel(frame: CGRectMake(0, 0, 200, 25))
+                        label.text = "Removed from wishlist"
+                        label.font = UIFont(name: "PTSans-Bold", size: 20)
+                        label.textColor = UIColor.whiteColor()
+                        self.activeWishlistContainer!.addSubview(label)
+                        label.center = circle.center
+                        label.frame.offsetInPlace(dx: 400, dy: 0)
+                        UIView.animateWithDuration(
+                            // duration
+                            0.1,
+                            // delay
+                            delay: 0,
+                            options: [],
+                            animations: {
+                                label.frame.offsetInPlace(dx: -386, dy: 0)
+                                
+                            }, completion: {finished in
+                                UIView.animateWithDuration(
+                                    // duration
+                                    1.2,
+                                    // delay
+                                    delay: 0.1,
+                                    options: [],
+                                    animations: {
+                                        circle.alpha = 0.0
+                                        label.alpha = 0.0
+                                        plusImage.alpha = 0.0
+                                        
+                                    }, completion: {finished in
+                                        //self.reloadAPI(cell)
+                                    }
+                                )
+                            }
+                        )
+                    }
+                )
+                
+            }
+        )
+      
         
     }
     
@@ -158,20 +344,20 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func submitCommentTapped(sender: AnyObject) {
-        var text = commentField.text
+        let text = commentField.text
         if (text != nil) {
-        var parameters: [String : AnyObject] = [
-            "description": text
+        let parameters: [String : AnyObject] = [
+            "description": text!
         ]
         
-        Alamofire.request(Router.PostComment(productID, reviewID, parameters)).responseJSON { (request, response, json, error) in
-            if (error != nil) {
-                println("error")
+        Alamofire.request(Router.PostComment(productID, reviewID, parameters)).responseJSON { (response) in
+            if (response.result.isFailure) {
+                print("error")
             }else{
                 self.commentField.text = ""
                 self.hideKeyboard()
                 self.loadData()
-                println("success")
+                print("success")
             }
             
         }
@@ -214,23 +400,21 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         switch indexPath.section{
         case 0:
-            var theReview = commentsTable.dequeueReusableCellWithIdentifier("review") as! vivrCell
-            theReview.reviewAndComment = results!
-            if let state = results!["current_helpful"].boolValue as Bool? {
-                theReview.helpfullState = state 
-            }
-            theReview.wishlistState = true
+            let theReview = commentsTable.dequeueReusableCellWithIdentifier("review") as! vivrCell
+            if review != nil {
+            theReview.review = review
             theReview.cellDelegate = self
-            theReview.preservesSuperviewLayoutMargins = false 
+            theReview.preservesSuperviewLayoutMargins = false
+            }
             return theReview
         default:
             switch commentcount! {
             case 0:
-                let emptyCell = commentsTable.dequeueReusableCellWithIdentifier("noCommentCell") as! UITableViewCell
+                let emptyCell = commentsTable.dequeueReusableCellWithIdentifier("noCommentCell") as UITableViewCell!
                 
                 return emptyCell
             default:
-                var comment = commentsTable.dequeueReusableCellWithIdentifier("comment") as! commentCell
+                let comment = commentsTable.dequeueReusableCellWithIdentifier("comment") as! commentCell
                 comment.comment = commentResults?[indexPath.row]
                 comment.cellDelegate = self 
                 comment.preservesSuperviewLayoutMargins = false 
@@ -241,18 +425,12 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func loadData(){
-        Alamofire.request(Router.readComments(productID, reviewID)).responseJSON { (request, response, json, error) in
-            if (json != nil) {
-                println(request)
-                println(response)
-                println(json)
-                println(error)
+        Alamofire.request(Router.readComments(productID, reviewID)).responseJSON { (response) in
+            if (response.data != nil) {
+                let json = response.data
                 var jsonOBJ = JSON(json!)
-                if let commentData = jsonOBJ["comments"].arrayValue as [JSON]? {
+                if let commentData = jsonOBJ["data"].arrayValue as [JSON]? {
                     self.commentResults = commentData
-                }
-                if let data = jsonOBJ as JSON? {
-                    self.results = data
                 }
                 self.commentsTable.reloadData()
             }
@@ -263,13 +441,13 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier {
         case "commentsToProduct":
-            var productVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+            let productVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
             productVC.selectedProductID = self.productID
         case "toUserSegue":
-            var userVC: anyUserProfileView = segue.destinationViewController as! anyUserProfileView
+            let userVC: anyUserProfileView = segue.destinationViewController as! anyUserProfileView
             userVC.selectedUserID = self.selectedUserID
         default:
-            println("noSegue")
+            print("noSegue", terminator: "")
             
         }
     }
