@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B775201DD1B843DA90CFE0C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02919C8ACDBBFE4EDD08473 /* Pods.framework */; };
 		50035DA31BC594FE00B5CCE3 /* tabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50035DA21BC594FE00B5CCE3 /* tabBarController.swift */; };
 		501090BD1B0AA05500EFC546 /* help-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 501090BC1B0AA05500EFC546 /* help-50.png */; };
 		501233741B02AAB400D8E4ED /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501233731B02AAB400D8E4ED /* TagCell.swift */; };
@@ -75,8 +76,6 @@
 		50AC98311B8BB90F00BE9222 /* CreateNewBoxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AC98301B8BB90F00BE9222 /* CreateNewBoxController.swift */; };
 		50AD676D1A429A1700D2BD35 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD676C1A429A1700D2BD35 /* BrowseViewController.swift */; };
 		50B965901B39CD230049716A /* tagCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B9658F1B39CD230049716A /* tagCollectionCell.swift */; };
-		50BB8B1D1BC74C2D0048E092 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB8B1C1BC74C2D0048E092 /* SwiftyJSON.framework */; };
-		50BB8B211BC74C470048E092 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB8B201BC74C470048E092 /* Alamofire.framework */; };
 		50BE265C1B55B3430037AE19 /* ReviewScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BE265B1B55B3430037AE19 /* ReviewScoreViewController.swift */; };
 		50BE26631B55C9970037AE19 /* ReviewScoreSliver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BE26621B55C9970037AE19 /* ReviewScoreSliver.swift */; };
 		50C192B41B0A608D008B557F /* newFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C192B31B0A608D008B557F /* newFavoritesViewController.swift */; };
@@ -84,8 +83,6 @@
 		50C3B45E1A7C59B200EC39D1 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */; };
 		50C3B4641A7C5DC400EC39D1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B4631A7C5DC400EC39D1 /* KeychainWrapper.swift */; };
 		50CC19AF1B0AEF490030D06D /* B68UIFloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CC19AE1B0AEF490030D06D /* B68UIFloatLabelTextField.swift */; };
-		50D833351BC982D40020FE75 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D833341BC982D40020FE75 /* Haneke.framework */; };
-		50DBB7E21BCEF9BE00814230 /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50DBB7E11BCEF9BE00814230 /* Mixpanel.framework */; };
 		50EC0ECD1AEB0CFB002D1D40 /* loadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EC0ECC1AEB0CFB002D1D40 /* loadMoreCell.swift */; };
 		50EC0ED91AEC34A1002D1D40 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC0ED81AEC34A1002D1D40 /* SWRevealViewController.m */; };
 		50F253231A85C45A0057B2AC /* buzzCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F253221A85C45A0057B2AC /* buzzCell.swift */; };
@@ -97,19 +94,8 @@
 		50F26D531B0E5D8700A42634 /* APIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F26D521B0E5D8700A42634 /* APIWrapper.swift */; };
 		50FE14DB1B602BFE003D6BA3 /* BoxesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE14DA1B602BFE003D6BA3 /* BoxesCell.swift */; };
 		50FE14E41B6030A9003D6BA3 /* BoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE14E31B6030A9003D6BA3 /* BoxCell.swift */; };
-		AB10AF51AEBA9925B673F081 /* Pods_vivr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B82EB0EE4472D8983B5CB2D /* Pods_vivr.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		B9F3F0CEB3AB63E0D0EB54C0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02919C8ACDBBFE4EDD08473 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		529E81F83F1ACA534C2E3AFB /* Pods_vivr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B82EB0EE4472D8983B5CB2D /* Pods_vivr.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		501E042A1A428F1900F93122 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 501E040A1A428F1900F93122 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 501E04111A428F1900F93122;
-			remoteInfo = "vivr v4";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		50BBB7991A64937800D0978E /* Copy Frameworks */ = {
@@ -225,7 +211,6 @@
 		50D833341BC982D40020FE75 /* Haneke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Haneke.framework; path = "Pods/../build/Debug-iphoneos/Haneke.framework"; sourceTree = "<group>"; };
 		50DBB7E11BCEF9BE00814230 /* Mixpanel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mixpanel.framework; path = "Pods/../build/Debug-iphoneos/Mixpanel.framework"; sourceTree = "<group>"; };
 		50EC0ECC1AEB0CFB002D1D40 /* loadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loadMoreCell.swift; sourceTree = "<group>"; };
-		50EC0ED61AEC34A0002D1D40 /* vivr v4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vivr v4-Bridging-Header.h"; sourceTree = "<group>"; };
 		50EC0ED71AEC34A1002D1D40 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SWRevealViewController-master 2/SWRevealViewController/SWRevealViewController.h"; sourceTree = "<group>"; };
 		50EC0ED81AEC34A1002D1D40 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../Downloads/SWRevealViewController-master 2/SWRevealViewController/SWRevealViewController.m"; sourceTree = "<group>"; };
 		50F253221A85C45A0057B2AC /* buzzCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = buzzCell.swift; sourceTree = "<group>"; };
@@ -248,12 +233,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50DBB7E21BCEF9BE00814230 /* Mixpanel.framework in Frameworks */,
-				50D833351BC982D40020FE75 /* Haneke.framework in Frameworks */,
-				50BB8B211BC74C470048E092 /* Alamofire.framework in Frameworks */,
-				50BB8B1D1BC74C2D0048E092 /* SwiftyJSON.framework in Frameworks */,
-				B9F3F0CEB3AB63E0D0EB54C0 /* Pods.framework in Frameworks */,
-				AB10AF51AEBA9925B673F081 /* Pods_vivr.framework in Frameworks */,
+				2B775201DD1B843DA90CFE0C /* Pods.framework in Frameworks */,
+				529E81F83F1ACA534C2E3AFB /* Pods_vivr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +271,6 @@
 		501E04141A428F1900F93122 /* vivr */ = {
 			isa = PBXGroup;
 			children = (
-				50EC0ED61AEC34A0002D1D40 /* vivr v4-Bridging-Header.h */,
 				50632C4E1A70922500DD7EAA /* Main.storyboard */,
 				50142EA61AF6AA40004ED2A2 /* Walkthrough.storyboard */,
 				50985CD21AFC389A007BB4DD /* colorPicker */,
@@ -535,7 +515,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				501E042B1A428F1900F93122 /* PBXTargetDependency */,
 			);
 			name = vivrTests;
 			productName = "vivr v4Tests";
@@ -749,14 +728,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		501E042B1A428F1900F93122 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 501E04111A428F1900F93122 /* vivr */;
-			targetProxy = 501E042A1A428F1900F93122 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		501E04221A428F1900F93122 /* LaunchScreen.xib */ = {
