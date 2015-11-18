@@ -85,7 +85,7 @@ class SignUpViewController: UIViewController {
         ]
         
         Alamofire.request(Router.registerNewUser(parameters)).validate().responseJSON { (response) in
-            if response.response!.statusCode != 200 || response.response!.statusCode != 201 {
+            if response.response!.statusCode != 200 {
                 print(response.request)
                 print(response.response)
                 let emptyAlert = UIAlertController(title: "Account could not be created", message: "check to make sure your credentials are entered correctly", preferredStyle: UIAlertControllerStyle.Alert)
@@ -93,32 +93,34 @@ class SignUpViewController: UIViewController {
                 self.presentViewController(emptyAlert, animated: true, completion: nil)
             }
             else {
-                if response.result.isSuccess {
-                    let data = JSON(response.data!)
+                    let data = JSON(response.result.value!)
+                    print(response.result.value)
                     let username = data["email"].stringValue
-                    let password = self.passwordEntered.text
+                    let password = self.passwordEntered.text!
                     let tokenParameters: [String:AnyObject] = [
                         "grant_type": "password",
                         "client_id": "1",
                         "client_secret": "vapordelivery2015",
                         "username": username,
-                        "password": password!
+                        "password": self.passwordEntered.text!
                     ]
                     
-                    Alamofire.request(Router.requestAccessToken(tokenParameters)).validate().responseJSON { (response) in
-                        if response.result.isSuccess {
-                            let json = response.data
-                            let jsonOBJ = JSON(json!)
-                            myData.authToken = jsonOBJ["access_token"].stringValue
-                            myData.refreshToken = jsonOBJ["refresh_token"].stringValue
+                    Alamofire.request(Router.requestAccessToken(tokenParameters)).responseJSON { (response) in
+                        print(response.request)
+                        print(response.response)
+                        print(response.result.value)
+                        print(response.result.error)
+                            let json = response.result.value!
+                            let jsonOBJ = JSON(json)
+                            myData.authToken = jsonOBJ["access_token"].string
+                            myData.refreshToken = jsonOBJ["refresh_token"].string
                             KeychainWrapper.setString(myData.authToken!, forKey: "authToken")
                             KeychainWrapper.setString(myData.refreshToken!, forKey: "refreshToken")
                             let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                             appDelegate.loadProfileData()
                             appDelegate.login()
-                            
-                        }
-                    }
+                            appDelegate.isLoggedIn = true
+                            appDelegate.loggedOut = false
                     
                     
                 }
