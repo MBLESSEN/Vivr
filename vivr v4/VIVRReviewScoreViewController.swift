@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReviewScoreViewController: UIViewController {
+class VIVRReviewScoreViewController: UIViewController {
 
 
     @IBOutlet weak var scoreBubble: UIView!

@@ -19,7 +19,7 @@ protocol BrowseViewDelegate {
 }
 
 
-class BrowseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, flavorTagsDelegate, UISearchBarDelegate, searchDelegate, BoxesCellDelegate {
+class VIVRBrowseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, flavorTagsDelegate, UISearchBarDelegate, searchDelegate, BoxesCellDelegate {
     var viewDelegate:searchDelegate?
     let screenSize = UIScreen.mainScreen().bounds
     var results:[SwiftyJSON.JSON]? = []
@@ -720,27 +720,27 @@ class BrowseViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier!{
             case "brandProductSegue":
-                let productVC: ProductViewController = segue.destinationViewController as! ProductViewController
+                let productVC: VIVRBrandProductsViewController = segue.destinationViewController as! VIVRBrandProductsViewController
                 productVC.brandID = selectedBrand!
                 productVC.brandImageURL = selectedBrandImage!
                 productVC.selectedBrandName = selectedBrandName
                 productVC.brandDescription = brandDescription
             case "browseToProduct":
-                let brandFlavorVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+                let brandFlavorVC: VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
                 if let stringID = String(stringInterpolationSegment: selectedProductID!) as String? {
                 brandFlavorVC.selectedProductID = stringID
                 brandFlavorVC.boxOrProduct = "product"
                 }
             case "toUserSegue":
-                let userVC: anyUserProfileView = segue.destinationViewController as! anyUserProfileView
+                let userVC: VIVRUserViewController = segue.destinationViewController as! VIVRUserViewController
                 userVC.selectedUserID = "\(self.selectedUserID!)"
             case "buzzToProduct":
-                let brandFlavorVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+                let brandFlavorVC: VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
                 if let stringID = String(stringInterpolationSegment: selectedProductID!) as String? {
                     brandFlavorVC.selectedProductID = stringID
                 }
             case "browseToBox":
-                let boxVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+                let boxVC: VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
                 boxVC.boxOrProduct = "box"
                 boxVC.selectedBoxID = self.selectedBoxID!
         default:

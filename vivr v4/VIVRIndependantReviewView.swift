@@ -8,11 +8,11 @@
 
 import UIKit
 
-class independantReviewView: UIViewController {
+class VIVRIndependantReviewView: UIViewController {
 
     @IBOutlet weak var topPanel: UIView!
     @IBOutlet weak var bottomPanel: UIView!
-    var reviewScoreView: ReviewScoreViewController?
+    var reviewScoreView: VIVRReviewScoreViewController?
     @IBOutlet weak var actionPanelView: UIView!
     @IBOutlet weak var actionPanelBottomConstraint: NSLayoutConstraint!
     
@@ -33,7 +33,7 @@ class independantReviewView: UIViewController {
     
     func addScoreView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        reviewScoreView = storyboard.instantiateViewControllerWithIdentifier("reviewScore") as? ReviewScoreViewController
+        reviewScoreView = storyboard.instantiateViewControllerWithIdentifier("reviewScore") as? VIVRReviewScoreViewController
         reviewScoreView!.view.frame = CGRectMake(0, 0, self.bottomPanel.frame.width, bottomPanel.frame.height)
         reviewScoreView!.didMoveToParentViewController(self)
         self.bottomPanel.addSubview(reviewScoreView!.view)

@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class brandFlavorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, VivrHeaderCellDelegate, ReviewCellDelegate, brandFlavorDelegate, UINavigationBarDelegate, MyBoxControllerDelegate, boxBrandFlavorDelegate {
+class VIVRProductViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, VivrHeaderCellDelegate, ReviewCellDelegate, brandFlavorDelegate, UINavigationBarDelegate, MyBoxControllerDelegate, boxBrandFlavorDelegate {
     
     var keyboardActive:Bool?
     var userID:String?
@@ -42,7 +42,7 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
     var activeWishlistContainer: UIView?
     var topView: UIView = UIView()
     var bottomView:UIView = UIView()
-    var reviewScoreView:ReviewScoreViewController?
+    var reviewScoreView:VIVRReviewScoreViewController?
     var isBeingCheckedIn: Bool?
     var titleLabel: UILabel = UILabel()
 
@@ -469,7 +469,7 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
     
     func createScoreView() {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        reviewScoreView = storyboard.instantiateViewControllerWithIdentifier("reviewScore") as? ReviewScoreViewController
+        reviewScoreView = storyboard.instantiateViewControllerWithIdentifier("reviewScore") as? VIVRReviewScoreViewController
     }
     
     func toReview(cell: productCell) {
@@ -883,10 +883,10 @@ class brandFlavorViewController: UIViewController, UITableViewDataSource, UITabl
                 //let reviewVC: reviewViewController = segue.destinationViewController as! reviewViewController
                // reviewVC.productID = self.selectedProductID!
             case "flavorToUser":
-                let userVC: anyUserProfileView = segue.destinationViewController as! anyUserProfileView
+                let userVC: VIVRUserViewController = segue.destinationViewController as! VIVRUserViewController
                 userVC.selectedUserID = self.selectedUserID
             case "flavorToComments":
-                let commentVC: commentsViewController = segue.destinationViewController as! commentsViewController
+                let commentVC: VIVRCommentsViewController = segue.destinationViewController as! VIVRCommentsViewController
                 commentVC.reviewID = selectedReviewID!
                 commentVC.productID = selectedProductID!
             case "addToBox":

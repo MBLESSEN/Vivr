@@ -16,7 +16,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     
     @IBOutlet weak var brandView: UIView!
     var viewDelegate: AddNewJuiceViewDelegate? = nil
-    var brandSearch: BrowseViewController?
+    var brandSearch: VIVRBrowseViewController?
     var allBrands: Array<Brand>?
     var brands: Array<Brand>?
     @IBOutlet weak var searchHeight: NSLayoutConstraint!
@@ -58,7 +58,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     
     func instantiateSearchView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        brandSearch = storyboard.instantiateViewControllerWithIdentifier("browseView") as? BrowseViewController
+        brandSearch = storyboard.instantiateViewControllerWithIdentifier("browseView") as? VIVRBrowseViewController
         brandSearch!.brandViewDelegate = self
         brandSearch!.segueActive = false
     }

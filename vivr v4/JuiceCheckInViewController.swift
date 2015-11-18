@@ -26,7 +26,7 @@ class JuiceCheckInViewController: UIViewController, UISearchBarDelegate, searchD
     //check in Variables
     @IBOutlet weak var productImage: UIImageView!
     
-    var reviewScoreView:ReviewScoreViewController?
+    var reviewScoreView:VIVRReviewScoreViewController?
     var productWrapper: ProductWrapper?
     var productData: Product?
     
@@ -163,7 +163,7 @@ class JuiceCheckInViewController: UIViewController, UISearchBarDelegate, searchD
     
     func createScoreView() {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        reviewScoreView = storyboard.instantiateViewControllerWithIdentifier("reviewScore") as? ReviewScoreViewController
+        reviewScoreView = storyboard.instantiateViewControllerWithIdentifier("reviewScore") as? VIVRReviewScoreViewController
     }
     
     func presentReviewView() {

@@ -12,15 +12,15 @@
 		501090BD1B0AA05500EFC546 /* help-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 501090BC1B0AA05500EFC546 /* help-50.png */; };
 		501233741B02AAB400D8E4ED /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501233731B02AAB400D8E4ED /* TagCell.swift */; };
 		50142E9B1AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50142E991AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift */; };
-		5015010A1BC32D390078F7EB /* checkInJuiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501501091BC32D390078F7EB /* checkInJuiceView.swift */; };
+		5015010A1BC32D390078F7EB /* VIVRCheckInJuiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501501091BC32D390078F7EB /* VIVRCheckInJuiceViewController.swift */; };
 		501650311BDBE4CC00798355 /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501650301BDBE4CC00798355 /* Markdown.swift */; settings = {ASSET_TAGS = (); }; };
 		501E04181A428F1900F93122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E04171A428F1900F93122 /* AppDelegate.swift */; };
 		501E04211A428F1900F93122 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 501E04201A428F1900F93122 /* Images.xcassets */; };
 		501E04241A428F1900F93122 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 501E04221A428F1900F93122 /* LaunchScreen.xib */; };
 		501E04301A428F1900F93122 /* vivr_v4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E042F1A428F1900F93122 /* vivr_v4Tests.swift */; };
-		501F38281B069C6500242DCF /* wishListViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501F38271B069C6500242DCF /* wishListViewControler.swift */; };
+		501F38281B069C6500242DCF /* VIVRWishlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501F38271B069C6500242DCF /* VIVRWishlistViewController.swift */; };
 		502337E51A8C21AE00A56BA7 /* vivrHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502337E41A8C21AE00A56BA7 /* vivrHeaderCell.swift */; };
-		502DFC7C1AF9988F0052EF50 /* anyUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502DFC7B1AF9988F0052EF50 /* anyUserProfileView.swift */; };
+		502DFC7C1AF9988F0052EF50 /* VIVRUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502DFC7B1AF9988F0052EF50 /* VIVRUserViewController.swift */; };
 		5033791D1AD2ED7F00567436 /* productCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5033791C1AD2ED7F00567436 /* productCell.swift */; };
 		503379231AD2EE7100567436 /* flavorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503379221AD2EE7100567436 /* flavorCell.swift */; };
 		5037C8AB1B1E530000952C5A /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5037C8AA1B1E530000952C5A /* SearchTableView.swift */; };
@@ -36,36 +36,36 @@
 		504D7BC91A8870B100E3463C /* PTSans.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 504D7BC81A8870B100E3463C /* PTSans.ttc */; };
 		504D7BCB1A88733300E3463C /* PTSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 504D7BCA1A88733300E3463C /* PTSans-Bold.ttf */; };
 		504D7BCC1A8887E400E3463C /* BrandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509FD1F01A649154003A7AEE /* BrandTableViewCell.swift */; };
-		504DEAAC1A9185C300398961 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BBB7F41A649BCA00D0978E /* ProductViewController.swift */; };
+		504DEAAC1A9185C300398961 /* VIVRBrandProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BBB7F41A649BCA00D0978E /* VIVRBrandProductsViewController.swift */; };
 		504DEAAD1A9185C600398961 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BBB7FA1A65C93F00D0978E /* ProductTableViewCell.swift */; };
-		504E1EC01BB8684800FC9DA8 /* blogPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E1EBF1BB8684800FC9DA8 /* blogPostView.swift */; };
+		504E1EC01BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E1EBF1BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift */; };
 		504E1EC71BB882C300FC9DA8 /* blogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E1EC61BB882C300FC9DA8 /* blogCell.swift */; };
 		5051C6CA1B443BB800FB5E67 /* JuiceCheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051C6C91B443BB800FB5E67 /* JuiceCheckInViewController.swift */; };
 		5051C6D11B444E4500FB5E67 /* searchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051C6D01B444E4500FB5E67 /* searchViewController.swift */; };
 		5055C90E1AEC4300001287B2 /* menuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5055C90D1AEC4300001287B2 /* menuController.swift */; };
-		505F1D7D1A99744B0011BCE8 /* userViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F1D7C1A99744B0011BCE8 /* userViewController.swift */; };
+		505F1D7D1A99744B0011BCE8 /* VIVRMyUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F1D7C1A99744B0011BCE8 /* VIVRMyUserViewController.swift */; };
 		505F1D7F1A9979F50011BCE8 /* profileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F1D7E1A9979F40011BCE8 /* profileCell.swift */; };
 		505F1D811A997A8A0011BCE8 /* myReviewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F1D801A997A8A0011BCE8 /* myReviewsCell.swift */; };
-		505FB85F1A47698600584FF8 /* brandFlavorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505FB85E1A47698600584FF8 /* brandFlavorViewController.swift */; };
-		505FB8611A47734300584FF8 /* buzzViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505FB8601A47734300584FF8 /* buzzViewController.swift */; };
+		505FB85F1A47698600584FF8 /* VIVRProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505FB85E1A47698600584FF8 /* VIVRProductViewController.swift */; };
+		505FB8611A47734300584FF8 /* VIVRHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505FB8601A47734300584FF8 /* VIVRHomeViewController.swift */; };
 		505FB8651A48D57900584FF8 /* reviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505FB8641A48D57900584FF8 /* reviewViewController.swift */; };
 		5065BF141AD4996A00D34AAA /* attributesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5065BF131AD4996A00D34AAA /* attributesCell.swift */; };
 		506785D01AAE630700598D4B /* FavoriteCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506785CF1AAE630700598D4B /* FavoriteCollectionCell.swift */; };
 		50679F661BA1F9AF008FD0BE /* AddJuiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50679F651BA1F9AF008FD0BE /* AddJuiceCell.swift */; };
 		50679F6D1BA201BB008FD0BE /* AddNewJuiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50679F6C1BA201BB008FD0BE /* AddNewJuiceView.swift */; };
 		50679F6F1BA48D09008FD0BE /* FeaturedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50679F6E1BA48D09008FD0BE /* FeaturedCell.swift */; };
-		5072DAA01A9D670F00A64CAB /* commentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5072DA9F1A9D670F00A64CAB /* commentsViewController.swift */; };
+		5072DAA01A9D670F00A64CAB /* VIVRCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5072DA9F1A9D670F00A64CAB /* VIVRCommentsViewController.swift */; };
 		5072DAA21A9D682100A64CAB /* commentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5072DAA11A9D682100A64CAB /* commentCell.swift */; };
 		5072DAA41A9E60C600A64CAB /* commentsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5072DAA31A9E60C600A64CAB /* commentsButton.swift */; };
 		507A6C141B706B6600B8A1FA /* LoginInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A6C131B706B6600B8A1FA /* LoginInViewController.swift */; };
 		507A6C161B706B9F00B8A1FA /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A6C151B706B9F00B8A1FA /* SignUpViewController.swift */; };
-		507F2DE31AFFFE2200BBAA67 /* editProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507F2DE21AFFFE2200BBAA67 /* editProfileController.swift */; };
-		507F2DE51B0115DE00BBAA67 /* settingsMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507F2DE41B0115DE00BBAA67 /* settingsMainController.swift */; };
+		507F2DE31AFFFE2200BBAA67 /* VIVRSettingsEditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507F2DE21AFFFE2200BBAA67 /* VIVRSettingsEditProfileViewController.swift */; };
+		507F2DE51B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507F2DE41B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift */; };
 		5084572E1BBB5702009A73D8 /* tempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084572D1BBB5702009A73D8 /* tempo.swift */; };
 		5085E0AA1B98B90700C89A0C /* boxProductTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5085E0A91B98B90700C89A0C /* boxProductTableView.swift */; };
 		50876DDB1B0C26770081CAA9 /* PagedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50876DDA1B0C26770081CAA9 /* PagedArray.swift */; };
 		5089C14A1BA9D9E300727BEC /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5089C1491BA9D9E300727BEC /* iCarousel.m */; };
-		508AA7FA1BC728170050E5D3 /* independantReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508AA7F91BC728170050E5D3 /* independantReviewView.swift */; };
+		508AA7FA1BC728170050E5D3 /* VIVRIndependantReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508AA7F91BC728170050E5D3 /* VIVRIndependantReviewView.swift */; };
 		50985CDB1AFC38B2007BB4DD /* DBImageColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 50985CD81AFC38B2007BB4DD /* DBImageColorPicker.m */; };
 		50985CDC1AFC38B2007BB4DD /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 50985CDA1AFC38B2007BB4DD /* UIImage+Color.m */; };
 		50A5B27A1B17B542003C3A2F /* MyCartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A5B2791B17B542003C3A2F /* MyCartView.swift */; };
@@ -74,11 +74,11 @@
 		50A5DB661B01474B00EF3A67 /* addFlavorTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */; };
 		50AC982F1B8BB3BA00BE9222 /* MyBoxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AC982E1B8BB3BA00BE9222 /* MyBoxController.swift */; };
 		50AC98311B8BB90F00BE9222 /* CreateNewBoxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AC98301B8BB90F00BE9222 /* CreateNewBoxController.swift */; };
-		50AD676D1A429A1700D2BD35 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD676C1A429A1700D2BD35 /* BrowseViewController.swift */; };
+		50AD676D1A429A1700D2BD35 /* VIVRBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD676C1A429A1700D2BD35 /* VIVRBrowseViewController.swift */; };
 		50B965901B39CD230049716A /* tagCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B9658F1B39CD230049716A /* tagCollectionCell.swift */; };
-		50BE265C1B55B3430037AE19 /* ReviewScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BE265B1B55B3430037AE19 /* ReviewScoreViewController.swift */; };
+		50BE265C1B55B3430037AE19 /* VIVRReviewScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BE265B1B55B3430037AE19 /* VIVRReviewScoreViewController.swift */; };
 		50BE26631B55C9970037AE19 /* ReviewScoreSliver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BE26621B55C9970037AE19 /* ReviewScoreSliver.swift */; };
-		50C192B41B0A608D008B557F /* newFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C192B31B0A608D008B557F /* newFavoritesViewController.swift */; };
+		50C192B41B0A608D008B557F /* VIVRFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C192B31B0A608D008B557F /* VIVRFavoritesViewController.swift */; };
 		50C2C6421AC75DDA006E9EBB /* footerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C2C6411AC75DDA006E9EBB /* footerCell.swift */; };
 		50C3B45E1A7C59B200EC39D1 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */; };
 		50C3B4641A7C5DC400EC39D1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B4631A7C5DC400EC39D1 /* KeychainWrapper.swift */; };
@@ -90,7 +90,7 @@
 		50F2532B1A85C4EF0057B2AC /* newCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F2532A1A85C4EF0057B2AC /* newCell.swift */; };
 		50F2532D1A88253F0057B2AC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F2532C1A88253F0057B2AC /* Router.swift */; };
 		50F26D4F1B0D37FE00A42634 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F26D4E1B0D37FE00A42634 /* AboutTableViewController.swift */; };
-		50F26D511B0D3E1B00A42634 /* feedBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F26D501B0D3E1B00A42634 /* feedBackViewController.swift */; };
+		50F26D511B0D3E1B00A42634 /* VIVRFeedBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F26D501B0D3E1B00A42634 /* VIVRFeedBackViewController.swift */; };
 		50F26D531B0E5D8700A42634 /* APIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F26D521B0E5D8700A42634 /* APIWrapper.swift */; };
 		50FE14DB1B602BFE003D6BA3 /* BoxesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE14DA1B602BFE003D6BA3 /* BoxesCell.swift */; };
 		50FE14E41B6030A9003D6BA3 /* BoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE14E31B6030A9003D6BA3 /* BoxCell.swift */; };
@@ -126,7 +126,7 @@
 		501233731B02AAB400D8E4ED /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		50142E991AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWWalkthroughPageViewController.swift; sourceTree = "<group>"; };
 		50142EA61AF6AA40004ED2A2 /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
-		501501091BC32D390078F7EB /* checkInJuiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = checkInJuiceView.swift; sourceTree = "<group>"; };
+		501501091BC32D390078F7EB /* VIVRCheckInJuiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRCheckInJuiceViewController.swift; sourceTree = "<group>"; };
 		501650301BDBE4CC00798355 /* Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
 		501E04121A428F1900F93122 /* vivr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vivr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		501E04161A428F1900F93122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -136,9 +136,9 @@
 		501E04291A428F1900F93122 /* vivrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vivrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		501E042E1A428F1900F93122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		501E042F1A428F1900F93122 /* vivr_v4Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vivr_v4Tests.swift; sourceTree = "<group>"; };
-		501F38271B069C6500242DCF /* wishListViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wishListViewControler.swift; sourceTree = "<group>"; };
+		501F38271B069C6500242DCF /* VIVRWishlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRWishlistViewController.swift; sourceTree = "<group>"; };
 		502337E41A8C21AE00A56BA7 /* vivrHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vivrHeaderCell.swift; sourceTree = "<group>"; };
-		502DFC7B1AF9988F0052EF50 /* anyUserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = anyUserProfileView.swift; sourceTree = "<group>"; };
+		502DFC7B1AF9988F0052EF50 /* VIVRUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRUserViewController.swift; sourceTree = "<group>"; };
 		5033791C1AD2ED7F00567436 /* productCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = productCell.swift; sourceTree = "<group>"; };
 		503379221AD2EE7100567436 /* flavorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = flavorCell.swift; sourceTree = "<group>"; };
 		5037C8AA1B1E530000952C5A /* SearchTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
@@ -151,16 +151,16 @@
 		504D7BC31A8849B600E3463C /* reviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reviewTableViewCell.swift; sourceTree = "<group>"; };
 		504D7BC81A8870B100E3463C /* PTSans.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = PTSans.ttc; path = ../../../../../../Library/Fonts/PTSans.ttc; sourceTree = "<group>"; };
 		504D7BCA1A88733300E3463C /* PTSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PTSans-Bold.ttf"; path = "../../../../Downloads/onlinefontconverter.com/converted-files/PTSans-Bold.ttf"; sourceTree = "<group>"; };
-		504E1EBF1BB8684800FC9DA8 /* blogPostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogPostView.swift; sourceTree = "<group>"; };
+		504E1EBF1BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRFeaturedPostViewController.swift; sourceTree = "<group>"; };
 		504E1EC61BB882C300FC9DA8 /* blogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogCell.swift; sourceTree = "<group>"; };
 		5051C6C91B443BB800FB5E67 /* JuiceCheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JuiceCheckInViewController.swift; sourceTree = "<group>"; };
 		5051C6D01B444E4500FB5E67 /* searchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchViewController.swift; sourceTree = "<group>"; };
 		5055C90D1AEC4300001287B2 /* menuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuController.swift; sourceTree = "<group>"; };
-		505F1D7C1A99744B0011BCE8 /* userViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userViewController.swift; sourceTree = "<group>"; };
+		505F1D7C1A99744B0011BCE8 /* VIVRMyUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRMyUserViewController.swift; sourceTree = "<group>"; };
 		505F1D7E1A9979F40011BCE8 /* profileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileCell.swift; sourceTree = "<group>"; };
 		505F1D801A997A8A0011BCE8 /* myReviewsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myReviewsCell.swift; sourceTree = "<group>"; };
-		505FB85E1A47698600584FF8 /* brandFlavorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = brandFlavorViewController.swift; sourceTree = "<group>"; };
-		505FB8601A47734300584FF8 /* buzzViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = buzzViewController.swift; sourceTree = "<group>"; };
+		505FB85E1A47698600584FF8 /* VIVRProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRProductViewController.swift; sourceTree = "<group>"; };
+		505FB8601A47734300584FF8 /* VIVRHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRHomeViewController.swift; sourceTree = "<group>"; };
 		505FB8641A48D57900584FF8 /* reviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reviewViewController.swift; sourceTree = "<group>"; };
 		50632C4F1A70922500DD7EAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5065BF131AD4996A00D34AAA /* attributesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = attributesCell.swift; sourceTree = "<group>"; };
@@ -168,19 +168,19 @@
 		50679F651BA1F9AF008FD0BE /* AddJuiceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddJuiceCell.swift; sourceTree = "<group>"; };
 		50679F6C1BA201BB008FD0BE /* AddNewJuiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewJuiceView.swift; sourceTree = "<group>"; };
 		50679F6E1BA48D09008FD0BE /* FeaturedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedCell.swift; sourceTree = "<group>"; };
-		5072DA9F1A9D670F00A64CAB /* commentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentsViewController.swift; sourceTree = "<group>"; };
+		5072DA9F1A9D670F00A64CAB /* VIVRCommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRCommentsViewController.swift; sourceTree = "<group>"; };
 		5072DAA11A9D682100A64CAB /* commentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentCell.swift; sourceTree = "<group>"; };
 		5072DAA31A9E60C600A64CAB /* commentsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentsButton.swift; sourceTree = "<group>"; };
 		507A6C131B706B6600B8A1FA /* LoginInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInViewController.swift; sourceTree = "<group>"; };
 		507A6C151B706B9F00B8A1FA /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		507F2DE21AFFFE2200BBAA67 /* editProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editProfileController.swift; sourceTree = "<group>"; };
-		507F2DE41B0115DE00BBAA67 /* settingsMainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingsMainController.swift; sourceTree = "<group>"; };
+		507F2DE21AFFFE2200BBAA67 /* VIVRSettingsEditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRSettingsEditProfileViewController.swift; sourceTree = "<group>"; };
+		507F2DE41B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRSettingsTableViewController.swift; sourceTree = "<group>"; };
 		5084572D1BBB5702009A73D8 /* tempo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tempo.swift; sourceTree = "<group>"; };
 		5085E0A91B98B90700C89A0C /* boxProductTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boxProductTableView.swift; sourceTree = "<group>"; };
 		50876DDA1B0C26770081CAA9 /* PagedArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagedArray.swift; sourceTree = "<group>"; };
 		5089C1481BA9D9E300727BEC /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		5089C1491BA9D9E300727BEC /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
-		508AA7F91BC728170050E5D3 /* independantReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = independantReviewView.swift; sourceTree = "<group>"; };
+		508AA7F91BC728170050E5D3 /* VIVRIndependantReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRIndependantReviewView.swift; sourceTree = "<group>"; };
 		50985CD71AFC38B2007BB4DD /* DBImageColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBImageColorPicker.h; sourceTree = "<group>"; };
 		50985CD81AFC38B2007BB4DD /* DBImageColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBImageColorPicker.m; sourceTree = "<group>"; };
 		50985CD91AFC38B2007BB4DD /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
@@ -192,17 +192,17 @@
 		50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addFlavorTagsView.swift; sourceTree = "<group>"; };
 		50AC982E1B8BB3BA00BE9222 /* MyBoxController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBoxController.swift; sourceTree = "<group>"; };
 		50AC98301B8BB90F00BE9222 /* CreateNewBoxController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNewBoxController.swift; sourceTree = "<group>"; };
-		50AD676C1A429A1700D2BD35 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewController.swift; path = "vivr v4/BrowseViewController.swift"; sourceTree = SOURCE_ROOT; };
+		50AD676C1A429A1700D2BD35 /* VIVRBrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VIVRBrowseViewController.swift; path = "vivr v4/VIVRBrowseViewController.swift"; sourceTree = SOURCE_ROOT; };
 		50AF3C911BA7AFF20014C003 /* userData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "userData 2.xcdatamodel"; sourceTree = "<group>"; };
 		50AF3C971BA7B8500014C003 /* userData 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "userData 3.xcdatamodel"; sourceTree = "<group>"; };
 		50B9658F1B39CD230049716A /* tagCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tagCollectionCell.swift; sourceTree = "<group>"; };
 		50BB8B1C1BC74C2D0048E092 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		50BB8B201BC74C470048E092 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Debug-iphoneos/Alamofire.framework"; sourceTree = "<group>"; };
-		50BBB7F41A649BCA00D0978E /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
+		50BBB7F41A649BCA00D0978E /* VIVRBrandProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRBrandProductsViewController.swift; sourceTree = "<group>"; };
 		50BBB7FA1A65C93F00D0978E /* ProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
-		50BE265B1B55B3430037AE19 /* ReviewScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewScoreViewController.swift; sourceTree = "<group>"; };
+		50BE265B1B55B3430037AE19 /* VIVRReviewScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRReviewScoreViewController.swift; sourceTree = "<group>"; };
 		50BE26621B55C9970037AE19 /* ReviewScoreSliver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewScoreSliver.swift; sourceTree = "<group>"; };
-		50C192B31B0A608D008B557F /* newFavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newFavoritesViewController.swift; sourceTree = "<group>"; };
+		50C192B31B0A608D008B557F /* VIVRFavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRFavoritesViewController.swift; sourceTree = "<group>"; };
 		50C2C6321AC4A167006E9EBB /* anyUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = anyUserViewController.swift; sourceTree = "<group>"; };
 		50C2C6411AC75DDA006E9EBB /* footerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = footerCell.swift; sourceTree = "<group>"; };
 		50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
@@ -218,7 +218,7 @@
 		50F2532A1A85C4EF0057B2AC /* newCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newCell.swift; sourceTree = "<group>"; };
 		50F2532C1A88253F0057B2AC /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		50F26D4E1B0D37FE00A42634 /* AboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
-		50F26D501B0D3E1B00A42634 /* feedBackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = feedBackViewController.swift; sourceTree = "<group>"; };
+		50F26D501B0D3E1B00A42634 /* VIVRFeedBackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRFeedBackViewController.swift; sourceTree = "<group>"; };
 		50F26D521B0E5D8700A42634 /* APIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIWrapper.swift; sourceTree = "<group>"; };
 		50FE14DA1B602BFE003D6BA3 /* BoxesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxesCell.swift; sourceTree = "<group>"; };
 		50FE14E31B6030A9003D6BA3 /* BoxCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxCell.swift; sourceTree = "<group>"; };
@@ -276,6 +276,7 @@
 				50985CD21AFC389A007BB4DD /* colorPicker */,
 				50EC0ED51AEC346F002D1D40 /* SWRevealController */,
 				50A0663D1B30D264006152EE /* vivrCelliInfoPages */,
+				50FAAF2C1BFD1CFA000D2379 /* User View Controllers */,
 				50EC0ED41AEC3390002D1D40 /* Views */,
 				50EC0ED31AEC3386002D1D40 /* cells */,
 				501E04171A428F1900F93122 /* AppDelegate.swift */,
@@ -409,40 +410,36 @@
 		50EC0ED41AEC3390002D1D40 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				508AA7F91BC728170050E5D3 /* independantReviewView.swift */,
+				505FB8601A47734300584FF8 /* VIVRHomeViewController.swift */,
+				501501091BC32D390078F7EB /* VIVRCheckInJuiceViewController.swift */,
+				5072DA9F1A9D670F00A64CAB /* VIVRCommentsViewController.swift */,
+				50BBB7F41A649BCA00D0978E /* VIVRBrandProductsViewController.swift */,
+				505FB85E1A47698600584FF8 /* VIVRProductViewController.swift */,
+				507F2DE41B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift */,
+				507F2DE21AFFFE2200BBAA67 /* VIVRSettingsEditProfileViewController.swift */,
+				50AD676C1A429A1700D2BD35 /* VIVRBrowseViewController.swift */,
+				50F26D501B0D3E1B00A42634 /* VIVRFeedBackViewController.swift */,
+				50BE265B1B55B3430037AE19 /* VIVRReviewScoreViewController.swift */,
+				508AA7F91BC728170050E5D3 /* VIVRIndependantReviewView.swift */,
+				504E1EBF1BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift */,
 				50035DA21BC594FE00B5CCE3 /* tabBarController.swift */,
-				501501091BC32D390078F7EB /* checkInJuiceView.swift */,
 				50F26D4E1B0D37FE00A42634 /* AboutTableViewController.swift */,
 				50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */,
 				50679F6C1BA201BB008FD0BE /* AddNewJuiceView.swift */,
-				502DFC7B1AF9988F0052EF50 /* anyUserProfileView.swift */,
 				50C2C6321AC4A167006E9EBB /* anyUserViewController.swift */,
 				5085E0A91B98B90700C89A0C /* boxProductTableView.swift */,
-				504E1EBF1BB8684800FC9DA8 /* blogPostView.swift */,
-				505FB85E1A47698600584FF8 /* brandFlavorViewController.swift */,
-				50AD676C1A429A1700D2BD35 /* BrowseViewController.swift */,
-				505FB8601A47734300584FF8 /* buzzViewController.swift */,
-				5072DA9F1A9D670F00A64CAB /* commentsViewController.swift */,
 				50AC98301B8BB90F00BE9222 /* CreateNewBoxController.swift */,
 				50A5DB631B0141CC00EF3A67 /* editPaymentViewController.swift */,
-				507F2DE21AFFFE2200BBAA67 /* editProfileController.swift */,
 				5042272B1B3499BB00C1C194 /* EditShippingViewController.swift */,
-				50F26D501B0D3E1B00A42634 /* feedBackViewController.swift */,
 				50A5DB5D1B01356800EF3A67 /* findFriendsViewViewController.swift */,
 				5051C6C91B443BB800FB5E67 /* JuiceCheckInViewController.swift */,
 				5055C90D1AEC4300001287B2 /* menuController.swift */,
 				50AC982E1B8BB3BA00BE9222 /* MyBoxController.swift */,
 				50A5B2791B17B542003C3A2F /* MyCartView.swift */,
-				50C192B31B0A608D008B557F /* newFavoritesViewController.swift */,
-				50BBB7F41A649BCA00D0978E /* ProductViewController.swift */,
 				5042272D1B371EF800C1C194 /* Review.swift */,
-				50BE265B1B55B3430037AE19 /* ReviewScoreViewController.swift */,
 				505FB8641A48D57900584FF8 /* reviewViewController.swift */,
 				5037C8AA1B1E530000952C5A /* SearchTableView.swift */,
 				5051C6D01B444E4500FB5E67 /* searchViewController.swift */,
-				507F2DE41B0115DE00BBAA67 /* settingsMainController.swift */,
-				505F1D7C1A99744B0011BCE8 /* userViewController.swift */,
-				501F38271B069C6500242DCF /* wishListViewControler.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -454,6 +451,17 @@
 				50EC0ED81AEC34A1002D1D40 /* SWRevealViewController.m */,
 			);
 			name = SWRevealController;
+			sourceTree = "<group>";
+		};
+		50FAAF2C1BFD1CFA000D2379 /* User View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				505F1D7C1A99744B0011BCE8 /* VIVRMyUserViewController.swift */,
+				502DFC7B1AF9988F0052EF50 /* VIVRUserViewController.swift */,
+				50C192B31B0A608D008B557F /* VIVRFavoritesViewController.swift */,
+				501F38271B069C6500242DCF /* VIVRWishlistViewController.swift */,
+			);
+			name = "User View Controllers";
 			sourceTree = "<group>";
 		};
 		5F8B983161EBB7F4A78A516E /* Pods */ = {
@@ -644,42 +652,42 @@
 				505F1D7F1A9979F50011BCE8 /* profileCell.swift in Sources */,
 				50CC19AF1B0AEF490030D06D /* B68UIFloatLabelTextField.swift in Sources */,
 				50A5DB661B01474B00EF3A67 /* addFlavorTagsView.swift in Sources */,
-				502DFC7C1AF9988F0052EF50 /* anyUserProfileView.swift in Sources */,
+				502DFC7C1AF9988F0052EF50 /* VIVRUserViewController.swift in Sources */,
 				507A6C161B706B9F00B8A1FA /* SignUpViewController.swift in Sources */,
 				5037C8B21B1E610800952C5A /* searchResultCell.swift in Sources */,
 				50A5B27A1B17B542003C3A2F /* MyCartView.swift in Sources */,
-				505F1D7D1A99744B0011BCE8 /* userViewController.swift in Sources */,
-				5015010A1BC32D390078F7EB /* checkInJuiceView.swift in Sources */,
-				507F2DE51B0115DE00BBAA67 /* settingsMainController.swift in Sources */,
+				505F1D7D1A99744B0011BCE8 /* VIVRMyUserViewController.swift in Sources */,
+				5015010A1BC32D390078F7EB /* VIVRCheckInJuiceViewController.swift in Sources */,
+				507F2DE51B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift in Sources */,
 				506785D01AAE630700598D4B /* FavoriteCollectionCell.swift in Sources */,
 				5065BF141AD4996A00D34AAA /* attributesCell.swift in Sources */,
 				50F2532B1A85C4EF0057B2AC /* newCell.swift in Sources */,
 				504DEAAD1A9185C600398961 /* ProductTableViewCell.swift in Sources */,
 				501E04181A428F1900F93122 /* AppDelegate.swift in Sources */,
-				505FB85F1A47698600584FF8 /* brandFlavorViewController.swift in Sources */,
+				505FB85F1A47698600584FF8 /* VIVRProductViewController.swift in Sources */,
 				50FE14E41B6030A9003D6BA3 /* BoxCell.swift in Sources */,
 				5042272A1B3344B200C1C194 /* userData.xcdatamodeld in Sources */,
 				5089C14A1BA9D9E300727BEC /* iCarousel.m in Sources */,
 				50EC0ECD1AEB0CFB002D1D40 /* loadMoreCell.swift in Sources */,
 				50F253231A85C45A0057B2AC /* buzzCell.swift in Sources */,
 				504E1EC71BB882C300FC9DA8 /* blogCell.swift in Sources */,
-				504DEAAC1A9185C300398961 /* ProductViewController.swift in Sources */,
+				504DEAAC1A9185C300398961 /* VIVRBrandProductsViewController.swift in Sources */,
 				5033791D1AD2ED7F00567436 /* productCell.swift in Sources */,
 				50F2532D1A88253F0057B2AC /* Router.swift in Sources */,
 				5051C6D11B444E4500FB5E67 /* searchViewController.swift in Sources */,
 				5042272E1B371EF800C1C194 /* Review.swift in Sources */,
 				5072DAA41A9E60C600A64CAB /* commentsButton.swift in Sources */,
 				50679F6D1BA201BB008FD0BE /* AddNewJuiceView.swift in Sources */,
-				50AD676D1A429A1700D2BD35 /* BrowseViewController.swift in Sources */,
+				50AD676D1A429A1700D2BD35 /* VIVRBrowseViewController.swift in Sources */,
 				504D7BC41A8849B600E3463C /* reviewTableViewCell.swift in Sources */,
 				505F1D811A997A8A0011BCE8 /* myReviewsCell.swift in Sources */,
-				50C192B41B0A608D008B557F /* newFavoritesViewController.swift in Sources */,
-				50BE265C1B55B3430037AE19 /* ReviewScoreViewController.swift in Sources */,
+				50C192B41B0A608D008B557F /* VIVRFavoritesViewController.swift in Sources */,
+				50BE265C1B55B3430037AE19 /* VIVRReviewScoreViewController.swift in Sources */,
 				5042272C1B3499BB00C1C194 /* EditShippingViewController.swift in Sources */,
 				5055C90E1AEC4300001287B2 /* menuController.swift in Sources */,
 				504227201B31F33000C1C194 /* IJReachability.swift in Sources */,
 				50985CDC1AFC38B2007BB4DD /* UIImage+Color.m in Sources */,
-				501F38281B069C6500242DCF /* wishListViewControler.swift in Sources */,
+				501F38281B069C6500242DCF /* VIVRWishlistViewController.swift in Sources */,
 				50679F661BA1F9AF008FD0BE /* AddJuiceCell.swift in Sources */,
 				50876DDB1B0C26770081CAA9 /* PagedArray.swift in Sources */,
 				507A6C141B706B6600B8A1FA /* LoginInViewController.swift in Sources */,
@@ -691,15 +699,15 @@
 				50A5DB5E1B01356800EF3A67 /* findFriendsViewViewController.swift in Sources */,
 				50679F6F1BA48D09008FD0BE /* FeaturedCell.swift in Sources */,
 				501650311BDBE4CC00798355 /* Markdown.swift in Sources */,
-				504E1EC01BB8684800FC9DA8 /* blogPostView.swift in Sources */,
+				504E1EC01BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift in Sources */,
 				50985CDB1AFC38B2007BB4DD /* DBImageColorPicker.m in Sources */,
 				50035DA31BC594FE00B5CCE3 /* tabBarController.swift in Sources */,
 				50C3B4641A7C5DC400EC39D1 /* KeychainWrapper.swift in Sources */,
-				508AA7FA1BC728170050E5D3 /* independantReviewView.swift in Sources */,
-				507F2DE31AFFFE2200BBAA67 /* editProfileController.swift in Sources */,
+				508AA7FA1BC728170050E5D3 /* VIVRIndependantReviewView.swift in Sources */,
+				507F2DE31AFFFE2200BBAA67 /* VIVRSettingsEditProfileViewController.swift in Sources */,
 				5037C8AB1B1E530000952C5A /* SearchTableView.swift in Sources */,
-				505FB8611A47734300584FF8 /* buzzViewController.swift in Sources */,
-				5072DAA01A9D670F00A64CAB /* commentsViewController.swift in Sources */,
+				505FB8611A47734300584FF8 /* VIVRHomeViewController.swift in Sources */,
+				5072DAA01A9D670F00A64CAB /* VIVRCommentsViewController.swift in Sources */,
 				50BE26631B55C9970037AE19 /* ReviewScoreSliver.swift in Sources */,
 				50FE14DB1B602BFE003D6BA3 /* BoxesCell.swift in Sources */,
 				501233741B02AAB400D8E4ED /* TagCell.swift in Sources */,
@@ -709,7 +717,7 @@
 				50EC0ED91AEC34A1002D1D40 /* SWRevealViewController.m in Sources */,
 				50AC982F1B8BB3BA00BE9222 /* MyBoxController.swift in Sources */,
 				504D7BCC1A8887E400E3463C /* BrandTableViewCell.swift in Sources */,
-				50F26D511B0D3E1B00A42634 /* feedBackViewController.swift in Sources */,
+				50F26D511B0D3E1B00A42634 /* VIVRFeedBackViewController.swift in Sources */,
 				50A5DB641B0141CC00EF3A67 /* editPaymentViewController.swift in Sources */,
 				50B965901B39CD230049716A /* tagCollectionCell.swift in Sources */,
 				50F253291A85C4D10057B2AC /* vivrCell.swift in Sources */,

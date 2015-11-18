@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class feedBackViewController: UIViewController {
+class VIVRFeedBackViewController: UIViewController {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var submitbottomConstraint: NSLayoutConstraint!

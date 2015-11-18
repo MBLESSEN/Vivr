@@ -12,7 +12,7 @@ import SwiftyJSON
 import Haneke
 
 
-class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, VivrCellDelegate, VivrHeaderCellDelegate, UIScrollViewDelegate, flavorTagsDelegate, UISearchBarDelegate, searchDelegate, BWWalkthroughViewControllerDelegate, SWRevealViewControllerDelegate, UIGestureRecognizerDelegate, NSXMLParserDelegate {
+class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, VivrCellDelegate, VivrHeaderCellDelegate, UIScrollViewDelegate, flavorTagsDelegate, UISearchBarDelegate, searchDelegate, BWWalkthroughViewControllerDelegate, SWRevealViewControllerDelegate, UIGestureRecognizerDelegate, NSXMLParserDelegate {
     
     @IBOutlet weak var searchTopConstraint: NSLayoutConstraint!
 
@@ -519,6 +519,7 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
             )
             mainTable.rowHeight = 200
+            mainTable.scrollEnabled = true
             mainTable.reloadData()
         case 1:
             cellIdentifier = "vivrCell"
@@ -634,6 +635,7 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 
             }, completion: {finished in
                 self.tags!.view.removeFromSuperview()
+                self.tabBarController!.tabBar.hidden = false
                 self.filterActive = false
             }
         )
@@ -655,6 +657,7 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 
             }, completion: {finished in
                 self.tags!.view.removeFromSuperview()
+                self.tabBarController!.tabBar.hidden = false
                 self.filterActive = false
             }
         )
@@ -910,25 +913,25 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier {
         case "juiceCheckIn":
-            let juiceCheckIn: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+            let juiceCheckIn: VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
             juiceCheckIn.selectedProductID = self.productID
             juiceCheckIn.boxOrProduct = "product"
             juiceCheckIn.reviewFlavor()
         case "buzzToComments":
-            let reviewVC: commentsViewController = segue.destinationViewController as! commentsViewController
+            let reviewVC: VIVRCommentsViewController = segue.destinationViewController as! VIVRCommentsViewController
             reviewVC.reviewID = self.reviewID
             reviewVC.productID = self.productID!
             reviewVC.review = selectedFeedReview
         case "buzzToProduct":
-            let productVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+            let productVC: VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
             productVC.selectedProductID = self.productID
             productVC.boxOrProduct = "product"
         case "toUserSegue":
-            let userVC: anyUserProfileView = segue.destinationViewController as! anyUserProfileView
+            let userVC: VIVRUserViewController = segue.destinationViewController as! VIVRUserViewController
             userVC.selectedUserID = self.selectedUserID
             //userVC.automaticallyAdjustsScrollViewInsets = false
         case "buzzToBrand":
-            let brandVC: ProductViewController = segue.destinationViewController as! ProductViewController
+            let brandVC: VIVRBrandProductsViewController = segue.destinationViewController as! VIVRBrandProductsViewController
             brandVC.brandImageURL = self.selectedBrandImage
             brandVC.brandID = self.selectedBrandID
         case "toBlogPost":
@@ -946,7 +949,8 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
         case "newCell":
             return 1
         case "featuredCell":
-            return posts.count ?? 0
+            //return posts.count ?? 0
+            return 1
         default:
             return 1
         }
@@ -981,8 +985,8 @@ class buzzViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func featuredCellAtIndexPath(indexPath: NSIndexPath) -> FeaturedCell {
         let cell = mainTable.dequeueReusableCellWithIdentifier("featuredCell", forIndexPath: indexPath) as! FeaturedCell
         if posts.count > 0 {
-            let index = posts[indexPath.row]
-            cell.postTitle.text = index.title!
+            //let index = posts[indexPath.row]
+            //cell.postTitle.text = index.title!
         }
         return cell
     }

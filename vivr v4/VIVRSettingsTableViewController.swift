@@ -8,7 +8,7 @@
 
 import UIKit
 
-class settingsMainController: UITableViewController {
+class VIVRSettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
     override func viewDidLoad() {
@@ -53,7 +53,7 @@ class settingsMainController: UITableViewController {
         // Return the number of rows in the section.
         switch section {
         case 0:
-            return 2
+            return 3
         default:
             return 1
         }

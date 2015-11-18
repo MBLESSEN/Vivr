@@ -11,7 +11,7 @@ import Alamofire
 import Haneke
 
 
-class ProductViewController: UIViewController, UITableViewDataSource {
+class VIVRBrandProductsViewController: UIViewController, UITableViewDataSource {
     
     var selectedProduct: String = ""
     var selectedDescription: String = ""
@@ -97,7 +97,7 @@ class ProductViewController: UIViewController, UITableViewDataSource {
    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         print("prepare for segue:\(selectedBrand)", terminator: "")
-        let productVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+        let productVC: VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
         productVC.selectedProductID = selectedProductID
         productVC.boxOrProduct = "product"
     }

@@ -32,8 +32,8 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate {
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         if item.tag == 1 {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let juiceVC = storyboard.instantiateViewControllerWithIdentifier("checkInJuice") as? checkInJuiceView
-            self.presentViewController(juiceVC!, animated: true, completion: nil)
+            let juiceVC = storyboard.instantiateViewControllerWithIdentifier("checkInJuice") as! VIVRCheckInJuiceViewController
+            self.presentViewController(juiceVC, animated: true, completion: nil)
         }
     }
     

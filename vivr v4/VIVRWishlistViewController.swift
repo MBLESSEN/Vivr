@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class wishListViewControler: UIViewController, UITableViewDataSource, productCellDelegate, UITableViewDelegate {
+class VIVRWishlistViewController: UIViewController, UITableViewDataSource, productCellDelegate, UITableViewDelegate {
     
     var wishlist:[SwiftyJSON.JSON]? = []
     var wishCount:Int = 0
@@ -155,7 +155,7 @@ class wishListViewControler: UIViewController, UITableViewDataSource, productCel
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier!{
         case "wishToProduct":
-            let productVC:brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+            let productVC:VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
             productVC.selectedProductID = selectedProductID
         default:
             print("no segue", terminator: "")

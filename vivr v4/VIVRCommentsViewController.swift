@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class commentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, VivrCellDelegate, CommentCellDelegate {
+class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, VivrCellDelegate, CommentCellDelegate {
     
 
     @IBOutlet weak var flavorName: UILabel!
@@ -441,10 +441,10 @@ class commentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier {
         case "commentsToProduct":
-            let productVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+            let productVC: VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
             productVC.selectedProductID = self.productID
         case "toUserSegue":
-            let userVC: anyUserProfileView = segue.destinationViewController as! anyUserProfileView
+            let userVC: VIVRUserViewController = segue.destinationViewController as! VIVRUserViewController
             userVC.selectedUserID = self.selectedUserID
         default:
             print("noSegue", terminator: "")

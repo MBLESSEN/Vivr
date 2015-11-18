@@ -486,17 +486,17 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
     
     func addSearchResultFromWrapper(wrapper: SearchResult?) {
         self.searchWrapper = wrapper
-        if self.products == nil {
+        if self.products!.count == 0 {
             self.products = self.searchWrapper?.Products.Products
         }else if self.searchWrapper != nil && self.searchWrapper!.Products.Products != nil {
             self.products = self.products! + self.searchWrapper!.Products.Products!
         }
-        if self.brands == nil {
+        if self.brands!.count == 0{
             self.brands = self.searchWrapper?.Brands.Brands
         }else if self.searchWrapper != nil && self.searchWrapper!.Brands.Brands != nil {
             self.brands = self.brands! + self.searchWrapper!.Brands.Brands!
         }
-        if self.users == nil {
+        if self.users!.count == 0 {
             self.users = self.searchWrapper?.Users.UserData
         }else if self.searchWrapper != nil && self.searchWrapper!.Users.UserData != nil {
             self.users = self.users! + self.searchWrapper!.Users.UserData!

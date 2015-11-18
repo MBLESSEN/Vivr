@@ -1,113 +1,89 @@
 //
-//  userTableViewController.swift
+//  anyUserProfileView.swift
 //  vivr v4
 //
-//  Created by max blessen on 2/21/15.
+//  Created by max blessen on 5/5/15.
 //  Copyright (c) 2015 max blessen. All rights reserved.
 //
+
 import UIKit
 import Alamofire
+import Haneke
 import SwiftyJSON
 
-class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDelegate, UITableViewDelegate, MyBoxControllerDelegate {
-    var myFavorites:[JSON]? = []
-    var myFavoritesData:JSON?
-    var myWishlist:[JSON]? = []
-    var myWishlistData:JSON?
+class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollViewDelegate, MyBoxControllerDelegate {
+    var myFavorites:[SwiftyJSON.JSON]? = []
+    var myFavoritesData:SwiftyJSON.JSON?
+    var myWishlist:[SwiftyJSON.JSON]? = []
+    var myWishlistData:SwiftyJSON.JSON?
     var selectedUserID:String?
     var selectedProductID:String?
-    var selectedBoxID: Int?
     var segueIdentifier:String?
     var reviewID:String?
-    var topCell:profileCell?
     var userNameLabel:UILabel?
-    
+    var selectedBoxID: Int?
     var isLoadingUserData = false
     var isLoadingReviews = false
     var userReviews:Array<ActivityFeedReviews>?
-    var userReviewsWrapper: ActivityWrapper?
+    var userReviewsWrapper:ActivityWrapper?
     var selectedReview: ActivityFeedReviews?
+    
     var userData:User?
     var userDataWrapper: UserDataWrapper?
-    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
-    @IBOutlet weak var navBackground: UIView!
-    @IBOutlet weak var menuButton:UIBarButtonItem!
+    
     @IBOutlet weak var profileTable:UITableView!
+    @IBOutlet weak var navBackground: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
-        if let z = profileTable.layer.zPosition as CGFloat?{
-            navBackground.layer.zPosition = z + 2
-        }
+        self.profileTable.contentInset = UIEdgeInsetsMake(0,0,0,0)
     }
-    
-    
     override func viewWillAppear(animated: Bool) {
-        refreshData()
-        if userReviews == nil {
-            loadFirstReviews()
-        }
-        addMenu()
-        configureNavigation()
-        
-        self.tabBarController!.tabBar.hidden = false 
-    }
-    func addMenu(){
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
+        loadUserData()
+        loadFirstReviews()
+        configureTableView()
+        configureNavBar()
     }
 
-    func configureNavigation() {
+    func configureNavBar() {
         navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         navigationController?.navigationBar.barTintColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.translucent = true
-        navigationController?.navigationBarHidden = false
+        navigationController?.navigationBar.translucent = true  
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain , target: nil, action: nil)
+        navigationController?.navigationBarHidden = false
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    @IBAction func wishlistTapped(sender: AnyObject) {
-        self.segueIdentifier = "userToWishlist"
-        performSegueWithIdentifier(segueIdentifier!, sender: self)
-    }
-    @IBAction func favoritesTapped(sender: AnyObject) {
-        self.segueIdentifier = "myUserToFavorites"
-        performSegueWithIdentifier(segueIdentifier!, sender: self)
-    }
-    func tappedProductbutton(cell: myReviewsCell) {
-        self.segueIdentifier = "myUserToFlavor"
-        self.selectedProductID = cell.productID
-        performSegueWithIdentifier(segueIdentifier!, sender: self)
-    }
-    func tappedCommentButton(cell: myReviewsCell) {
-        self.segueIdentifier = "myUserToComments"
-        self.selectedProductID = cell.productID
-        self.reviewID = cell.reviewID
-        self.selectedReview = cell.review
-        selectedReview!.user = self.userData!
-        performSegueWithIdentifier(segueIdentifier!, sender: self)
     }
     @IBAction func boxesTapped(sender: AnyObject) {
         self.segueIdentifier = "userToMyBoxes"
         performSegueWithIdentifier(segueIdentifier!, sender: self)
     }
-    
-    func boxSelected(view: MyBoxController) {
-        self.segueIdentifier = "userToBox"
-        self.selectedBoxID = view.selectedBox!
+    @IBAction func wishListTapped(sender: AnyObject) {
+        self.segueIdentifier = "anyUserToWishlist"
         performSegueWithIdentifier(segueIdentifier!, sender: self)
     }
-    
+    @IBAction func favoritesTapped(sender: AnyObject) {
+        self.segueIdentifier = "anyUserToFavorites"
+        performSegueWithIdentifier(segueIdentifier!, sender: self)
+    }
+    func tappedProductbutton(cell: myReviewsCell) {
+        self.segueIdentifier = "anyUserToFlavor"
+        self.selectedProductID = cell.productID
+        performSegueWithIdentifier(segueIdentifier!, sender: self)
+    }
+    func tappedCommentButton(cell: myReviewsCell) {
+        self.segueIdentifier = "anyUserToComments"
+        self.selectedReview = cell.review
+        selectedReview!.user = self.userData!
+        self.selectedProductID = cell.productID
+        self.reviewID = cell.reviewID
+        performSegueWithIdentifier(segueIdentifier!, sender: self)
+    }
     func helpfulTrue(cell: myReviewsCell) {
         if let reviewID = cell.cellID as Int? {
             userReviews![reviewID].currentHelpful = true
@@ -124,50 +100,16 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
         
     }
     
-    func refreshData() {
-        loadUserData()
-        Alamofire.request(Router.readUserFavorites(myData.myProfileID!, 1)).responseJSON { (response) in
-            if (response.result.isSuccess) {
-                let json = response.data
-                var jsonOBJ = JSON(json!)
-                if let favoriteData = jsonOBJ as JSON? {
-                    self.myFavoritesData = favoriteData
-                }
-                if let favorites = jsonOBJ["data"].arrayValue as [JSON]? {
-                    self.myFavorites = favorites
-                    
-                }
-                self.reloadTableViewContent()
-            }
-        }
-        Alamofire.request(Router.readWishlist(myData.myProfileID!, 1)).responseJSON { (response) in
-            if (response.result.isSuccess) {
-                let json = response.data
-                var jsonOBJ = JSON(json!)
-                if let wishData = jsonOBJ as JSON? {
-                    self.myWishlistData = wishData
-                }
-                if let wishlist = jsonOBJ["data"].arrayValue as [JSON]? {
-                    self.myWishlist = wishlist
-                    
-                }
-                self.reloadTableViewContent()
-            }
-        }
-        
-        
-        
-        
-        
+    func boxSelected(view: MyBoxController) {
+        self.segueIdentifier = "userToBox"
+        self.selectedBoxID = view.selectedBox!
+        performSegueWithIdentifier(segueIdentifier!, sender: self)
     }
     
     func reloadTableViewContent() {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.profileTable.reloadData()
         })
-        if let cell = (profileTable.cellForRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 0)) as? profileCell) {
-            topCell = cell
-        }
     }
     
     func reloadAPI(cell: myReviewsCell) {
@@ -182,7 +124,6 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
         profileTable.rowHeight = UITableViewAutomaticDimension
         
     }
-
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
@@ -200,7 +141,6 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
         }
     }
     
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         switch indexPath.section{
@@ -216,44 +156,47 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
     }
     
     func juiceCheckInCell() -> UITableViewCell {
-        let cell = profileTable.dequeueReusableCellWithIdentifier("checkInJuiceCell") as UITableViewCell!
-        return cell
+        let cell = profileTable.dequeueReusableCellWithIdentifier("checkInJuiceCell")
+        return cell!
         
     }
     
+    
     func profileCellAtIndexPath(indexPath:NSIndexPath) -> profileCell {
         let cell = self.profileTable.dequeueReusableCellWithIdentifier("profileCell") as! profileCell
-        cell.separatorInset = UIEdgeInsetsZero
-        if (userData != nil && myFavoritesData != nil && myWishlistData != nil && userReviewsWrapper != nil) {
-            setImageForProfile(cell, indexPath: indexPath)
-            let review = userReviewsWrapper!
-            cell.userName.text = userData!.userName
-            self.userNameLabel = UILabel(frame: CGRectMake(0, 0, 60, 20))
-            self.userNameLabel!.text = userData!.userName
-            userNameLabel?.textColor = UIColor.whiteColor()
-            userNameLabel?.font = UIFont(name: "PTSans-Bold", size: 17)
-            userNameLabel?.textAlignment = .Center
-            userNameLabel?.sizeToFit()
-            cell.bio.text = myData.bio
+        if (userData != nil) {
+        setImageForProfile(cell, indexPath: indexPath)
+        generateLabel()
+        cell.userName.text = userData!.userName
+        cell.bio.text = userData!.bio
             cell.bio.sizeToFit()
-            cell.hardware.text = myData.hardWare
-            if let reviewCount = review.count {
-                let reviewString = String(stringInterpolationSegment: reviewCount)
-                cell.reviewsCount.text = reviewString
-            }
-            cell.favoritesCount.text = "\(userData!.favorite_count!)"
-            cell.wishCount.text = "\(userData!.wishlist_count!)"
-            cell.boxCount.text = "\(userData!.box_count!)"
+        cell.hardware.text = userData!.hardWare
+        cell.favoritesCount.text = "\(userData!.favorite_count!)"
+        cell.wishCount.text = "\(userData!.wishlist_count!)"
+        cell.reviewsCount.text = "\(userData!.review_count!)"
+        cell.boxCount.text = "\(userData!.box_count!)"
+        
         }
         cell.preservesSuperviewLayoutMargins = false
         return cell
     }
+    func generateLabel() {
+        userNameLabel = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        userNameLabel!.text = userData?.userName
+        userNameLabel!.textColor = UIColor.whiteColor()
+        userNameLabel!.font = UIFont(name: "PTSans-Bold", size: 17)
+        userNameLabel!.textAlignment = .Center
+        userNameLabel!.sizeToFit()
+    }
     
     func reviewCellAtIndexPath(indexPath:NSIndexPath) -> myReviewsCell {
         let cell = self.profileTable.dequeueReusableCellWithIdentifier("myReviews") as! myReviewsCell
-        if self.userReviews != nil && self.userReviews!.count >= indexPath.row && isLoadingReviews == false {
-            setImageForReview(cell, indexPath: indexPath)
-            setReviewForCell(cell, indexPath: indexPath)
+        if self.userReviews != nil && self.userReviews!.count >= indexPath.row {
+            if let cID = indexPath.row as Int? {
+                cell.cellID = cID
+            }
+        setImageForReview(cell, indexPath: indexPath)
+        setReviewForCell(cell, indexPath: indexPath)
             let rowsToLoadFromBottom = 5
             let rowsLoaded = self.userReviews!.count
             if (!self.isLoadingReviews && (indexPath.row >= (rowsLoaded - rowsToLoadFromBottom))) {
@@ -265,12 +208,12 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
             }
         }
         cell.cellDelegate = self
-        cell.preservesSuperviewLayoutMargins = true
+        cell.preservesSuperviewLayoutMargins = false
         return cell
     }
     
     func setImageForProfile(cell:profileCell, indexPath:NSIndexPath) {
-        if let imageString = userData!.image as String?{
+        if let imageString = userData?.image as String?{
             let url = NSURL(string: imageString)
             cell.userImage.hnk_setImageFromURL(url!)
             cell.userImageBlur.hnk_setImageFromURL(url!)
@@ -278,38 +221,31 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
     }
     
     func setImageForReview(cell:myReviewsCell, indexPath:NSIndexPath) {
-        if isLoadingReviews == false {
         let review = userReviews![indexPath.row]
         if let imageString = review.product?.image {
             let url = NSURL(string: imageString)
             cell.productImage.hnk_setImageFromURL(url!)
         }
-        }
     }
     func setReviewForCell(cell:myReviewsCell, indexPath:NSIndexPath) {
         let review = userReviews![indexPath.row]
         cell.review = review
-        cell.cellID = indexPath.row 
         cell.state = review.currentHelpful
         cell.productID = review.productID
         cell.reviewID = review.reviewID
         cell.productName.text = review.product?.name
         cell.productReview.text = review.description
-        cell.brandName.text = review.brand?.name
+        cell.brandName.text = review.brand?.name 
         cell.scoreLabel.text = review.score 
         if let throatHit = review.throat {
             var value:String?
             switch throatHit {
-            case 1:
-                value = "Feather"
-            case 2:
+            case 0:
                 value = "Light"
-            case 3:
+            case 1:
                 value = "Mild"
-            case 4:
+            case 2:
                 value = "Harsh"
-            case 5:
-                value = "Very Harsh"
             default:
                 value = "invalid"
             }
@@ -318,15 +254,11 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
         if let vaporProduction = review.vapor {
             var value:String?
             switch vaporProduction {
-            case 1:
-                value = "Very low"
-            case 2:
+            case 0:
                 value = "Low"
-            case 3:
+            case 1:
                 value = "Average"
-            case 4:
-                value = "High"
-            case 5:
+            case 2:
                 value = "Cloudy"
             default:
                 value = "invalid"
@@ -345,7 +277,7 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
             if let reviewID = review.reviewID {
                 Alamofire.request(Router.readCommentsAPI(productID, reviewID)).responseJSON { (response) in
                     if (response.result.isSuccess) {
-                        let json = response.data
+                        let json = response.result.value
                         var jsonOBJ = JSON(json!)
                         if let commentsCount = jsonOBJ["total"].stringValue as String? {
                             cell.commentsButton.setTitle("\(commentsCount) comments", forState: .Normal)
@@ -355,37 +287,36 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
                 
             }
         }
+        
     }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segueIdentifier != nil {
         switch segueIdentifier! {
-        case "myUserToFavorites":
-            let favoritesVC: newFavoritesViewController = segue.destinationViewController as! newFavoritesViewController
-            favoritesVC.userID = myData.myProfileID
-            favoritesVC.isUser = true
-        case "myUserToFlavor":
-            let productVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+        case "anyUserToFavorites":
+            let favoritesVC: VIVRFavoritesViewController = segue.destinationViewController as! VIVRFavoritesViewController
+            favoritesVC.userID = Int(selectedUserID!)
+            favoritesVC.isUser = false
+        case "anyUserToFlavor":
+            let productVC: VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
             productVC.boxOrProduct = "product"
             productVC.selectedProductID = selectedProductID
-        case "userToWishlist":
-            let wishVC: wishListViewControler = segue.destinationViewController as! wishListViewControler
-            wishVC.userID = myData.myProfileID
-            wishVC.isUser = true
-        case "myUserToComments":
-            let reviewVC: commentsViewController = segue.destinationViewController as! commentsViewController
+        case "anyUserToWishlist":
+            let wishVC: VIVRWishlistViewController = segue.destinationViewController as! VIVRWishlistViewController
+            wishVC.userID = Int(selectedUserID!)
+            wishVC.isUser = false
+        case "anyUserToComments":
+            let reviewVC: VIVRCommentsViewController = segue.destinationViewController as! VIVRCommentsViewController
+            reviewVC.review = selectedReview!
             reviewVC.reviewID = self.reviewID!
             reviewVC.productID = self.selectedProductID!
-            reviewVC.review = selectedReview!
         case "userToMyBoxes":
             let destinationNavigationController = segue.destinationViewController as! UINavigationController
             let boxesVC: MyBoxController = destinationNavigationController.topViewController as! MyBoxController
             boxesVC.viewDelegate = self
-            boxesVC.isMyUser = true
-            boxesVC.selectedUserID = myData.myProfileID
-            boxesVC.createTitleLabel(myData.myProfileName)
+            boxesVC.selectedUserID = Int(selectedUserID!)
+            boxesVC.createTitleLabel(userData!.userName!)
         case "userToBox":
-            let boxVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+            let boxVC: VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
             boxVC.boxOrProduct = "box"
             boxVC.selectedBoxID = self.selectedBoxID!
         default:
@@ -393,38 +324,37 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
         }
         }
     }
-    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let cellOffset = profileTable.contentOffset.y
-        if let height = topCell?.contentView.frame.height as CGFloat? {
-            print(height, terminator: "")
-            print(cellOffset, terminator: "")
-        let alpha = height - cellOffset - 120
+        print(cellOffset, terminator: "")
+        if let topCell = profileTable.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? profileCell {
+        let height = topCell.contentView.frame.height
+        let alpha = height - 120 - cellOffset
         let percent = alpha/100
         if (percent > 0) {
-            topCell?.contentView.alpha = percent
+            topCell.contentView.alpha = percent
         }
         if (percent <= 0.1 || cellOffset >= height + 120) {
-                navBackground.alpha = 1
-            }else {
-                navBackground.alpha = 0
-            }
-            if (cellOffset  < 0) {
-                topCell?.imageTopConstraint.constant = -8 + cellOffset
+            navBackground.alpha = 1
+        }else {
+            navBackground.alpha = 0
+        }
+            if cellOffset < 0 {
+                topCell.imageTopConstraint.constant = -8 + cellOffset
             }
         if (cellOffset >= 20) {
-                self.navigationItem.titleView = userNameLabel
-                topCell?.userName.hidden = true
+            self.navigationItem.titleView = userNameLabel
+            topCell.userName.hidden = true
         }else {
             self.navigationItem.titleView = UILabel(frame: CGRectMake(0, 0, 0, 0))
-            topCell?.userName.hidden = false
+            topCell.userName.hidden = false
         }
         }
     }
     func loadFirstReviews() {
         self.userReviews = []
         isLoadingReviews = true
-        ActivityFeedReviews.getUserReviews(myData.myProfileID!, completionHandler: { (activityWrapper, error) in
+        ActivityFeedReviews.getUserReviews(Int(selectedUserID!)!, completionHandler: { (activityWrapper, error) in
             if error != nil {
                 self.isLoadingReviews = false
                 let alert = UIAlertController(title: "Error", message: "could not load first activity", preferredStyle: UIAlertControllerStyle.Alert)
@@ -441,7 +371,7 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
         isLoadingReviews = true
         if self.userReviews != nil && self.userReviewsWrapper != nil && self.userReviews!.count < self.userReviewsWrapper!.count
         {
-            ActivityFeedReviews.getMoreUserReviews(myData.myProfileID!, wrapper: self.userReviewsWrapper, completionHandler: { (moreWrapper, error) in
+            ActivityFeedReviews.getMoreUserReviews(Int(selectedUserID!)!, wrapper: self.userReviewsWrapper, completionHandler: { (moreWrapper, error) in
                 if error != nil
                 {
                     self.isLoadingReviews = false
@@ -449,7 +379,7 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
                     alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
-                print("got More", terminator: "")
+                print("got More")
                 self.addReviewFromWrapper(moreWrapper)
                 self.isLoadingReviews = false
                 self.profileTable.reloadData()
@@ -470,9 +400,10 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
             self.userReviews = self.userReviews! + self.userReviewsWrapper!.ActivityReviews!
         }
     }
+    
     func loadUserData() {
         isLoadingUserData = true
-        User.getMyUserData(0, completionHandler: { (userDataWrapper, error) in
+        User.getUserData(Int(selectedUserID!)!, completionHandler: { (userDataWrapper, error) in
             if error != nil {
                 self.isLoadingUserData = false
                 let alert = UIAlertController(title: "Error", message: "could not load first activity", preferredStyle: UIAlertControllerStyle.Alert)
@@ -488,12 +419,11 @@ class userViewController: UIViewController, reviewCellDelegate, UIScrollViewDele
     func addUserDataFromWrapper(wrapper: UserDataWrapper?) {
         self.userDataWrapper = wrapper
         if self.userData == nil {
-            self.userData = self.userDataWrapper?.UserData?.first
+            self.userData = self.userDataWrapper?.UserData![0]
         }
     }
-    
-    
-}
 
     
     
+
+}

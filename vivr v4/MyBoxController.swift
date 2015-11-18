@@ -353,7 +353,7 @@ class MyBoxController: UIViewController, createNewBoxDelegate, UITableViewDataSo
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier!{
         case "toBox":
-            let boxVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
+            let boxVC: VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
             boxVC.boxOrProduct = "box"
             boxVC.selectedBoxID = self.selectedBox!
         default:

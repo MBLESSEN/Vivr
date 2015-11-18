@@ -11,7 +11,7 @@ import Alamofire
 import AssetsLibrary
 import SwiftyJSON
 
-class editProfileController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class VIVRSettingsEditProfileViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var fullName: B68UIFloatLabelTextField!
     @IBOutlet weak var hardWare: B68UIFloatLabelTextField!
     @IBOutlet weak var bio: B68UIFloatLabelTextField!

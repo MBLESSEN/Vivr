@@ -12,7 +12,7 @@ import QuartzCore
 import Alamofire
 
 
-class checkInJuiceView: UIViewController, ProductViewDelegate, BrowseViewDelegate, UITextFieldDelegate {
+class VIVRCheckInJuiceViewController: UIViewController, ProductViewDelegate, BrowseViewDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var firstPanel: UIView!
     @IBOutlet weak var secondPanel: UIView!
@@ -43,7 +43,7 @@ class checkInJuiceView: UIViewController, ProductViewDelegate, BrowseViewDelegat
     var keyboardActive = false
     var topPanelMultiplier: CGFloat?
     var firstPanelHeight: CGFloat?
-    var juiceSearch: BrowseViewController?
+    var juiceSearch: VIVRBrowseViewController?
     let captureSession = AVCaptureSession()
     let stillImageOutput = AVCaptureStillImageOutput()
     var error: NSError?
@@ -61,7 +61,7 @@ class checkInJuiceView: UIViewController, ProductViewDelegate, BrowseViewDelegat
     var selectedProductID: Int?
     var selectedBrandID: Int?
     var screenAdjustedHeight:CGFloat?
-    var reviewView: independantReviewView?
+    var reviewView: VIVRIndependantReviewView?
     var previewLayer: AVCaptureVideoPreviewLayer?
     
     var addingProduct = false
@@ -185,7 +185,7 @@ class checkInJuiceView: UIViewController, ProductViewDelegate, BrowseViewDelegat
     func instantiateReviewView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let segmentHeight = (self.view.frame.height - 50.0)/4.0
-        reviewView = storyboard.instantiateViewControllerWithIdentifier("indieReviewView") as? independantReviewView
+        reviewView = storyboard.instantiateViewControllerWithIdentifier("indieReviewView") as? VIVRIndependantReviewView
         reviewView!.view.frame = CGRectMake(0, self.view.frame.height, self.view.frame.width, self.view.frame.height - segmentHeight)
         self.addChildViewController(self.reviewView!)
         reviewView!.didMoveToParentViewController(self)
@@ -195,7 +195,7 @@ class checkInJuiceView: UIViewController, ProductViewDelegate, BrowseViewDelegat
     
     func instantiateSearchView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        juiceSearch = storyboard.instantiateViewControllerWithIdentifier("browseView") as? BrowseViewController
+        juiceSearch = storyboard.instantiateViewControllerWithIdentifier("browseView") as? VIVRBrowseViewController
         juiceSearch!.productViewDelegate = self
         juiceSearch!.brandViewDelegate = self
         juiceSearch!.segueActive = false

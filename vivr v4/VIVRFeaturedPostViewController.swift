@@ -8,7 +8,7 @@
 
 import UIKit
 
-class blogPostView: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class VIVRFeaturedPostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var comments: Array<ActivityFeedReviews>?
     var blog: BlogPost?
