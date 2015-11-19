@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Alamofire
+//testing commit
 
 struct myData {
     static var myProfileID:Int?
