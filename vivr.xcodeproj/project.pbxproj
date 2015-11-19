@@ -83,6 +83,7 @@
 		50C3B45E1A7C59B200EC39D1 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */; };
 		50C3B4641A7C5DC400EC39D1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B4631A7C5DC400EC39D1 /* KeychainWrapper.swift */; };
 		50CC19AF1B0AEF490030D06D /* B68UIFloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CC19AE1B0AEF490030D06D /* B68UIFloatLabelTextField.swift */; };
+		50CCD0D61BFE4C0E0003EF98 /* VIVRShoppingCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CCD0D51BFE4C0E0003EF98 /* VIVRShoppingCartViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		50EC0ECD1AEB0CFB002D1D40 /* loadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EC0ECC1AEB0CFB002D1D40 /* loadMoreCell.swift */; };
 		50EC0ED91AEC34A1002D1D40 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC0ED81AEC34A1002D1D40 /* SWRevealViewController.m */; };
 		50F253231A85C45A0057B2AC /* buzzCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F253221A85C45A0057B2AC /* buzzCell.swift */; };
@@ -208,6 +209,7 @@
 		50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
 		50C3B4631A7C5DC400EC39D1 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		50CC19AE1B0AEF490030D06D /* B68UIFloatLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = B68UIFloatLabelTextField.swift; sourceTree = "<group>"; };
+		50CCD0D51BFE4C0E0003EF98 /* VIVRShoppingCartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRShoppingCartViewController.swift; sourceTree = "<group>"; };
 		50D833341BC982D40020FE75 /* Haneke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Haneke.framework; path = "Pods/../build/Debug-iphoneos/Haneke.framework"; sourceTree = "<group>"; };
 		50DBB7E11BCEF9BE00814230 /* Mixpanel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mixpanel.framework; path = "Pods/../build/Debug-iphoneos/Mixpanel.framework"; sourceTree = "<group>"; };
 		50EC0ECC1AEB0CFB002D1D40 /* loadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loadMoreCell.swift; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 				508AA7F91BC728170050E5D3 /* VIVRIndependantReviewView.swift */,
 				504E1EBF1BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift */,
 				50035DA21BC594FE00B5CCE3 /* tabBarController.swift */,
+				50CCD0D51BFE4C0E0003EF98 /* VIVRShoppingCartViewController.swift */,
 				50F26D4E1B0D37FE00A42634 /* AboutTableViewController.swift */,
 				50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */,
 				50679F6C1BA201BB008FD0BE /* AddNewJuiceView.swift */,
@@ -684,6 +687,7 @@
 				50C192B41B0A608D008B557F /* VIVRFavoritesViewController.swift in Sources */,
 				50BE265C1B55B3430037AE19 /* VIVRReviewScoreViewController.swift in Sources */,
 				5042272C1B3499BB00C1C194 /* EditShippingViewController.swift in Sources */,
+				50CCD0D61BFE4C0E0003EF98 /* VIVRShoppingCartViewController.swift in Sources */,
 				5055C90E1AEC4300001287B2 /* menuController.swift in Sources */,
 				504227201B31F33000C1C194 /* IJReachability.swift in Sources */,
 				50985CDC1AFC38B2007BB4DD /* UIImage+Color.m in Sources */,

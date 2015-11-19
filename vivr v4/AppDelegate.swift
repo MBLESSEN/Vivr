@@ -179,8 +179,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func login() {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        //let initialViewController = storyBoard.instantiateViewControllerWithIdentifier("HomeView") as! UITabBarController
-        let initialViewController = storyBoard.instantiateViewControllerWithIdentifier("initialView") as! SWRevealViewController
+        let initialViewController = storyBoard.instantiateViewControllerWithIdentifier("HomeView") as! UITabBarController
+        //let initialViewController = storyBoard.instantiateViewControllerWithIdentifier("initialView") as! SWRevealViewController
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
     }

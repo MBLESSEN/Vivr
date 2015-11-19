@@ -160,14 +160,11 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.view.layoutIfNeeded()
         if self.revealViewController() != nil {
             shoppingCartButton.target = self.revealViewController()
-            //self.revealViewController().setRightViewController(self.revealViewController().rearViewController, animated: true)
+            self.revealViewController().frontViewShadowRadius = 1.0
+            self.revealViewController().rightViewRevealOverdraw = 0.0
             shoppingCartButton.action = "rightRevealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-    }
-    
-    func revealController(revealController: SWRevealViewController!, animateToPosition position: FrontViewPosition) {
-        <#code#>
     }
     
     override func didReceiveMemoryWarning() {
