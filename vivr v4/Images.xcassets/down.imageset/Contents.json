@@ -2,8 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "expand_arrow-48.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
@@ -12,7 +11,8 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "expand_arrow-48.png"
     }
   ],
   "info" : {

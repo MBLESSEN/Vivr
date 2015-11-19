@@ -5,7 +5,7 @@
 //  Created by max blessen on 12/22/14.
 //  Copyright (c) 2014 max blessen. All rights reserved.
 //
-
+/*
 import UIKit
 import Alamofire
 
@@ -19,7 +19,6 @@ class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     
     @IBOutlet weak var reviewNavBar: UINavigationBar!
     @IBOutlet weak var reviewText: UITextView!
-    @IBOutlet weak var floatRatingView: FloatRatingView!
     @IBOutlet weak var vaporControl: UISegmentedControl!
     @IBOutlet weak var throatControl: UISegmentedControl!
     @IBOutlet weak var topView: UIView!
@@ -27,16 +26,20 @@ class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     @IBOutlet weak var clearButton: UIBarButtonItem!
     
     override func viewDidLoad() {
-        println(productID)
+        vaporControl.selectedSegmentIndex = 0
+        throatControl.selectedSegmentIndex = 0
+        self.view.preservesSuperviewLayoutMargins = true
+        configureNavBar()
+        print(productID, terminator: "")
         super.viewDidLoad()
         stepValue = 1
         clearButton.enabled = false
         clearButton.title = ""
         reviewText.text = "Write a comment..."
         reviewText.textColor = UIColor.lightGrayColor()
-        var endKeyboardRecognizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
-        var endKeyboardRecognizer2 = UITapGestureRecognizer(target: self, action: "hideKeyboard")
-        var endKeyboardRecognizer3 = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        let endKeyboardRecognizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        let endKeyboardRecognizer2 = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        let endKeyboardRecognizer3 = UITapGestureRecognizer(target: self, action: "hideKeyboard")
         var endKeyboardRecognizer4 = UITapGestureRecognizer(target: self, action: "hideKeyboard")
         topView.addGestureRecognizer(endKeyboardRecognizer)
         floatRatingView.addGestureRecognizer(endKeyboardRecognizer2)
@@ -45,6 +48,9 @@ class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         
 
         // Do any additional setup after loading the view.
+    }
+    
+    func configureNavBar() {
     }
 
     func hideKeyboard() {
@@ -89,12 +95,12 @@ class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDel
 
     
     @IBAction func addTags(sender: AnyObject) {
-        var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         blurView.frame = self.view.bounds
         blurView.backgroundColor = UIColor.blackColor()
         blurView.alpha = 0.8
         self.view.addSubview(blurView)
-        var tags: addFlavorTagsView = storyboard.instantiateViewControllerWithIdentifier("tags") as addFlavorTagsView
+        let tags: addFlavorTagsView = storyboard.instantiateViewControllerWithIdentifier("tags") as! addFlavorTagsView
         tags.viewDelegate = self
         self.presentViewController(tags, animated: true, completion: nil)
     }
@@ -120,8 +126,8 @@ class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDel
             emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(emptyAlert, animated: true, completion: nil)
         default:
-            let vapor = (vaporControl.selectedSegmentIndex + 1)
-            let throat = (throatControl.selectedSegmentIndex + 1)
+            let vapor = (vaporControl.selectedSegmentIndex)
+            let throat = (throatControl.selectedSegmentIndex)
             let score = self.floatRatingView.rating + 1
             
             let parameters: [ String : AnyObject] = [
@@ -134,10 +140,11 @@ class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDel
             
             
             Alamofire.request(Router.AddReview(productID, parameters)).responseJSON { (request, response, json, error) in
-                println(request)
-                println(response)
-                println(json)
-                println(error)
+                print(request)
+                print(response)
+                print(json)
+                print(error)
+                myData.reviewsCount = myData.reviewsCount! + 1
             }
             
             self.dismissViewControllerAnimated(true, completion: nil)
@@ -223,5 +230,5 @@ class reviewViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         // Pass the selected object to the new view controller.
     }
     */
-
+*/
 

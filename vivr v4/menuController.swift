@@ -1,4 +1,4 @@
-//
+ //
 //  menuController.swift
 //  vivr v4
 //
@@ -16,20 +16,78 @@ class menuController: UITableViewController {
     @IBOutlet weak var favoritesCount: UILabel!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var favoritesCell: UITableViewCell!
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var profile: UITableViewCell!
     
+    @IBOutlet weak var boxesCount: UILabel!
+    @IBOutlet weak var juicesCount: UILabel!
+    @IBOutlet weak var homeLogo: UIImageView!
+    @IBOutlet weak var exploreLogo: UIImageView!
+    @IBOutlet weak var profileLogo: UIImageView!
+    @IBOutlet weak var cartLogo: UIImageView!
+    @IBOutlet weak var settingsLogo: UIImageView!
+    @IBOutlet weak var aboutLogo: UIImageView!
+    @IBOutlet weak var feedBackLogo: UIImageView!
+    
+    @IBOutlet weak var boxesCheckInButton: UIButton!
+    @IBOutlet weak var juicesCheckInButton: UIButton!
+    
+    @IBOutlet weak var juiceCheckInLabel: UILabel!
     var segueIdentifier:String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.layoutMargins = UIEdgeInsetsMake(0, -15, 0, 0)
+        tableView.layoutMargins = UIEdgeInsetsMake(0, -32, 0, 0)
+        tableView.preservesSuperviewLayoutMargins = false
+        tableView.separatorColor = UIColor.clearColor()
+        colorLogos()
+        let backgroundImage = UIImage(named: "mobileBackground")
+        let imageView = UIImageView(image: backgroundImage)
+        imageView.alpha = 0.5
+        self.tableView.backgroundView = imageView
+    }
+    
+    func colorLogos() {
+        let home = UIImage(named: "vivrHomeLogo")?.imageWithRenderingMode(.AlwaysTemplate)
+        let explore = UIImage(named: "thumbUp")?.imageWithRenderingMode(.AlwaysTemplate)
+        let profile = UIImage(named: "user_50")?.imageWithRenderingMode(.AlwaysTemplate)
+        let cart = UIImage(named: "shopping_cart_empty_50")?.imageWithRenderingMode(.AlwaysTemplate)
+        let settings = UIImage(named: "settings-50")?.imageWithRenderingMode(.AlwaysTemplate)
+        let about = UIImage(named: "info-50")?.imageWithRenderingMode(.AlwaysTemplate)
+        let feedback = UIImage(named: "help-50.png")?.imageWithRenderingMode(.AlwaysTemplate)
+        homeLogo.image = home
+        exploreLogo.image = explore
+        profileLogo.image = profile
+        //cartLogo.image = cart
+        aboutLogo.image = about
+        feedBackLogo.image = feedback
+        homeLogo.tintColor = UIColor.lightGrayColor()
+        exploreLogo.tintColor = UIColor.lightGrayColor()
+        profileLogo.tintColor = UIColor.lightGrayColor()
+        //cartLogo.tintColor = UIColor.lightGrayColor()
+        aboutLogo.tintColor = UIColor.lightGrayColor()
+        feedBackLogo.tintColor = UIColor.lightGrayColor()
+        
     }
     
     
     override func viewWillAppear(animated: Bool) {
         self.userName.text = myData.myProfileName
-        self.favoritesCount.text = myData.favoritesCount
-        self.reviewsCount.text = myData.reviewsCount
-        self.wishListCount.text = myData.wishlistCount
+        let userPlaceholderImage = UIImage(named: "user_100")
+        self.userImage.image = myData.userImage
+        self.userImage.layer.cornerRadius = self.userImage.frame.size.width / 2
+        self.userImage.clipsToBounds = true
+        self.userImage.layer.borderWidth = 3.0
+        self.userImage.layer.borderColor = UIColor(white: 1.0, alpha: 0.5).CGColor
+        setCountData()
+        
+        
+    }
+    
+    func setCountData() {
+        if let rCount = myData.reviewsCount as Int? {
+            juicesCount?.text = "\(rCount)"
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,33 +106,41 @@ class menuController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 11
+        return 7
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (tableView.respondsToSelector(Selector("layoutMargins"))) {
-            tableView.layoutMargins = UIEdgeInsetsMake(0, -15, 0, 0)
-        }
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        if (tableView.respondsToSelector(Selector("separatorInset"))) {
-        tableView.separatorInset = UIEdgeInsetsMake(0,-15,0,0)
+        let height = UIScreen.mainScreen().bounds.height
+        let x = height*0.20
+        let rowHeight = height - x
+        if indexPath.row == 0 {
+            return x
         }
-        
-        if (cell.respondsToSelector(Selector("layoutMargins"))) {
-            cell.layoutMargins = UIEdgeInsetsZero
-        }
+        return rowHeight/6
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let path = self.tableView.indexPathForSelectedRow()
-        if (path!.row == 9) {
-            let wishVC: wishListViewControler = segue.destinationViewController as wishListViewControler
-            wishVC.userID = myData.myProfileID
-        }
     }
     
+    @IBAction func settingsPressed(sender: AnyObject) {
+        performSegueWithIdentifier("menuToSettings", sender: self)
+    }
 
     
+    @IBAction func juiceCheckInPressed(sender: AnyObject) {
+        segueIdentifier = "juiceCheckInSegue"
+        performSegueWithIdentifier("juiceCheckInSegue", sender: self)
+    }
+
+    @IBAction func juiceCheckInTouchDown(sender: AnyObject) {
+        juicesCheckInButton.tintColor = UIColor.whiteColor()
+        
+    }
+    
+    @IBAction func juiceCheckInTouchUp(sender: AnyObject) {
+        juicesCheckInButton.alpha = 1.0
+    }
 
     /*
     // Override to support conditional editing of the table view.

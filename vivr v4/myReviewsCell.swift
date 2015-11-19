@@ -14,6 +14,8 @@ protocol reviewCellDelegate {
     func tappedProductbutton(cell: myReviewsCell)
     func tappedCommentButton(cell: myReviewsCell)
     func reloadAPI(cell: myReviewsCell)
+    func helpfulTrue(cell: myReviewsCell)
+    func helpfulFalse(cell: myReviewsCell)
 }
 
 class myReviewsCell: UITableViewCell {
@@ -21,13 +23,16 @@ class myReviewsCell: UITableViewCell {
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productReview: UILabel!
-    @IBOutlet weak var floatRatingView: FloatRatingView!
     @IBOutlet weak var brandName: UILabel!
     @IBOutlet weak var throat: UILabel!
     @IBOutlet weak var vapor: UILabel!
     @IBOutlet weak var likebutton: UIButton!
     @IBOutlet weak var commentsButton: UIButton!
     @IBOutlet weak var helpfullLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+
+    
+    var cellID:Int? 
     var reviewID:String?
     var productID:String?
     var likeImage = UIImage(named: "likeFilled")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -36,8 +41,6 @@ class myReviewsCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.floatRatingView.emptyImage = UIImage(named: "StarEmpty")
-        self.floatRatingView.fullImage = UIImage(named: "StarFull")
         likebutton.layer.borderWidth = 1
         likebutton.layer.cornerRadius = 4
         //likebutton.tintColor = UIColor.lightGrayColor()
@@ -65,11 +68,11 @@ class myReviewsCell: UITableViewCell {
             case true:
                 state = false
                 Alamofire.request(Router.notHelpful(productID!, reviewID!))
+                cellDelegate?.helpfulFalse(self)
             case false:
                 state = true
                 Alamofire.request(Router.isHelpful(productID!, reviewID!))
-        default:
-            println("error")
+                cellDelegate?.helpfulTrue(self)
         }
         self.buttonState()
         self.cellDelegate?.reloadAPI(self)
@@ -89,20 +92,18 @@ class myReviewsCell: UITableViewCell {
             likebutton.tintColor = UIColor.lightGrayColor()
             likebutton.backgroundColor = UIColor.whiteColor()
             likebutton.setTitle("Helpful", forState: .Normal)
-        default:
-            println("error")
             
         }
     }
     
     
-    var review:JSON? {
+    var review:ActivityFeedReviews? {
         didSet {
             //self.loadReview()
         }
     }
     
-    func loadReview() {
+    func loadReview() {/*
         self.productID = self.review?["product"]["id"].stringValue
         self.reviewID = self.review?["id"].stringValue
         self.productName.text = self.review?["product"]["name"].string
@@ -114,23 +115,18 @@ class myReviewsCell: UITableViewCell {
         if let rating = self.review?["score"].stringValue{
             var number = (rating as NSString).floatValue
             println("rating is \(rating) score is \(number)")
-            self.floatRatingView.rating = number
-            self.floatRatingView.userInteractionEnabled = false
+            
         }
         self.brandName.text = self.review?["product"]["brand"]["name"].string
         if let throatHit = self.review?["throat"].int {
             var value:String?
             switch throatHit {
-            case 1:
-                value = "Feather"
-            case 2:
+            case 0:
                 value = "Light"
-            case 3:
+            case 1:
                 value = "Mild"
-            case 4:
+            case 2:
                 value = "Harsh"
-            case 5:
-                value = "Very Harsh"
             default:
                 value = "invalid"
             }
@@ -139,15 +135,11 @@ class myReviewsCell: UITableViewCell {
         if let vaporProduction = self.review?["vapor"].int {
             var value:String?
             switch vaporProduction {
-            case 1:
-                value = "Very low"
-            case 2:
+            case 0:
                 value = "Low"
-            case 3:
+            case 1:
                 value = "Average"
-            case 4:
-                value = "High"
-            case 5:
+            case 2:
                 value = "Cloudy"
             default:
                 value = "invalid"
@@ -162,7 +154,7 @@ class myReviewsCell: UITableViewCell {
                 self.helpfullLabel.text = "\(helpfullCount) people found this helpful"
             }
         }
-
+    */
         
     }
 

@@ -27,7 +27,6 @@ class registerViewController: UIViewController {
         userNameEntered.borderStyle = UITextBorderStyle.None
         passwordEntered.borderStyle = UITextBorderStyle.None
         confirmPasswordEntered.borderStyle = UITextBorderStyle.None
-        navigationController?.navigationBar.barTintColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
         configurePlaceHolderText()
     }
     
@@ -36,6 +35,7 @@ class registerViewController: UIViewController {
     }
 
     override func didReceiveMemoryWarning() {
+        self.navigationController?.navigationBarHidden = false 
         super.didReceiveMemoryWarning()
     }
     func configureNavBar() {
@@ -46,13 +46,15 @@ class registerViewController: UIViewController {
         self.navigationItem.titleView = registerLabel
         navigationController?.navigationBar.hidden = false
         navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.barTintColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
+        navigationController?.navigationBar.translucent = true
     }
     
     func configurePlaceHolderText() {
-        emailEntered.font = UIFont(name: emailEntered.font.fontName, size: 30)
-        userNameEntered.font = UIFont(name: userNameEntered.font.fontName, size: 30)
-        passwordEntered.font = UIFont(name: passwordEntered.font.fontName, size: 30)
-        confirmPasswordEntered.font = UIFont(name: confirmPasswordEntered.font.fontName, size: 30)
+        emailEntered.font = UIFont(name: emailEntered.font.fontName, size: 15)
+        userNameEntered.font = UIFont(name: userNameEntered.font.fontName, size: 15)
+        passwordEntered.font = UIFont(name: passwordEntered.font.fontName, size: 15)
+        confirmPasswordEntered.font = UIFont(name: confirmPasswordEntered.font.fontName, size: 15)
         
     
     }
@@ -82,15 +84,46 @@ class registerViewController: UIViewController {
             "password_confirmation": confirmPasswordEntered.text
         ]
         
-        Alamofire.request(.POST, "http://mickeyschwab.com/vivr/public/users", parameters: parameters, encoding: .JSON) 
+        Alamofire.request(Router.registerNewUser(parameters)).validate().responseJSON { (request, response, json, error) in
+            println(request)
+            println(response)
+            println(json)
+            if json != nil {
+                let data = JSON(json!)
+                let username = data["email"].stringValue
+                let password = self.passwordEntered.text
+                let tokenParameters: [String:AnyObject] = [
+                    "grant_type": "password",
+                    "client_id": "1",
+                    "client_secret": "vapordelivery2015",
+                    "username": username,
+                    "password": password
+                ]
+                
+                Alamofire.request(Router.requestAccessToken(tokenParameters)).validate().responseJSON { (request, response, json, error) in
+                    println(request)
+                    println(response)
+                    println(json)
+                    if json != nil {
+                        let jsonOBJ = JSON(json!)
+                        myData.authToken = jsonOBJ["access_token"].stringValue
+                        myData.refreshToken = jsonOBJ["refresh_token"].stringValue
+                        KeychainWrapper.setString(myData.authToken!, forKey: "authToken")
+                        KeychainWrapper.setString(myData.refreshToken!, forKey: "refreshToken")
+                        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                        appDelegate.loadProfileData()
+                        appDelegate.login()
+                        
+                    }
+                }
+                
+                    
+            }
+
+        }
         
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
-    }
     
 
 }

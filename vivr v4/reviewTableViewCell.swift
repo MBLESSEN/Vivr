@@ -8,6 +8,15 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+
+protocol ReviewCellDelegate {
+    func reloadAPI(cell: reviewTableViewCell)
+    func tappedFlavorReviewCommentbutton(cell: reviewTableViewCell)
+    func helpfulTrue(cell: reviewTableViewCell)
+    func helpfulFalse(cell: reviewTableViewCell)
+}
 
 class reviewTableViewCell: UITableViewCell {
     @IBOutlet weak var reviewContent: UILabel!
@@ -20,7 +29,12 @@ class reviewTableViewCell: UITableViewCell {
     @IBOutlet weak var helpfull: UIButton!
     @IBOutlet weak var throat: UILabel!
     @IBOutlet weak var vapor: UILabel!
+    @IBOutlet weak var commentButton: UIButton!
     
+    var cellID:Int?
+    var cellDelegate:ReviewCellDelegate? = nil
+    var productID:String?
+    var reviewID:String?
     var likeImage = UIImage(named: "likeFilled")?.imageWithRenderingMode(.AlwaysTemplate)
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,7 +59,7 @@ class reviewTableViewCell: UITableViewCell {
             self.loadReviews()
         }
     }
-    var helpfullState:String? {
+    var helpfullState:Bool? {
         didSet {
             helpfull!.layer.borderWidth = 1
             helpfull!.layer.cornerRadius = 4
@@ -56,60 +70,83 @@ class reviewTableViewCell: UITableViewCell {
     }
     func buttonState() {
         switch helpfullState! {
-        case "isLiked":
+        case true:
             helpfull!.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 0)
             helpfull!.layer.borderColor = (UIColor.purpleColor()).CGColor
             helpfull!.tintColor = UIColor.whiteColor()
             helpfull!.backgroundColor = UIColor.purpleColor()
             helpfull!.setTitle("Helpful", forState: .Normal)
-        case "notLiked":
+        case false:
             helpfull!.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 0)
             helpfull!.layer.borderColor = (UIColor.lightGrayColor()).CGColor
             helpfull!.tintColor = UIColor.lightGrayColor()
             helpfull!.backgroundColor = UIColor.whiteColor()
             helpfull!.setTitle("Helpful", forState: .Normal)
         default:
-            println("error")
+            print("error", terminator: "")
             
         }
     }
     
     @IBAction func helpfullPressed(sender: AnyObject) {
         switch helpfullState! {
-        case "isLiked":
-            helpfullState = "notLiked"
-        case "notLiked":
-            helpfullState = "isLiked"
+        case true:
+            helpfullState = false
+            Alamofire.request(Router.notHelpful(productID!, reviewID!))
+            cellDelegate?.helpfulFalse(self)
+        case false:
+            helpfullState = true
+            Alamofire.request(Router.isHelpful(productID!, reviewID!))
+            cellDelegate?.helpfulTrue(self)
         default:
-            println("error")
+            print("error", terminator: "")
         }
         self.buttonState()
+        self.cellDelegate?.reloadAPI(self)
+    }
+    
+    @IBAction func commentPressed(sender: AnyObject) {
+        cellDelegate?.tappedFlavorReviewCommentbutton(self)
     }
     
     func loadReviews() {
-        self.reviewContent.text = self.review?["description"].string
-        self.reviewContent.sizeToFit()
-        if let helpfullCount = self.review?["helpful_count"].stringValue {
-            switch helpfullCount {
-                case "0":
-                self.helpfulLabel.text = "Was this helpful?"
-            default:
-                self.helpfulLabel.text = "\(helpfullCount) found this helpful"
+        if let rid = self.review?["id"].stringValue as String? {
+            reviewID = rid
+            Alamofire.request(Router.readCommentsAPI(productID!, reviewID!)).responseJSON { (response) in
+                if (response.result.isSuccess) {
+                    let json = response.data
+                    var jsonOBJ = JSON(json!)
+                    if let commentsCount = jsonOBJ["total"].stringValue as String? {
+                        self.commentButton.setTitle("\(commentsCount) comments", forState: .Normal)
+                        self.commentButton.sizeToFit()
+                    }
+                }
+            }
+        }
+        if let date = self.review?["created_at"].stringValue as String?{
+            let dateFor:NSDateFormatter = NSDateFormatter()
+            dateFor.timeZone = NSTimeZone(abbreviation: "UTC")
+            dateFor.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            let theDate:NSDate = dateFor.dateFromString(date)!
+            let tempoDate = Tempo(date: theDate)
+            let timeStamp = tempoDate.timeAgoNow()
+            if let reviewString = self.review?["description"].stringValue as String? {
+                let review = NSMutableAttributedString(string: reviewString + "  -  ")
+                let x = NSAttributedString(string: timeStamp, attributes: [NSForegroundColorAttributeName : UIColor.lightGrayColor()])
+                review.appendAttributedString(x)
+                self.reviewContent.attributedText = review
+                
             }
         }
         if let throatHit = self.review?["throat"].int {
             var value:String?
             switch throatHit {
-            case 1:
-                value = "Feather"
-            case 2:
+            case 0:
                 value = "Light"
-            case 3:
+            case 1:
                 value = "Mild"
-            case 4:
+            case 2:
                 value = "Harsh"
-            case 5:
-                value = "Very Harsh"
             default:
                 value = "invalid"
             }
@@ -118,21 +155,19 @@ class reviewTableViewCell: UITableViewCell {
         if let vaporProduction = self.review?["vapor"].int {
             var value:String?
             switch vaporProduction {
-            case 1:
-                value = "Very low"
-            case 2:
+            case 0:
                 value = "Low"
-            case 3:
+            case 1:
                 value = "Average"
-            case 4:
-                value = "High"
-            case 5:
+            case 2:
                 value = "Cloudy"
             default:
                 value = "invalid"
             }
             self.vapor.text = ("\(value!) vapor production")
         }
+        
+        
     }
     
     @IBAction func up(sender: AnyObject) {

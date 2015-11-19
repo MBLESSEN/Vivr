@@ -41,7 +41,7 @@ class myFavoritesCell: UITableViewCell, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = favoritesCollection.dequeueReusableCellWithReuseIdentifier(collectionReuseIdentifier, forIndexPath: indexPath) as FavoriteCollectionCell
+        let cell = favoritesCollection.dequeueReusableCellWithReuseIdentifier(collectionReuseIdentifier, forIndexPath: indexPath) as! FavoriteCollectionCell
         cell.favorite = self.myFavorites?[indexPath.row]
         return cell
         

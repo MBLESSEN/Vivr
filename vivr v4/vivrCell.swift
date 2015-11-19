@@ -11,24 +11,31 @@
 import UIKit
 import Haneke
 import Alamofire
+import SwiftyJSON
 
 protocol VivrCellDelegate {
     
     func tappedCommentButton(cell: vivrCell)
     func reloadAPI(cell: vivrCell)
-    
+    func tappedUserButton(cell: vivrCell)
+    func helpfulTrue(cell: vivrCell)
+    func helpfulFalse(cell: vivrCell)
+    func wishlistTrue(cell: vivrCell)
+    func wishlistFalse(cell: vivrCell)
+    func tappedProductButton(cell: vivrCell)
+
 }
 
-class vivrCell: UITableViewCell{
+class vivrCell: UITableViewCell, UIScrollViewDelegate {
     
     @IBOutlet weak var productImage: UIImageView!
-    @IBOutlet weak var BrandName: UILabel!
     @IBOutlet weak var reviewDescription: UILabel!
     @IBOutlet weak var headerText: UILabel!
     @IBOutlet weak var flavorName: UILabel!
+    @IBOutlet weak var brandName: UILabel!
+    
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var totalScore: UILabel!
-    @IBOutlet weak var floatRatingView: FloatRatingView!
     @IBOutlet weak var throat: UILabel!
     @IBOutlet weak var vapor: UILabel!
     @IBOutlet weak var helpfull: UIButton?
@@ -37,18 +44,103 @@ class vivrCell: UITableViewCell{
     @IBOutlet weak var wishlistButton: UIButton?
     @IBOutlet weak var productButton: UIButton!
     @IBOutlet weak var hardwareLabel: UILabel?
+    @IBOutlet weak var productDescription: UILabel!
+    @IBOutlet weak var productImageWrapper: UIView!
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    @IBOutlet weak var productDetailLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var productImageHeight: NSLayoutConstraint!
+
+    @IBOutlet weak var productDetailWrapper: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var juiceLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var tagsLabel: UILabel!
     
+    //detailScrollDataVariables
+    var descriptionContent: UILabel = UILabel()
+    var tags: UILabel = UILabel()
+    
+    var descriptionView: UIView = UIView()
+    var slideImage: UIImageView = UIImageView()
+    var cellID:Int?
+    var userID:String?
     var reviewID: String = ""
     var cellDelegate: VivrCellDelegate? = nil
     var productID: String = ""
     var likeImage = UIImage(named: "likeFilled")?.imageWithRenderingMode(.AlwaysTemplate)
     var wishImage = UIImage(named: "plusWhite")?.imageWithRenderingMode(.AlwaysTemplate)
     
+    var descriptionState: Bool? {
+        didSet {
+            switch descriptionState! {
+            case true:
+                productDescription.hidden = false
+                descriptionState = true
+            case false:
+                productDescription.hidden = true
+                descriptionState = false
+            }
+        }
+    }
+    
+    func revealControllerPanGestureShouldBegin(revealController: SWRevealViewController!) -> Bool {
+        let velocity = revealController.panGestureRecognizer().velocityInView(self.scrollView).x
+        if velocity < 0 {
+            return false
+        }else {
+            return true
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.floatRatingView.emptyImage = UIImage(named: "StarEmpty")
-        self.floatRatingView.fullImage = UIImage(named: "StarFull")
+        productImageHeight.constant = myData.productImageHeight!
+        imageHeight.constant = myData.imageHeight!
         self.contentView.layer.zPosition = self.contentView.layer.zPosition + 10
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        slideImage.alpha = 0.4 - self.scrollView.contentOffset.x
+        if scrollView == self.scrollView {
+        let pageWidth = UIScreen.mainScreen().bounds.width
+        let fractionalPage = Float(self.scrollView.contentOffset.x / pageWidth)
+        let page = lroundf(fractionalPage)
+            switch page {
+            case 0:
+                juiceLabel.alpha = 1.0
+                descriptionLabel.alpha = 0.5
+                tagsLabel.alpha = 0.5
+                self.descriptionView.alpha = 0.0
+            case 1:
+                juiceLabel.alpha = 0.5
+                descriptionLabel.alpha = 1.0
+                tagsLabel.alpha = 0.5
+                UIView.animateWithDuration(
+                    // duration
+                    0.3,
+                    // delay
+                    delay: 0.1,
+                    options: [],
+                    animations: {
+                        self.descriptionView.alpha = 0.4
+                    }, completion: {finished in
+                        
+                    }
+                )
+            case 2:
+                juiceLabel.alpha = 0.5
+                descriptionLabel.alpha = 0.5
+                tagsLabel.alpha = 1.0
+            default:
+                print("no selection", terminator: "")
+            }
+        }
+    }
+    
+    
+    func toProduct() {
+        cellDelegate?.tappedProductButton(self)
     }
     
     func resizeButton(){
@@ -78,7 +170,7 @@ class vivrCell: UITableViewCell{
         // Configure the view for the selected state
     }
     @IBAction func toProduct(sender: AnyObject) {
-        println("It Worked")
+        cellDelegate?.tappedProductButton(self)
     }
     
     var helpfullState: Bool? {
@@ -102,22 +194,25 @@ class vivrCell: UITableViewCell{
         }
     }
     
-    var review:JSON? {
+    var review:ActivityFeedReviews? {
         didSet {
             self.loadReviews()
         }
     }
     
-    var reviewAndComment:JSON? {
+    var reviewAndComment:SwiftyJSON.JSON? {
         didSet {
             self.loadData()
         }
     }
     
     @IBAction func toComments(sender: AnyObject) {
-            cellDelegate?.tappedCommentButton(self)
+        cellDelegate?.tappedCommentButton(self)
     }
     
+    @IBAction func toUser(sender: AnyObject) {
+        cellDelegate?.tappedUserButton(self)
+    }
     
 
     @IBAction func helpfullPressed(sender: AnyObject) {
@@ -128,15 +223,13 @@ class vivrCell: UITableViewCell{
         case true:
             helpfullState = false
             Alamofire.request(Router.notHelpful(productID, reviewID))
+            cellDelegate?.helpfulFalse(self)
         case false:
             helpfullState = true
             Alamofire.request(Router.isHelpful(productID, reviewID))
-        default:
-            println("error")
+            cellDelegate?.helpfulTrue(self)
         }
-        self.helpfulButtonState()
-        cellDelegate?.reloadAPI(self)
-        
+        helpfulButtonState()
     }
 
     @IBAction func wishlistPressed(sender: AnyObject) {
@@ -148,15 +241,15 @@ class vivrCell: UITableViewCell{
         case true:
             wishlistState = false
             Alamofire.request(Router.removeWish(productID))
+            cellDelegate?.wishlistFalse(self)
         case false:
             wishlistState = true
             Alamofire.request(Router.addToWish(productID))
-        default:
-            println("error")
+            cellDelegate?.wishlistTrue(self)
         }
-        self.wishlistButtonState()
-        cellDelegate?.reloadAPI(self)
+        wishlistButtonState()
     }
+    
     func wishlistButtonState(){
         switch wishlistState! {
         case true:
@@ -172,8 +265,6 @@ class vivrCell: UITableViewCell{
             wishlistButton!.backgroundColor = UIColor.whiteColor()
             wishlistButton!.setTitle("Wishlist", forState: .Normal)
             wishlistButton!.sizeToFit()
-        default:
-        println("error")
         }
 
     }
@@ -192,142 +283,126 @@ class vivrCell: UITableViewCell{
             helpfull!.tintColor = UIColor.lightGrayColor()
             helpfull!.backgroundColor = UIColor.whiteColor()
             helpfull!.setTitle("Helpful", forState: .Normal)
-        default:
-            println("error")
             
         }
         
     }
     func loadReviews() {
-        self.reviewID = self.review!["id"].stringValue
-        self.productID = self.review!["product"]["id"].stringValue
-        if let user = self.review?["user"]["username"].stringValue {
-            self.userName.text = "\(user) said"
-        }
-        if let date = self.review?["created_at"].stringValue as String?{
+        self.userID = review!.userID
+        self.productID = review!.productID!
+        self.reviewID = review!.reviewID!
+        if let date = review!.createdAt {
             let dateFor:NSDateFormatter = NSDateFormatter()
-            dateFor.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            dateFor.timeZone = NSTimeZone(abbreviation: "UTC")
+            dateFor.dateFormat = "yyyy-MM-dd HH:mm:ss"
             let theDate:NSDate = dateFor.dateFromString(date)!
             let tempoDate = Tempo(date: theDate)
             let timeStamp = tempoDate.timeAgoNow()
-            if let reviewString = self.review?["description"].stringValue as String? {
-                var review = NSMutableAttributedString(string: reviewString + "  -  ")
+            if let reviewString = review!.description {
+                let review = NSMutableAttributedString(string: reviewString + "  -  ")
                 let x = NSAttributedString(string: timeStamp, attributes: [NSForegroundColorAttributeName : UIColor.lightGrayColor()])
                 review.appendAttributedString(x)
                 self.reviewDescription.attributedText = review
+                self.reviewDescription.sizeToFit()
                 
             }
         }
-        reviewDescription.sizeToFit()
-        self.flavorName.text = self.review?["product"]["name"].stringValue
-        flavorName.sizeToFit()
-        /*
-        if let urlString = self.review?["product"]["image"].stringValue {
+        self.userName.text = review!.user!.userName
+        if let urlString = review!.user!.image as String? {
             let url = NSURL(string: urlString)
-            self.productImage.hnk_setImageFromURL(url!)
-            
+            self.userImage.hnk_setImageFromURL(url!)
         }
-        */
-        if let rating = self.review?["score"].stringValue{
-            var number = (rating as NSString).floatValue
-            println("rating is \(rating) score is \(number)")
-            self.floatRatingView.rating = number
-            self.floatRatingView.userInteractionEnabled = false
+        self.userImage.layer.cornerRadius = self.userImage.frame.size.width/2
+        self.userImage.clipsToBounds = true
+        self.hardwareLabel!.text = review!.user?.hardWare
+        self.flavorName.text = review!.product?.name
+        self.flavorName.sizeToFit()
+        self.brandName.text = review!.brand?.name
+        self.brandName.sizeToFit()
+        self.layoutIfNeeded()
+        if let productString = review!.product!.image as String? {
+            let purl = NSURL(string: productString)
+            self.productImage.hnk_setImageFromURL(purl!)
         }
-        if let throatHit = self.review?["throat"].int {
+        if let rating = review!.score {
+            self.totalScore.text = rating
+        }
+        if let throatHit = review!.throat {
             var value:String?
             switch throatHit {
-            case 1:
-                value = "Feather"
-            case 2:
+            case 0:
                 value = "Light"
-            case 3:
+            case 1:
                 value = "Mild"
-            case 4:
+            case 2:
                 value = "Harsh"
-            case 5:
-                value = "Very Harsh"
             default:
                 value = "invalid"
             }
             self.throat.text = ("\(value!) throat hit")
         }
-        if let vaporProduction = self.review?["vapor"].int {
+        if let vaporProduction = review!.vapor {
             var value:String?
             switch vaporProduction {
-            case 1:
-                value = "Very low"
-            case 2:
+            case 0:
                 value = "Low"
-            case 3:
+            case 1:
                 value = "Average"
-            case 4:
-                value = "High"
-            case 5:
+            case 2:
                 value = "Cloudy"
             default:
                 value = "invalid"
             }
             self.vapor.text = ("\(value!) vapor production")
-            }
-        if let helpfullCount = self.review?["helpful_count"].stringValue {
-            switch helpfullCount {
-            case "0":
+        }
+        //vivrcell.productDescription.text = review.product?.description
+        self.helpfullState = review!.currentHelpful
+        self.wishlistState = review!.product?.currentWishlist
+        if let helpfulCount = review!.helpfulCount {
+            switch helpfulCount {
+            case 0:
                 self.helpfullLabel.text = "Was this helpful?"
             default:
-                self.helpfullLabel.text = "\(helpfullCount) found this helpful"
-            }
-        }
-        if let productID = self.review?["product_id"].stringValue {
-            if let reviewID = self.review?["id"].stringValue {
-                Alamofire.request(Router.readCommentsAPI(productID, reviewID)).responseJSON { (request, response, json, error) in
-                    if (json != nil) {
-                        var jsonOBJ = JSON(json!)
-                        if let commentsCount = jsonOBJ["total"].stringValue as String? {
-                            self.commentButton.setTitle("\(commentsCount) comments", forState: .Normal)
-                        }
-                    }
-                }
-                
+                self.helpfullLabel.text = "\(helpfulCount) found this helpful"
             }
         }
 
     }
     
     func loadData() {
+        self.userImage.layer.cornerRadius = self.userImage.frame.size.width / 2
+        self.userImage.clipsToBounds = true
+        userID = self.reviewAndComment!["user"]["id"].stringValue
         self.reviewID = self.reviewAndComment!["id"].stringValue
         self.productID = self.reviewAndComment!["product"]["id"].stringValue
-        if let user = self.reviewAndComment?["user"]["username"].stringValue {
-            self.userName.text = "\(user)"
+        if let user = self.reviewAndComment!["user"]["username"].stringValue as String?{
+            self.userName.text = user
         }
         self.reviewDescription.text = self.reviewAndComment!["description"].string
         self.reviewDescription.sizeToFit()
         self.flavorName.text = self.reviewAndComment!["product"]["name"].string
-        /*
-        if let urlString = self.reviewAndComment?["product"]["image"].stringValue {
+        if let urlString = self.reviewAndComment!["user"]["image"].stringValue as String? {
+            let url = NSURL(string: urlString)
+            self.userImage.hnk_setImageFromURL(url!)
+        }
+        self.hardwareLabel!.text = self.reviewAndComment!["user"]["hardware"].stringValue
+        if let urlString = self.reviewAndComment!["product"]["image"].stringValue as String? {
             let url = NSURL(string: urlString)
             self.productImage.hnk_setImageFromURL(url!)
             
         }
-        */
         if let rating = self.reviewAndComment?["score"].stringValue{
-            var number = (rating as NSString).floatValue
-            println("rating is \(rating) score is \(number)")
-            self.floatRatingView.rating = number
+            self.totalScore.text = rating
         }
         if let throatHit = self.reviewAndComment?["throat"].int {
             var value:String?
             switch throatHit {
             case 1:
-                value = "Feather"
-            case 2:
                 value = "Light"
-            case 3:
+            case 2:
                 value = "Mild"
-            case 4:
+            case 3:
                 value = "Harsh"
-            case 5:
-                value = "Very Harsh"
             default:
                 value = "invalid"
             }
@@ -337,14 +412,10 @@ class vivrCell: UITableViewCell{
             var value:String?
             switch vaporProduction {
             case 1:
-                value = "Very low"
-            case 2:
                 value = "Low"
-            case 3:
+            case 2:
                 value = "Average"
-            case 4:
-                value = "High"
-            case 5:
+            case 3:
                 value = "Cloudy"
             default:
                 value = "invalid"
@@ -360,6 +431,8 @@ class vivrCell: UITableViewCell{
             }
         }
 
+        self.descriptionContent.text = self.reviewAndComment?["description"].stringValue
+        self.hardwareLabel!.text = self.reviewAndComment?["user"]["hardware"].stringValue
         
        
 

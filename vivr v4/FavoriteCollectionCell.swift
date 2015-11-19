@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 protocol favoritesCellDelegate {
     func tappedProductButton(cell: FavoriteCollectionCell)

@@ -55,7 +55,7 @@ class MyFavoritesController: UICollectionViewController, UICollectionViewDelegat
         }
         
         override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as FavoriteCollectionCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! FavoriteCollectionCell
             cell.favorite = self.myFavorites?[indexPath.row]
             cell.cellDelegate = self
             return cell
@@ -129,7 +129,7 @@ class MyFavoritesController: UICollectionViewController, UICollectionViewDelegat
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var productVC: brandFlavorViewController = segue.destinationViewController as brandFlavorViewController
+        var productVC: brandFlavorViewController = segue.destinationViewController as! brandFlavorViewController
         productVC.selectedProductID = self.productID
     }
 }

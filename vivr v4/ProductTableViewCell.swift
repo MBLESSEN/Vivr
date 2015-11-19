@@ -15,17 +15,29 @@ protocol productCellDelegate {
 
 class ProductTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var productImageCenterConstraint: NSLayoutConstraint!
     @IBOutlet weak var productImage: UIImageView?
     @IBOutlet weak var productLabel: UILabel!
     @IBOutlet weak var productBrandName: UILabel?
+    @IBOutlet weak var productButton: UIButton!
+    @IBOutlet weak var checkMarkImage: UIImageView?
     
+    var originalCenter = CGPoint()
+    var deleteOnDragRelease = false
     var productID:String?
     var cellDelegate:productCellDelegate? = nil
-
+    var editView:UIView!
+    var product: Product?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        let checkImage = UIImage(named: "checkmark")?.imageWithRenderingMode(.AlwaysTemplate)
+        checkMarkImage?.image = checkImage
+        checkMarkImage?.tintColor = UIColor.whiteColor()
     }
+    
+    var editingEnabled:Bool?
+    
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -36,18 +48,25 @@ class ProductTableViewCell: UITableViewCell {
         cellDelegate?.toProduct(self)
     }
     
-    var products:JSON? {
+    var products:Product? {
         didSet {
             self.loadProducts()
         }
     }
     
     func loadProducts() {
-        self.productLabel.text = self.products?["name"].string
-        if let urlString = self.products?["image"] {
-            let url = NSURL(string: urlString.stringValue)
+        self.productLabel.text = products?.name
+        if let urlString = self.products?.image {
+            print(urlString, terminator: "")
+            if urlString != "NA" {
+            let url = NSURL(string: urlString)
             self.productImage!.hnk_setImageFromURL(url!)
+            }else {
+                let placeHolderImage = UIImage(named: "vivrLogo")
+                self.productImage!.image = placeHolderImage
+            }
         }
     }
+    
 
 }
