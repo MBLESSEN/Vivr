@@ -26,8 +26,13 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var tagViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tagView: UIView!
 
+    //BAR BUTTON ITEMS
+    
+    @IBOutlet weak var shoppingCartButton: UIBarButtonItem!
     @IBOutlet weak var searchButton: UIBarButtonItem!
     var filterButton: UIBarButtonItem = UIBarButtonItem()
+    
+    
     //top nav bar
     @IBOutlet weak var featuredLabel: UILabel!
     @IBOutlet weak var juicesLabel: UILabel!
@@ -153,6 +158,16 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let leading = UIScreen.mainScreen().bounds.width/3
         selectionIndicatorLeading.constant = leading * CGFloat(controller.selectedSegmentIndex)
         self.view.layoutIfNeeded()
+        if self.revealViewController() != nil {
+            shoppingCartButton.target = self.revealViewController()
+            //self.revealViewController().setRightViewController(self.revealViewController().rearViewController, animated: true)
+            shoppingCartButton.action = "rightRevealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
+    
+    func revealController(revealController: SWRevealViewController!, animateToPosition position: FrontViewPosition) {
+        <#code#>
     }
     
     override func didReceiveMemoryWarning() {
@@ -319,7 +334,13 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     
-    //searchButton
+    //BAR BUTTON ITEM DECLARATIONS AND IBACTION
+    //SEARCH BUTTON PRESSED
+    //DIMISS SEARCH
+    //CHECK SEARCH SELECTION
+    //SHOPPING CART PRESSED
+    //SEARCH BAR TEXT DID CHANGE
+    
     
     @IBAction func searchPressed(sender: AnyObject) {
         tagView.layer.zPosition = searchViewBackground.layer.zPosition - 1
@@ -469,6 +490,48 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             print("error", terminator: "")
         }
     }
+    
+    @IBAction func shoppingCartPressed(sender: AnyObject) {
+    }
+    
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        searchView!.searchTextCount = searchText.characters.count
+        if searchText.characters.count >= 3 {
+            if let searchString = searchBar.text!.stringByReplacingOccurrencesOfString(" ", withString: "_") as String! {
+                if searchString.characters.count >= 3 {
+                    searchView!.loadFirstSearch(searchString)
+                }else {
+                    let emptyAlert = UIAlertController(title: "oops!", message: "search must be atleast 3 letters long", preferredStyle: UIAlertControllerStyle.Alert)
+                    emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(emptyAlert, animated: true, completion: nil)
+                }
+            }
+        }
+        if searchText.characters.count == 0 {
+            searchView!.clearSearch()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if let searchString = searchBar.text!.stringByReplacingOccurrencesOfString(" ", withString: "_") as String! {
+            if searchString.characters.count >= 3 {
+                searchView!.loadFirstSearch(searchString)
+            }else {
+                let emptyAlert = UIAlertController(title: "oops!", message: "search must be atleast 3 letters long", preferredStyle: UIAlertControllerStyle.Alert)
+                emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(emptyAlert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchView!.clearSearch()
+    }
+    
+    
+    
+    
     
     
     
@@ -737,178 +800,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
-    
-    func wishlistFalse(cell: vivrCell) {
-        cell.wishlistButton!.enabled = false
-        if let reviewID = cell.cellID as Int? {
-            feedReviews![reviewID].product?.currentWishlist = true
-        }
-        activeWishlistContainer = UIView(frame: cell.productImageWrapper.bounds)
-        cell.productImageWrapper.addSubview(activeWishlistContainer!)
-        activeWishlistContainer?.userInteractionEnabled = false
-        let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0))
-        circle.layer.cornerRadius = 25.0
-        
-        let startingColor = UIColor(red: (118/255.0), green: (48.0/255.0), blue: (157/255.0), alpha: 1.0)
-        circle.backgroundColor = startingColor
-        
-        activeWishlistContainer!.addSubview(circle)
-        circle.center = CGPointMake(activeWishlistContainer!.bounds.width/2, activeWishlistContainer!.bounds.height/2)
-        activeWishlistContainer!.clipsToBounds = true
-        let plus = UIImage(named: "minusWhite")
-        let plusImage = UIImageView(image: plus)
-        plusImage.frame = CGRectMake(0, 0, 25, 25)
-        self.activeWishlistContainer!.addSubview(plusImage)
-        plusImage.center = circle.center
-        UIView.animateWithDuration(
-            // duration
-            0.15,
-            // delay
-            delay: 0.3,
-            options: [],
-            animations: {
-                let scaleTransform = CGAffineTransformMakeScale(10.0, 10.0)
-                
-                circle.transform = scaleTransform
-                
-            }, completion: {finished in
-                UIView.animateWithDuration(
-                    // duration
-                    0.2,
-                    // delay
-                    delay: 0.1,
-                    options: [],
-                    animations: {
-                        plusImage.frame.offsetInPlace(dx: -100, dy: 0)
-                        
-                    }, completion: {finished in
-                        let label = UILabel(frame: CGRectMake(0, 0, 200, 25))
-                        label.text = "Removed from wishlist"
-                        label.font = UIFont(name: "PTSans-Bold", size: 20)
-                        label.textColor = UIColor.whiteColor()
-                        self.activeWishlistContainer!.addSubview(label)
-                        label.center = circle.center
-                        label.frame.offsetInPlace(dx: 400, dy: 0)
-                        UIView.animateWithDuration(
-                            // duration
-                            0.1,
-                            // delay
-                            delay: 0,
-                            options: [],
-                            animations: {
-                                label.frame.offsetInPlace(dx: -380, dy: 0)
-                                
-                            }, completion: {finished in
-                                cell.wishlistButton!.enabled = true
-                                UIView.animateWithDuration(
-                                    // duration
-                                    1.2,
-                                    // delay
-                                    delay: 0.1,
-                                    options: [],
-                                    animations: {
-                                        circle.alpha = 0.0
-                                        label.alpha = 0.0
-                                        plusImage.alpha = 0.0
-                                        circle.backgroundColor = UIColor.whiteColor()
-                                    }, completion: {finished in
-                                        
-                                    }
-                                )
-                            }
-                        )
-                    }
-                )
-                
-            }
-        )
-    }
-    func wishlistTrue(cell: vivrCell) {
-        cell.wishlistButton!.enabled = false 
-        if let reviewID = cell.cellID as Int? {
-            feedReviews![reviewID].product?.currentWishlist = true
-        }
-        activeWishlistContainer = UIView(frame: cell.productImageWrapper.bounds)
-        cell.productImageWrapper.addSubview(activeWishlistContainer!)
-        activeWishlistContainer?.userInteractionEnabled = false
-        let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0))
-        circle.layer.cornerRadius = 25.0
-        
-        let startingColor = UIColor(red: (118/255.0), green: (48.0/255.0), blue: (157/255.0), alpha: 1.0)
-        circle.backgroundColor = startingColor
-        
-        activeWishlistContainer!.addSubview(circle)
-        circle.center = CGPointMake(activeWishlistContainer!.bounds.width/2, activeWishlistContainer!.bounds.height/2)
-        activeWishlistContainer!.clipsToBounds = true
-        let plus = UIImage(named: "plusWhite")
-        let plusImage = UIImageView(image: plus)
-        plusImage.frame = CGRectMake(0, 0, 25, 25)
-        self.activeWishlistContainer!.addSubview(plusImage)
-        plusImage.center = circle.center
-        UIView.animateWithDuration(
-            // duration
-            0.15,
-            // delay
-            delay: 0.3,
-            options: [],
-            animations: {
-                let scaleTransform = CGAffineTransformMakeScale(10.0, 10.0)
-        
-                circle.transform = scaleTransform
-        
-            }, completion: {finished in
-                UIView.animateWithDuration(
-                    // duration
-                    0.2,
-                    // delay
-                    delay: 0.1,
-                    options: [],
-                    animations: {
-                        plusImage.frame.offsetInPlace(dx: -80, dy: 0)
-        
-                    }, completion: {finished in
-                        let label = UILabel(frame: CGRectMake(0, 0, 160, 25))
-                        label.text = "Added to wishlist"
-                        label.font = UIFont(name: "PTSans-Bold", size: 20)
-                        label.textColor = UIColor.whiteColor()
-                        self.activeWishlistContainer!.addSubview(label)
-                        label.center = circle.center
-                        label.frame.offsetInPlace(dx: 400, dy: 0)
-                        UIView.animateWithDuration(
-                            // duration
-                            0.1,
-                            // delay
-                            delay: 0,
-                            options: [],
-                            animations: {
-                                label.frame.offsetInPlace(dx: -386, dy: 0)
-                                
-                            }, completion: {finished in
-                                cell.wishlistButton!.enabled = true
-                                UIView.animateWithDuration(
-                                    // duration
-                                    1.2,
-                                    // delay
-                                    delay: 0.1,
-                                    options: [],
-                                    animations: {
-                                        circle.alpha = 0.0
-                                        label.alpha = 0.0
-                                        plusImage.alpha = 0.0
-                                        circle.backgroundColor = UIColor.whiteColor()
-                                    }, completion: {finished in
-                                        //self.reloadAPI(cell)
-                                    }
-                                )
-                            }
-                        )
-                    }
-                )
-        
-            }
-        )
 
-    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier {
@@ -1254,44 +1146,13 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     func reloadSearch() {
         search.becomeFirstResponder()
     }
-    
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        searchView!.searchTextCount = searchText.characters.count
-        if searchText.characters.count >= 3 {
-        if let searchString = searchBar.text!.stringByReplacingOccurrencesOfString(" ", withString: "_") as String! {
-            if searchString.characters.count >= 3 {
-                searchView!.loadFirstSearch(searchString)
-            }else {
-                let emptyAlert = UIAlertController(title: "oops!", message: "search must be atleast 3 letters long", preferredStyle: UIAlertControllerStyle.Alert)
-                emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(emptyAlert, animated: true, completion: nil)
-            }
-        }
-        }
-        if searchText.characters.count == 0 {
-            searchView!.clearSearch()
-        }
-    }
-    
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        if let searchString = searchBar.text!.stringByReplacingOccurrencesOfString(" ", withString: "_") as String! {
-            if searchString.characters.count >= 3 {
-            searchView!.loadFirstSearch(searchString)
-            }else {
-                let emptyAlert = UIAlertController(title: "oops!", message: "search must be atleast 3 letters long", preferredStyle: UIAlertControllerStyle.Alert)
-                emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(emptyAlert, animated: true, completion: nil)
-            }
-        }
-    }
-    
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        searchView!.clearSearch()
-    }
 
     
     
-    //keyboard functions
+    //KEYBOARD FUNCTIONS
+    //HIDE KEYBOARD
+    //START/STOP OBSERVING KEYBOARD
+    //KEYBOARD WILLSHOW AND WILL HIDE FUNCTIONS
     
     func hideKeyboard(view: searchViewController) {
         self.becomeFirstResponder()
@@ -1331,6 +1192,182 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             self.view.layoutIfNeeded()
             self.keyboardActive = false
         })
+    }
+    
+    //WISHLIST ANIMATIONS
+    //WISHLIST FALSE
+    //WISHLIST TRUE
+    
+    func wishlistFalse(cell: vivrCell) {
+        cell.wishlistButton!.enabled = false
+        if let reviewID = cell.cellID as Int? {
+            feedReviews![reviewID].product?.currentWishlist = true
+        }
+        activeWishlistContainer = UIView(frame: cell.productImageWrapper.bounds)
+        cell.productImageWrapper.addSubview(activeWishlistContainer!)
+        activeWishlistContainer?.userInteractionEnabled = false
+        let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0))
+        circle.layer.cornerRadius = 25.0
+        
+        let startingColor = UIColor(red: (118/255.0), green: (48.0/255.0), blue: (157/255.0), alpha: 1.0)
+        circle.backgroundColor = startingColor
+        
+        activeWishlistContainer!.addSubview(circle)
+        circle.center = CGPointMake(activeWishlistContainer!.bounds.width/2, activeWishlistContainer!.bounds.height/2)
+        activeWishlistContainer!.clipsToBounds = true
+        let plus = UIImage(named: "minusWhite")
+        let plusImage = UIImageView(image: plus)
+        plusImage.frame = CGRectMake(0, 0, 25, 25)
+        self.activeWishlistContainer!.addSubview(plusImage)
+        plusImage.center = circle.center
+        UIView.animateWithDuration(
+            // duration
+            0.15,
+            // delay
+            delay: 0.3,
+            options: [],
+            animations: {
+                let scaleTransform = CGAffineTransformMakeScale(10.0, 10.0)
+                
+                circle.transform = scaleTransform
+                
+            }, completion: {finished in
+                UIView.animateWithDuration(
+                    // duration
+                    0.2,
+                    // delay
+                    delay: 0.1,
+                    options: [],
+                    animations: {
+                        plusImage.frame.offsetInPlace(dx: -100, dy: 0)
+                        
+                    }, completion: {finished in
+                        let label = UILabel(frame: CGRectMake(0, 0, 200, 25))
+                        label.text = "Removed from wishlist"
+                        label.font = UIFont(name: "PTSans-Bold", size: 20)
+                        label.textColor = UIColor.whiteColor()
+                        self.activeWishlistContainer!.addSubview(label)
+                        label.center = circle.center
+                        label.frame.offsetInPlace(dx: 400, dy: 0)
+                        UIView.animateWithDuration(
+                            // duration
+                            0.1,
+                            // delay
+                            delay: 0,
+                            options: [],
+                            animations: {
+                                label.frame.offsetInPlace(dx: -380, dy: 0)
+                                
+                            }, completion: {finished in
+                                cell.wishlistButton!.enabled = true
+                                UIView.animateWithDuration(
+                                    // duration
+                                    1.2,
+                                    // delay
+                                    delay: 0.1,
+                                    options: [],
+                                    animations: {
+                                        circle.alpha = 0.0
+                                        label.alpha = 0.0
+                                        plusImage.alpha = 0.0
+                                        circle.backgroundColor = UIColor.whiteColor()
+                                    }, completion: {finished in
+                                        
+                                    }
+                                )
+                            }
+                        )
+                    }
+                )
+                
+            }
+        )
+    }
+    func wishlistTrue(cell: vivrCell) {
+        cell.wishlistButton!.enabled = false
+        if let reviewID = cell.cellID as Int? {
+            feedReviews![reviewID].product?.currentWishlist = true
+        }
+        activeWishlistContainer = UIView(frame: cell.productImageWrapper.bounds)
+        cell.productImageWrapper.addSubview(activeWishlistContainer!)
+        activeWishlistContainer?.userInteractionEnabled = false
+        let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0))
+        circle.layer.cornerRadius = 25.0
+        
+        let startingColor = UIColor(red: (118/255.0), green: (48.0/255.0), blue: (157/255.0), alpha: 1.0)
+        circle.backgroundColor = startingColor
+        
+        activeWishlistContainer!.addSubview(circle)
+        circle.center = CGPointMake(activeWishlistContainer!.bounds.width/2, activeWishlistContainer!.bounds.height/2)
+        activeWishlistContainer!.clipsToBounds = true
+        let plus = UIImage(named: "plusWhite")
+        let plusImage = UIImageView(image: plus)
+        plusImage.frame = CGRectMake(0, 0, 25, 25)
+        self.activeWishlistContainer!.addSubview(plusImage)
+        plusImage.center = circle.center
+        UIView.animateWithDuration(
+            // duration
+            0.15,
+            // delay
+            delay: 0.3,
+            options: [],
+            animations: {
+                let scaleTransform = CGAffineTransformMakeScale(10.0, 10.0)
+                
+                circle.transform = scaleTransform
+                
+            }, completion: {finished in
+                UIView.animateWithDuration(
+                    // duration
+                    0.2,
+                    // delay
+                    delay: 0.1,
+                    options: [],
+                    animations: {
+                        plusImage.frame.offsetInPlace(dx: -80, dy: 0)
+                        
+                    }, completion: {finished in
+                        let label = UILabel(frame: CGRectMake(0, 0, 160, 25))
+                        label.text = "Added to wishlist"
+                        label.font = UIFont(name: "PTSans-Bold", size: 20)
+                        label.textColor = UIColor.whiteColor()
+                        self.activeWishlistContainer!.addSubview(label)
+                        label.center = circle.center
+                        label.frame.offsetInPlace(dx: 400, dy: 0)
+                        UIView.animateWithDuration(
+                            // duration
+                            0.1,
+                            // delay
+                            delay: 0,
+                            options: [],
+                            animations: {
+                                label.frame.offsetInPlace(dx: -386, dy: 0)
+                                
+                            }, completion: {finished in
+                                cell.wishlistButton!.enabled = true
+                                UIView.animateWithDuration(
+                                    // duration
+                                    1.2,
+                                    // delay
+                                    delay: 0.1,
+                                    options: [],
+                                    animations: {
+                                        circle.alpha = 0.0
+                                        label.alpha = 0.0
+                                        plusImage.alpha = 0.0
+                                        circle.backgroundColor = UIColor.whiteColor()
+                                    }, completion: {finished in
+                                        //self.reloadAPI(cell)
+                                    }
+                                )
+                            }
+                        )
+                    }
+                )
+                
+            }
+        )
+        
     }
 
     /*
