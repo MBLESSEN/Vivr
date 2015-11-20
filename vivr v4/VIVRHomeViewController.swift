@@ -158,13 +158,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let leading = UIScreen.mainScreen().bounds.width/3
         selectionIndicatorLeading.constant = leading * CGFloat(controller.selectedSegmentIndex)
         self.view.layoutIfNeeded()
-        if self.revealViewController() != nil {
-            shoppingCartButton.target = self.revealViewController()
-            self.revealViewController().frontViewShadowRadius = 1.0
-            self.revealViewController().rightViewRevealOverdraw = 0.0
-            shoppingCartButton.action = "rightRevealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -489,6 +483,9 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func shoppingCartPressed(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let shoppingCartViewController = storyboard.instantiateViewControllerWithIdentifier("shoppingCartViewController") as! VIVRShoppingCartViewController
+        self.presentViewController(shoppingCartViewController, animated: true, completion: nil)
     }
     
     

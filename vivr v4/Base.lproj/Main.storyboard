@@ -2489,6 +2489,9 @@
                     <navigationItem key="navigationItem" id="4yd-X1-Ekg">
                         <barButtonItem key="leftBarButtonItem" image="shopping_cart_empty_50" id="A8U-pZ-Rh7">
                             <color key="tintColor" red="0.15153203700000001" green="0.50519139000000002" blue="0.1167223974" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="shoppingCartPressed:" destination="8rJ-Kc-sve" id="fcb-d1-bfj"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="k0C-Yi-PrV">
                             <connections>
@@ -3582,7 +3585,7 @@
         <!--Shopping Cart View Controller-->
         <scene sceneID="qvV-qi-fpx">
             <objects>
-                <viewController id="XO3-E2-j6N" customClass="VIVRShoppingCartViewController" customModule="vivr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="shoppingCartViewController" id="XO3-E2-j6N" customClass="VIVRShoppingCartViewController" customModule="vivr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sZK-QA-73Z"/>
                         <viewControllerLayoutGuide type="bottom" id="UBQ-gU-V7L"/>

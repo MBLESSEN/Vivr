@@ -9,6 +9,21 @@
 /* Begin PBXBuildFile section */
 		2B775201DD1B843DA90CFE0C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02919C8ACDBBFE4EDD08473 /* Pods.framework */; };
 		50035DA31BC594FE00B5CCE3 /* tabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50035DA21BC594FE00B5CCE3 /* tabBarController.swift */; };
+		500CE63C1BFFC8EB00D612FF /* VIVRShoppingCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE63B1BFFC8EB00D612FF /* VIVRShoppingCart.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE63E1BFFC9C100D612FF /* VIVRShoppingCartDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE63D1BFFC9C100D612FF /* VIVRShoppingCartDetails.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE6401BFFCE8A00D612FF /* ActivityFeedReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE63F1BFFCE8A00D612FF /* ActivityFeedReviews.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE6421BFFCF1600D612FF /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE6411BFFCF1600D612FF /* Brand.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE6451BFFD05200D612FF /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE6441BFFD05200D612FF /* DeviceInfo.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE6471BFFD0DB00D612FF /* Wish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE6461BFFD0DB00D612FF /* Wish.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE6491BFFD11000D612FF /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE6481BFFD11000D612FF /* Authorization.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE64B1BFFD13300D612FF /* Boxes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE64A1BFFD13300D612FF /* Boxes.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE64D1BFFD1A300D612FF /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE64C1BFFD1A300D612FF /* Product.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE64F1BFFD1DF00D612FF /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE64E1BFFD1DF00D612FF /* Favorite.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE6511BFFD20D00D612FF /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE6501BFFD20D00D612FF /* SearchResult.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE6531BFFD23100D612FF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE6521BFFD23100D612FF /* User.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE6551BFFD25400D612FF /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE6541BFFD25400D612FF /* Score.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE6571BFFD26F00D612FF /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE6561BFFD26F00D612FF /* Tag.swift */; settings = {ASSET_TAGS = (); }; };
+		500CE6591BFFD29600D612FF /* BlogPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500CE6581BFFD29600D612FF /* BlogPost.swift */; settings = {ASSET_TAGS = (); }; };
 		501090BD1B0AA05500EFC546 /* help-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 501090BC1B0AA05500EFC546 /* help-50.png */; };
 		501233741B02AAB400D8E4ED /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501233731B02AAB400D8E4ED /* TagCell.swift */; };
 		50142E9B1AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50142E991AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift */; };
@@ -123,6 +138,21 @@
 /* Begin PBXFileReference section */
 		1B82EB0EE4472D8983B5CB2D /* Pods_vivr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vivr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50035DA21BC594FE00B5CCE3 /* tabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tabBarController.swift; sourceTree = "<group>"; };
+		500CE63B1BFFC8EB00D612FF /* VIVRShoppingCart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRShoppingCart.swift; sourceTree = "<group>"; };
+		500CE63D1BFFC9C100D612FF /* VIVRShoppingCartDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRShoppingCartDetails.swift; sourceTree = "<group>"; };
+		500CE63F1BFFCE8A00D612FF /* ActivityFeedReviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityFeedReviews.swift; sourceTree = "<group>"; };
+		500CE6411BFFCF1600D612FF /* Brand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		500CE6441BFFD05200D612FF /* DeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
+		500CE6461BFFD0DB00D612FF /* Wish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wish.swift; sourceTree = "<group>"; };
+		500CE6481BFFD11000D612FF /* Authorization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authorization.swift; sourceTree = "<group>"; };
+		500CE64A1BFFD13300D612FF /* Boxes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boxes.swift; sourceTree = "<group>"; };
+		500CE64C1BFFD1A300D612FF /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		500CE64E1BFFD1DF00D612FF /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		500CE6501BFFD20D00D612FF /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		500CE6521BFFD23100D612FF /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		500CE6541BFFD25400D612FF /* Score.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		500CE6561BFFD26F00D612FF /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		500CE6581BFFD29600D612FF /* BlogPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogPost.swift; sourceTree = "<group>"; };
 		501090BC1B0AA05500EFC546 /* help-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help-50.png"; sourceTree = "<group>"; };
 		501233731B02AAB400D8E4ED /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		50142E991AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWWalkthroughPageViewController.swift; sourceTree = "<group>"; };
@@ -250,6 +280,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		500CE63A1BFFC8C500D612FF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				500CE63F1BFFCE8A00D612FF /* ActivityFeedReviews.swift */,
+				500CE6411BFFCF1600D612FF /* Brand.swift */,
+				500CE6441BFFD05200D612FF /* DeviceInfo.swift */,
+				500CE64E1BFFD1DF00D612FF /* Favorite.swift */,
+				500CE6501BFFD20D00D612FF /* SearchResult.swift */,
+				500CE6521BFFD23100D612FF /* User.swift */,
+				500CE6561BFFD26F00D612FF /* Tag.swift */,
+				500CE6581BFFD29600D612FF /* BlogPost.swift */,
+				500CE6541BFFD25400D612FF /* Score.swift */,
+				500CE64A1BFFD13300D612FF /* Boxes.swift */,
+				500CE6481BFFD11000D612FF /* Authorization.swift */,
+				500CE64C1BFFD1A300D612FF /* Product.swift */,
+				500CE6461BFFD0DB00D612FF /* Wish.swift */,
+				500CE63B1BFFC8EB00D612FF /* VIVRShoppingCart.swift */,
+				500CE63D1BFFC9C100D612FF /* VIVRShoppingCartDetails.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		500CE6431BFFCF4900D612FF /* Settings View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				507F2DE41B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift */,
+				507F2DE21AFFFE2200BBAA67 /* VIVRSettingsEditProfileViewController.swift */,
+				50F26D501B0D3E1B00A42634 /* VIVRFeedBackViewController.swift */,
+			);
+			name = "Settings View Controllers";
+			sourceTree = "<group>";
+		};
 		501E04091A428F1900F93122 = {
 			isa = PBXGroup;
 			children = (
@@ -278,8 +340,10 @@
 				50985CD21AFC389A007BB4DD /* colorPicker */,
 				50EC0ED51AEC346F002D1D40 /* SWRevealController */,
 				50A0663D1B30D264006152EE /* vivrCelliInfoPages */,
+				500CE63A1BFFC8C500D612FF /* Models */,
 				50FAAF2C1BFD1CFA000D2379 /* User View Controllers */,
-				50EC0ED41AEC3390002D1D40 /* Views */,
+				500CE6431BFFCF4900D612FF /* Settings View Controllers */,
+				50EC0ED41AEC3390002D1D40 /* View Controllers */,
 				50EC0ED31AEC3386002D1D40 /* cells */,
 				501E04171A428F1900F93122 /* AppDelegate.swift */,
 				504227281B3344B200C1C194 /* userData.xcdatamodeld */,
@@ -409,7 +473,7 @@
 			name = cells;
 			sourceTree = "<group>";
 		};
-		50EC0ED41AEC3390002D1D40 /* Views */ = {
+		50EC0ED41AEC3390002D1D40 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				505FB8601A47734300584FF8 /* VIVRHomeViewController.swift */,
@@ -417,10 +481,7 @@
 				5072DA9F1A9D670F00A64CAB /* VIVRCommentsViewController.swift */,
 				50BBB7F41A649BCA00D0978E /* VIVRBrandProductsViewController.swift */,
 				505FB85E1A47698600584FF8 /* VIVRProductViewController.swift */,
-				507F2DE41B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift */,
-				507F2DE21AFFFE2200BBAA67 /* VIVRSettingsEditProfileViewController.swift */,
 				50AD676C1A429A1700D2BD35 /* VIVRBrowseViewController.swift */,
-				50F26D501B0D3E1B00A42634 /* VIVRFeedBackViewController.swift */,
 				50BE265B1B55B3430037AE19 /* VIVRReviewScoreViewController.swift */,
 				508AA7F91BC728170050E5D3 /* VIVRIndependantReviewView.swift */,
 				504E1EBF1BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift */,
@@ -429,10 +490,10 @@
 				50F26D4E1B0D37FE00A42634 /* AboutTableViewController.swift */,
 				50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */,
 				50679F6C1BA201BB008FD0BE /* AddNewJuiceView.swift */,
+				50A5DB631B0141CC00EF3A67 /* editPaymentViewController.swift */,
 				50C2C6321AC4A167006E9EBB /* anyUserViewController.swift */,
 				5085E0A91B98B90700C89A0C /* boxProductTableView.swift */,
 				50AC98301B8BB90F00BE9222 /* CreateNewBoxController.swift */,
-				50A5DB631B0141CC00EF3A67 /* editPaymentViewController.swift */,
 				5042272B1B3499BB00C1C194 /* EditShippingViewController.swift */,
 				50A5DB5D1B01356800EF3A67 /* findFriendsViewViewController.swift */,
 				5051C6C91B443BB800FB5E67 /* JuiceCheckInViewController.swift */,
@@ -444,7 +505,7 @@
 				5037C8AA1B1E530000952C5A /* SearchTableView.swift */,
 				5051C6D01B444E4500FB5E67 /* searchViewController.swift */,
 			);
-			name = Views;
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		50EC0ED51AEC346F002D1D40 /* SWRevealController */ = {
@@ -656,11 +717,13 @@
 				50CC19AF1B0AEF490030D06D /* B68UIFloatLabelTextField.swift in Sources */,
 				50A5DB661B01474B00EF3A67 /* addFlavorTagsView.swift in Sources */,
 				502DFC7C1AF9988F0052EF50 /* VIVRUserViewController.swift in Sources */,
+				500CE6451BFFD05200D612FF /* DeviceInfo.swift in Sources */,
 				507A6C161B706B9F00B8A1FA /* SignUpViewController.swift in Sources */,
 				5037C8B21B1E610800952C5A /* searchResultCell.swift in Sources */,
 				50A5B27A1B17B542003C3A2F /* MyCartView.swift in Sources */,
 				505F1D7D1A99744B0011BCE8 /* VIVRMyUserViewController.swift in Sources */,
 				5015010A1BC32D390078F7EB /* VIVRCheckInJuiceViewController.swift in Sources */,
+				500CE6531BFFD23100D612FF /* User.swift in Sources */,
 				507F2DE51B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift in Sources */,
 				506785D01AAE630700598D4B /* FavoriteCollectionCell.swift in Sources */,
 				5065BF141AD4996A00D34AAA /* attributesCell.swift in Sources */,
@@ -669,7 +732,9 @@
 				501E04181A428F1900F93122 /* AppDelegate.swift in Sources */,
 				505FB85F1A47698600584FF8 /* VIVRProductViewController.swift in Sources */,
 				50FE14E41B6030A9003D6BA3 /* BoxCell.swift in Sources */,
+				500CE6491BFFD11000D612FF /* Authorization.swift in Sources */,
 				5042272A1B3344B200C1C194 /* userData.xcdatamodeld in Sources */,
+				500CE6571BFFD26F00D612FF /* Tag.swift in Sources */,
 				5089C14A1BA9D9E300727BEC /* iCarousel.m in Sources */,
 				50EC0ECD1AEB0CFB002D1D40 /* loadMoreCell.swift in Sources */,
 				50F253231A85C45A0057B2AC /* buzzCell.swift in Sources */,
@@ -680,6 +745,8 @@
 				5051C6D11B444E4500FB5E67 /* searchViewController.swift in Sources */,
 				5042272E1B371EF800C1C194 /* Review.swift in Sources */,
 				5072DAA41A9E60C600A64CAB /* commentsButton.swift in Sources */,
+				500CE6551BFFD25400D612FF /* Score.swift in Sources */,
+				500CE64F1BFFD1DF00D612FF /* Favorite.swift in Sources */,
 				50679F6D1BA201BB008FD0BE /* AddNewJuiceView.swift in Sources */,
 				50AD676D1A429A1700D2BD35 /* VIVRBrowseViewController.swift in Sources */,
 				504D7BC41A8849B600E3463C /* reviewTableViewCell.swift in Sources */,
@@ -687,12 +754,16 @@
 				50C192B41B0A608D008B557F /* VIVRFavoritesViewController.swift in Sources */,
 				50BE265C1B55B3430037AE19 /* VIVRReviewScoreViewController.swift in Sources */,
 				5042272C1B3499BB00C1C194 /* EditShippingViewController.swift in Sources */,
+				500CE6401BFFCE8A00D612FF /* ActivityFeedReviews.swift in Sources */,
+				500CE6471BFFD0DB00D612FF /* Wish.swift in Sources */,
 				50CCD0D61BFE4C0E0003EF98 /* VIVRShoppingCartViewController.swift in Sources */,
 				5055C90E1AEC4300001287B2 /* menuController.swift in Sources */,
 				504227201B31F33000C1C194 /* IJReachability.swift in Sources */,
 				50985CDC1AFC38B2007BB4DD /* UIImage+Color.m in Sources */,
+				500CE63C1BFFC8EB00D612FF /* VIVRShoppingCart.swift in Sources */,
 				501F38281B069C6500242DCF /* VIVRWishlistViewController.swift in Sources */,
 				50679F661BA1F9AF008FD0BE /* AddJuiceCell.swift in Sources */,
+				500CE64D1BFFD1A300D612FF /* Product.swift in Sources */,
 				50876DDB1B0C26770081CAA9 /* PagedArray.swift in Sources */,
 				507A6C141B706B6600B8A1FA /* LoginInViewController.swift in Sources */,
 				5072DAA21A9D682100A64CAB /* commentCell.swift in Sources */,
@@ -702,12 +773,15 @@
 				50C2C6421AC75DDA006E9EBB /* footerCell.swift in Sources */,
 				50A5DB5E1B01356800EF3A67 /* findFriendsViewViewController.swift in Sources */,
 				50679F6F1BA48D09008FD0BE /* FeaturedCell.swift in Sources */,
+				500CE64B1BFFD13300D612FF /* Boxes.swift in Sources */,
 				501650311BDBE4CC00798355 /* Markdown.swift in Sources */,
 				504E1EC01BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift in Sources */,
 				50985CDB1AFC38B2007BB4DD /* DBImageColorPicker.m in Sources */,
+				500CE6591BFFD29600D612FF /* BlogPost.swift in Sources */,
 				50035DA31BC594FE00B5CCE3 /* tabBarController.swift in Sources */,
 				50C3B4641A7C5DC400EC39D1 /* KeychainWrapper.swift in Sources */,
 				508AA7FA1BC728170050E5D3 /* VIVRIndependantReviewView.swift in Sources */,
+				500CE6421BFFCF1600D612FF /* Brand.swift in Sources */,
 				507F2DE31AFFFE2200BBAA67 /* VIVRSettingsEditProfileViewController.swift in Sources */,
 				5037C8AB1B1E530000952C5A /* SearchTableView.swift in Sources */,
 				505FB8611A47734300584FF8 /* VIVRHomeViewController.swift in Sources */,
@@ -717,10 +791,12 @@
 				501233741B02AAB400D8E4ED /* TagCell.swift in Sources */,
 				5085E0AA1B98B90700C89A0C /* boxProductTableView.swift in Sources */,
 				503379231AD2EE7100567436 /* flavorCell.swift in Sources */,
+				500CE63E1BFFC9C100D612FF /* VIVRShoppingCartDetails.swift in Sources */,
 				502337E51A8C21AE00A56BA7 /* vivrHeaderCell.swift in Sources */,
 				50EC0ED91AEC34A1002D1D40 /* SWRevealViewController.m in Sources */,
 				50AC982F1B8BB3BA00BE9222 /* MyBoxController.swift in Sources */,
 				504D7BCC1A8887E400E3463C /* BrandTableViewCell.swift in Sources */,
+				500CE6511BFFD20D00D612FF /* SearchResult.swift in Sources */,
 				50F26D511B0D3E1B00A42634 /* VIVRFeedBackViewController.swift in Sources */,
 				50A5DB641B0141CC00EF3A67 /* editPaymentViewController.swift in Sources */,
 				50B965901B39CD230049716A /* tagCollectionCell.swift in Sources */,

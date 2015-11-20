@@ -9,6 +9,8 @@
 import UIKit
 
 class VIVRShoppingCartViewController: UIViewController {
+    
+    var shoppingCart: VIVRShoppingCart = VIVRShoppingCart()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +23,10 @@ class VIVRShoppingCartViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        var frame:CGRect = self.view.frame
-        let frontviewWidth = self.view.frame.width - self.revealViewController().rightViewRevealWidth
-        frame.size.width = self.view.frame.width - frontviewWidth
-        frame.origin.x = frame.origin.x + frontviewWidth
-        self.view.frame = frame
+       
     }
+    
+    
     
 
     /*
