@@ -37,7 +37,6 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     var isLoadingFeed = false
     var reviews:Array<ActivityFeedReviews>?
     var reviewsWrapper: ActivityWrapper?
-    var review: Review?
     var reviewButtonViewWrapper: UIView = UIView()
     var activeWishlistContainer: UIView?
     var topView: UIView = UIView()
@@ -576,31 +575,6 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
         }
 
     }
-  /*
-    func updateTags(view: flavorTagsCollectionView, tags: [String : UIColor]) {
-        println("updating")
-        var contentInset = CGFloat(16.0)
-        let viewsToRemove =  reviewView!.selectedTagsView.subviews
-        for view in viewsToRemove {
-            view.removeFromSuperview()
-        }
-        
-        for (id, cell) in tags {
-            println(cell)
-            let label = UILabel(frame: CGRectMake(16, contentInset, 0, 0))
-            label.textAlignment = .Center
-            label.text = id
-            label.font = UIFont(name: "PTSans-Bold", size: 14)
-            label.textColor = UIColor.whiteColor()
-            label.sizeToFit()
-            reviewView!.selectedTagsView.addSubview(label)
-            contentInset = contentInset + 16
-        }
-        
-
-    }
-*/
-    
     
     func tappedUser(cell: vivrHeaderCell) {
         self.segueIdentifier = "flavorToUser"
@@ -879,9 +853,6 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifier {
-            //case "reviewSegue":
-                //let reviewVC: reviewViewController = segue.destinationViewController as! reviewViewController
-               // reviewVC.productID = self.selectedProductID!
             case "flavorToUser":
                 let userVC: VIVRUserViewController = segue.destinationViewController as! VIVRUserViewController
                 userVC.selectedUserID = self.selectedUserID

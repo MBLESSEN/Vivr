@@ -827,6 +827,8 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             
         }
     }
+    
+    //TABLEVIEW FUNCTIONS
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch cellIdentifier {
@@ -866,6 +868,10 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             
         }
     }
+    
+    //TABLEVIEW CELL FUNCTIONS
+    //FEATURED CELL
+    //VIVR CELL
     
     
     func featuredCellAtIndexPath(indexPath: NSIndexPath) -> FeaturedCell {
@@ -993,6 +999,8 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         return vivrcell
     }
     
+    
+    
     func toggleTagView() {
         switch filterTags.count {
         case 0:
@@ -1024,14 +1032,6 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         filterLabel.textColor = UIColor(red: 34.0/255, green: 129.0/255, blue: 30.0/255, alpha: 1.0)
         filterLabel.textAlignment = .Center
         tagView.addSubview(filterLabel)
-        /*
-        for id in filterTags {
-            let indicator = UIImageView(frame: CGRectMake(contentInset, 1, 30, 30))
-            indicator.image = UIImage(named: "userImage")
-            tagView.addSubview(indicator)
-            contentInset = contentInset + 38.0
-        }
-*/
     }
     
     func clearTags() {
@@ -1049,6 +1049,13 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         self.toggleTagView()
     }
+    
+    //LOAD JSON DATA
+    //FILTERED ACTIVITY
+    //ACTIVITY
+    //FEATURED
+    
+    
     func loadFirstFilteredActivity(tags: String) {
         self.feedReviews = []
         isLoadingFeed = true
@@ -1133,9 +1140,6 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
 
     }
     
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-    }
     
     func reloadSearch() {
         search.becomeFirstResponder()
@@ -1363,15 +1367,5 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         )
         
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
