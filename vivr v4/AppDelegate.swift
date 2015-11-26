@@ -46,30 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         initializeMixPanel()
         Authorization.isApplicationAuthorized({ (isAuthorized) in
-            print(isAuthorized)
+            if isAuthorized == false {
+                self.isLoggedIn = false
+            }else if isAuthorized == true {
+                self.loadProfileData()
+                self.login()
+                self.isLoggedIn = true
+                self.loggedOut = false
+                }
             })
-        if loggedOut == false {
-            if let refresh = KeychainWrapper.stringForKey("refreshToken") as String? {
-                print(refresh)
-            }
-            if let authKey = KeychainWrapper.stringForKey("authToken") as String? {
-                print(authKey)
-                
-                if authKey.isEmpty {
-                    isLoggedIn = false
-                }
-                else {
-                    self.loadProfileData()
-                    self.login()
-                    self.isLoggedIn = true
-                    self.loggedOut = false
-                }
         
-            }
             self.setMyIphoneSizeStruct()
             self.applyTheme()
-            return true
-        }
         
         
         return true
