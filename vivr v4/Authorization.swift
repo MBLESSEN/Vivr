@@ -35,4 +35,14 @@ class Authorization {
         }
         
     }
+    
+    class func isApplicationAuthorized(completionHandler: Bool -> Void)  {
+        let authToken = KeychainWrapper.stringForKey("authToken")
+        if authToken == nil {
+            return completionHandler(false)
+        }else {
+        return completionHandler(true)
+        }
+    }
+    
 }

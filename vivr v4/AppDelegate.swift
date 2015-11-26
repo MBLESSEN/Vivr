@@ -45,6 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         initializeMixPanel()
+        Authorization.isApplicationAuthorized({ (isAuthorized) in
+            print(isAuthorized)
+            })
         if loggedOut == false {
             if let refresh = KeychainWrapper.stringForKey("refreshToken") as String? {
                 print(refresh)
@@ -52,30 +55,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             if let authKey = KeychainWrapper.stringForKey("authToken") as String? {
                 print(authKey)
                 
-                if authKey == "" {
+                if authKey.isEmpty {
                     isLoggedIn = false
-                }else {
+                }
+                else {
                     self.loadProfileData()
                     self.login()
                     self.isLoggedIn = true
                     self.loggedOut = false
                 }
         
-        }
-        if (UIScreen.mainScreen().bounds.width < 370) {
-                myData.imageHeight = 200
-                myData.brandFlavorImageHeight = 200
-                myData.productImageHeight = 160
-            }else{
-                myData.imageHeight = 220
-                myData.brandFlavorImageHeight = 240
-                myData.productImageHeight = 180
             }
-        self.applyTheme()
-        return true
+            self.setMyIphoneSizeStruct()
+            self.applyTheme()
+            return true
         }
+        
+        
         return true
         
+    }
+    
+    func setMyIphoneSizeStruct() {
+        if (UIScreen.mainScreen().bounds.width < 370) {
+            myData.imageHeight = 200
+            myData.brandFlavorImageHeight = 200
+            myData.productImageHeight = 160
+        }else{
+            myData.imageHeight = 220
+            myData.brandFlavorImageHeight = 240
+            myData.productImageHeight = 180
+        }
     }
     
     func initializeMixPanel() {
@@ -83,30 +93,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
        // let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         //mixpanel.track("App Launched")
     }
-    /*
-    func storeUserData(user: User) {
-        var context:NSManagedObjectContext = self.managedObjectContext!
-        
-        var newUserData: AnyObject = NSEntityDescription.insertNewObjectForEntityForName("UserData", inManagedObjectContext: context)
-        newUserData.setValue(user.ID, forKey: "userID")
-        newUserData.setValue(user.userName, forKey: "userName")
-        newUserData.setValue(user.image, forKey: "userImage")
-        newUserData.setValue(user.bio, forKey: "bio")
-        newUserData.setValue(user.hardWare, forKey: "hardware")
-        newUserData.setValue(user.review_count, forKey: "juice_count")
-        newUserData.setValue(user.box_count, forKey: "boxes_count")
-        newUserData.setValue(user.wishlist_count, forKey: "wish_count")
-        newUserData.setValue(user.favorite_count, forKey: "favorite_count")
-        var error: NSError?
-        if !context.save(&error) {
-            println("error saving to core data")
-        }
-        createUserStruct()
-        
-        
-    }*/
-    
-
     
     func storeUserData(user: User) {
         myData.myProfileID = user.ID
@@ -159,7 +145,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             myData.hardWare = data.valueForKey("hardware") as? String
             myData.wishlistCount = data.valueForKey("wish_count") as? Int
             myData.favoritesCount = data.valueForKey("favorite_count") as? Int
-            
             
         }
         
