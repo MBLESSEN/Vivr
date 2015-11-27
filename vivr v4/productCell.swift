@@ -519,7 +519,7 @@ class productCell: UITableViewCell, UIScrollViewDelegate, UITextViewDelegate {
         }
         let productString = self.product!.image
         let purl = NSURL(string: productString!)
-        self.productImage.hnk_setImage(self.product!.imageFromURL!, key: self.product!.name!)
+        self.productImage.hnk_setImage(self.product!.imageFromURL, key: self.product!.name!)
         //self.productImage.hnk_setImageFromURL(purl!)
 
         if let tags = self.product!.tags {

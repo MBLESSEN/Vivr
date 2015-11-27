@@ -27,7 +27,7 @@ class Product {
     var brandID: Int?
     var name: String?
     var image: String?
-    var imageFromURL: UIImage?
+    var imageFromURL: UIImage = UIImage()
     var description: String?
     var currentFavorite: Bool?
     var currentWishlist: Bool?
@@ -42,7 +42,7 @@ class Product {
         self.name = json[ActivityFeedReviewsFields.name.rawValue].stringValue
         self.image = json[ActivityFeedReviewsFields.image.rawValue].stringValue
         if self.image != "" {
-        self.imageFromURL = UIImage(data: NSData(contentsOfURL: NSURL(string: self.image!)!)!)
+        self.imageFromURL = UIImage(data: NSData(contentsOfURL: NSURL(string: self.image!)!)!)!
         }
         self.description = json[ActivityFeedReviewsFields.description.rawValue].stringValue
         self.currentFavorite = json[ActivityFeedReviewsFields.currentFavorite.rawValue].boolValue

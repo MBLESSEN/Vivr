@@ -923,7 +923,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             vivrcell.layoutIfNeeded()
             let productString = review.product!.image!
             let purl = NSURL(string: productString)!
-            vivrcell.productImage.hnk_setImage(review.product!.imageFromURL!, key: review.product!.name!)
+            vivrcell.productImage.hnk_setImage(review.product!.imageFromURL, key: review.product!.name!)
             //vivrcell.productImage.hnk_setImageFromURL(purl)
             if let rating = review.score {
                 vivrcell.totalScore.text = rating

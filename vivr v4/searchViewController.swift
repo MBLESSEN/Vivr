@@ -71,7 +71,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         switch control.selectedSegmentIndex{
         case 0:
             cellIdentifier = "juiceCell"
-            searchTable.rowHeight = 100
+            searchTable.rowHeight = 120
             searchTable.reloadData()
         case 1:
             cellIdentifier = "brandCell"
@@ -379,7 +379,8 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
             cell.productID = "\(products![indexPath.row].productID!)"
             if let urlString = products![indexPath.row].image as String? {
                 let url = NSURL(string: urlString)
-                cell.productImage!.hnk_setImageFromURL(url!)
+                cell.productImage!.hnk_setImage(self.products![indexPath.row].imageFromURL, key: products![indexPath.row].name!)
+                //cell.productImage!.hnk_setImageFromURL(url!)
             }
         }
         return cell
