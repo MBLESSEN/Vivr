@@ -24,7 +24,13 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate {
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         if viewController.title == "checkInView" {
             return false
-        } else {
+        }else if viewController.title == "userNav" {
+            let navController = viewController as? UINavigationController
+            let userVC = navController?.viewControllers[0] as? VIVRUserViewController
+            userVC?.selectedUserID = "\(myData.myProfileID!)"
+            return true
+        }
+        else{
             return true
         }
     }
@@ -34,6 +40,10 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let juiceVC = storyboard.instantiateViewControllerWithIdentifier("checkInJuice") as! VIVRCheckInJuiceViewController
             self.presentViewController(juiceVC, animated: true, completion: nil)
+        }
+        if item.tag == 2 {
+            let userVC = (tabBarController?.viewControllers?.last as? UINavigationController)?.viewControllers[0] as? VIVRUserViewController
+            userVC?.selectedUserID = "\(myData.myProfileID)"
         }
     }
     
