@@ -7,7 +7,7 @@
 //
 import Foundation
 import Alamofire
-import CoreData
+import Haneke
 import SwiftyJSON
 
 
@@ -27,6 +27,7 @@ class Product {
     var brandID: Int?
     var name: String?
     var image: String?
+    var imageFromURL: UIImage?
     var description: String?
     var currentFavorite: Bool?
     var currentWishlist: Bool?

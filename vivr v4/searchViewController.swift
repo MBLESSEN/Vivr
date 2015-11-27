@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 protocol searchDelegate {
     func dismissSearch(view: searchViewController, cell: ProductTableViewCell?)

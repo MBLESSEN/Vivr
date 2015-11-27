@@ -9,6 +9,7 @@
 
 import UIKit
 import Haneke
+import SwiftyJSON
 
 class newCell: UITableViewCell {
     
