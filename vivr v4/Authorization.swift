@@ -21,6 +21,7 @@ class Authorization {
         self.refreshToken = json["refresh_token"].stringValue
     }
     
+    
     class func endpointForRequestAccessToken(parameters: [String:AnyObject]) -> URLRequestConvertible {
         return Router.requestAccessToken(parameters)
     }
@@ -43,6 +44,18 @@ class Authorization {
         }else {
         return completionHandler(true)
         }
+    }
+    
+    func addAuthorizationToKeychain(authorization: Authorization) {
+        myData.authToken = authorization.authKey!
+        myData.refreshToken = authorization.refreshToken!
+        KeychainWrapper.setString(authorization.authKey!, forKey: "authToken")
+        KeychainWrapper.setString(authorization.refreshToken!, forKey: "refreshToken")
+    }
+    
+    class func wipeAuthorizationFromKeyChain() {
+        KeychainWrapper.removeObjectForKey("authToken")
+        KeychainWrapper.removeObjectForKey("refreshToken")
     }
     
 }

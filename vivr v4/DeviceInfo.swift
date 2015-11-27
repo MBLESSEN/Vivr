@@ -50,29 +50,20 @@ class DeviceInfo {
             print(response.response)
             if (response.response?.statusCode == 200) {
                 let jsonResponse = JSON(response.result.value!)
-                if let accessToken = jsonResponse["access_token"].string, refreshToken = jsonResponse["refresh_token"].string {
-                    myData.authToken = accessToken
-                    myData.refreshToken = refreshToken
-                    KeychainWrapper.setString(myData.authToken!, forKey: "authToken")
-                    KeychainWrapper.setString(myData.refreshToken!, forKey: "refreshToken")
-                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                    appDelegate.loadProfileData()
+                let authorization = Authorization(json: jsonResponse)
+                authorization.addAuthorizationToKeychain(authorization)
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.loadProfileData()
                     
-                    let response = RefreshTokenResponse(accessToken: accessToken, refreshToken: refreshToken)
-                    var clearance = ApiError()
-                    clearance.success = true
-                    clearance.message = "success"
-                    completionHandler(response, clearance)
-                    return
-                    
-                } else {
-                    var response = ApiError()
-                    response.success = false
-                    response.message = "access_token or refresh_token is nil"
-                    completionHandler(nil, response)
-                    return
-                }
-            } else {
+                let response = RefreshTokenResponse(accessToken: authorization.authKey!, refreshToken: authorization.refreshToken!)
+                var clearance = ApiError()
+                clearance.success = true
+                clearance.message = "success"
+                completionHandler(response, clearance)
+                return
+            }else if response.response?.statusCode == 401 {
+                self.logOutDevice()
+            }else {
                 var APIresponse = ApiError()
                 print("refresh failed")
                 APIresponse.error = response.result.error as NSError!
@@ -81,6 +72,11 @@ class DeviceInfo {
             }
             
         }
+    }
+    
+    class func logOutDevice() {
+        Authorization.wipeAuthorizationFromKeyChain()
+        
     }
 }
 

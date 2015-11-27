@@ -334,6 +334,8 @@
 				50985CD21AFC389A007BB4DD /* colorPicker */,
 				50EC0ED51AEC346F002D1D40 /* SWRevealController */,
 				50A0663D1B30D264006152EE /* vivrCelliInfoPages */,
+				503D59F31C081CE500D8C8F4 /* Managers */,
+				503D59F01C081BF200D8C8F4 /* Protocols */,
 				500CE63A1BFFC8C500D612FF /* Models */,
 				50FAAF2C1BFD1CFA000D2379 /* User View Controllers */,
 				500CE6431BFFCF4900D612FF /* Settings View Controllers */,
@@ -385,6 +387,20 @@
 				501E042E1A428F1900F93122 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		503D59F01C081BF200D8C8F4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		503D59F31C081CE500D8C8F4 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 		507A6C121B706B3600B8A1FA /* login screens */ = {
