@@ -67,6 +67,7 @@ class DeviceInfo {
                 var APIresponse = ApiError()
                 print("refresh failed")
                 APIresponse.error = response.result.error as NSError!
+                self.logOutDevice()
                 completionHandler(nil, APIresponse)
                 return
             }
@@ -76,7 +77,8 @@ class DeviceInfo {
     
     class func logOutDevice() {
         Authorization.wipeAuthorizationFromKeyChain()
-        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.logout()
     }
 }
 
