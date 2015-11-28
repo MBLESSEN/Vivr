@@ -141,7 +141,7 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
         navBackground.backgroundColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 1.0)
         navBackground.alpha = 0.0
         self.view.addSubview(navBackground)
-        self.tabBarController?.tabBar.hidden = true 
+        //self.tabBarController?.tabBar.hidden = true
     }
     
     override func viewDidLayoutSubviews() {

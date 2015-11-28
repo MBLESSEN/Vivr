@@ -369,7 +369,7 @@ class productCell: UITableViewCell, UIScrollViewDelegate, UITextViewDelegate {
         favoriteButtonState()
         reviewButtonState()
         favoriteButton.setImage(likeImage, forState: .Normal)
-        reviewButton.setImage(reviewImage, forState: .Normal)
+        //reviewButton.setImage(reviewImage, forState: .Normal)
         wishlistButton.setImage(wishImage, forState: .Normal)
         let boxImage = UIImage(named: "forward")?.imageWithRenderingMode(.AlwaysTemplate)
         addToBoxButton.setImage(boxImage, forState: .Normal)

@@ -27,11 +27,12 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
     var userReviews:Array<ActivityFeedReviews>?
     var userReviewsWrapper:ActivityWrapper?
     var selectedReview: ActivityFeedReviews?
-    
+    var isMyUser:Bool = false
     var userData:User?
     var userDataWrapper: UserDataWrapper?
     
     
+    @IBOutlet weak var mySettingsButton: UIBarButtonItem!
     @IBOutlet weak var profileTable:UITableView!
     @IBOutlet weak var navBackground: UIView!
     
@@ -39,6 +40,7 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         super.viewDidLoad()
         self.profileTable.contentInset = UIEdgeInsetsMake(0,0,0,0)
     }
+    
     override func viewWillAppear(animated: Bool) {
         loadUserData()
         loadFirstReviews()
@@ -54,11 +56,19 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         navigationController?.navigationBar.translucent = true  
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain , target: nil, action: nil)
         navigationController?.navigationBarHidden = false
+        if isMyUser == true {
+            configureNavBarForMyUser()
+        }else {
+            configureNavBarForAnyUser()
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // IB ACTIONs
+
     @IBAction func boxesTapped(sender: AnyObject) {
         self.segueIdentifier = "userToMyBoxes"
         performSegueWithIdentifier(segueIdentifier!, sender: self)
@@ -71,6 +81,11 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         self.segueIdentifier = "anyUserToFavorites"
         performSegueWithIdentifier(segueIdentifier!, sender: self)
     }
+    
+    //TABLEVIEW CELL PROTOCOLS
+    
+    
+    
     func tappedProductbutton(cell: myReviewsCell) {
         self.segueIdentifier = "anyUserToFlavor"
         self.selectedProductID = cell.productID
@@ -422,8 +437,15 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
             self.userData = self.userDataWrapper?.UserData![0]
         }
     }
-
     
+    func configureNavBarForMyUser() {
+        mySettingsButton.tintColor = UIColor.whiteColor()
+        mySettingsButton.enabled = true
+    }
     
+    func configureNavBarForAnyUser() {
+        mySettingsButton.tintColor = UIColor.clearColor()
+        mySettingsButton.enabled = false
+    }
 
 }
