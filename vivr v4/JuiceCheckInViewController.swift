@@ -48,7 +48,7 @@ class JuiceCheckInViewController: UIViewController, UISearchBarDelegate, searchD
     var reviewActionButtons: [UIButton] = Array()
     var viewDelegate: JuiceCheckInDelegate? = nil
     var originalLocation:CGRect?
-    var searchView: searchViewController?
+    var searchView: VIVRSearchViewController?
     var segueIdentifier: String?
     var productID:String?
     var reviewView: ProductTableViewCell?
@@ -99,7 +99,7 @@ class JuiceCheckInViewController: UIViewController, UISearchBarDelegate, searchD
         self.navigationItem.leftBarButtonItem = leftNavBarButton
         self.search.delegate = self
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        searchView = storyboard.instantiateViewControllerWithIdentifier("searchTable") as? searchViewController
+        searchView = storyboard.instantiateViewControllerWithIdentifier("searchTable") as? VIVRSearchViewController
         searchView!.viewDelegate = self
         self.addChildViewController(self.searchView!)
         self.searchView!.view.frame = CGRectMake(0, 0, searchViewWrapper.frame.width, searchViewWrapper.frame.height)
@@ -448,7 +448,7 @@ class JuiceCheckInViewController: UIViewController, UISearchBarDelegate, searchD
         }
     }
 
-    func dismissSearch(view: searchViewController, cell: ProductTableViewCell?) {
+    func dismissSearch(view: VIVRSearchViewController, cell: ProductTableViewCell?) {
         if let segueString = view.segueIdentifier as String? {
             if segueString.isEmpty {
                 
@@ -675,7 +675,7 @@ class JuiceCheckInViewController: UIViewController, UISearchBarDelegate, searchD
     }
     
     
-    func hideKeyboard(view: searchViewController) {
+    func hideKeyboard(view: VIVRSearchViewController) {
         
     }
     

@@ -2511,7 +2511,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="1600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="300" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Q50-p6-YBu">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="300" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Q50-p6-YBu">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="1552"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3445,7 +3445,7 @@
         <!--Search View Controller-->
         <scene sceneID="uWV-4O-gPI">
             <objects>
-                <viewController storyboardIdentifier="searchTable" automaticallyAdjustsScrollViewInsets="NO" id="XgK-xQ-ubp" customClass="searchViewController" customModule="vivr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchTable" automaticallyAdjustsScrollViewInsets="NO" id="XgK-xQ-ubp" customClass="VIVRSearchViewController" customModule="vivr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zSS-jt-K7b"/>
                         <viewControllerLayoutGuide type="bottom" id="Wy7-od-NL7"/>
@@ -5817,10 +5817,10 @@
                         <viewControllerLayoutGuide type="bottom" id="nCy-kT-8GS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="URO-jZ-4wT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="1600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="300" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="XG7-u3-O7D">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="300" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="XG7-u3-O7D">
                                 <rect key="frame" x="0.0" y="-64" width="600" height="664"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -6363,7 +6363,7 @@
                         <viewControllerLayoutGuide type="bottom" id="xvC-yJ-Mdd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pAF-UY-5hQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="1600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="lXp-hX-eHz">
@@ -6880,7 +6880,7 @@
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="myEmptyWishlist" rowHeight="100" id="o0L-cK-ITv">
-                                        <rect key="frame" x="0.0" y="22" width="600" height="100"/>
+                                        <rect key="frame" x="0.0" y="86" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o0L-cK-ITv" id="BVn-Bg-M6Q">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
@@ -6904,7 +6904,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="favoriteCell" rowHeight="220" id="ed9-hb-RMb" customClass="ProductTableViewCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="122" width="600" height="220"/>
+                                        <rect key="frame" x="0.0" y="186" width="600" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ed9-hb-RMb" id="YD7-9L-stf">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="220"/>
@@ -6987,7 +6987,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="anyUserEmptyWishlist" rowHeight="124" id="vtC-8m-geP">
-                                        <rect key="frame" x="0.0" y="342" width="600" height="124"/>
+                                        <rect key="frame" x="0.0" y="406" width="600" height="124"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vtC-8m-geP" id="EkR-IE-cXJ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="124"/>
@@ -7430,6 +7430,9 @@
                                         <rect key="frame" x="0.0" y="8" width="560" height="44"/>
                                         <animations/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="qmt-NO-0L5" id="VmM-KQ-09g"/>
+                                        </connections>
                                     </searchBar>
                                 </subviews>
                                 <animations/>
@@ -7461,6 +7464,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ZVm-US-khK"/>
+                    <connections>
+                        <outlet property="bottomView" destination="F90-HR-8X6" id="qVE-tE-5UZ"/>
+                        <outlet property="searchBar" destination="5MT-nX-mBb" id="RmW-Wh-WYL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tQi-nu-0OA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -8058,7 +8065,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="buI-TE-Kva"/>
         <segue reference="m0l-Qr-PgX"/>
-        <segue reference="A49-Nb-j9Q"/>
+        <segue reference="Mfb-ZX-DqN"/>
         <segue reference="uW9-Zc-ysy"/>
         <segue reference="gI2-Ji-6fz"/>
         <segue reference="RaL-ks-3Ih"/>

@@ -56,7 +56,7 @@
 		504E1EC01BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E1EBF1BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift */; };
 		504E1EC71BB882C300FC9DA8 /* blogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E1EC61BB882C300FC9DA8 /* blogCell.swift */; };
 		5051C6CA1B443BB800FB5E67 /* JuiceCheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051C6C91B443BB800FB5E67 /* JuiceCheckInViewController.swift */; };
-		5051C6D11B444E4500FB5E67 /* searchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051C6D01B444E4500FB5E67 /* searchViewController.swift */; };
+		5051C6D11B444E4500FB5E67 /* VIVRSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051C6D01B444E4500FB5E67 /* VIVRSearchViewController.swift */; };
 		5055C90E1AEC4300001287B2 /* menuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5055C90D1AEC4300001287B2 /* menuController.swift */; };
 		505F1D7D1A99744B0011BCE8 /* VIVRMyUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F1D7C1A99744B0011BCE8 /* VIVRMyUserViewController.swift */; };
 		505F1D7F1A9979F50011BCE8 /* profileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F1D7E1A9979F40011BCE8 /* profileCell.swift */; };
@@ -183,7 +183,7 @@
 		504E1EBF1BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRFeaturedPostViewController.swift; sourceTree = "<group>"; };
 		504E1EC61BB882C300FC9DA8 /* blogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogCell.swift; sourceTree = "<group>"; };
 		5051C6C91B443BB800FB5E67 /* JuiceCheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JuiceCheckInViewController.swift; sourceTree = "<group>"; };
-		5051C6D01B444E4500FB5E67 /* searchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchViewController.swift; sourceTree = "<group>"; };
+		5051C6D01B444E4500FB5E67 /* VIVRSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRSearchViewController.swift; sourceTree = "<group>"; };
 		5055C90D1AEC4300001287B2 /* menuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuController.swift; sourceTree = "<group>"; };
 		505F1D7C1A99744B0011BCE8 /* VIVRMyUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRMyUserViewController.swift; sourceTree = "<group>"; };
 		505F1D7E1A9979F40011BCE8 /* profileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileCell.swift; sourceTree = "<group>"; };
@@ -513,7 +513,7 @@
 				5055C90D1AEC4300001287B2 /* menuController.swift */,
 				50AC982E1B8BB3BA00BE9222 /* MyBoxController.swift */,
 				5037C8AA1B1E530000952C5A /* SearchTableView.swift */,
-				5051C6D01B444E4500FB5E67 /* searchViewController.swift */,
+				5051C6D01B444E4500FB5E67 /* VIVRSearchViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -752,7 +752,7 @@
 				503D59F51C09656100D8C8F4 /* VIVRJuiceCheckIn.swift in Sources */,
 				5033791D1AD2ED7F00567436 /* productCell.swift in Sources */,
 				50F2532D1A88253F0057B2AC /* Router.swift in Sources */,
-				5051C6D11B444E4500FB5E67 /* searchViewController.swift in Sources */,
+				5051C6D11B444E4500FB5E67 /* VIVRSearchViewController.swift in Sources */,
 				5072DAA41A9E60C600A64CAB /* commentsButton.swift in Sources */,
 				500CE6551BFFD25400D612FF /* Score.swift in Sources */,
 				500CE64F1BFFD1DF00D612FF /* Favorite.swift in Sources */,

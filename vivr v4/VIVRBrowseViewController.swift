@@ -35,7 +35,7 @@ class VIVRBrowseViewController: UIViewController, UITableViewDataSource, UITable
     var selectedBoxID: Int?
     var segueIdentifier:String?
     var tags: addFlavorTagsView?
-    var searchView: searchViewController?
+    var searchView: VIVRSearchViewController?
     var tagViewIsActive = false
     var products:Array<Product>?
     var productWrapper:ProductWrapper?
@@ -167,7 +167,7 @@ class VIVRBrowseViewController: UIViewController, UITableViewDataSource, UITable
         //Set the color of the icon
         iconView.tintColor = UIColor.whiteColor()
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        searchView = storyboard.instantiateViewControllerWithIdentifier("searchTable") as? searchViewController
+        searchView = storyboard.instantiateViewControllerWithIdentifier("searchTable") as? VIVRSearchViewController
         searchView!.viewDelegate = self
         searchViewBackground.clipsToBounds = true
     }
@@ -196,7 +196,7 @@ class VIVRBrowseViewController: UIViewController, UITableViewDataSource, UITable
         self.navigationItem.leftBarButtonItem = menuCopy
     }
     
-    func hideKeyboard(view: searchViewController) {
+    func hideKeyboard(view: VIVRSearchViewController) {
         
         
     }
@@ -373,7 +373,7 @@ class VIVRBrowseViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-    func dismissSearch(view: searchViewController, cell: ProductTableViewCell?) {
+    func dismissSearch(view: VIVRSearchViewController, cell: ProductTableViewCell?) {
         if let segueString = view.segueIdentifier as String? {
             if segueString.isEmpty {
                 
@@ -416,7 +416,7 @@ class VIVRBrowseViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-    func checkSearchSelection(view: searchViewController) {
+    func checkSearchSelection(view: VIVRSearchViewController) {
         switch segueIdentifier! {
         case "buzzToProduct":
             self.selectedProductID = Int(view.selectedID!)

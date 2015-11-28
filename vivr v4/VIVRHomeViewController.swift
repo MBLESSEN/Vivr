@@ -85,7 +85,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     var activityWrapper:ActivityWrapper?
     var topHeaderCell:vivrHeaderCell?
     var tags: addFlavorTagsView?
-    var searchView: searchViewController?
+    var searchView: VIVRSearchViewController?
     var pressDownCell:vivrCell?
     var selectedFeedReview:ActivityFeedReviews?
     
@@ -232,7 +232,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         //Set the color of the icon
         iconView.tintColor = UIColor.whiteColor()
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        searchView = storyboard.instantiateViewControllerWithIdentifier("searchTable") as? searchViewController
+        searchView = storyboard.instantiateViewControllerWithIdentifier("searchTable") as? VIVRSearchViewController
         searchView!.viewDelegate = self
         searchViewBackground.clipsToBounds = true
     }
@@ -420,7 +420,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    func dismissSearch(view: searchViewController, cell: ProductTableViewCell?) {
+    func dismissSearch(view: VIVRSearchViewController, cell: ProductTableViewCell?) {
         if let segueString = view.segueIdentifier as String? {
             if segueString.isEmpty {
                 
@@ -463,7 +463,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
 
     }
     
-    func checkSearchSelection(view: searchViewController) {
+    func checkSearchSelection(view: VIVRSearchViewController) {
         switch segueIdentifier {
             case "buzzToProduct":
                 if let productID = view.selectedID! as String? {
@@ -1153,7 +1153,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     //START/STOP OBSERVING KEYBOARD
     //KEYBOARD WILLSHOW AND WILL HIDE FUNCTIONS
     
-    func hideKeyboard(view: searchViewController) {
+    func hideKeyboard(view: VIVRSearchViewController) {
         self.becomeFirstResponder()
         self.view.endEditing(true)
     }

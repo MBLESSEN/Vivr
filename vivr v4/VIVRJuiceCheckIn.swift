@@ -8,11 +8,18 @@
 
 import UIKit
 
-class VIVRJuiceCheckIn: UIViewController {
+class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    @IBOutlet weak var bottomView: UIView!
+    
+    
+    var searchView: VIVRSearchViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        instantiateSearchView()
         // Do any additional setup after loading the view.
     }
     
@@ -31,6 +38,81 @@ class VIVRJuiceCheckIn: UIViewController {
         let logo = UIImage(named: "vivrTitleLogo")?.imageWithRenderingMode(.AlwaysOriginal)
         let imageView = UIImageView(image: logo)
         self.navigationItem.titleView = imageView
+    }
+    
+    //CHILD VIEW CONTROLLERS
+    //INSTANTIATE SEARCHVIEW
+    //SHOW/HIDE SEARCH VIEW
+    
+    func instantiateSearchView() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        searchView = storyboard.instantiateViewControllerWithIdentifier("searchTable") as! VIVRSearchViewController
+        searchView!.viewDelegate = self
+        searchView!.view.frame = CGRectMake(0, 0, self.bottomView.frame.width, self.bottomView.frame.height)
+    }
+    
+    func showSearchView() {
+        
+    }
+    
+    //VIVRSEARCHVIEWCONTROLLER DELEGATE FUNCTIONS
+    //DISMISS SEARCH MEANS PRODUCT WAS SELECTED RROM SEARCH TABLE, SEGUE TO PRODUCT 
+    //HIDE KEYBOARD 
+    //RELOAD SEARCH
+    
+    func dismissSearch(view: VIVRSearchViewController, cell: ProductTableViewCell?) {
+        
+        
+    }
+    
+    func hideKeyboard(view: VIVRSearchViewController) {
+        
+        
+    }
+    
+    func reloadSearch() {
+        
+        
+    }
+    
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        print("----------editing initiated")
+        return true
+    }
+    
+    //UISEARCHBAR DELEGATE FUNCTIONS
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        searchView!.searchTextCount = searchText.characters.count
+        if searchText.characters.count >= 3 {
+            if let searchString = searchBar.text!.stringByReplacingOccurrencesOfString(" ", withString: "_") as String! {
+                if searchString.characters.count >= 3 {
+                    searchView!.loadFirstSearch(searchString)
+                }else {
+                    let emptyAlert = UIAlertController(title: "oops!", message: "search must be atleast 3 letters long", preferredStyle: UIAlertControllerStyle.Alert)
+                    emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(emptyAlert, animated: true, completion: nil)
+                }
+            }
+        }
+        if searchText.characters.count == 0 {
+            searchView!.clearSearch()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if let searchString = searchBar.text!.stringByReplacingOccurrencesOfString(" ", withString: "_") as String! {
+            if searchString.characters.count >= 3 {
+                searchView!.loadFirstSearch(searchString)
+            }else {
+                let emptyAlert = UIAlertController(title: "oops!", message: "search must be atleast 3 letters long", preferredStyle: UIAlertControllerStyle.Alert)
+                emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(emptyAlert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchView!.clearSearch()
     }
     
 

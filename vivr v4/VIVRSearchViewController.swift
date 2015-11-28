@@ -11,12 +11,12 @@ import Alamofire
 import SwiftyJSON
 
 protocol searchDelegate {
-    func dismissSearch(view: searchViewController, cell: ProductTableViewCell?)
-    func hideKeyboard(view: searchViewController)
+    func dismissSearch(view: VIVRSearchViewController, cell: ProductTableViewCell?)
+    func hideKeyboard(view: VIVRSearchViewController)
     func reloadSearch()
 }
 
-class searchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddJuiceCellDelegate, AddNewJuiceViewDelegate {
+class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddJuiceCellDelegate, AddNewJuiceViewDelegate {
 
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var controllerViewHeight: NSLayoutConstraint!
