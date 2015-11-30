@@ -8,167 +8,169 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="PTSans-Bold.ttf">
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
+        </mutableArray>
         <mutableArray key="PTSans.ttc">
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
-            <string>PTSans-Bold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1867,7 +1869,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aim-uh-yeo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5767" y="436"/>
+            <point key="canvasLocation" x="5267" y="472"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="wg7-f3-ORb">
@@ -3480,29 +3482,29 @@
                                     <constraint firstItem="ggY-BL-gqV" firstAttribute="leading" secondItem="cTI-Y3-beV" secondAttribute="leading" constant="16" id="qql-D6-Euu"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="bsD-bg-8B5">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="bsD-bg-8B5">
+                                <rect key="frame" x="4" y="64" width="592" height="536"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="of4-5L-sej">
-                                    <rect key="frame" x="0.0" y="328" width="600" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="328" width="592" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="juiceCell" rowHeight="112" id="lbo-HC-HRR" customClass="ProductTableViewCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="22" width="600" height="112"/>
+                                        <rect key="frame" x="0.0" y="22" width="592" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lbo-HC-HRR" id="nd9-ok-gV3">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="112"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="592" height="112"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gwr-H5-I8S">
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gwr-H5-I8S">
                                                     <rect key="frame" x="0.0" y="5" width="600" height="102"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vivrLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Zrb-gd-tYx">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="vivrLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Zrb-gd-tYx">
                                                             <rect key="frame" x="522" y="2" width="70" height="98"/>
                                                             <animations/>
                                                             <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
@@ -3510,7 +3512,7 @@
                                                                 <constraint firstAttribute="width" constant="70" id="YYY-RN-NEX"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Lk-Bs-wkY">
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Lk-Bs-wkY">
                                                             <rect key="frame" x="8" y="8" width="514" height="86"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="BRAND NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8i-0Q-yma">
@@ -3576,10 +3578,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="brandCell" id="Jl1-nl-7t3" customClass="searchResultCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="134" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="134" width="592" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jl1-nl-7t3" id="pqV-aW-7lq">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="592" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmic" translatesAutoresizingMaskIntoConstraints="NO" id="sMj-va-M7Z">
@@ -3591,7 +3593,7 @@
                                                         <constraint firstAttribute="width" constant="30" id="z1f-f7-Q75"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TIz-zF-Sgt">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TIz-zF-Sgt">
                                                     <rect key="frame" x="54" y="13" width="530" height="18"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="15"/>
@@ -3615,10 +3617,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="userCell" id="b05-pi-Iso" customClass="searchResultCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="178" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="178" width="592" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b05-pi-Iso" id="jBQ-g9-bb5">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="592" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmic" translatesAutoresizingMaskIntoConstraints="NO" id="oa6-6E-kZM">
@@ -3630,7 +3632,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="LGc-Ms-wAo"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxo-RD-lWq">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxo-RD-lWq">
                                                     <rect key="frame" x="54" y="13" width="530" height="18"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="15"/>
@@ -3654,20 +3656,20 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addJuiceCell" rowHeight="106" id="Kmz-Ir-397" customClass="AddJuiceCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="222" width="600" height="106"/>
+                                        <rect key="frame" x="0.0" y="222" width="592" height="106"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kmz-Ir-397" id="u5T-oo-ZuU">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="106"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="592" height="106"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Didnt't find the juice you were looking for?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vcz-OK-cYL">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Didnt't find the juice you were looking for?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vcz-OK-cYL">
                                                     <rect key="frame" x="8" y="8" width="584" height="17"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yec-fy-ZcR">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yec-fy-ZcR">
                                                     <rect key="frame" x="8" y="41" width="584" height="49"/>
                                                     <animations/>
                                                     <color key="backgroundColor" red="0.1215686275" green="0.48627450979999998" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
@@ -3718,6 +3720,8 @@
                         <outlet property="control" destination="ggY-BL-gqV" id="dk7-Am-7bn"/>
                         <outlet property="controllerViewHeight" destination="kik-op-ue2" id="lEd-wK-Q6C"/>
                         <outlet property="searchTable" destination="bsD-bg-8B5" id="el4-W1-jFg"/>
+                        <outlet property="topView" destination="cTI-Y3-beV" id="zG6-BZ-rnX"/>
+                        <outlet property="topViewHeightConstraint" destination="kik-op-ue2" id="erD-dj-Dat"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6KF-GE-xpD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5011,6 +5015,77 @@
             </objects>
             <point key="canvasLocation" x="4595" y="-2790"/>
         </scene>
+        <!--Rate it-->
+        <scene sceneID="Zkd-BE-tXE">
+            <objects>
+                <viewController storyboardIdentifier="reviewViewController" id="NAP-ah-sO1" customClass="VIVRReviewViewController" customModule="vivr" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="084-gg-m0o"/>
+                        <viewControllerLayoutGuide type="bottom" id="mon-Cc-Teo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="opw-qQ-tWq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Sx-sq-BIb" userLabel="topView">
+                                <rect key="frame" x="20" y="64" width="560" height="214.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vbk-ZH-5d8">
+                                        <rect key="frame" x="485" y="16" width="75" height="75"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="H3C-8v-1ne"/>
+                                            <constraint firstAttribute="height" constant="75" id="mJB-wX-MFe"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1Oe-5U-UlP">
+                                        <rect key="frame" x="0.0" y="16" width="469" height="198.5"/>
+                                        <animations/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Vbk-ZH-5d8" firstAttribute="leading" secondItem="1Oe-5U-UlP" secondAttribute="trailing" constant="16" id="7QH-9t-1gK"/>
+                                    <constraint firstAttribute="bottom" secondItem="1Oe-5U-UlP" secondAttribute="bottom" id="Bhb-5h-oOi"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vbk-ZH-5d8" secondAttribute="trailing" id="IJf-Qe-cTw"/>
+                                    <constraint firstItem="1Oe-5U-UlP" firstAttribute="leading" secondItem="9Sx-sq-BIb" secondAttribute="leading" id="gqg-sW-Ksy"/>
+                                    <constraint firstItem="1Oe-5U-UlP" firstAttribute="top" secondItem="9Sx-sq-BIb" secondAttribute="top" constant="16" id="sDR-cO-tfs"/>
+                                    <constraint firstItem="Vbk-ZH-5d8" firstAttribute="top" secondItem="9Sx-sq-BIb" secondAttribute="top" constant="16" id="vNl-S9-UWB"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iVs-gk-F8g" userLabel="bottomView">
+                                <rect key="frame" x="20" y="278.5" width="560" height="321.5"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9Sx-sq-BIb" firstAttribute="leading" secondItem="opw-qQ-tWq" secondAttribute="leadingMargin" id="061-cI-jpp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9Sx-sq-BIb" secondAttribute="trailing" id="EaO-bC-nnZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iVs-gk-F8g" secondAttribute="trailing" id="RYu-5c-7f2"/>
+                            <constraint firstItem="iVs-gk-F8g" firstAttribute="leading" secondItem="opw-qQ-tWq" secondAttribute="leadingMargin" id="Syh-Yo-tMZ"/>
+                            <constraint firstItem="iVs-gk-F8g" firstAttribute="height" secondItem="9Sx-sq-BIb" secondAttribute="height" multiplier="3:2" id="Vt4-6Y-Y38"/>
+                            <constraint firstItem="iVs-gk-F8g" firstAttribute="top" secondItem="9Sx-sq-BIb" secondAttribute="bottom" id="Y5D-WA-YHR"/>
+                            <constraint firstItem="mon-Cc-Teo" firstAttribute="top" secondItem="iVs-gk-F8g" secondAttribute="bottom" id="hsN-de-VMR"/>
+                            <constraint firstItem="9Sx-sq-BIb" firstAttribute="top" secondItem="084-gg-m0o" secondAttribute="bottom" id="i17-o3-1ff"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Rate it" id="1gr-hk-HLh"/>
+                    <connections>
+                        <outlet property="bottomView" destination="iVs-gk-F8g" id="XLO-mn-8Pa"/>
+                        <outlet property="topView" destination="9Sx-sq-BIb" id="zGb-vS-fo4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QdJ-kp-Udm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7240" y="-2846"/>
+        </scene>
         <!--Review Score View Controller-->
         <scene sceneID="OMZ-BF-5ix">
             <objects>
@@ -5817,11 +5892,11 @@
                         <viewControllerLayoutGuide type="bottom" id="nCy-kT-8GS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="URO-jZ-4wT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="1600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="300" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="XG7-u3-O7D">
-                                <rect key="frame" x="0.0" y="-64" width="600" height="664"/>
+                                <rect key="frame" x="0.0" y="-64" width="600" height="1664"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -6363,11 +6438,11 @@
                         <viewControllerLayoutGuide type="bottom" id="xvC-yJ-Mdd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pAF-UY-5hQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="1600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="lXp-hX-eHz">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="1536"/>
                                 <animations/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="myEmptyWishlist" rowHeight="100" id="alF-3k-kj9">
@@ -6875,12 +6950,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DOE-OZ-vyn">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="1536"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="myEmptyWishlist" rowHeight="100" id="o0L-cK-ITv">
-                                        <rect key="frame" x="0.0" y="86" width="600" height="100"/>
+                                        <rect key="frame" x="0.0" y="22" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o0L-cK-ITv" id="BVn-Bg-M6Q">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
@@ -6904,7 +6979,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="favoriteCell" rowHeight="220" id="ed9-hb-RMb" customClass="ProductTableViewCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="186" width="600" height="220"/>
+                                        <rect key="frame" x="0.0" y="122" width="600" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ed9-hb-RMb" id="YD7-9L-stf">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="220"/>
@@ -6987,7 +7062,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="anyUserEmptyWishlist" rowHeight="124" id="vtC-8m-geP">
-                                        <rect key="frame" x="0.0" y="406" width="600" height="124"/>
+                                        <rect key="frame" x="0.0" y="342" width="600" height="124"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vtC-8m-geP" id="EkR-IE-cXJ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="124"/>
@@ -7424,10 +7499,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rp0-jC-IY9">
-                                <rect key="frame" x="20" y="64" width="560" height="60"/>
+                                <rect key="frame" x="20" y="64" width="560" height="44"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="5MT-nX-mBb">
-                                        <rect key="frame" x="0.0" y="8" width="560" height="44"/>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Find your juice" translatesAutoresizingMaskIntoConstraints="NO" id="5MT-nX-mBb">
+                                        <rect key="frame" x="0.0" y="8" width="560" height="28"/>
                                         <animations/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
@@ -7442,11 +7517,11 @@
                                     <constraint firstAttribute="bottom" secondItem="5MT-nX-mBb" secondAttribute="bottom" constant="8" id="bca-00-ouC"/>
                                     <constraint firstAttribute="trailing" secondItem="5MT-nX-mBb" secondAttribute="trailing" id="bmP-NY-gTn"/>
                                     <constraint firstItem="5MT-nX-mBb" firstAttribute="top" secondItem="Rp0-jC-IY9" secondAttribute="top" constant="8" id="moT-dX-RrF"/>
-                                    <constraint firstAttribute="height" constant="60" id="p2u-NQ-pci"/>
+                                    <constraint firstAttribute="height" constant="44" id="p2u-NQ-pci"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F90-HR-8X6">
-                                <rect key="frame" x="20" y="124" width="560" height="476"/>
+                                <rect key="frame" x="4" y="108" width="592" height="492"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -7454,13 +7529,13 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="F90-HR-8X6" secondAttribute="trailing" id="65c-bD-jRD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="F90-HR-8X6" secondAttribute="trailing" constant="-16" id="65c-bD-jRD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Rp0-jC-IY9" secondAttribute="trailing" id="9w4-8E-Ae6"/>
                             <constraint firstItem="F90-HR-8X6" firstAttribute="top" secondItem="Rp0-jC-IY9" secondAttribute="bottom" id="C4a-Or-NPL"/>
                             <constraint firstItem="Rp0-jC-IY9" firstAttribute="top" secondItem="xh1-te-fU0" secondAttribute="bottom" id="LhG-3I-bxr"/>
                             <constraint firstItem="rQO-4h-60S" firstAttribute="top" secondItem="F90-HR-8X6" secondAttribute="bottom" id="UeJ-gj-Ydj"/>
                             <constraint firstItem="Rp0-jC-IY9" firstAttribute="leading" secondItem="OT8-lR-k6j" secondAttribute="leadingMargin" id="XAh-r1-oxX"/>
-                            <constraint firstItem="F90-HR-8X6" firstAttribute="leading" secondItem="OT8-lR-k6j" secondAttribute="leadingMargin" id="iN5-vf-gM8"/>
+                            <constraint firstItem="F90-HR-8X6" firstAttribute="leading" secondItem="OT8-lR-k6j" secondAttribute="leadingMargin" constant="-16" id="iN5-vf-gM8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ZVm-US-khK"/>
@@ -8033,6 +8108,25 @@
             </objects>
             <point key="canvasLocation" x="-4000" y="1996"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="k6k-ap-RdO">
+            <objects>
+                <navigationController storyboardIdentifier="reviewViewControllerNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="U8n-Ex-ASF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GHO-LH-ofH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="NAP-ah-sO1" kind="relationship" relationship="rootViewController" id="aDN-fb-Qd5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="24L-Ql-HPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6428" y="-2846"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Milk-and-Honey" width="250" height="250"/>
@@ -8063,9 +8157,9 @@
         <image name="whiteTriangleDown" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="buI-TE-Kva"/>
+        <segue reference="A49-Nb-j9Q"/>
         <segue reference="m0l-Qr-PgX"/>
-        <segue reference="Mfb-ZX-DqN"/>
+        <segue reference="buI-TE-Kva"/>
         <segue reference="uW9-Zc-ysy"/>
         <segue reference="gI2-Ji-6fz"/>
         <segue reference="RaL-ks-3Ih"/>

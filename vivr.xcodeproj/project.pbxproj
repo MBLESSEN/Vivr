@@ -85,6 +85,7 @@
 		50A5DB5E1B01356800EF3A67 /* findFriendsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A5DB5D1B01356800EF3A67 /* findFriendsViewViewController.swift */; };
 		50A5DB641B0141CC00EF3A67 /* editPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A5DB631B0141CC00EF3A67 /* editPaymentViewController.swift */; };
 		50A5DB661B01474B00EF3A67 /* addFlavorTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */; };
+		50A9B7761C0CDB8D0061AFC7 /* VIVRReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A9B7751C0CDB8D0061AFC7 /* VIVRReviewViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		50AC982F1B8BB3BA00BE9222 /* MyBoxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AC982E1B8BB3BA00BE9222 /* MyBoxController.swift */; };
 		50AC98311B8BB90F00BE9222 /* CreateNewBoxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AC98301B8BB90F00BE9222 /* CreateNewBoxController.swift */; };
 		50AD676D1A429A1700D2BD35 /* VIVRBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD676C1A429A1700D2BD35 /* VIVRBrowseViewController.swift */; };
@@ -217,6 +218,7 @@
 		50A5DB5D1B01356800EF3A67 /* findFriendsViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = findFriendsViewViewController.swift; sourceTree = "<group>"; };
 		50A5DB631B0141CC00EF3A67 /* editPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editPaymentViewController.swift; sourceTree = "<group>"; };
 		50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addFlavorTagsView.swift; sourceTree = "<group>"; };
+		50A9B7751C0CDB8D0061AFC7 /* VIVRReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRReviewViewController.swift; sourceTree = "<group>"; };
 		50AC982E1B8BB3BA00BE9222 /* MyBoxController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBoxController.swift; sourceTree = "<group>"; };
 		50AC98301B8BB90F00BE9222 /* CreateNewBoxController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNewBoxController.swift; sourceTree = "<group>"; };
 		50AD676C1A429A1700D2BD35 /* VIVRBrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VIVRBrowseViewController.swift; path = "vivr v4/VIVRBrowseViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -499,6 +501,7 @@
 				504E1EBF1BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift */,
 				503D59F41C09656100D8C8F4 /* VIVRJuiceCheckIn.swift */,
 				50035DA21BC594FE00B5CCE3 /* tabBarController.swift */,
+				50A9B7751C0CDB8D0061AFC7 /* VIVRReviewViewController.swift */,
 				50CCD0D51BFE4C0E0003EF98 /* VIVRShoppingCartViewController.swift */,
 				50F26D4E1B0D37FE00A42634 /* AboutTableViewController.swift */,
 				50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */,
@@ -783,6 +786,7 @@
 				50A5DB5E1B01356800EF3A67 /* findFriendsViewViewController.swift in Sources */,
 				50679F6F1BA48D09008FD0BE /* FeaturedCell.swift in Sources */,
 				500CE64B1BFFD13300D612FF /* Boxes.swift in Sources */,
+				50A9B7761C0CDB8D0061AFC7 /* VIVRReviewViewController.swift in Sources */,
 				501650311BDBE4CC00798355 /* Markdown.swift in Sources */,
 				504E1EC01BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift in Sources */,
 				50985CDB1AFC38B2007BB4DD /* DBImageColorPicker.m in Sources */,

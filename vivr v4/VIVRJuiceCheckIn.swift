@@ -25,6 +25,8 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     
     override func viewWillAppear(animated: Bool) {
         showTitleLogo()
+        configureNavBar()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,6 +35,12 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     }
     
     //NAVIGATION AND VIEW CUSTOMIZATION
+    
+    func configureNavBar() {
+        self.navigationController?.navigationBar.translucent = true
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
     
     func showTitleLogo(){
         let logo = UIImage(named: "vivrTitleLogo")?.imageWithRenderingMode(.AlwaysOriginal)
@@ -47,13 +55,26 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     func instantiateSearchView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         searchView = storyboard.instantiateViewControllerWithIdentifier("searchTable") as! VIVRSearchViewController
+        addChildViewController(searchView!)
         searchView!.viewDelegate = self
-        searchView!.view.frame = CGRectMake(0, 0, self.bottomView.frame.width, self.bottomView.frame.height)
+        searchView!.view.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, bottomView.frame.height)
+        searchView!.topViewHeightConstraint.constant = 0
+        searchView!.view.layoutSubviews()
     }
     
     func showSearchView() {
-        
+        if searchView != nil {
+            bottomView.addSubview(searchView!.view)
+            searchView!.didMoveToParentViewController(self)
+        }
     }
+    
+    func hideSearchView() {
+        if searchView != nil {
+            searchView!.view.removeFromSuperview()
+        }
+    }
+    
     
     //VIVRSEARCHVIEWCONTROLLER DELEGATE FUNCTIONS
     //DISMISS SEARCH MEANS PRODUCT WAS SELECTED RROM SEARCH TABLE, SEGUE TO PRODUCT 
@@ -61,8 +82,18 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     //RELOAD SEARCH
     
     func dismissSearch(view: VIVRSearchViewController, cell: ProductTableViewCell?) {
+        hideSearchView()
+        if cell?.product != nil {
+            presentModalReviewProductViewController((cell?.product)!)
+        }
         
-        
+    }
+    
+    func presentModalReviewProductViewController(product: Product) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let navigation = storyboard.instantiateViewControllerWithIdentifier("reviewViewControllerNavigationController") as! UINavigationController
+        let reviewVC = navigation.viewControllers.first as! VIVRReviewViewController
+        presentViewController(navigation, animated: true, completion: nil)
     }
     
     func hideKeyboard(view: VIVRSearchViewController) {
@@ -76,7 +107,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     }
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
-        print("----------editing initiated")
+        showSearchView()
         return true
     }
     

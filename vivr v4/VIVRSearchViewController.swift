@@ -22,15 +22,16 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var controllerViewHeight: NSLayoutConstraint!
     @IBOutlet weak var control: UISegmentedControl!
     @IBOutlet weak var searchTable: UITableView!
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
+    
     var viewDelegate: searchDelegate? = nil
     var selectedBrandImage: String?
     var searchWrapper: SearchResult?
     var products: Array<Product>?
     var brands: Array<Brand>?
     var users: Array<User>?
-    
     var addJuiceView: AddNewJuiceView?
-    
     var isLoadingFeed = false
     var didLoadSearch = false
     var segueIdentifier:String?
@@ -374,7 +375,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
         cell.productLabel.highlightedTextColor = UIColor.whiteColor()
         print(products?.count, terminator: "")
         if products?.count != 0 {
-            print("products count > 0", terminator: "")
+            cell.product = products![indexPath.row]
             cell.productLabel.text = products![indexPath.row].name
             cell.productID = "\(products![indexPath.row].productID!)"
             if let urlString = products![indexPath.row].image as String? {
