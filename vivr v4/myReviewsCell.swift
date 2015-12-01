@@ -33,11 +33,13 @@ class myReviewsCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        likebutton.layer.borderWidth = 1
-        likebutton.layer.cornerRadius = 4
-        //likebutton.tintColor = UIColor.lightGrayColor()
-        likebutton.setImage(likeImage, forState: .Normal)
-        likebutton.imageEdgeInsets = UIEdgeInsetsMake(5, 7.5, 5, 47.5)
+        if likebutton != nil {
+            likebutton.layer.borderWidth = 1
+            likebutton.layer.cornerRadius = 4
+            //likebutton.tintColor = UIColor.lightGrayColor()
+            likebutton.setImage(likeImage, forState: .Normal)
+            likebutton.imageEdgeInsets = UIEdgeInsetsMake(5, 7.5, 5, 47.5)
+        }
         
     }
     
@@ -48,43 +50,45 @@ class myReviewsCell: UITableViewCell {
     }
 
     @IBAction func toButton(sender: AnyObject) {
-        cellDelegate?.tappedProductbutton(self)
+        cellDelegate?.tappedProductbutton!(self)
         
     }
     
     @IBAction func toComments(sender: AnyObject) {
-        cellDelegate?.tappedCommentButton(self)
+        cellDelegate?.tappedCommentButton!(self)
     }
     @IBAction func likePressed(sender: AnyObject) {
         switch state! {
             case true:
                 state = false
                 Alamofire.request(Router.notHelpful(productID!, reviewID!))
-                cellDelegate?.helpfulFalse(self)
+                cellDelegate?.helpfulFalse!(self)
             case false:
                 state = true
                 Alamofire.request(Router.isHelpful(productID!, reviewID!))
-                cellDelegate?.helpfulTrue(self)
+                cellDelegate?.helpfulTrue!(self)
         }
         self.buttonState()
-        self.cellDelegate?.reloadAPI(self)
+        self.cellDelegate?.reloadAPI!(self)
     }
     
     func buttonState() {
-        switch state! {
-        case true:
-            likebutton.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 0)
-            likebutton.layer.borderColor = (UIColor.purpleColor()).CGColor
-            likebutton.tintColor = UIColor.whiteColor()
-            likebutton.backgroundColor = UIColor.purpleColor()
-            likebutton.setTitle("Helpful", forState: .Normal)
-        case false:
-            likebutton.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 0)
-            likebutton.layer.borderColor = (UIColor.lightGrayColor()).CGColor
-            likebutton.tintColor = UIColor.lightGrayColor()
-            likebutton.backgroundColor = UIColor.whiteColor()
-            likebutton.setTitle("Helpful", forState: .Normal)
-            
+        if likebutton != nil {
+            switch state! {
+            case true:
+                likebutton.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 0)
+                likebutton.layer.borderColor = (UIColor.purpleColor()).CGColor
+                likebutton.tintColor = UIColor.whiteColor()
+                likebutton.backgroundColor = UIColor.purpleColor()
+                likebutton.setTitle("Helpful", forState: .Normal)
+            case false:
+                likebutton.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 0)
+                likebutton.layer.borderColor = (UIColor.lightGrayColor()).CGColor
+                likebutton.tintColor = UIColor.lightGrayColor()
+                likebutton.backgroundColor = UIColor.whiteColor()
+                likebutton.setTitle("Helpful", forState: .Normal)
+                
+            }
         }
     }
     

@@ -23,6 +23,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         instantiateSearchView()
+        instantiateMyReviewsView()
         // Do any additional setup after loading the view.
     }
     
@@ -54,6 +55,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     func resetView() {
         searchBar.text = ""
         hideSearchView()
+        showMyReviewsView()
     }
     
     //IB  ACTION OUTLETS
@@ -62,6 +64,8 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         hideSearchView()
         hideCancelButton()
         searchBar.resignFirstResponder()
+        hideSearchView()
+        showMyReviewsView()
     }
     
     //CANCEL BUTTON FUNCTIONS
@@ -102,7 +106,9 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         myReviewsView = storyboard.instantiateViewControllerWithIdentifier("myUserReviews") as! VIVRUserReviewsViewController
         myReviewsView?.selectedUserID = myData.myProfileID
         addChildViewController(myReviewsView!)
-        myReviewsView!.view.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, bottomView.frame.height)
+        myReviewsView!.view.frame = CGRectMake(0, 0,
+            bottomView.frame.width, bottomView.frame.height)
+        myReviewsView!.view.layoutIfNeeded()
     }
     
     func showSearchView() {

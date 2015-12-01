@@ -27,15 +27,15 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        loadFirstReviews()
+    }
+    
     
     //UITABLEVIEW DATASOURCE & DELEGATE FUNCTIONS
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            if self.userReviews?.count == 0 {
-                return 1
-            }else{
-                return self.userReviews!.count
-            }
+            return self.userReviews?.count ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
