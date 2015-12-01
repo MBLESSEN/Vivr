@@ -23,9 +23,8 @@ class VIVRAddNewBrandViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        newBrandTextField.becomeFirstResponder()
         configureNavBar()
-        self.view.layoutIfNeeded()
+        newBrandTextField.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,11 +33,19 @@ class VIVRAddNewBrandViewController: UIViewController {
     }
     
     //NAVIGATION AND VIEW CUSTOMIZATION
+    //NAVIGATION IBOUTLET ACTIONS
+    //CANCEL VIEW CONTROLLER
+    
+    @IBAction func cancelPressed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     func configureNavBar() {
-        navigationBar.translucent = true
-        navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-        navigationBar.shadowImage = UIImage()    }
+        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.navigationBar.translucent = true
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()    }
     
     //KEYBOARD FUNCTIONS
     //KEYBOARD HANDLER

@@ -3365,7 +3365,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="xOc-Ie-0wv" kind="presentation" identifier="addNewBrandSegue" id="Xv1-yW-8jB"/>
+                                            <segue destination="pyU-7c-NuW" kind="presentation" identifier="addNewBrandSegue" id="Xv1-yW-8jB"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter brand name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bzz-eT-soF" customClass="B68UIFloatLabelTextField" customModule="vivr" customModuleProvider="target">
@@ -3436,7 +3436,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="k2r-fo-9UE"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="brandName" destination="bzz-eT-soF" id="cBU-JY-32N"/>
                         <outlet property="brandView" destination="nTa-uN-eJ1" id="gzn-Di-ncA"/>
@@ -3450,7 +3449,7 @@
             </objects>
             <point key="canvasLocation" x="2734" y="-2484"/>
         </scene>
-        <!--Add New Brand View Controller-->
+        <!--Add a new brand-->
         <scene sceneID="FLU-KH-jek">
             <objects>
                 <viewController id="xOc-Ie-0wv" customClass="VIVRAddNewBrandViewController" customModule="vivr" customModuleProvider="target" sceneMemberID="viewController">
@@ -3470,7 +3469,7 @@
                                     <action selector="submitButtonPressed:" destination="xOc-Ie-0wv" eventType="touchUpInside" id="Qni-O4-srn"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eNF-zb-nmT">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eNF-zb-nmT">
                                 <rect key="frame" x="20" y="128" width="560" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3488,6 +3487,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="aM8-g2-cdj" secondAttribute="trailing" constant="-16" id="jo3-8Z-Yt4"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Add a new brand" id="LXJ-z8-85b">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="0ec-g7-FGZ">
+                            <connections>
+                                <action selector="cancelPressed:" destination="xOc-Ie-0wv" id="HVs-b5-dWb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="newBrandTextField" destination="eNF-zb-nmT" id="tZO-Vt-QWt"/>
                         <outlet property="submitButtonBottomConstraint" destination="Ka7-fh-aox" id="Ca7-Rx-0WP"/>
@@ -3495,7 +3501,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mzk-R2-QWR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3387" y="-2484"/>
+            <point key="canvasLocation" x="4199" y="-2484"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="uWV-4O-gPI">
@@ -4438,7 +4444,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vL0-Ol-aE8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7007" y="-2771"/>
+            <point key="canvasLocation" x="7819" y="-2771"/>
         </scene>
         <!--My Box Controller-->
         <scene sceneID="hdK-Kj-lXI">
@@ -4735,7 +4741,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8L-4a-cgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6951" y="-2004"/>
+            <point key="canvasLocation" x="7763" y="-2004"/>
         </scene>
         <!--Add Flavor Tags View-->
         <scene sceneID="Gkt-1y-T7T">
@@ -5066,7 +5072,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ph-CV-Kpz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6219" y="-2790"/>
+            <point key="canvasLocation" x="7031" y="-2790"/>
         </scene>
         <!--Rate it-->
         <scene sceneID="Zkd-BE-tXE">
@@ -5137,7 +5143,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QdJ-kp-Udm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8864" y="-2846"/>
+            <point key="canvasLocation" x="9676" y="-2846"/>
         </scene>
         <!--Review Score View Controller-->
         <scene sceneID="OMZ-BF-5ix">
@@ -5350,7 +5356,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kFW-KN-UUY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7895" y="-1942"/>
+            <point key="canvasLocation" x="8707" y="-1942"/>
         </scene>
         <!--Independant Review View-->
         <scene sceneID="aP8-xN-g8H">
@@ -5459,7 +5465,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u6k-qn-BgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8615" y="-1953"/>
+            <point key="canvasLocation" x="9427" y="-1953"/>
         </scene>
         <!--Edit Profile-->
         <scene sceneID="BTr-JQ-yFO">
@@ -7477,7 +7483,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ug-TV-ffZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4248" y="-2436"/>
+            <point key="canvasLocation" x="5060" y="-2436"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dM7-5M-Idj">
@@ -7515,7 +7521,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PyK-XF-Mga" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6203" y="-2015"/>
+            <point key="canvasLocation" x="7015" y="-2015"/>
         </scene>
         <!--checkInView-->
         <scene sceneID="lWz-fz-VrU">
@@ -8314,26 +8320,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="24L-Ql-HPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8052" y="-2846"/>
+            <point key="canvasLocation" x="8864" y="-2846"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="lXL-gY-TJ3">
+        <scene sceneID="hcn-RR-pOK">
             <objects>
-                <navigationController storyboardIdentifier="addJuiceViewNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="xe1-up-6B1" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pyU-7c-NuW" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CkE-6b-yTa">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="78m-Wm-BiJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="uhR-fL-Fd7" kind="relationship" relationship="rootViewController" id="iTg-75-I2H"/>
+                        <segue destination="xOc-Ie-0wv" kind="relationship" relationship="rootViewController" id="bjo-P1-Mes"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gjf-D6-WQ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gjh-Vk-aK9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1922" y="-2484"/>
+            <point key="canvasLocation" x="3387" y="-2484"/>
         </scene>
     </scenes>
     <resources>

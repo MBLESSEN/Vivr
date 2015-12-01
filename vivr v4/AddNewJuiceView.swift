@@ -44,6 +44,13 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     
     override func viewWillAppear(animated: Bool) {
         juiceName.becomeFirstResponder()
+        configureNavBar()
+    }
+    
+    //CONFIGURE NAV BAR
+    
+    func configureNavBar() {
+        self.navigationController?.navigationBarHidden = true
     }
     
     func brandSelected(brandID: Int, brandName: String) {

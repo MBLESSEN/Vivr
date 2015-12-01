@@ -32,7 +32,6 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     var brands: Array<Brand>?
     var users: Array<User>?
     var addJuiceView: AddNewJuiceView?
-    var addJuiceViewNavigationController: UINavigationController?
     var isLoadingFeed = false
     var didLoadSearch = false
     var segueIdentifier:String?
@@ -140,8 +139,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     
     func createAddJuiceView() {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        addJuiceViewNavigationController = storyboard.instantiateViewControllerWithIdentifier("addJuiceViewNavigationController") as! UINavigationController
-        addJuiceView = addJuiceViewNavigationController?.viewControllers.first as! AddNewJuiceView
+        addJuiceView = storyboard.instantiateViewControllerWithIdentifier("addJuiceView") as! AddNewJuiceView
         
     }
     
