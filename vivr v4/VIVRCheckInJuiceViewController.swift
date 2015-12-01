@@ -272,13 +272,6 @@ class VIVRCheckInJuiceViewController: UIViewController, ProductViewDelegate, Bro
     
     @IBAction func submitPressed(sender: AnyObject) {
         if addingBrand == true {
-            addBrand(brandName!, completion: { (bId, error) in
-                let bID = Int(bId)
-                self.addProduct(self.juiceName!, brandID: bID, completion: { (product, err) in
-                        let productID = product.productID
-                        self.checkInJuice(productID!)
-                    })
-                })
         }else if addingProduct == true {
             self.addProduct(self.juiceName!, brandID: brandID!, completion: { (product, err) in
                 
@@ -334,26 +327,6 @@ class VIVRCheckInJuiceViewController: UIViewController, ProductViewDelegate, Bro
             
         }
         
-    }
-    
-    // ADD BRAND TO DATABASE
-    
-    func addBrand(name: String, completion: (brandID: Int, error: NSError?) -> Void) {
-        let parameters: [String: AnyObject] = [
-            "name": name
-        ]
-        Brand.createNewBrand(parameters, completionHandler: { (brandWrapper, error) in
-            if error != nil {
-                
-            }else {
-                if brandWrapper != nil {
-                    let brand: Brand = (brandWrapper?.Brands?.first)!
-                    self.selectedBrandID = brand.id
-                    completion(brandID: brand.id!, error: nil)
-                }
-            }
-            
-        })
     }
     
     // ADD PRODUCT TO DATABASE

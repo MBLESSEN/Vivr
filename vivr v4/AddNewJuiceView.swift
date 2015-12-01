@@ -121,6 +121,10 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         }
     }
     @IBAction func enterNewBrandPressed(sender: AnyObject) {
+        self.performSegueWithIdentifier("addNewBrandSegue", sender: self)
+        
+        
+        /*
         if tableActive == true {
             tableActive = false
             searchHeight!.constant = 0
@@ -156,7 +160,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
             })
             
             
-        }
+        }*/
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {

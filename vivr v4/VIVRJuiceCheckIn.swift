@@ -13,6 +13,8 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var cancelButtonWidthConstraint: NSLayoutConstraint!
     
     
     var searchView: VIVRSearchViewController?
@@ -47,6 +49,32 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         let imageView = UIImageView(image: logo)
         self.navigationItem.titleView = imageView
     }
+    
+    //IB  ACTION OUTLETS
+    //CANCEL BUTTON
+    @IBAction func cancelPressed(sender: AnyObject) {
+        hideSearchView()
+        hideCancelButton()
+        searchBar.resignFirstResponder()
+    }
+    
+    //CANCEL BUTTON FUNCTIONS
+    
+    func showCancelButton() {
+        UIView.animateWithDuration(0.2, animations: {
+            self.cancelButtonWidthConstraint.constant = 60.0
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func hideCancelButton() {
+        UIView.animateWithDuration(0.2, animations: {
+            self.cancelButtonWidthConstraint.constant = 0.0
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    
     
     //CHILD VIEW CONTROLLERS
     //INSTANTIATE SEARCHVIEW
@@ -108,10 +136,14 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
         showSearchView()
+        showCancelButton()
         return true
     }
     
     //UISEARCHBAR DELEGATE FUNCTIONS
+    //SEARCH BAR TEXT FUNCTIONS
+    //CLEAR SEARCH BAR
+    
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         searchView!.searchTextCount = searchText.characters.count
         if searchText.characters.count >= 3 {
@@ -144,6 +176,10 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchView!.clearSearch()
+    }
+    
+    func clearSearch() {
+        searchBar.text = ""
     }
     
 
