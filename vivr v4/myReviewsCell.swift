@@ -10,14 +10,6 @@ import UIKit
 import Alamofire
 import Haneke
 
-protocol reviewCellDelegate {
-    func tappedProductbutton(cell: myReviewsCell)
-    func tappedCommentButton(cell: myReviewsCell)
-    func reloadAPI(cell: myReviewsCell)
-    func helpfulTrue(cell: myReviewsCell)
-    func helpfulFalse(cell: myReviewsCell)
-}
-
 class myReviewsCell: UITableViewCell {
 
     @IBOutlet weak var productImage: UIImageView!

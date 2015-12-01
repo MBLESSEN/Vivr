@@ -7632,10 +7632,10 @@
             </objects>
             <point key="canvasLocation" x="175" y="-567"/>
         </scene>
-        <!--View Controller-->
+        <!--User Reviews View Controller-->
         <scene sceneID="gw5-4J-J6G">
             <objects>
-                <viewController id="g6C-mY-jmH" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="myUserReviews" id="g6C-mY-jmH" customClass="VIVRUserReviewsViewController" customModule="vivr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iKG-82-wVl"/>
                         <viewControllerLayoutGuide type="bottom" id="P3g-Ih-AHg"/>
@@ -7649,7 +7649,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="230" id="lZm-Wj-UbL">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="&quot;myReviews&quot;" rowHeight="230" id="lZm-Wj-UbL" customClass="myReviewsCell" customModule="vivr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="560" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lZm-Wj-UbL" id="Oa5-m3-yE9">
@@ -7731,8 +7731,20 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
+                                        <connections>
+                                            <outlet property="brandName" destination="FJv-xG-yuP" id="UGc-8g-sNY"/>
+                                            <outlet property="helpfullLabel" destination="AtZ-3Y-EuQ" id="Ccg-fy-xTA"/>
+                                            <outlet property="productImage" destination="bgE-6Y-KPY" id="aLX-DW-5b4"/>
+                                            <outlet property="productName" destination="fVd-QW-hho" id="AS1-dV-Uh5"/>
+                                            <outlet property="productReview" destination="5Q5-Pw-uS5" id="Efv-7l-hew"/>
+                                            <outlet property="scoreLabel" destination="Jde-9j-2zt" id="XEj-2I-Uvj"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="g6C-mY-jmH" id="h2i-Sl-Vqr"/>
+                                    <outlet property="delegate" destination="g6C-mY-jmH" id="uF3-jA-mMv"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <animations/>
@@ -7744,6 +7756,9 @@
                             <constraint firstItem="G8h-kt-DNC" firstAttribute="leading" secondItem="DND-0B-e3c" secondAttribute="leadingMargin" id="igl-H3-DMn"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="reviewTable" destination="G8h-kt-DNC" id="FiW-5g-91N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SAA-jx-XeR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

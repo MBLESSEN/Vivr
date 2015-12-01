@@ -18,6 +18,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     
     
     var searchView: VIVRSearchViewController?
+    var myReviewsView: VIVRUserReviewsViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +84,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     
     //CHILD VIEW CONTROLLERS
     //INSTANTIATE SEARCHVIEW
+    //INSTANTIATE MYREVIEWSVIEW
     //SHOW/HIDE SEARCH VIEW
     
     func instantiateSearchView() {
@@ -93,6 +95,14 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         searchView!.view.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, bottomView.frame.height)
         searchView!.topViewHeightConstraint.constant = 0
         searchView!.view.layoutSubviews()
+    }
+    
+    func instantiateMyReviewsView() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        myReviewsView = storyboard.instantiateViewControllerWithIdentifier("myUserReviews") as! VIVRUserReviewsViewController
+        myReviewsView?.selectedUserID = myData.myProfileID
+        addChildViewController(myReviewsView!)
+        myReviewsView!.view.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, bottomView.frame.height)
     }
     
     func showSearchView() {
@@ -108,6 +118,18 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         }
     }
     
+    func showMyReviewsView() {
+        if myReviewsView != nil {
+            bottomView.addSubview(myReviewsView!.view)
+            myReviewsView?.didMoveToParentViewController(self)
+        }
+    }
+    
+    func hideMyReviewsView() {
+        if myReviewsView != nil {
+            myReviewsView!.view.removeFromSuperview()
+        }
+    }
     
     //VIVRSEARCHVIEWCONTROLLER DELEGATE FUNCTIONS
     //DISMISS SEARCH MEANS PRODUCT WAS SELECTED RROM SEARCH TABLE, SEGUE TO PRODUCT 
