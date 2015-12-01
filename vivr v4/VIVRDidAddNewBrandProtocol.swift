@@ -9,6 +9,7 @@
 import Foundation
 
 
-protocol VIVRDidAddNewBrandProtocol {
-    func brandCreated(brandName: String)
+@objc protocol VIVRDidAddNewBrandProtocol {
+    optional func brandCreated(brandName: String, brandID: Int)
+    optional func checkInAnotherJuice()
 }

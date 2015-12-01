@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VIVRAddNewBrandViewController: UIViewController, VIVRDidAddNewBrandProtocol {
+class VIVRAddNewBrandViewController: UIViewController {
 
     @IBOutlet weak var newBrandTextField: UITextField!
     @IBOutlet weak var navigationBar: UINavigationBar!
@@ -105,17 +105,25 @@ class VIVRAddNewBrandViewController: UIViewController, VIVRDidAddNewBrandProtoco
             ]
             Brand.createNewBrand(parameters, completionHandler: { (response, error) in
                 if response != nil {
-                    let alert = UIAlertController(title: "You've created a new brand!", message: "Brand verfication in progress. When your brand is verified you will be able to add products to this brand.", preferredStyle: .Alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
+                    let alert = UIAlertController(title: "You've created a new brand!", message: "Brand verfication in progress. When your brand is verified you will be able to add products to this brand. Would you like to check in another Juice?", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "No", style: .Default, handler: { action in
                             self.dismissViewControllerAnimated(true, completion: nil)
+                        
                         }))
+                    alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { action in
+                        self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                    }))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }else {
-                    let alert = UIAlertController(title: "Something went wrong", message: "You didnt enter a brand name", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Something went wrong", message: "Your brand could not be created", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
             })
+        }else {
+            let alert = UIAlertController(title: "Something went wrong", message: "You didnt enter a brand name", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     

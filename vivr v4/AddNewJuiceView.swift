@@ -174,7 +174,8 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     //ASIGN BRAND DELEGATE TO SELF
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let addBrandVC = segue.destinationViewController as! VIVRAddNewBrandViewController
+        let addBrandVCNavController = segue.destinationViewController as! UINavigationController
+        let addBrandVC = addBrandVCNavController.viewControllers.first as! VIVRAddNewBrandViewController
         addBrandVC.addNewBrandDelegate = self
     }
     
@@ -202,8 +203,13 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     
     //VIVR DID ADD NEW BRAND PROTOCOL FUNCTIONS
     
-    func brandCreated(brandName: String) {
-        <#code#>
+    func brandCreated(brandName: String, brandID: Int) {
+        
+        
+    }
+    
+    func checkInAnotherJuice() {
+        self.dismissViewControllerAnimated(false, completion: nil)
     }
     
 

@@ -28,7 +28,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     override func viewWillAppear(animated: Bool) {
         showTitleLogo()
         configureNavBar()
-        
+        resetView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,6 +48,11 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         let logo = UIImage(named: "vivrTitleLogo")?.imageWithRenderingMode(.AlwaysOriginal)
         let imageView = UIImageView(image: logo)
         self.navigationItem.titleView = imageView
+    }
+    
+    func resetView() {
+        searchBar.text = ""
+        hideSearchView()
     }
     
     //IB  ACTION OUTLETS
