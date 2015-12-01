@@ -12,7 +12,7 @@ protocol AddNewJuiceViewDelegate {
     func submit()
 }
 
-class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate, UITextFieldDelegate {
+class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate, UITextFieldDelegate, VIVRDidAddNewBrandProtocol {
     
     @IBOutlet weak var brandView: UIView!
     var viewDelegate: AddNewJuiceViewDelegate? = nil
@@ -170,6 +170,14 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         }*/
     }
     
+    //PREPARE FOR SEGUE 
+    //ASIGN BRAND DELEGATE TO SELF
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let addBrandVC = segue.destinationViewController as! VIVRAddNewBrandViewController
+        addBrandVC.addNewBrandDelegate = self
+    }
+    
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.characters.count >= 1 {
             if let searchString = searchBar.text!.stringByReplacingOccurrencesOfString(" ", withString: "_") as String! {
@@ -190,6 +198,12 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    //VIVR DID ADD NEW BRAND PROTOCOL FUNCTIONS
+    
+    func brandCreated(brandName: String) {
+        <#code#>
     }
     
 

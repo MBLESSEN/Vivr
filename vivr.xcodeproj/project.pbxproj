@@ -108,6 +108,7 @@
 		50F26D4F1B0D37FE00A42634 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F26D4E1B0D37FE00A42634 /* AboutTableViewController.swift */; };
 		50F26D511B0D3E1B00A42634 /* VIVRFeedBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F26D501B0D3E1B00A42634 /* VIVRFeedBackViewController.swift */; };
 		50F26D531B0E5D8700A42634 /* APIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F26D521B0E5D8700A42634 /* APIWrapper.swift */; };
+		50FB57BC1C0E15D900568BA7 /* VIVRDidAddNewBrandProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB57BB1C0E15D900568BA7 /* VIVRDidAddNewBrandProtocol.swift */; settings = {ASSET_TAGS = (); }; };
 		50FE14DB1B602BFE003D6BA3 /* BoxesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE14DA1B602BFE003D6BA3 /* BoxesCell.swift */; };
 		50FE14E41B6030A9003D6BA3 /* BoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE14E31B6030A9003D6BA3 /* BoxCell.swift */; };
 		529E81F83F1ACA534C2E3AFB /* Pods_vivr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B82EB0EE4472D8983B5CB2D /* Pods_vivr.framework */; };
@@ -252,6 +253,7 @@
 		50F26D4E1B0D37FE00A42634 /* AboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		50F26D501B0D3E1B00A42634 /* VIVRFeedBackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRFeedBackViewController.swift; sourceTree = "<group>"; };
 		50F26D521B0E5D8700A42634 /* APIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIWrapper.swift; sourceTree = "<group>"; };
+		50FB57BB1C0E15D900568BA7 /* VIVRDidAddNewBrandProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRDidAddNewBrandProtocol.swift; sourceTree = "<group>"; };
 		50FE14DA1B602BFE003D6BA3 /* BoxesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxesCell.swift; sourceTree = "<group>"; };
 		50FE14E31B6030A9003D6BA3 /* BoxCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxCell.swift; sourceTree = "<group>"; };
 		E22A8040F1B830ACD71DC853 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 		503D59F01C081BF200D8C8F4 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				50FB57BB1C0E15D900568BA7 /* VIVRDidAddNewBrandProtocol.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -795,6 +798,7 @@
 				504E1EC01BB8684800FC9DA8 /* VIVRFeaturedPostViewController.swift in Sources */,
 				50985CDB1AFC38B2007BB4DD /* DBImageColorPicker.m in Sources */,
 				500CE6591BFFD29600D612FF /* BlogPost.swift in Sources */,
+				50FB57BC1C0E15D900568BA7 /* VIVRDidAddNewBrandProtocol.swift in Sources */,
 				50035DA31BC594FE00B5CCE3 /* tabBarController.swift in Sources */,
 				50C3B4641A7C5DC400EC39D1 /* KeychainWrapper.swift in Sources */,
 				508AA7FA1BC728170050E5D3 /* VIVRIndependantReviewView.swift in Sources */,
