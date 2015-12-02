@@ -15,6 +15,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
     var isLoadingReviews = false
     var userReviewsWrapper:ActivityWrapper?
     var selectedUserID:Int?
+    @IBOutlet weak var juiceCountLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,10 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
         loadFirstReviews()
     }
     
+    
+    func setUserStats() {
+        self.juiceCountLabel.text = "\(userReviewsWrapper?.count!)"
+    }
     
     //UITABLEVIEW DATASOURCE & DELEGATE FUNCTIONS
     
@@ -115,7 +120,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
         if let helpfullCount = review.helpfulCount {
             switch helpfullCount {
             case 0:
-                cell.helpfullLabel.text = "Was this helpful?"
+                cell.helpfullLabel.text = "0 people found this helpful?"
             default:
                 cell.helpfullLabel.text = "\(helpfullCount) people found this helpful"
             }
@@ -167,6 +172,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
     
     func addReviewFromWrapper(wrapper: ActivityWrapper?) {
         self.userReviewsWrapper = wrapper
+        setUserStats()
         if wrapper?.count == 0 {
             reviewTable.separatorStyle = UITableViewCellSeparatorStyle.None
         }else {

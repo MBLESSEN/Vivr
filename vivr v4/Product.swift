@@ -42,7 +42,11 @@ class Product {
         self.name = json[ActivityFeedReviewsFields.name.rawValue].stringValue
         self.image = json[ActivityFeedReviewsFields.image.rawValue].stringValue
         if self.image != "" {
-        self.imageFromURL = UIImage(data: NSData(contentsOfURL: NSURL(string: self.image!)!)!)!
+            let url = NSURL(string: self.image!)
+            let data = NSData(contentsOfURL: url!)
+            if data != nil {
+                self.imageFromURL = UIImage(data: data!)!
+            }
         }
         self.description = json[ActivityFeedReviewsFields.description.rawValue].stringValue
         self.currentFavorite = json[ActivityFeedReviewsFields.currentFavorite.rawValue].boolValue

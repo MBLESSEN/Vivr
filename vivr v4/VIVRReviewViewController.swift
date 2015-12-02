@@ -8,10 +8,11 @@
 
 import UIKit
 
-class VIVRReviewViewController: UIViewController {
+class VIVRReviewViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var review: UITextView!
     
     var reviewScoreView:VIVRReviewScoreViewController?
     
@@ -39,14 +40,42 @@ class VIVRReviewViewController: UIViewController {
         reviewScoreView?.didMoveToParentViewController(self)
     }
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // REVIEW TEXT VIEW DELEGATE FUNCTIONS
+    //SET PLACEHOLDER TEXT
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        
+        let currentText:NSString = review.text
+        let updatedText = currentText.stringByReplacingCharactersInRange(range, withString:text)
+        
+        if updatedText.characters.count == 0 {
+            
+            review.text = "What did it taste like?"
+            review.textColor = UIColor.lightGrayColor()
+            review.alpha = 0.5
+            
+            
+            review.selectedTextRange = review.textRangeFromPosition(review.beginningOfDocument, toPosition: review.beginningOfDocument)
+            
+            return false
+        }
+            
+        else if review.textColor == UIColor.lightGrayColor() && text.characters.count > 0 {
+            review.text = nil
+            review.textColor = UIColor.blackColor()
+            review.alpha = 1.0
+        }
+        
+        return true
     }
-    */
+    
+    func textViewDidChangeSelection(textView: UITextView) {
+        if review.textColor == UIColor.lightGrayColor() {
+            review.selectedTextRange = review.textRangeFromPosition(review.beginningOfDocument, toPosition: review.beginningOfDocument)
+        }
+        
+    }
+
 
 }
