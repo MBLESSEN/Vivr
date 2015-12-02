@@ -116,12 +116,14 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
             bottomView.addSubview(searchView!.view)
             searchView!.didMoveToParentViewController(self)
         }
+        hideMyReviewsView()
     }
     
     func hideSearchView() {
         if searchView != nil {
             searchView!.view.removeFromSuperview()
         }
+        showMyReviewsView()
     }
     
     func showMyReviewsView() {
@@ -154,6 +156,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let navigation = storyboard.instantiateViewControllerWithIdentifier("reviewViewControllerNavigationController") as! UINavigationController
         let reviewVC = navigation.viewControllers.first as! VIVRReviewViewController
+        reviewVC.product = product
         presentViewController(navigation, animated: true, completion: nil)
     }
     

@@ -13,7 +13,9 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var review: UITextView!
+    @IBOutlet weak var productImage: UIImageView!
     
+    var product:Product?
     var reviewScoreView:VIVRReviewScoreViewController?
     
     override func viewDidLoad() {
@@ -22,10 +24,34 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(animated: Bool) {
+        setupViewController()
+    }
+
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func setupViewController() {
+        if product != nil {
+            let url = NSURL(string: product!.image!)
+            self.productImage.hnk_setImageFromURL(url!)
+        }
+        review.textColor = UIColor.lightGrayColor()
+        review.text = "What did it taste like?"
+        review.selectedTextRange = review.textRangeFromPosition(review.beginningOfDocument, toPosition: review.beginningOfDocument)
+        review.becomeFirstResponder()
+    }
+    
+    
+    //IB OUTLET FUNCTIONS
+    //CANCEL REVIEWVIEW
+    @IBAction func cancelPressed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     
     // INSTANTIATE REVIEWSCOREVIEW
@@ -53,7 +79,6 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate {
             
             review.text = "What did it taste like?"
             review.textColor = UIColor.lightGrayColor()
-            review.alpha = 0.5
             
             
             review.selectedTextRange = review.textRangeFromPosition(review.beginningOfDocument, toPosition: review.beginningOfDocument)
@@ -64,7 +89,6 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate {
         else if review.textColor == UIColor.lightGrayColor() && text.characters.count > 0 {
             review.text = nil
             review.textColor = UIColor.blackColor()
-            review.alpha = 1.0
         }
         
         return true

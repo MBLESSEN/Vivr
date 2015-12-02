@@ -184,7 +184,7 @@ class MyBoxController: UIViewController, createNewBoxDelegate, UITableViewDataSo
     func goToBox(cell: BoxesCell) {
         selectedBox = cell.boxID!
         self.dismissViewControllerAnimated(true, completion: {
-            viewDelegate?.boxSelected(self)
+            self.viewDelegate?.boxSelected(self)
         })
     }
     

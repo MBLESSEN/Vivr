@@ -34,7 +34,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
     
     
     func setUserStats() {
-        self.juiceCountLabel.text = "\(userReviewsWrapper?.count!)"
+        self.juiceCountLabel.text = "\(userReviewsWrapper!.count!)"
     }
     
     //UITABLEVIEW DATASOURCE & DELEGATE FUNCTIONS
@@ -73,10 +73,12 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
     
     
     func setImageForReview(cell:myReviewsCell, indexPath:NSIndexPath) {
-        let review = userReviews![indexPath.row]
-        if let imageString = review.product?.image {
-            let url = NSURL(string: imageString)
-            cell.productImage.hnk_setImageFromURL(url!)
+        if userReviews != nil {
+            let review = userReviews![indexPath.row]
+            if let imageString = review.product?.image {
+                let url = NSURL(string: imageString)
+                cell.productImage.hnk_setImageFromURL(url!)
+            }
         }
     }
     func setReviewForCell(cell:myReviewsCell, indexPath:NSIndexPath) {

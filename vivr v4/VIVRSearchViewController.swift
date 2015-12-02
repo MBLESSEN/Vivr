@@ -380,8 +380,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
             cell.productID = "\(products![indexPath.row].productID!)"
             if let urlString = products![indexPath.row].image as String? {
                 let url = NSURL(string: urlString)
-                cell.productImage!.hnk_setImage(self.products![indexPath.row].imageFromURL, key: products![indexPath.row].name!)
-                //cell.productImage!.hnk_setImageFromURL(url!)
+                cell.productImage!.hnk_setImageFromURL(url!)
             }
         }
         return cell
