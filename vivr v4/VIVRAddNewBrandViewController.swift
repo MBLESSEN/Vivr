@@ -108,6 +108,7 @@ class VIVRAddNewBrandViewController: UIViewController {
                     let alert = UIAlertController(title: "You've created a new brand!", message: "Brand verfication in progress. When your brand is verified you will be able to add products to this brand. Would you like to check in another Juice?", preferredStyle: .Alert)
                     alert.addAction(UIAlertAction(title: "No", style: .Default, handler: { action in
                             self.dismissViewControllerAnimated(true, completion: nil)
+                            self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
                         
                         }))
                     alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { action in

@@ -41,7 +41,6 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     var activeWishlistContainer: UIView?
     var topView: UIView = UIView()
     var bottomView:UIView = UIView()
-    var reviewScoreView:VIVRReviewScoreViewController?
     var isBeingCheckedIn: Bool?
     var titleLabel: UILabel = UILabel()
 
@@ -55,7 +54,6 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     var boxOrProduct = "product"
     
     var tagPickerView: UIView = UIView(frame: CGRectMake(0, 0, 0, 0))
-    var reviewView: productCell?
     var imageHeight: CGFloat?
     var reviewActionButtons: [UIButton] = Array()
     
@@ -95,8 +93,6 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
         self.titleLabel.sizeToFit()
         self.titleLabel.alpha = 0.0
         self.titleLabel.frame = CGRectMake(0, 0, 0, 0)
-        createScoreView()
-        createCloseButton()
     }
     
     
@@ -183,7 +179,6 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
                             self.reviewButtonViewWrapper.layoutSubviews()
                             self.keyboardActive = true
                             self.view.layoutIfNeeded()
-                            self.reviewView?.adjustViews()
                             
                         }, completion: {finished in
                         }
@@ -218,91 +213,6 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
 
     }
     
-    func createReviewActionBar() {
-        if (UIScreen.mainScreen().bounds.width < 370) {
-            reviewButtonViewWrapper.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 50)
-        }else {
-            reviewButtonViewWrapper.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 75)
-        }
-        let buttonWidth = reviewButtonViewWrapper.frame.width/2
-        let reviewButton = UIButton(frame: CGRectMake(0, 0, buttonWidth, reviewButtonViewWrapper.frame.height))
-        reviewButton.tag = 0
-        reviewButton.setTitle("Review", forState: .Normal)
-        reviewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        reviewButton.backgroundColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
-        reviewButton.titleLabel!.font = UIFont(name: "PTSans-Bold", size: 15.0)
-        reviewButton.addTarget(self, action: "reviewPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-        reviewButton.addTarget(self, action: "buttonTouchDown:", forControlEvents: .TouchDown)
-        let scoreButton = UIButton(frame: CGRectMake(buttonWidth, 0, buttonWidth, reviewButtonViewWrapper.frame.height))
-        scoreButton.tag = 1
-        scoreButton.setTitle("Score", forState: .Normal)
-        scoreButton.setTitleColor(UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9), forState: .Normal)
-        scoreButton.backgroundColor = UIColor.whiteColor()
-        scoreButton.titleLabel!.font = UIFont(name: "PTSans-Bold", size: 15.0)
-        scoreButton.addTarget(self, action: "reviewPressed:", forControlEvents: .TouchUpInside)
-        scoreButton.addTarget(self, action: "buttonTouchDown:", forControlEvents: .TouchDown)
-        
-        reviewActionButtons.append(reviewButton)
-        reviewActionButtons.append(scoreButton)
-        reviewButtonViewWrapper.addSubview(reviewButton)
-        reviewButtonViewWrapper.addSubview(scoreButton)
-        reviewButtonViewWrapper.bringSubviewToFront(reviewButton)
-        reviewButtonViewWrapper.bringSubviewToFront(scoreButton)
-       
-        reviewButtonViewWrapper.addConstraint(NSLayoutConstraint(item: reviewButton, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: reviewButtonViewWrapper, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: 0))
-    }
-    
-    func removeActionBar() {
-        for buttons in reviewButtonViewWrapper.subviews {
-            buttons.removeFromSuperview()
-        }
-        reviewActionButtons = []
-    }
-    
-    func reviewPressed(sender: UIButton) {
-        sender.selected = true
-        sender.backgroundColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
-        sender.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        let tag = sender.tag
-        print(tag, terminator: "")
-        for button in reviewActionButtons
-        {
-            if button.tag != sender.tag {
-                button.backgroundColor = UIColor.whiteColor()
-                button.setTitleColor(UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9), forState: .Normal)
-            }
-        }
-        if tag == 1 {
-            reviewView?.review.resignFirstResponder()
-            UIView.animateWithDuration(
-                // duration
-                0.2,
-                // delay
-                delay: 0.0,
-                options: [],
-                animations: {
-                    self.reviewScoreView!.view.alpha = 1.0
-                }, completion: {finished in
-                }
-            )
-            
-        }
-        if tag == 0 {
-            reviewView?.review.becomeFirstResponder()
-            UIView.animateWithDuration(
-                // duration
-                0.2,
-                // delay
-                delay: 0.0,
-                options: [],
-                animations: {
-                    self.reviewScoreView!.view.alpha = 0.0
-                }, completion: {finished in
-                }
-            )
-        }
-        setTitleLabelForNav(tag)
-    }
     func setTitleLabelForNav(view: Int) {
         switch view {
         case 0:
@@ -350,126 +260,7 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
         sender.backgroundColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
         sender.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     }
-    
-    func cancelReview() {
-        navBackground.hidden = false
-        hideKeyboard()
-        self.reviewView!.review.text = nil
-        self.reviewView!.vaporScore = nil
-        self.reviewView?.throatScore = nil
-        self.reviewView!.removeReviewWrappers()
-        reviewNavBar.removeFromSuperview()
-        UIView.animateWithDuration(
-            // duration
-            0.2,
-            // delay
-            delay: 0.0,
-            options: [],
-            animations: {
-                self.reviewView!.productImageCenter.constant = 0
-                self.reviewView!.layoutIfNeeded()
-            }, completion: {finished in
-                UIView.animateWithDuration(
-                    // duration
-                    0.2,
-                    // delay
-                    delay: 0.0,
-                    options: [],
-                    animations: {
-                        self.reviewView!.frame.offsetInPlace(dx: 0, dy: -44)
-                        self.bottomView.alpha = 0.0
-                        self.view.backgroundColor = UIColor.whiteColor()
-                    }, completion: {finished in
-                    self.navigationController?.navigationBarHidden = false
-                    self.reviewButtonViewWrapper.removeFromSuperview()
-                    }
-                )
-                UIView.animateWithDuration(
-                    // duration
-                    0.2,
-                    // delay
-                    delay: 0.0,
-                    options: [],
-                    animations: {
-                        self.reviewView!.backgroundColor = UIColor.whiteColor()
-                    }, completion: {finished in
-                        UIView.animateWithDuration(
-                            // duration
-                            0.2,
-                            // delay
-                            delay: 0.0,
-                            options: [],
-                            animations: {
-                                self.mainTable.alpha = 1.0
-                                self.reviewView!.actionsBar.alpha = 1.0
-                                self.reviewView!.detailsView.alpha = 1.0
-                                self.reviewView!.flavorName.alpha = 1.0
-                                self.reviewView!.brandName.alpha = 1.0
-                            }, completion: {finished in
-                                self.mainTable.reloadData()
-                                self.removeActionBar()
-                                self.reviewView!.removeFromSuperview()
-                                self.topView.removeFromSuperview()
-                                self.bottomView.removeFromSuperview()
-                                
-                            }
-                        )
-                    }
-                )
-            }
-        )
 
-    }
-    
-    func submitReview() {
-        let reviewText = reviewView!.review
-        switch reviewText.text {
-        case nil:
-            let emptyAlert = UIAlertController(title: "oops!", message: "Please enter a review", preferredStyle: UIAlertControllerStyle.Alert)
-            emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(emptyAlert, animated: true, completion: nil)
-        case "Write a comment...":
-            let emptyAlert = UIAlertController(title: "oops!", message: "Please enter a review", preferredStyle: UIAlertControllerStyle.Alert)
-            emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(emptyAlert, animated: true, completion: nil)
-        default:
-            if let vapor = reviewScoreView!.vaporController.selectedSegmentIndex as Int?{
-                if let throat = reviewScoreView!.throatController.selectedSegmentIndex as Int? {
-                        let score = "\(reviewScoreView!.reviewScore)"
-                    let parameters: [ String : AnyObject] = [
-                        "throat": throat,
-                        "vapor": vapor,
-                        "description": reviewText.text,
-                        "score": score
-                        
-                    ]
-                    
-                    
-                    Alamofire.request(Router.AddReview(reviewView!.productID!, parameters)).responseJSON { (response) in
-                        self.cancelReview()
-                        self.mainTable.reloadData()
-                    }
-                    
-                }else {
-                    let emptyAlert = UIAlertController(title: "oops!", message: "How was the throat hit?", preferredStyle: UIAlertControllerStyle.Alert)
-                    emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(emptyAlert, animated: true, completion: nil)
-                }
-            }
-            else {
-                let emptyAlert = UIAlertController(title: "oops!", message: "How was the vapor production?", preferredStyle: UIAlertControllerStyle.Alert)
-                emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(emptyAlert, animated: true, completion: nil)
-            }
-            
-            
-            }
-    }
-    
-    func createScoreView() {
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        reviewScoreView = storyboard.instantiateViewControllerWithIdentifier("reviewScore") as? VIVRReviewScoreViewController
-    }
     
     func toReview(cell: productCell) {
         reviewFlavor()
@@ -487,93 +278,11 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func reviewFlavor() {
-        createReviewActionBar()
-        navBackground.hidden = true
-        reviewNavBar.frame = CGRectMake(0, 20, UIScreen.mainScreen().bounds.width, 44)
-        reviewNavBar.delegate = self
-        reviewNavBar.barTintColor = UIColor.blackColor()
-        reviewNavBar.translucent = false
-        reviewNavBar.backgroundColor = UIColor.blackColor()
-        reviewNavBar.tintColor = UIColor.whiteColor()
-        // Create left and right button for navigation item
-        let leftButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelReview")
-        leftButton.image = UIImage(named: "delete")
-        let rightButton = UIBarButtonItem(title: "submit", style: UIBarButtonItemStyle.Plain, target: self, action: "submitReview")
-        if let font = UIFont(name: "PTSans-Bold", size: 15.00){
-            rightButton.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
-        }
-        
-        // Create two buttons for the navigation item
-        reviewNavItem.leftBarButtonItem = leftButton
-        reviewNavItem.rightBarButtonItem = rightButton
-        
-        // Assign the navigation item to the navigation bar
-        self.view.addSubview(reviewNavBar)
-        self.navigationController?.navigationBarHidden = true
-        reviewNavBar.items = [reviewNavItem]
-        reviewButtonViewWrapper.backgroundColor = UIColor.whiteColor()
-        reviewButtonViewWrapper.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(reviewButtonViewWrapper)
-        verticalConstraint = NSLayoutConstraint(item: bottomLayoutGuide, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: reviewButtonViewWrapper, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
-        let horizontalConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: reviewButtonViewWrapper, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
-        view.addConstraint(NSLayoutConstraint(item: reviewButtonViewWrapper, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-        self.view.addConstraint(verticalConstraint!)
-        self.view.addConstraint(horizontalConstraint)
-        if let cell = mainTable.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? productCell {
-            topView = UIView(frame: CGRectMake(0, 108, UIScreen.mainScreen().bounds.width, cell.productWrapperHeight.constant))
-
-            bottomView = UIView(frame: CGRectMake(0, topView.frame.height + 72, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - topView.frame.height - reviewButtonViewWrapper.frame.height - 72))
-            bottomView.backgroundColor = UIColor.blackColor()
-            self.view.addSubview(topView)
-            self.view.addSubview(bottomView)
-            reviewScoreView!.view.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, bottomView.frame.height)
-            reviewScoreView!.view.alpha = 0.0
-            reviewScoreView!.didMoveToParentViewController(self)
-            reviewView = cell
-            reviewView!.frame.offsetInPlace(dx: 0, dy: -40)
-            self.view.layoutMargins = UIEdgeInsetsMake(00, -16, 0, -16)
-            topView.addSubview(reviewView!)
-            self.bottomView.addSubview(self.reviewScoreView!.view)
-            self.view.bringSubviewToFront(reviewButtonViewWrapper)
-            self.view.bringSubviewToFront(reviewNavBar)
-            self.reviewView!.actionsBar.alpha = 0.0
-            self.reviewView!.detailsView.alpha = 0.0
-            self.reviewView!.flavorName.alpha = 0.0
-            self.reviewView!.brandName.alpha = 0.0
-            UIView.animateWithDuration(
-                // duration
-                0.2,
-                // delay
-                delay: 0.0,
-                options: [],
-                animations: {
-                    self.mainTable.alpha = 0.0
-                    self.reviewView!.backgroundColor = UIColor.blackColor()
-                    self.view.backgroundColor = UIColor.blackColor()
-                    self.reviewView!.frame.offsetInPlace(dx: 0, dy: 40)
-                }, completion: {finished in
-                    self.titleLabel.text = "Write a review"
-                    self.titleLabel.sizeToFit()
-                    self.reviewNavItem.titleView = self.titleLabel
-                    UIView.animateWithDuration(
-                        // duration
-                        0.2,
-                        // delay
-                        delay: 0.0,
-                        options: [],
-                        animations: {
-                            self.reviewView!.productImageCenter.constant = self.reviewView!.productImage.center.x - 58
-                            self.reviewView!.layoutIfNeeded()
-                        }, completion: {finished in
-                            self.reviewView!.scrollView.setContentOffset(CGPointMake(0, 0), animated: false)
-                            self.reviewView!.presentReviewView()
-                            
-                        }
-                    )
-                }
-            )
-        }
-
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let navigation = storyboard.instantiateViewControllerWithIdentifier("reviewViewControllerNavigationController") as! UINavigationController
+        let reviewVC = navigation.viewControllers.first as! VIVRReviewViewController
+        reviewVC.product = self.productData!
+        presentViewController(navigation, animated: true, completion: nil)
     }
     
     func tappedUser(cell: vivrHeaderCell) {

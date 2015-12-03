@@ -92,6 +92,8 @@
             <string>PTSans-Bold</string>
             <string>PTSans-Bold</string>
             <string>PTSans-Bold</string>
+            <string>PTSans-Regular</string>
+            <string>PTSans-Regular</string>
             <string>PTSans-Bold</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Bold</string>
@@ -3477,22 +3479,42 @@
                                     <action selector="submitButtonPressed:" destination="xOc-Ie-0wv" eventType="touchUpInside" id="Qni-O4-srn"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eNF-zb-nmT">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eNF-zb-nmT">
                                 <rect key="frame" x="20" y="128" width="560" height="30"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the brand name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfk-6l-Gcg">
+                                <rect key="frame" x="221" y="100" width="158" height="20"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Tw-oF-LE0">
+                                <rect key="frame" x="20" y="219" width="560" height="33"/>
+                                <animations/>
+                                <string key="text">After entering a brand, we will verify the brand. This process may take several hours. Check back when your brand is verified to check in your juice.</string>
+                                <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="14"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="eNF-zb-nmT" firstAttribute="top" secondItem="QDa-fr-eWJ" secondAttribute="bottom" constant="64" id="06H-Mh-A11"/>
+                            <constraint firstItem="8Tw-oF-LE0" firstAttribute="leading" secondItem="w8c-aL-B8V" secondAttribute="leadingMargin" id="5ZN-8a-w3o"/>
                             <constraint firstItem="eNF-zb-nmT" firstAttribute="leading" secondItem="w8c-aL-B8V" secondAttribute="leadingMargin" id="5d6-WW-5ic"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eNF-zb-nmT" secondAttribute="trailing" id="6GT-fP-bVk"/>
                             <constraint firstItem="eCW-AF-Zvs" firstAttribute="top" secondItem="aM8-g2-cdj" secondAttribute="bottom" id="Ka7-fh-aox"/>
+                            <constraint firstItem="8Tw-oF-LE0" firstAttribute="top" secondItem="eNF-zb-nmT" secondAttribute="bottom" constant="61" id="OQ8-uI-JIZ"/>
                             <constraint firstItem="aM8-g2-cdj" firstAttribute="leading" secondItem="w8c-aL-B8V" secondAttribute="leadingMargin" constant="-16" id="V4W-r2-vRE"/>
+                            <constraint firstItem="Dfk-6l-Gcg" firstAttribute="centerX" secondItem="w8c-aL-B8V" secondAttribute="centerX" id="i0N-aj-lcr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aM8-g2-cdj" secondAttribute="trailing" constant="-16" id="jo3-8Z-Yt4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8Tw-oF-LE0" secondAttribute="trailing" id="sut-hb-1fa"/>
+                            <constraint firstItem="eNF-zb-nmT" firstAttribute="top" secondItem="Dfk-6l-Gcg" secondAttribute="bottom" constant="8" id="us0-Xa-cCr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add a new brand" id="LXJ-z8-85b">
