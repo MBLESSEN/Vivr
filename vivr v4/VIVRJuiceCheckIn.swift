@@ -22,14 +22,14 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        instantiateMyReviewsView()
+        instantiateSearchView()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
         showTitleLogo()
         configureNavBar()
-        instantiateMyReviewsView()
-        instantiateSearchView()
 
     }
     
@@ -53,12 +53,15 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         self.navigationController?.navigationBar.translucent = true
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain , target: nil, action: nil)
     }
     
     func showTitleLogo(){
-        let logo = UIImage(named: "vivrTitleLogo")?.imageWithRenderingMode(.AlwaysOriginal)
-        let imageView = UIImageView(image: logo)
-        self.navigationItem.titleView = imageView
+        if self.navigationItem.titleView == nil {
+            let logo = UIImage(named: "vivrTitleLogo")?.imageWithRenderingMode(.AlwaysOriginal)
+            let imageView = UIImageView(image: logo)
+            self.navigationItem.titleView = imageView
+        }
     }
     
     func resetView() {

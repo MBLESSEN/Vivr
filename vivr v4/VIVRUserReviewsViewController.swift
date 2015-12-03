@@ -8,13 +8,22 @@
 
 import UIKit
 
-class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
+class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScrollViewDelegate {
 
     @IBOutlet weak var reviewTable: UITableView!
     var userReviews:Array<ActivityFeedReviews>?
     var isLoadingReviews = false
     var userReviewsWrapper:ActivityWrapper?
     var selectedUserID:Int?
+    var selectedProductId: String?
+    
+    var topPanelActive = true
+    @IBOutlet weak var topPanel: UIView!
+    @IBOutlet weak var topPanelHeightConstraint: NSLayoutConstraint!
+    //SCROLLVIEW DATA VARIABLES
+    var initialPoint: CGPoint?
+    
+    
     @IBOutlet weak var juiceCountLabel: UILabel!
     
     override func viewDidLoad() {
@@ -55,6 +64,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
             }
             setImageForReview(cell, indexPath: indexPath)
             setReviewForCell(cell, indexPath: indexPath)
+
             let rowsToLoadFromBottom = 5
             let rowsLoaded = self.userReviews!.count
             if (!self.isLoadingReviews && (indexPath.row >= (rowsLoaded - rowsToLoadFromBottom))) {
@@ -193,10 +203,42 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
     //RELOAD API
     
     func tappedProductbutton(cell: myReviewsCell) {
-        
+        self.selectedProductId = cell.productID!
+        self.performSegueWithIdentifier("userReviewToProduct", sender: self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let productVC = segue.destinationViewController as! VIVRProductViewController
+        productVC.selectedProductID = self.selectedProductId
     }
     
 
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let newPoint = reviewTable.contentOffset
+        print(newPoint.y)
+        if (newPoint.y - self.initialPoint!.y) > 25.0 {
+            if topPanelActive == true{
+            UIView.animateWithDuration(0.3, animations: {
+                self.topPanelHeightConstraint.constant = 0 - self.topPanel.frame.height
+                self.topPanelActive = false
+                self.view.layoutIfNeeded()
+            })
+            }
+        }else if (newPoint.y - self.initialPoint!.y) < -25 {
+            if topPanelActive == false {
+            UIView.animateWithDuration(0.3, animations: {
+                self.topPanelHeightConstraint.constant = 0
+                self.topPanelActive = true
+                self.view.layoutIfNeeded()
+            })
+            }
+        }
+    }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        self.initialPoint = reviewTable.contentOffset
+        print("------ INITAL POINT SET TO \(self.initialPoint)")
+    }
 
     /*
     // MARK: - Navigation

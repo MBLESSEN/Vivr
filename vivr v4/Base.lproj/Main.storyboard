@@ -674,7 +674,7 @@
                                 <animations/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="productCell" rowHeight="496" id="v9Q-Si-GCF" customClass="productCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="86" width="600" height="496"/>
+                                        <rect key="frame" x="0.0" y="22" width="600" height="496"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v9Q-Si-GCF" id="chj-dP-P6s">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="495.5"/>
@@ -1007,7 +1007,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="//boxCell" rowHeight="496" id="Os7-Z0-qbC" customClass="BoxCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="582" width="600" height="496"/>
+                                        <rect key="frame" x="0.0" y="518" width="600" height="496"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Os7-Z0-qbC" id="ra8-G2-zmG">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="495.5"/>
@@ -1291,7 +1291,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="boxCell" rowHeight="496" id="Ys4-p2-gDP" customClass="BoxCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1078" width="600" height="496"/>
+                                        <rect key="frame" x="0.0" y="1014" width="600" height="496"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ys4-p2-gDP" id="4IY-Dt-Uzd">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="495.5"/>
@@ -1583,7 +1583,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="flavorCell" rowHeight="279" id="XbZ-8b-jcp" customClass="flavorCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1574" width="600" height="279"/>
+                                        <rect key="frame" x="0.0" y="1510" width="600" height="279"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XbZ-8b-jcp" id="53o-3H-6qW">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="278.5"/>
@@ -1610,7 +1610,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="reviewCell" rowHeight="200" id="ZCT-ac-iPu" customClass="reviewTableViewCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1853" width="600" height="200"/>
+                                        <rect key="frame" x="0.0" y="1789" width="600" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZCT-ac-iPu" id="THR-Hw-dNX">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
@@ -1708,7 +1708,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReviewHeaderCell" rowHeight="200" id="hnh-Ub-N4i" customClass="vivrHeaderCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2053" width="600" height="200"/>
+                                        <rect key="frame" x="0.0" y="1989" width="600" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hnh-Ub-N4i" id="kWi-IM-xhu">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
@@ -1812,7 +1812,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Reviews" rowHeight="200" id="wR3-TL-nNR">
-                                        <rect key="frame" x="0.0" y="2253" width="600" height="200"/>
+                                        <rect key="frame" x="0.0" y="2189" width="600" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wR3-TL-nNR" id="bJf-ba-udL">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
@@ -7707,7 +7707,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="myReviews" rowHeight="148" id="lZm-Wj-UbL" customClass="myReviewsCell" customModule="vivr" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="myReviews" rowHeight="148" id="lZm-Wj-UbL" customClass="myReviewsCell" customModule="vivr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="592" height="148"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lZm-Wj-UbL" id="Oa5-m3-yE9">
@@ -7722,6 +7722,13 @@
                                                         <constraint firstAttribute="height" constant="50" id="ypg-V9-VOb"/>
                                                     </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydT-Oy-b0N">
+                                                    <rect key="frame" x="16" y="8" width="50" height="50"/>
+                                                    <animations/>
+                                                    <connections>
+                                                        <action selector="toButton:" destination="lZm-Wj-UbL" eventType="touchUpInside" id="lwU-6q-qKV"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BRAND NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJv-xG-yuP">
                                                     <rect key="frame" x="82" y="8" width="77" height="15.5"/>
                                                     <animations/>
@@ -7777,6 +7784,7 @@
                                                 <constraint firstAttribute="leadingMargin" secondItem="AtZ-3Y-EuQ" secondAttribute="leading" constant="-8" id="7AC-vO-lyE"/>
                                                 <constraint firstItem="Jde-9j-2zt" firstAttribute="top" secondItem="Oa5-m3-yE9" secondAttribute="topMargin" id="F3u-hA-2Yl"/>
                                                 <constraint firstItem="bgE-6Y-KPY" firstAttribute="leading" secondItem="Oa5-m3-yE9" secondAttribute="leadingMargin" constant="8" id="KVq-tR-Jjb"/>
+                                                <constraint firstItem="ydT-Oy-b0N" firstAttribute="centerX" secondItem="bgE-6Y-KPY" secondAttribute="centerX" id="Lck-3x-nLJ"/>
                                                 <constraint firstItem="FJv-xG-yuP" firstAttribute="leading" secondItem="bgE-6Y-KPY" secondAttribute="trailing" constant="16" id="Plv-fd-dL2"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="5Q5-Pw-uS5" secondAttribute="trailing" id="WsT-gU-rc1"/>
                                                 <constraint firstItem="5Q5-Pw-uS5" firstAttribute="top" secondItem="bgE-6Y-KPY" secondAttribute="bottom" constant="16" id="XTk-mF-cMg"/>
@@ -7784,6 +7792,9 @@
                                                 <constraint firstItem="fVd-QW-hho" firstAttribute="leading" secondItem="bgE-6Y-KPY" secondAttribute="trailing" constant="16" id="gMb-cp-gSh"/>
                                                 <constraint firstItem="FJv-xG-yuP" firstAttribute="top" secondItem="Oa5-m3-yE9" secondAttribute="topMargin" id="mjC-An-ChR"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="AtZ-3Y-EuQ" secondAttribute="bottom" id="pt5-zv-JXe"/>
+                                                <constraint firstItem="ydT-Oy-b0N" firstAttribute="height" secondItem="bgE-6Y-KPY" secondAttribute="height" id="qgf-zD-6az"/>
+                                                <constraint firstItem="ydT-Oy-b0N" firstAttribute="centerY" secondItem="bgE-6Y-KPY" secondAttribute="centerY" id="sWu-OO-j3t"/>
+                                                <constraint firstItem="ydT-Oy-b0N" firstAttribute="width" secondItem="bgE-6Y-KPY" secondAttribute="width" id="tOd-9b-ip3"/>
                                                 <constraint firstAttribute="topMargin" secondItem="bgE-6Y-KPY" secondAttribute="top" id="xds-y7-5Ml"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -7803,7 +7814,7 @@
                                     <outlet property="delegate" destination="g6C-mY-jmH" id="uF3-jA-mMv"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ShL-cG-Hy5">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ShL-cG-Hy5">
                                 <rect key="frame" x="4" y="20" width="592" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Juices checked in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4n-7n-xcs">
@@ -7845,6 +7856,9 @@
                     <connections>
                         <outlet property="juiceCountLabel" destination="7dp-2T-fVO" id="9tV-ZK-nyO"/>
                         <outlet property="reviewTable" destination="G8h-kt-DNC" id="FiW-5g-91N"/>
+                        <outlet property="topPanel" destination="ShL-cG-Hy5" id="FWP-XI-mbR"/>
+                        <outlet property="topPanelHeightConstraint" destination="sUL-C0-5f4" id="chp-gR-d5f"/>
+                        <segue destination="AZ3-B7-OPq" kind="show" identifier="userReviewToProduct" id="Nnc-aI-Yhf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SAA-jx-XeR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -8479,11 +8493,11 @@
         <image name="whiteTriangleDown" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pCN-gh-y0T"/>
         <segue reference="gI2-Ji-6fz"/>
-        <segue reference="RaL-ks-3Ih"/>
         <segue reference="ob1-jy-LVt"/>
+        <segue reference="pCN-gh-y0T"/>
+        <segue reference="RaL-ks-3Ih"/>
+        <segue reference="Nnc-aI-Yhf"/>
         <segue reference="buI-TE-Kva"/>
-        <segue reference="T8Z-Zg-S21"/>
     </inferredMetricsTieBreakers>
 </document>
