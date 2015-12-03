@@ -173,7 +173,9 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
     
     func addReviewFromWrapper(wrapper: ActivityWrapper?) {
         self.userReviewsWrapper = wrapper
-        setUserStats()
+        if wrapper != nil {
+            setUserStats()
+        }
         if wrapper?.count == 0 {
             reviewTable.separatorStyle = UITableViewCellSeparatorStyle.None
         }else {

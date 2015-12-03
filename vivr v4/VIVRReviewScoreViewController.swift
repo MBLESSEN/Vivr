@@ -11,6 +11,8 @@ import UIKit
 class VIVRReviewScoreViewController: UIViewController {
 
 
+
+    @IBOutlet weak var shadowView: UIButton!
     @IBOutlet weak var scoreBubble: UIView!
     @IBOutlet weak var scoreText: UILabel!
     @IBOutlet weak var scoreSlider: UISlider!
@@ -21,6 +23,7 @@ class VIVRReviewScoreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideShadowView()
         self.scoreBubble.alpha = 0.0
         let minImage = UIImage(named: "minTrackImage")
         let maxImage = UIImage(named: "maxTrackImage")
@@ -152,16 +155,19 @@ class VIVRReviewScoreViewController: UIViewController {
         )
     }
     
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func showShadowView(){
+        shadowView.hidden = false
+        shadowView.userInteractionEnabled = true
     }
-    */
+    
+    func hideShadowView() {
+        shadowView.hidden = true
+        shadowView.userInteractionEnabled = false
+    }
+    @IBAction func shadowViewPressed(sender: AnyObject) {
+        hideShadowView()
+        let parent = parentViewController as! VIVRReviewViewController
+        parent.hideKeyboard()
+    }
 
 }

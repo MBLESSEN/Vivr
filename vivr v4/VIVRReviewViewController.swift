@@ -15,12 +15,14 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var review: UITextView!
     @IBOutlet weak var productImage: UIImageView!
     
+    var keyboardActive = false
     var product:Product?
     var reviewScoreView:VIVRReviewScoreViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         instantiateReviewScoreView()
+        startObservingKeyboardEvents()
         // Do any additional setup after loading the view.
     }
 
@@ -99,6 +101,40 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate {
             review.selectedTextRange = review.textRangeFromPosition(review.beginningOfDocument, toPosition: review.beginningOfDocument)
         }
         
+    }
+    
+    //KEYBOARD DELEGATE FUNCTIONS
+    
+    private func startObservingKeyboardEvents() {
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:Selector("keyboardWillShow:"),
+            name:UIKeyboardWillShowNotification,
+            object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:Selector("keyboardWillHide:"),
+            name:UIKeyboardWillHideNotification,
+            object:nil)
+    }
+    
+    private func stopObservingKeyboardEvents() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        reviewScoreView?.showShadowView()
+        keyboardActive = true
+    }
+    func keyboardWillHide(notification: NSNotification) {
+        reviewScoreView?.hideShadowView()
+        keyboardActive = false
+    }
+    
+    func hideKeyboard() {
+        if(keyboardActive == true) {
+            review.becomeFirstResponder()
+            review.endEditing(true)
+        }
     }
 
 
