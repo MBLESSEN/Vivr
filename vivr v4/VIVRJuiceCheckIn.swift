@@ -98,7 +98,8 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         searchView!.viewDelegate = self
         searchView!.view.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, bottomView.frame.height)
         searchView!.topViewHeightConstraint.constant = 0
-        searchView!.view.layoutSubviews()
+        searchView!.view.layoutIfNeeded()
+        searchView!.didMoveToParentViewController(self)
     }
     
     func instantiateMyReviewsView() {
@@ -114,7 +115,6 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     func showSearchView() {
         if searchView != nil {
             bottomView.addSubview(searchView!.view)
-            searchView!.didMoveToParentViewController(self)
         }
         hideMyReviewsView()
     }

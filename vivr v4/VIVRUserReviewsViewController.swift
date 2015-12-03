@@ -19,7 +19,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        loadFirstReviews()
         // Do any additional setup after loading the view.
     }
 
@@ -29,7 +29,6 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        loadFirstReviews()
     }
     
     
@@ -73,7 +72,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate {
     
     
     func setImageForReview(cell:myReviewsCell, indexPath:NSIndexPath) {
-        if userReviews != nil {
+        if userReviews != nil && self.reviewTable != nil {
             let review = userReviews![indexPath.row]
             if let imageString = review.product?.image {
                 let url = NSURL(string: imageString)

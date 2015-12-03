@@ -344,7 +344,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             self.navigationItem.leftBarButtonItem = leftNavBarButton
             let searchWidth = self.view.frame.width - 82
             self.addChildViewController(self.searchView!)
-            self.searchView!.view.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height - 64)
+            self.searchView!.view.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height - 108)
             searchViewBackground.autoresizesSubviews = false 
             self.searchViewBackground.addSubview(self.searchView!.view)
             self.searchView!.view.layer.zPosition = self.searchViewBackground.layer.zPosition + 1

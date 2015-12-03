@@ -7615,7 +7615,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F90-HR-8X6">
-                                <rect key="frame" x="4" y="108" width="592" height="492"/>
+                                <rect key="frame" x="4" y="108" width="592" height="443"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -7633,6 +7633,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ZVm-US-khK"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bottomView" destination="F90-HR-8X6" id="qVE-tE-5UZ"/>
                         <outlet property="cancelButton" destination="PtC-n4-osy" id="EDz-VO-k48"/>
