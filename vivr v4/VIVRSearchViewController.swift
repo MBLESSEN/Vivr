@@ -114,7 +114,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
         if let userInfo = notification.userInfo {
             if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
                 UIView.animateWithDuration(2, animations: { () -> Void in
-                    self.bottomConstraint.constant = keyboardSize.height - (self.parentViewController?.tabBarController?.tabBar.frame.height)!
+                    self.bottomConstraint.constant = keyboardSize.height - (self.parentViewController?.tabBarController?.tabBar.frame.height ?? 0)
                     self.view.layoutIfNeeded()
                     self.keyboardActive = true
                 })

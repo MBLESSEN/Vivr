@@ -3514,7 +3514,7 @@
         <!--Search View Controller-->
         <scene sceneID="uWV-4O-gPI">
             <objects>
-                <viewController storyboardIdentifier="searchTable" automaticallyAdjustsScrollViewInsets="NO" id="XgK-xQ-ubp" customClass="VIVRSearchViewController" customModule="vivr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchTable" id="XgK-xQ-ubp" customClass="VIVRSearchViewController" customModule="vivr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zSS-jt-K7b"/>
                         <viewControllerLayoutGuide type="bottom" id="Wy7-od-NL7"/>

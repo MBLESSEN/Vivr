@@ -22,15 +22,24 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        instantiateSearchView()
-        instantiateMyReviewsView()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
         showTitleLogo()
         configureNavBar()
+        instantiateMyReviewsView()
+        instantiateSearchView()
+
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         resetView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        setSearchViewFrame()
+        setMyReviewsViewFrame()
     }
 
     override func didReceiveMemoryWarning() {
@@ -96,10 +105,6 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         searchView = storyboard.instantiateViewControllerWithIdentifier("searchTable") as! VIVRSearchViewController
         addChildViewController(searchView!)
         searchView!.viewDelegate = self
-        searchView!.view.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, bottomView.frame.height)
-        searchView!.topViewHeightConstraint.constant = 0
-        searchView!.view.layoutIfNeeded()
-        searchView!.didMoveToParentViewController(self)
     }
     
     func instantiateMyReviewsView() {
@@ -107,16 +112,27 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         myReviewsView = storyboard.instantiateViewControllerWithIdentifier("myUserReviews") as! VIVRUserReviewsViewController
         myReviewsView?.selectedUserID = myData.myProfileID
         addChildViewController(myReviewsView!)
+    }
+    
+    func setSearchViewFrame() {
+        searchView!.view.frame = CGRectMake(0, 0,
+            bottomView.frame.width, bottomView.frame.height)
+        searchView!.topViewHeightConstraint.constant = 0
+        searchView!.view.layoutIfNeeded()
+    }
+    
+    func setMyReviewsViewFrame() {
         myReviewsView!.view.frame = CGRectMake(0, 0,
             bottomView.frame.width, bottomView.frame.height)
         myReviewsView!.view.layoutIfNeeded()
     }
     
     func showSearchView() {
+        hideMyReviewsView()
         if searchView != nil {
             bottomView.addSubview(searchView!.view)
+            searchView!.didMoveToParentViewController(self)
         }
-        hideMyReviewsView()
     }
     
     func hideSearchView() {
