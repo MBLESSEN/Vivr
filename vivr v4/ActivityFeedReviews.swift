@@ -283,4 +283,43 @@ class ActivityFeedReviews {
         getActivity(Router.ReadReviews(id, wrapper!.currentPage!), completionHandler: completionHandler)
     }
     
+    class func createNewReview(id: String, parameters: [String:AnyObject!], completionHandler: (ActivityWrapper?, NSError?) -> Void) {
+        Alamofire.request(Router.AddReview(id, parameters)).responseActivityArray { (response) in
+            print(response.request)
+            print(response.response)
+            print(response.result.value)
+            let data = response.result.value
+            let error = response.result.error
+            if response.result.isFailure
+            {
+                print("fetching refresh token")
+                DeviceInfo.refreshAuthToken() {
+                    result in
+                    print("authenticating")
+                    if result.1?.success == true {
+                        Alamofire.request(Router.AddReview(id, parameters)).responseActivityArray { (response) in
+                            let data = response.result.value
+                            let error = response.result.error
+                            if let err = error {
+                                completionHandler(nil, err)
+                                return
+                            }
+                            completionHandler(data, nil)
+                        }
+                    }else {
+                        completionHandler(nil, error)
+                        return
+                    }
+                }
+            }else if error != nil {
+                completionHandler(nil, error)
+                return
+            }
+            completionHandler(data, nil)
+            
+        }
+
+    }
+    
+    
 }

@@ -19,7 +19,7 @@ class VIVRReviewScoreViewController: UIViewController {
     @IBOutlet weak var vaporController: UISegmentedControl!
     @IBOutlet weak var throatController: UISegmentedControl!
     var reviewScore: String = "2.5"
-    
+    var viewDelegate: VIVRProductReviewProtocol? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,6 +168,39 @@ class VIVRReviewScoreViewController: UIViewController {
         hideShadowView()
         let parent = parentViewController as! VIVRReviewViewController
         parent.hideKeyboard()
+    }
+    @IBAction func submitPressed(sender: AnyObject) {
+        let parent = parentViewController as? VIVRReviewViewController
+        let reviewTextView = parent!.review
+        let productId = parent!.product!.productID
+        guard let reviewText = reviewTextView.text where reviewText != "What did it taste like?" else {
+            
+            return
+        }
+        let parameters: [String:AnyObject!] = [
+            "description": reviewText,
+            "throat": throatController.selectedSegmentIndex,
+            "vapor": vaporController.selectedSegmentIndex,
+            "score": scoreSlider.value
+        ]
+        ActivityFeedReviews.createNewReview("\(productId!)", parameters: parameters, completionHandler: { (reviewWrapper, error) in
+            if error != nil {
+                self.didNotCompleteReview()
+            }else {
+                self.completeReview(reviewWrapper!)
+            }
+        })
+        
+    }
+    
+    func completeReview(reviewWrapper: ActivityWrapper) {
+        let review = reviewWrapper.ActivityReviews?.first
+        viewDelegate?.isReviewSuccessfull!(true)
+        
+    }
+    
+    func didNotCompleteReview() {
+        
     }
 
 }

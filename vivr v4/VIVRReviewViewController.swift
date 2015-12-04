@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VIVRReviewViewController: UIViewController, UITextViewDelegate {
+class VIVRReviewViewController: UIViewController, UITextViewDelegate, VIVRProductReviewProtocol {
 
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var bottomView: UIView!
@@ -63,6 +63,7 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         reviewScoreView = storyboard.instantiateViewControllerWithIdentifier("reviewScore") as! VIVRReviewScoreViewController
         addChildViewController(reviewScoreView!)
+        reviewScoreView!.viewDelegate = self
         reviewScoreView!.view.frame = CGRectMake(0, 0, self.bottomView.frame.width, bottomView.frame.height)
         bottomView.addSubview(reviewScoreView!.view)
         reviewScoreView?.didMoveToParentViewController(self)
@@ -135,6 +136,15 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate {
             review.becomeFirstResponder()
             review.endEditing(true)
         }
+    }
+    
+    //VIVRPRODUCT REVIEW PROTOCOL FUNCTIONS
+    
+    func isReviewSuccessfull(success: Bool) {
+        if success == true {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
     }
 
 

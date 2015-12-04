@@ -115,6 +115,9 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func viewWillAppear(animated: Bool) {
         configureNavBar()
+        if self.selectedProductID != nil {
+            loadFirstReview(self.selectedProductID!)
+        }
         self.mainTable.reloadData()
     }
     
