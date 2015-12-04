@@ -676,7 +676,7 @@
                                 <animations/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="productCell" rowHeight="496" id="v9Q-Si-GCF" customClass="productCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="22" width="600" height="496"/>
+                                        <rect key="frame" x="0.0" y="86" width="600" height="496"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v9Q-Si-GCF" id="chj-dP-P6s">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="495.5"/>
@@ -1009,7 +1009,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="//boxCell" rowHeight="496" id="Os7-Z0-qbC" customClass="BoxCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="518" width="600" height="496"/>
+                                        <rect key="frame" x="0.0" y="582" width="600" height="496"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Os7-Z0-qbC" id="ra8-G2-zmG">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="495.5"/>
@@ -1293,7 +1293,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="boxCell" rowHeight="496" id="Ys4-p2-gDP" customClass="BoxCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1014" width="600" height="496"/>
+                                        <rect key="frame" x="0.0" y="1078" width="600" height="496"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ys4-p2-gDP" id="4IY-Dt-Uzd">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="495.5"/>
@@ -1585,7 +1585,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="flavorCell" rowHeight="279" id="XbZ-8b-jcp" customClass="flavorCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1510" width="600" height="279"/>
+                                        <rect key="frame" x="0.0" y="1574" width="600" height="279"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XbZ-8b-jcp" id="53o-3H-6qW">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="278.5"/>
@@ -1612,7 +1612,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="reviewCell" rowHeight="200" id="ZCT-ac-iPu" customClass="reviewTableViewCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1789" width="600" height="200"/>
+                                        <rect key="frame" x="0.0" y="1853" width="600" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZCT-ac-iPu" id="THR-Hw-dNX">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
@@ -1710,7 +1710,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReviewHeaderCell" rowHeight="200" id="hnh-Ub-N4i" customClass="vivrHeaderCell" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1989" width="600" height="200"/>
+                                        <rect key="frame" x="0.0" y="2053" width="600" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hnh-Ub-N4i" id="kWi-IM-xhu">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
@@ -1814,7 +1814,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Reviews" rowHeight="200" id="wR3-TL-nNR">
-                                        <rect key="frame" x="0.0" y="2189" width="600" height="200"/>
+                                        <rect key="frame" x="0.0" y="2253" width="600" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wR3-TL-nNR" id="bJf-ba-udL">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
@@ -3532,6 +3532,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mzk-R2-QWR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4199" y="-2484"/>
+        </scene>
+        <!--Loading Screen View Controller-->
+        <scene sceneID="kyX-Bs-dec">
+            <objects>
+                <viewController storyboardIdentifier="activityIndicator" id="gEg-Tp-X4P" customClass="LoadingScreenViewController" customModule="vivr" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eAW-mT-XTc"/>
+                        <viewControllerLayoutGuide type="bottom" id="IAd-Ia-toJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="s16-iF-0X2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="579-qS-ejf">
+                                <rect key="frame" x="4" y="20" width="592" height="580"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="PTY-7z-O2a">
+                                        <rect key="frame" x="286" y="16" width="20" height="20"/>
+                                        <animations/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="PTY-7z-O2a" firstAttribute="centerX" secondItem="579-qS-ejf" secondAttribute="centerX" id="Skn-m6-BAU"/>
+                                    <constraint firstItem="PTY-7z-O2a" firstAttribute="top" secondItem="579-qS-ejf" secondAttribute="top" constant="16" id="jyv-98-Rmi"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IAd-Ia-toJ" firstAttribute="top" secondItem="579-qS-ejf" secondAttribute="bottom" id="3Jy-73-O9G"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="579-qS-ejf" secondAttribute="trailing" constant="-16" id="3rO-5t-qgR"/>
+                            <constraint firstItem="579-qS-ejf" firstAttribute="top" secondItem="eAW-mT-XTc" secondAttribute="bottom" id="nj4-0t-cMy"/>
+                            <constraint firstItem="579-qS-ejf" firstAttribute="leading" secondItem="s16-iF-0X2" secondAttribute="leadingMargin" constant="-16" id="q4M-kr-M7p"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="PTY-7z-O2a" id="mDY-QL-5lR"/>
+                        <outlet property="activityIndicatorView" destination="579-qS-ejf" id="mf5-K3-jwc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ow6-Mg-qku" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1297" y="-2446"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="uWV-4O-gPI">
@@ -8518,11 +8564,11 @@
         <image name="whiteTriangleDown" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gI2-Ji-6fz"/>
         <segue reference="ob1-jy-LVt"/>
-        <segue reference="pCN-gh-y0T"/>
+        <segue reference="gI2-Ji-6fz"/>
         <segue reference="RaL-ks-3Ih"/>
-        <segue reference="Nnc-aI-Yhf"/>
+        <segue reference="pCN-gh-y0T"/>
+        <segue reference="ofl-Zg-I5E"/>
         <segue reference="buI-TE-Kva"/>
     </inferredMetricsTieBreakers>
 </document>

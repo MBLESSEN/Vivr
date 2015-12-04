@@ -84,6 +84,7 @@
 		50985CDB1AFC38B2007BB4DD /* DBImageColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 50985CD81AFC38B2007BB4DD /* DBImageColorPicker.m */; };
 		50985CDC1AFC38B2007BB4DD /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 50985CDA1AFC38B2007BB4DD /* UIImage+Color.m */; };
 		509FDE8C1C111783002E7059 /* VIVRProductReviewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509FDE8B1C111783002E7059 /* VIVRProductReviewProtocol.swift */; };
+		509FDE8F1C112FE0002E7059 /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509FDE8E1C112FE0002E7059 /* LoadingScreenViewController.swift */; };
 		50A5DB5E1B01356800EF3A67 /* findFriendsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A5DB5D1B01356800EF3A67 /* findFriendsViewViewController.swift */; };
 		50A5DB641B0141CC00EF3A67 /* editPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A5DB631B0141CC00EF3A67 /* editPaymentViewController.swift */; };
 		50A5DB661B01474B00EF3A67 /* addFlavorTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */; };
@@ -222,6 +223,7 @@
 		50985CDA1AFC38B2007BB4DD /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		509FD1F01A649154003A7AEE /* BrandTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandTableViewCell.swift; sourceTree = "<group>"; };
 		509FDE8B1C111783002E7059 /* VIVRProductReviewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRProductReviewProtocol.swift; sourceTree = "<group>"; };
+		509FDE8E1C112FE0002E7059 /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
 		50A5DB5D1B01356800EF3A67 /* findFriendsViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = findFriendsViewViewController.swift; sourceTree = "<group>"; };
 		50A5DB631B0141CC00EF3A67 /* editPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editPaymentViewController.swift; sourceTree = "<group>"; };
 		50A5DB651B01474B00EF3A67 /* addFlavorTagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addFlavorTagsView.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 		501E04141A428F1900F93122 /* vivr */ = {
 			isa = PBXGroup;
 			children = (
+				509FDE8D1C112FC2002E7059 /* Custom Views and Controls */,
 				50632C4E1A70922500DD7EAA /* Main.storyboard */,
 				50142EA61AF6AA40004ED2A2 /* Walkthrough.storyboard */,
 				50985CD21AFC389A007BB4DD /* colorPicker */,
@@ -460,6 +463,14 @@
 				50985CDA1AFC38B2007BB4DD /* UIImage+Color.m */,
 			);
 			name = colorPicker;
+			sourceTree = "<group>";
+		};
+		509FDE8D1C112FC2002E7059 /* Custom Views and Controls */ = {
+			isa = PBXGroup;
+			children = (
+				509FDE8E1C112FE0002E7059 /* LoadingScreenViewController.swift */,
+			);
+			name = "Custom Views and Controls";
 			sourceTree = "<group>";
 		};
 		50A0663D1B30D264006152EE /* vivrCelliInfoPages */ = {
@@ -743,6 +754,7 @@
 				5051C6CA1B443BB800FB5E67 /* JuiceCheckInViewController.swift in Sources */,
 				50C3B45E1A7C59B200EC39D1 /* loginViewController.swift in Sources */,
 				505F1D7F1A9979F50011BCE8 /* profileCell.swift in Sources */,
+				509FDE8F1C112FE0002E7059 /* LoadingScreenViewController.swift in Sources */,
 				50CC19AF1B0AEF490030D06D /* B68UIFloatLabelTextField.swift in Sources */,
 				50A5DB661B01474B00EF3A67 /* addFlavorTagsView.swift in Sources */,
 				502DFC7C1AF9988F0052EF50 /* VIVRUserViewController.swift in Sources */,

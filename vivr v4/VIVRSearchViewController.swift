@@ -24,7 +24,8 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var searchTable: UITableView!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
-    
+
+    var activityIndicator: LoadingScreenViewController?
     var viewDelegate: searchDelegate? = nil
     var selectedBrandImage: String?
     var searchWrapper: SearchResult?
@@ -32,7 +33,15 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     var brands: Array<Brand>?
     var users: Array<User>?
     var addJuiceView: AddNewJuiceView?
-    var isLoadingFeed = false
+    var isLoadingFeed:Bool? {
+        didSet {
+            if isLoadingFeed == true {
+                showActivityIndicator()
+            }else {
+                hideActivityIndicator()
+            }
+        }
+    }
     var didLoadSearch = false
     var segueIdentifier:String?
     var selectedID:String?
@@ -56,6 +65,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
         self.view.addGestureRecognizer(endKeyboardRecongnizer)
         createPlaceHolderView()
         createAddJuiceView()
+        instantiateActivityIndicator()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -66,6 +76,10 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     override func viewWillAppear(animated: Bool) {
         didLoadSearch = false
         searchTable.rowHeight = 100
+    }
+    
+    override func viewDidLayoutSubviews() {
+        setupActivityIndicator()
     }
     
     @IBAction func changeData(sender: AnyObject) {
@@ -143,6 +157,17 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         addJuiceView = storyboard.instantiateViewControllerWithIdentifier("addJuiceView") as! AddNewJuiceView
         
+    }
+    
+    func instantiateActivityIndicator() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        self.activityIndicator = storyboard.instantiateViewControllerWithIdentifier("activityIndicator") as! LoadingScreenViewController
+        addChildViewController(activityIndicator!)
+        
+    }
+    
+    func setupActivityIndicator() {
+        activityIndicator!.view.frame = CGRectMake(0, 0, self.searchTable.frame.width, self.searchTable.frame.height)
     }
     
     func addJuice() {
@@ -517,6 +542,22 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
         self.didLoadSearch = false 
         searchTable.reloadData()
     }
+    
+    //ACTIVITY VIEW INDICATOR FUNCTIONS
+    
+    func showActivityIndicator() {
+        if activityIndicator != nil {
+            self.searchTable.addSubview(activityIndicator!.view)
+            activityIndicator?.didMoveToParentViewController(self)
+            activityIndicator?.activityIndicator.startAnimating()
+        }
+    }
 
+    func hideActivityIndicator() {
+        if activityIndicator != nil {
+            activityIndicator!.activityIndicator.stopAnimating()
+            activityIndicator!.view.removeFromSuperview()
+        }
+    }
 
 }
