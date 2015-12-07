@@ -152,6 +152,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         checkIfSessionIsFirst()
         instantiateActivityIndicator()
         prepareToLoadData()
+        addSwipeGestureRecongnizer()
     }
     
     
@@ -162,6 +163,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let leading = UIScreen.mainScreen().bounds.width/3
         selectionIndicatorLeading.constant = leading * CGFloat(controller.selectedSegmentIndex)
         segmentedControllerView.layoutIfNeeded()
+        
 
     }
     
@@ -251,7 +253,9 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func setupSearchView() {
-        self.searchView!.view.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height - 64.0)
+        self.searchView!.view.frame = CGRectMake(0, 0, self.view.frame.width, 0)
+        print("---==========Height is \(self.view.bounds.height - 64.0)")
+        print("------=======Search height is \(self.searchView!.view.frame.height)")
         self.searchViewBackground.addSubview(self.searchView!.view)
         self.searchView!.didMoveToParentViewController(self)
     }
@@ -352,7 +356,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 initialSpringVelocity: 0,
                 options: [],
                 animations: {
-                    self.searchViewBackgroundHeight.constant = UIScreen.mainScreen().bounds.height
+                    self.searchViewBackgroundHeight.constant = UIScreen.mainScreen().bounds.height - 64.0
                     self.view.layoutIfNeeded()
                     
                 }, completion: {finished in
@@ -1346,6 +1350,31 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         reload()
     }
     
+    //SWIPE GESTURE RECONGNIZER
     
+    func addSwipeGestureRecongnizer() {
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+        swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+    
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        let currentSegment = controller.selectedSegmentIndex
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.Right:
+                controller.selectedSegmentIndex = currentSegment - 1
+            case UISwipeGestureRecognizerDirection.Left:
+                controller.selectedSegmentIndex = currentSegment + 1
+            default:
+                break
+            }
+            controller.sendActionsForControlEvents(UIControlEvents.ValueChanged)
+        }
+    }
 
 }

@@ -137,6 +137,8 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
     func configureTableView() {
         profileTable.estimatedRowHeight = 100
         profileTable.rowHeight = UITableViewAutomaticDimension
+
+        self.profileTable.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         
     }
     
@@ -365,6 +367,10 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         }
         }
     }
+    func scrollViewDidScrollToTop(scrollView: UIScrollView) {
+        navBackground.alpha = 0.0
+    }
+    
     func loadFirstReviews() {
         self.userReviews = []
         isLoadingReviews = true
