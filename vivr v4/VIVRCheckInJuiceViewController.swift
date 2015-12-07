@@ -5,7 +5,7 @@
 //  Created by max blessen on 10/5/15.
 //
 //
-
+/*
 import UIKit
 import AVFoundation
 import QuartzCore
@@ -61,7 +61,6 @@ class VIVRCheckInJuiceViewController: UIViewController, ProductViewDelegate, Bro
     var selectedProductID: Int?
     var selectedBrandID: Int?
     var screenAdjustedHeight:CGFloat?
-    var reviewView: VIVRIndependantReviewView?
     var previewLayer: AVCaptureVideoPreviewLayer?
     
     var addingProduct = false
@@ -182,15 +181,6 @@ class VIVRCheckInJuiceViewController: UIViewController, ProductViewDelegate, Bro
                 })
     }
     
-    func instantiateReviewView() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let segmentHeight = (self.view.frame.height - 50.0)/4.0
-        reviewView = storyboard.instantiateViewControllerWithIdentifier("indieReviewView") as? VIVRIndependantReviewView
-        reviewView!.view.frame = CGRectMake(0, self.view.frame.height, self.view.frame.width, self.view.frame.height - segmentHeight)
-        self.addChildViewController(self.reviewView!)
-        reviewView!.didMoveToParentViewController(self)
-        self.view.addSubview(reviewView!.view)
-    }
     
     
     func instantiateSearchView() {
@@ -589,3 +579,4 @@ class VIVRCheckInJuiceViewController: UIViewController, ProductViewDelegate, Bro
     */
 
 }
+*/

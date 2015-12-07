@@ -27,7 +27,6 @@
 		501090BD1B0AA05500EFC546 /* help-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 501090BC1B0AA05500EFC546 /* help-50.png */; };
 		501233741B02AAB400D8E4ED /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501233731B02AAB400D8E4ED /* TagCell.swift */; };
 		50142E9B1AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50142E991AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift */; };
-		5015010A1BC32D390078F7EB /* VIVRCheckInJuiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501501091BC32D390078F7EB /* VIVRCheckInJuiceViewController.swift */; };
 		501650311BDBE4CC00798355 /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501650301BDBE4CC00798355 /* Markdown.swift */; };
 		501E04181A428F1900F93122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E04171A428F1900F93122 /* AppDelegate.swift */; };
 		501E04211A428F1900F93122 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 501E04201A428F1900F93122 /* Images.xcassets */; };
@@ -163,7 +162,6 @@
 		501233731B02AAB400D8E4ED /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		50142E991AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWWalkthroughPageViewController.swift; sourceTree = "<group>"; };
 		50142EA61AF6AA40004ED2A2 /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
-		501501091BC32D390078F7EB /* VIVRCheckInJuiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRCheckInJuiceViewController.swift; sourceTree = "<group>"; };
 		501650301BDBE4CC00798355 /* Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
 		501E04121A428F1900F93122 /* vivr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vivr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		501E04161A428F1900F93122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -518,7 +516,6 @@
 			isa = PBXGroup;
 			children = (
 				505FB8601A47734300584FF8 /* VIVRHomeViewController.swift */,
-				501501091BC32D390078F7EB /* VIVRCheckInJuiceViewController.swift */,
 				5072DA9F1A9D670F00A64CAB /* VIVRCommentsViewController.swift */,
 				50BBB7F41A649BCA00D0978E /* VIVRBrandProductsViewController.swift */,
 				502E216E1C0D55EC0073E483 /* VIVRAddNewBrandViewController.swift */,
@@ -765,7 +762,6 @@
 				507A6C161B706B9F00B8A1FA /* SignUpViewController.swift in Sources */,
 				5037C8B21B1E610800952C5A /* searchResultCell.swift in Sources */,
 				505F1D7D1A99744B0011BCE8 /* VIVRMyUserViewController.swift in Sources */,
-				5015010A1BC32D390078F7EB /* VIVRCheckInJuiceViewController.swift in Sources */,
 				500CE6531BFFD23100D612FF /* User.swift in Sources */,
 				509FDE8C1C111783002E7059 /* VIVRProductReviewProtocol.swift in Sources */,
 				507F2DE51B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift in Sources */,

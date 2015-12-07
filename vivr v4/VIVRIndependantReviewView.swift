@@ -5,7 +5,7 @@
 //  Created by max blessen on 10/8/15.
 //
 //
-
+/*
 import UIKit
 
 class VIVRIndependantReviewView: UIViewController {
@@ -134,3 +134,4 @@ class VIVRIndependantReviewView: UIViewController {
     
 
 }
+*/
