@@ -636,7 +636,7 @@ class BoxCell: UITableViewCell, UIScrollViewDelegate, iCarouselDataSource, iCaro
         if let date = box!.createdAt {
             let dateFor:NSDateFormatter = NSDateFormatter()
             dateFor.timeZone = NSTimeZone(abbreviation: "UTC")
-            dateFor.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            dateFor.dateFormat = "yyyy-MM-dd HH:mm:ss"
             let theDate:NSDate = dateFor.dateFromString(date)!
             dateFor.dateStyle = .MediumStyle
             let dateString = dateFor.stringFromDate(theDate)

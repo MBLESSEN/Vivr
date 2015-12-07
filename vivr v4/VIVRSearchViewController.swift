@@ -404,6 +404,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
         if products?.count != 0 {
             cell.product = products![indexPath.row]
             cell.productLabel.text = products![indexPath.row].name
+            cell.productBrandName!.text = products![indexPath.row].brand?.name!
             cell.productID = "\(products![indexPath.row].productID!)"
             if let urlString = products![indexPath.row].image as String? {
                 let url = NSURL(string: urlString)
@@ -531,9 +532,6 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
             self.users = self.users! + self.searchWrapper!.Users.UserData!
         }
     }
-
-    
-    
     
     func clearSearch() {
         self.products = []

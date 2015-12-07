@@ -161,9 +161,10 @@ class VIVRSettingsEditProfileViewController: UITableViewController, UIImagePicke
                 print(error)
             }else {
                 let emptyAlert = UIAlertController(title: "submitted", message: "Your profile was updated", preferredStyle: UIAlertControllerStyle.Alert)
-                emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { action in
+                    self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                }))
                 self.presentViewController(emptyAlert, animated: true, completion: nil)
-                self.dismissViewControllerAnimated(true, completion: nil)
             }
             
             
@@ -214,6 +215,22 @@ class VIVRSettingsEditProfileViewController: UITableViewController, UIImagePicke
     }
     
     
+    //CLEAR TEXTFIELD IB OUTLETS
+    
+    @IBAction func clearNamePressed(sender: AnyObject) {
+        self.fullName.text = ""
+    }
+    
+    @IBAction func clearHardwarePressed(sender: AnyObject) {
+        self.hardWare.text = ""
+    }
+    @IBAction func clearBioPressed(sender: AnyObject) {
+        self.bio.text = ""
+    }
+    
+    @IBAction func clearWebsitePressed(sender: AnyObject) {
+        self.website.text = ""
+    }
 }
 
 

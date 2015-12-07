@@ -12,7 +12,7 @@ import SwiftyJSON
 import Haneke
 
 
-class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, VivrCellDelegate, VivrHeaderCellDelegate, UIScrollViewDelegate, flavorTagsDelegate, UISearchBarDelegate, searchDelegate, BWWalkthroughViewControllerDelegate, SWRevealViewControllerDelegate, UIGestureRecognizerDelegate, NSXMLParserDelegate {
+class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, VivrCellDelegate, VivrHeaderCellDelegate, UIScrollViewDelegate, flavorTagsDelegate, UISearchBarDelegate, searchDelegate, BWWalkthroughViewControllerDelegate, SWRevealViewControllerDelegate, UIGestureRecognizerDelegate, NSXMLParserDelegate, VIVRActivityIndicatorProtocol {
     
     @IBOutlet weak var searchTopConstraint: NSLayoutConstraint!
 
@@ -88,6 +88,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     var searchView: VIVRSearchViewController?
     var pressDownCell:vivrCell?
     var selectedFeedReview:ActivityFeedReviews?
+    var activityIndicator: LoadingScreenViewController?
     
     //local view/object initializers
     var activeWishlistContainer: UIView?
@@ -95,9 +96,9 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     var loadingText: UILabel! = UILabel()
     var refreshControl: UIRefreshControl!
     lazy   var search:UISearchBar = UISearchBar()
-    lazy var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     var refreshText: UILabel = UILabel()
     var loadButton: UIButton = UIButton()
+    @IBOutlet weak var segmentedControllerView: UIView!
     
     //Bool markers
     var searchActive = false {
@@ -109,16 +110,19 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
+    var didLayoutSubview = false
     var filterActive = false
     var tagViewIsActive = false
     var loadingViewActive = false
     var isLoadingFeed = false {
         didSet {
             if isLoadingFeed == true {
-                showLoadingScreen()
+                showActivityIndicator()
             }
             if isLoadingFeed == false {
-                removeLoadingScreen()
+                if activityWrapper != nil {
+                    hideActivityIndicator()
+                }
             }
         }
     }
@@ -145,20 +149,28 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         instantiateSearchView()
         addRefreshControl()
         startObservingKeyboardEvents()
-        prepareToLoadData()
-        createLoadingScreen()
         checkIfSessionIsFirst()
+        instantiateActivityIndicator()
+        prepareToLoadData()
     }
     
     
     override func viewWillAppear(animated: Bool) {
         navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
         navigationController?.navigationBar.tintColor = UIColor(red: 43.0/255, green: 169.0/255, blue: 41.0/255, alpha: 1.0)
-        tabBarController?.tabBar.hidden = false
+        self.tabBarController!.tabBar.hidden = false
         let leading = UIScreen.mainScreen().bounds.width/3
         selectionIndicatorLeading.constant = leading * CGFloat(controller.selectedSegmentIndex)
-        self.view.layoutIfNeeded()
+        segmentedControllerView.layoutIfNeeded()
 
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if didLayoutSubview == false {
+            setupActivityIndicator()
+            setupSearchView()
+            self.didLayoutSubview = true
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -234,40 +246,14 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         searchView = storyboard.instantiateViewControllerWithIdentifier("searchTable") as? VIVRSearchViewController
         searchView!.viewDelegate = self
+        addChildViewController(searchView!)
         searchViewBackground.clipsToBounds = true
     }
     
-    func createLoadingScreen() {
-        loadingView.frame = CGRectMake(0, 110, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height-110)
-        loadingView.backgroundColor = UIColor.groupTableViewBackgroundColor()
-        loadingText = UILabel(frame: CGRectMake(0, 0, 200, 80))
-        loadingText.numberOfLines = 2
-        loadingText.textAlignment = NSTextAlignment.Center
-        loadingText.center = CGPointMake(self.view.center.x, self.view.center.y - 100)
-        loadingText.textColor = UIColor.lightGrayColor()
-        loadingText.text = "Loading juices"
-        loadingView.addSubview(loadingText)
-        activityIndicator.color = UIColor.lightGrayColor()
-        activityIndicator.startAnimating()
-        activityIndicator.frame = CGRectMake(0, 0, 50, 50)
-        activityIndicator.center = self.view.center
-        loadingView.addSubview(activityIndicator)
-        refreshText = UILabel(frame: CGRectMake(0, 0, 200, 80))
-        refreshText.numberOfLines = 2
-        refreshText.textAlignment = NSTextAlignment.Center
-        refreshText.center = CGPointMake(self.view.center.x, self.view.center.y + 33)
-        refreshText.textColor = UIColor.lightGrayColor()
-        refreshText.text = "Try again"
-        refreshText.hidden = true
-        loadingView.addSubview(refreshText)
-        loadButton = UIButton(frame: CGRectMake(0, 0, 100, 100))
-        let image = UIImage(named: "refresh")?.imageWithRenderingMode(.AlwaysTemplate)
-        loadButton.setImage(image, forState: .Normal)
-        loadButton.tintColor = UIColor.lightGrayColor()
-        loadButton.addTarget(self, action: "prepareToLoadData", forControlEvents: UIControlEvents.TouchUpInside)
-        loadButton.center = self.view.center
-        loadButton.hidden = true
-        loadingView.addSubview(loadButton)
+    func setupSearchView() {
+        self.searchView!.view.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height - 64.0)
+        self.searchViewBackground.addSubview(self.searchView!.view)
+        self.searchView!.didMoveToParentViewController(self)
     }
     
     
@@ -288,7 +274,6 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // User Interface, show/hide functions
     func configureTableView() {
         mainTable.contentInset = UIEdgeInsetsZero
-        self.automaticallyAdjustsScrollViewInsets = false
         mainTable.estimatedRowHeight = 400
         mainTable.rowHeight = UITableViewAutomaticDimension
     }
@@ -343,12 +328,6 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             search.frame = CGRectMake(0, 0, 0, 20)
             self.navigationItem.leftBarButtonItem = leftNavBarButton
             let searchWidth = self.view.frame.width - 82
-            self.addChildViewController(self.searchView!)
-            self.searchView!.view.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height - 108)
-            searchViewBackground.autoresizesSubviews = false 
-            self.searchViewBackground.addSubview(self.searchView!.view)
-            self.searchView!.view.layer.zPosition = self.searchViewBackground.layer.zPosition + 1
-            self.searchView!.didMoveToParentViewController(self)
             UIView.animateWithDuration(
                 // duration
                 0.5,
@@ -359,7 +338,6 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 options: [],
                 animations: {
                     self.search.frame = CGRectMake(0, self.search.frame.origin.y, searchWidth, 20)
-                    self.view.layoutIfNeeded()
                     
                 }, completion: {finished in
                 }
@@ -374,7 +352,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 initialSpringVelocity: 0,
                 options: [],
                 animations: {
-                    self.searchViewBackgroundHeight.constant = self.view.frame.height - 64
+                    self.searchViewBackgroundHeight.constant = UIScreen.mainScreen().bounds.height
                     self.view.layoutIfNeeded()
                     
                 }, completion: {finished in
@@ -394,7 +372,6 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.searchViewBackgroundHeight.constant = 0.0
                     self.view.layoutIfNeeded()
                 }, completion: {finished in
-                    self.searchView!.removeFromParentViewController()
 
                 }
             )
@@ -521,33 +498,6 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchView!.clearSearch()
-    }
-    
-    
-    
-    
-    
-    
-    
-    func showLoadingScreen() {
-        if feedReviews == nil || feedReviews?.count == 0 {
-            loadingViewActive = true
-            self.view.addSubview(loadingView)
-            activityIndicator.hidden = false
-            loadingText.text = "Loading juices"
-            loadButton.hidden = true
-        }
-    }
-    func addRefreshButton() {
-        loadingText.text = "Check your network connectivity"
-        activityIndicator.hidden = true
-        loadButton.hidden = false
-    }
-    
-    func removeLoadingScreen() {
-        if loadingViewActive == true {
-            loadingView.removeFromSuperview()
-        }
     }
     
     @IBAction func changeData(sender: AnyObject) {
@@ -815,7 +765,6 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         case "toUserSegue":
             let userVC: VIVRUserViewController = segue.destinationViewController as! VIVRUserViewController
             userVC.selectedUserID = self.selectedUserID
-            //userVC.automaticallyAdjustsScrollViewInsets = false
         case "buzzToBrand":
             let brandVC: VIVRBrandProductsViewController = segue.destinationViewController as! VIVRBrandProductsViewController
             brandVC.brandImageURL = self.selectedBrandImage
@@ -1000,6 +949,8 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     
+    //TAG FUNCTIONS
+    //SHOW TAG VIEW ADD TAGS TO VIEW
     
     func toggleTagView() {
         switch filterTags.count {
@@ -1062,7 +1013,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         ActivityFeedReviews.getFilteredReviews(tags, completionHandler: { (activityWrapper, error) in
             if error != nil {
                 self.isLoadingFeed = false
-                self.addRefreshButton()
+                self.activityIndicator!.showRefreshButton()
             }
             self.addReviewFromWrapper(activityWrapper)
             self.isLoadingFeed = false
@@ -1093,19 +1044,13 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.feedReviews = []
         isLoadingFeed = true
         ActivityFeedReviews.getReviews({ (activityWrapper, error) in
-            if activityWrapper == nil {
-                print(error, terminator: "")
+            if error != nil {
                 self.isLoadingFeed = false
-                self.showLoadingScreen()
-                self.addRefreshButton()
-                print("no netowrk", terminator: "")
-            }else {
-                print("second block executed", terminator: "")
-            self.removeLoadingScreen()
+                self.activityIndicator!.showRefreshButton()
+            }
             self.addReviewFromWrapper(activityWrapper)
             self.isLoadingFeed = false
             self.mainTable.reloadData()
-            }
             })
     }
     
@@ -1131,7 +1076,6 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func addReviewFromWrapper(wrapper: ActivityWrapper?) {
         self.activityWrapper = wrapper
-        removeLoadingScreen()
         if self.feedReviews == nil {
             self.feedReviews = self.activityWrapper?.ActivityReviews
         }else if self.activityWrapper != nil && self.activityWrapper!.ActivityReviews != nil{
@@ -1367,5 +1311,41 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         )
         
     }
+    
+    //INSTANTIATE LOADING SCREEN
+    //SETUP LOADING SCREEN
+    //LOADING SCREEN PROTOCOL FUNCTIONS
+    
+    func instantiateActivityIndicator() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        self.activityIndicator = storyboard.instantiateViewControllerWithIdentifier("activityIndicator") as! LoadingScreenViewController
+        addChildViewController(activityIndicator!)
+        self.activityIndicator!.viewDelegate = self
+    }
+    
+    func setupActivityIndicator() {
+        activityIndicator!.view.frame = CGRectMake(0, 0, self.mainTable.frame.width, self.mainTable.frame.height)
+    }
+    
+    func showActivityIndicator() {
+        if activityIndicator != nil {
+            self.mainTable.addSubview(activityIndicator!.view)
+            activityIndicator?.didMoveToParentViewController(self)
+            activityIndicator?.activityIndicator.startAnimating()
+        }
+    }
+    
+    func hideActivityIndicator() {
+        if activityIndicator != nil {
+            activityIndicator!.activityIndicator.stopAnimating()
+            activityIndicator!.view.removeFromSuperview()
+        }
+    }
+    
+    func reloadViewControllerData() {
+        reload()
+    }
+    
+    
 
 }

@@ -53,7 +53,7 @@ class VIVRSettingsTableViewController: UITableViewController {
         // Return the number of rows in the section.
         switch section {
         case 0:
-            return 3
+            return 2
         default:
             return 1
         }

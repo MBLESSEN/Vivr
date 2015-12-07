@@ -103,7 +103,7 @@ class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITable
         if let userInfo = notification.userInfo {
             if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
                 UIView.animateWithDuration(2, animations: { () -> Void in
-                self.keyBoardViewBottomConstraint.constant = keyboardSize.height + 2
+                self.keyBoardViewBottomConstraint.constant = keyboardSize.height
                     self.view.layoutIfNeeded()
                     self.keyboardActive = true
                 })
@@ -426,8 +426,9 @@ class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITable
     
     func loadData(){
         Alamofire.request(Router.readComments(productID, reviewID)).responseJSON { (response) in
-            if (response.data != nil) {
-                let json = response.data
+            print(response.response?.statusCode)
+            if (response.response?.statusCode == 200) {
+                let json = response.result.value
                 var jsonOBJ = JSON(json!)
                 if let commentData = jsonOBJ["data"].arrayValue as [JSON]? {
                     self.commentResults = commentData

@@ -57,6 +57,11 @@ class BoxesCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
         
     }
     
+    deinit {
+        self.ignoreFrameChanges()
+    }
+    
+    
     func setArrowButton() {
         viewButton?.setImage(arrowImage, forState: UIControlState.Normal)
         viewButton?.userInteractionEnabled = false
@@ -98,7 +103,7 @@ class BoxesCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
     }
     
     func ignoreFrameChanges() {
-        removeObserver(self, forKeyPath: "frame")
+        //removeObserver(self, forKeyPath: "frame")
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {

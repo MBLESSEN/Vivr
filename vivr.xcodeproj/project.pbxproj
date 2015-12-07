@@ -76,6 +76,7 @@
 		507A6C161B706B9F00B8A1FA /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A6C151B706B9F00B8A1FA /* SignUpViewController.swift */; };
 		507F2DE31AFFFE2200BBAA67 /* VIVRSettingsEditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507F2DE21AFFFE2200BBAA67 /* VIVRSettingsEditProfileViewController.swift */; };
 		507F2DE51B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507F2DE41B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift */; };
+		5081D4521C13A6C4004DB41D /* VIVRActivityIndicatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081D4511C13A6C4004DB41D /* VIVRActivityIndicatorProtocol.swift */; };
 		5084572E1BBB5702009A73D8 /* tempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084572D1BBB5702009A73D8 /* tempo.swift */; };
 		5085E0AA1B98B90700C89A0C /* boxProductTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5085E0A91B98B90700C89A0C /* boxProductTableView.swift */; };
 		50876DDB1B0C26770081CAA9 /* PagedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50876DDA1B0C26770081CAA9 /* PagedArray.swift */; };
@@ -211,6 +212,7 @@
 		507A6C151B706B9F00B8A1FA /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		507F2DE21AFFFE2200BBAA67 /* VIVRSettingsEditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRSettingsEditProfileViewController.swift; sourceTree = "<group>"; };
 		507F2DE41B0115DE00BBAA67 /* VIVRSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRSettingsTableViewController.swift; sourceTree = "<group>"; };
+		5081D4511C13A6C4004DB41D /* VIVRActivityIndicatorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRActivityIndicatorProtocol.swift; sourceTree = "<group>"; };
 		5084572D1BBB5702009A73D8 /* tempo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tempo.swift; sourceTree = "<group>"; };
 		5085E0A91B98B90700C89A0C /* boxProductTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boxProductTableView.swift; sourceTree = "<group>"; };
 		50876DDA1B0C26770081CAA9 /* PagedArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagedArray.swift; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 			children = (
 				50FB57BB1C0E15D900568BA7 /* VIVRDidAddNewBrandProtocol.swift */,
 				50FB57C11C0E46BE00568BA7 /* reviewCellDelegate.swift */,
+				5081D4511C13A6C4004DB41D /* VIVRActivityIndicatorProtocol.swift */,
 				509FDE8B1C111783002E7059 /* VIVRProductReviewProtocol.swift */,
 			);
 			name = Protocols;
@@ -774,6 +777,7 @@
 				505FB85F1A47698600584FF8 /* VIVRProductViewController.swift in Sources */,
 				50FE14E41B6030A9003D6BA3 /* BoxCell.swift in Sources */,
 				500CE6491BFFD11000D612FF /* Authorization.swift in Sources */,
+				5081D4521C13A6C4004DB41D /* VIVRActivityIndicatorProtocol.swift in Sources */,
 				5042272A1B3344B200C1C194 /* userData.xcdatamodeld in Sources */,
 				500CE6571BFFD26F00D612FF /* Tag.swift in Sources */,
 				5089C14A1BA9D9E300727BEC /* iCarousel.m in Sources */,

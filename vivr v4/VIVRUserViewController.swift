@@ -189,7 +189,6 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         cell.favoritesCount.text = "\(userData!.favorite_count!)"
         cell.wishCount.text = "\(userData!.wishlist_count!)"
         cell.reviewsCount.text = "\(userData!.review_count!)"
-        cell.boxCount.text = "\(userData!.box_count!)"
         
         }
         cell.preservesSuperviewLayoutMargins = false
@@ -350,7 +349,7 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
             topCell.contentView.alpha = percent
         }
         if (percent <= 0.1 || cellOffset >= height + 120) {
-            navBackground.alpha = 1
+            navBackground.alpha = 1.0
         }else {
             navBackground.alpha = 0
         }

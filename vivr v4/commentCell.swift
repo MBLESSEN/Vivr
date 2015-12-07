@@ -61,7 +61,7 @@ class commentCell: UITableViewCell {
         if let date = self.comment?["created_at"].stringValue as String?{
             let dateFor:NSDateFormatter = NSDateFormatter()
             dateFor.timeZone = NSTimeZone(abbreviation: "UTC")
-            dateFor.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            dateFor.dateFormat = "yyyy-MM-dd HH:mm:ss"
             let theDate:NSDate = dateFor.dateFromString(date)!
             let tempoDate = Tempo(date: theDate)
             let timeStamp = tempoDate.timeAgoNow()
