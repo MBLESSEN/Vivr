@@ -12,6 +12,7 @@ class VIVRReviewScoreViewController: UIViewController {
 
 
 
+    @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var shadowView: UIButton!
     @IBOutlet weak var scoreBubble: UIView!
     @IBOutlet weak var scoreText: UILabel!
@@ -183,6 +184,7 @@ class VIVRReviewScoreViewController: UIViewController {
             "vapor": vaporController.selectedSegmentIndex,
             "score": scoreSlider.value
         ]
+        showActivityIndicatorInButton()
         ActivityFeedReviews.createNewReview("\(productId!)", parameters: parameters, completionHandler: { (reviewWrapper, error) in
             if error != nil {
                 self.didNotCompleteReview()
@@ -195,12 +197,35 @@ class VIVRReviewScoreViewController: UIViewController {
     
     func completeReview(reviewWrapper: ActivityWrapper) {
         let review = reviewWrapper.ActivityReviews?.first
-        viewDelegate?.isReviewSuccessfull!(true)
+            self.reviewSuccessInButton()
+            NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target: self, selector: "callViewDelegateIsReviewSuccessfull", userInfo: nil, repeats: false)
         
     }
     
     func didNotCompleteReview() {
         
+    }
+    
+    func showActivityIndicatorInButton() {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.tag = 1
+        submitButton.titleLabel!.text = ""
+        activityIndicator.center = submitButton.center
+        activityIndicator.center.y = submitButton.frame.minY
+        submitButton.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        
+    }
+    
+    func reviewSuccessInButton() {
+        let checkMark = UIImage(named: "checkmark")
+        submitButton.viewWithTag(1)?.removeFromSuperview()
+        submitButton.setImage(checkMark, forState: .Normal)
+        submitButton.setTitle("Rating submitted!", forState: .Normal)
+    }
+    
+    func callViewDelegateIsReviewSuccessfull() {
+        self.viewDelegate?.isReviewSuccessfull!(true)
     }
 
 }

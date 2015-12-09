@@ -28,7 +28,6 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadFirstReviews()
         // Do any additional setup after loading the view.
     }
 
@@ -38,6 +37,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
     }
     
     override func viewWillAppear(animated: Bool) {
+        loadFirstReviews()
     }
     
     
@@ -216,29 +216,41 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let newPoint = reviewTable.contentOffset
         print(newPoint.y)
-        if (newPoint.y - self.initialPoint!.y) > 25.0 {
-            if topPanelActive == true{
-            UIView.animateWithDuration(0.3, animations: {
-                self.topPanelHeightConstraint.constant = 0 - self.topPanel.frame.height
-                self.topPanelActive = false
-                self.view.layoutIfNeeded()
-            })
+        if newPoint.y == 0.0 {
+            if topPanelActive == false{
+                UIView.animateWithDuration(0.3, animations: {
+                    self.topPanelHeightConstraint.constant = 0
+                    self.topPanelActive = true
+                    self.view.layoutIfNeeded()
+                })
             }
-        }else if (newPoint.y - self.initialPoint!.y) < -25 {
-            if topPanelActive == false {
-            UIView.animateWithDuration(0.3, animations: {
-                self.topPanelHeightConstraint.constant = 0
-                self.topPanelActive = true
-                self.view.layoutIfNeeded()
-            })
-            }
+
         }
+            if (newPoint.y - self.initialPoint!.y) > 25.0 {
+                if topPanelActive == true{
+                UIView.animateWithDuration(0.3, animations: {
+                    self.topPanelHeightConstraint.constant = 0 - self.topPanel.frame.height
+                    self.topPanelActive = false
+                    self.view.layoutIfNeeded()
+                })
+                }
+            }else if (newPoint.y - self.initialPoint!.y) < -25 {
+                if topPanelActive == false{
+                UIView.animateWithDuration(0.3, animations: {
+                    self.topPanelHeightConstraint.constant = 0
+                    self.topPanelActive = true
+                    self.view.layoutIfNeeded()
+                })
+                }
+            }
     }
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         self.initialPoint = reviewTable.contentOffset
         print("------ INITAL POINT SET TO \(self.initialPoint)")
     }
+    
+    
 
     /*
     // MARK: - Navigation

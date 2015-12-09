@@ -11,7 +11,7 @@ import Alamofire
 import Haneke
 import SwiftyJSON
 
-class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollViewDelegate, MyBoxControllerDelegate {
+class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollViewDelegate, MyBoxControllerDelegate, VIVRActivityIndicatorProtocol {
     var myFavorites:[SwiftyJSON.JSON]? = []
     var myFavoritesData:SwiftyJSON.JSON?
     var myWishlist:[SwiftyJSON.JSON]? = []
@@ -22,14 +22,18 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
     var reviewID:String?
     var userNameLabel:UILabel?
     var selectedBoxID: Int?
-    var isLoadingUserData = false
-    var isLoadingReviews = false
     var userReviews:Array<ActivityFeedReviews>?
     var userReviewsWrapper:ActivityWrapper?
     var selectedReview: ActivityFeedReviews?
     var isMyUser:Bool = false
     var userData:User?
     var userDataWrapper: UserDataWrapper?
+    var activityIndicator: LoadingScreenViewController?
+    
+    //BOOL INDICATORS FOR LOADING DATA 
+    var isLoadingUserData = false
+    var isLoadingReviews = false
+    var didLayoutSubview = false
     
     
     @IBOutlet weak var mySettingsButton: UIBarButtonItem!
@@ -56,6 +60,7 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         navigationController?.navigationBar.translucent = true  
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain , target: nil, action: nil)
         navigationController?.navigationBarHidden = false
+        tabBarController?.tabBar.hidden = false
         if isMyUser == true {
             configureNavBarForMyUser()
         }else {
@@ -152,6 +157,8 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         default:
             if self.userReviews?.count == 0 {
                 return 1
+            }else if self.userReviewsWrapper == nil {
+                return 0
             }else{
             return self.userReviews!.count
             }
@@ -207,10 +214,9 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
     
     func reviewCellAtIndexPath(indexPath:NSIndexPath) -> myReviewsCell {
         let cell = self.profileTable.dequeueReusableCellWithIdentifier("myReviews") as! myReviewsCell
-        if self.userReviews != nil && self.userReviews!.count >= indexPath.row {
+        if self.userReviews!.count != 0 && self.userReviews!.count >= indexPath.row {
             if let cID = indexPath.row as Int? {
                 cell.cellID = cID
-            }
         setImageForReview(cell, indexPath: indexPath)
         setReviewForCell(cell, indexPath: indexPath)
             let rowsToLoadFromBottom = 5
@@ -225,6 +231,7 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         }
         cell.cellDelegate = self
         cell.preservesSuperviewLayoutMargins = false
+        }
         return cell
     }
     
@@ -237,11 +244,11 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
     }
     
     func setImageForReview(cell:myReviewsCell, indexPath:NSIndexPath) {
-        let review = userReviews![indexPath.row]
-        if let imageString = review.product?.image {
-            let url = NSURL(string: imageString)
-            cell.productImage.hnk_setImageFromURL(url!)
-        }
+            let review = userReviews![indexPath.row]
+            if let imageString = review.product?.image {
+                let url = NSURL(string: imageString)
+                cell.productImage.hnk_setImageFromURL(url!)
+            }
     }
     func setReviewForCell(cell:myReviewsCell, indexPath:NSIndexPath) {
         let review = userReviews![indexPath.row]
@@ -452,5 +459,6 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         mySettingsButton.tintColor = UIColor.clearColor()
         mySettingsButton.enabled = false
     }
+    
 
 }

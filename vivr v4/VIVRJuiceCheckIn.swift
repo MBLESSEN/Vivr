@@ -21,9 +21,9 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     var myReviewsView: VIVRUserReviewsViewController?
 
     override func viewDidLoad() {
-        super.viewDidLoad()
         instantiateMyReviewsView()
         instantiateSearchView()
+        super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
