@@ -79,5 +79,16 @@ class DeviceInfo {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.logout()
     }
+    
+    class func checkIfFirstLoginEver(completionHandler: (Bool) -> Void) {
+        if (!NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce")) {
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunchedOnce")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            completionHandler(true)
+            return
+        }
+        completionHandler(false)
+    }
+    
 }
 

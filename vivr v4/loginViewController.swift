@@ -10,16 +10,12 @@ import UIKit
 import Alamofire
 
 
-class loginViewController: UIViewController, BWWalkthroughViewControllerDelegate, loginDelegate {
-
-    @IBOutlet weak var username: UITextField!
-    @IBOutlet weak var password: UITextField!
+class loginViewController: UIViewController {
     @IBOutlet weak var walkthroughContainer: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
-        showWalkthrough()
         // Do any additional setup after loading the view.
     }
     
@@ -33,39 +29,15 @@ class loginViewController: UIViewController, BWWalkthroughViewControllerDelegate
         navigationItem.backBarButtonItem = backItem
     }
     
-    func showWalkthrough() {
-        let stb = UIStoryboard(name: "Walkthrough", bundle: nil)
-        let master = stb.instantiateViewControllerWithIdentifier("master") as! BWWalkthroughViewController
-        master.viewDelegate = self
-        let pageOne = stb.instantiateViewControllerWithIdentifier("page1") 
-        let pageTwo = stb.instantiateViewControllerWithIdentifier("page2") 
-        let pageThree = stb.instantiateViewControllerWithIdentifier("page3") 
-        let pageFour = stb.instantiateViewControllerWithIdentifier("page4") 
-        master.delegate = self
-        
-        //master.addViewController(pageOne)
-        //master.addViewController(pageTwo)
-        //master.addViewController(pageThree)
-        //master.addViewController(pageFour)
-        
-        
-        self.addChildViewController(master)
-        master.view.frame = self.walkthroughContainer.frame
-        walkthroughContainer.addSubview(master.view)
-        master.didMoveToParentViewController(self)
-        
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func tappedLoginButton(view: BWWalkthroughViewController) {
-        performSegueWithIdentifier("toLogin", sender: self)
+    @IBAction func loginPressed(sender: AnyObject) {
+            performSegueWithIdentifier("toLogin", sender: self)
     }
-    
-    func tappedRegisterButton(view: BWWalkthroughViewController) {
+    @IBAction func signupPressed(sender: AnyObject) {
         performSegueWithIdentifier("toRegister", sender: self)
     }
     

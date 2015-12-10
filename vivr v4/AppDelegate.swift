@@ -55,7 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 self.loggedOut = false
                 }
             })
-        
             self.setMyIphoneSizeStruct()
             self.applyTheme()
         
@@ -153,8 +152,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func login() {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewController = storyBoard.instantiateViewControllerWithIdentifier("HomeView") as! UITabBarController
+        let nav = initialViewController.viewControllers![0] as! UINavigationController
+        let vc = nav.viewControllers[0] as! VIVRHomeViewController
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
+        DeviceInfo.checkIfFirstLoginEver( {firstLaunch in
+            if firstLaunch == true {
+                vc.isFirstLaunch = true
+            }
+        })
     }
 
     

@@ -57,6 +57,7 @@
 		504E1EC71BB882C300FC9DA8 /* blogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E1EC61BB882C300FC9DA8 /* blogCell.swift */; };
 		5051C6CA1B443BB800FB5E67 /* JuiceCheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051C6C91B443BB800FB5E67 /* JuiceCheckInViewController.swift */; };
 		5051C6D11B444E4500FB5E67 /* VIVRSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051C6D01B444E4500FB5E67 /* VIVRSearchViewController.swift */; };
+		5052D5941C1890EF001FB3C4 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5052D5931C1890EF001FB3C4 /* loginViewController.swift */; };
 		5055C90E1AEC4300001287B2 /* menuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5055C90D1AEC4300001287B2 /* menuController.swift */; };
 		505F1D7D1A99744B0011BCE8 /* VIVRMyUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F1D7C1A99744B0011BCE8 /* VIVRMyUserViewController.swift */; };
 		505F1D7F1A9979F50011BCE8 /* profileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F1D7E1A9979F40011BCE8 /* profileCell.swift */; };
@@ -97,7 +98,6 @@
 		50BE26631B55C9970037AE19 /* ReviewScoreSliver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BE26621B55C9970037AE19 /* ReviewScoreSliver.swift */; };
 		50C192B41B0A608D008B557F /* VIVRFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C192B31B0A608D008B557F /* VIVRFavoritesViewController.swift */; };
 		50C2C6421AC75DDA006E9EBB /* footerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C2C6411AC75DDA006E9EBB /* footerCell.swift */; };
-		50C3B45E1A7C59B200EC39D1 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */; };
 		50C3B4641A7C5DC400EC39D1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3B4631A7C5DC400EC39D1 /* KeychainWrapper.swift */; };
 		50CC19AF1B0AEF490030D06D /* B68UIFloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CC19AE1B0AEF490030D06D /* B68UIFloatLabelTextField.swift */; };
 		50CCD0D61BFE4C0E0003EF98 /* VIVRShoppingCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CCD0D51BFE4C0E0003EF98 /* VIVRShoppingCartViewController.swift */; };
@@ -191,6 +191,7 @@
 		504E1EC61BB882C300FC9DA8 /* blogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogCell.swift; sourceTree = "<group>"; };
 		5051C6C91B443BB800FB5E67 /* JuiceCheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JuiceCheckInViewController.swift; sourceTree = "<group>"; };
 		5051C6D01B444E4500FB5E67 /* VIVRSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRSearchViewController.swift; sourceTree = "<group>"; };
+		5052D5931C1890EF001FB3C4 /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
 		5055C90D1AEC4300001287B2 /* menuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuController.swift; sourceTree = "<group>"; };
 		505F1D7C1A99744B0011BCE8 /* VIVRMyUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRMyUserViewController.swift; sourceTree = "<group>"; };
 		505F1D7E1A9979F40011BCE8 /* profileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileCell.swift; sourceTree = "<group>"; };
@@ -243,7 +244,6 @@
 		50C192B31B0A608D008B557F /* VIVRFavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRFavoritesViewController.swift; sourceTree = "<group>"; };
 		50C2C6321AC4A167006E9EBB /* anyUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = anyUserViewController.swift; sourceTree = "<group>"; };
 		50C2C6411AC75DDA006E9EBB /* footerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = footerCell.swift; sourceTree = "<group>"; };
-		50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
 		50C3B4631A7C5DC400EC39D1 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		50CC19AE1B0AEF490030D06D /* B68UIFloatLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = B68UIFloatLabelTextField.swift; sourceTree = "<group>"; };
 		50CCD0D51BFE4C0E0003EF98 /* VIVRShoppingCartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIVRShoppingCartViewController.swift; sourceTree = "<group>"; };
@@ -427,7 +427,7 @@
 		507A6C121B706B3600B8A1FA /* login screens */ = {
 			isa = PBXGroup;
 			children = (
-				50C3B45D1A7C59B200EC39D1 /* loginViewController.swift */,
+				5052D5931C1890EF001FB3C4 /* loginViewController.swift */,
 				507A6C131B706B6600B8A1FA /* LoginInViewController.swift */,
 				507A6C151B706B9F00B8A1FA /* SignUpViewController.swift */,
 				50142E991AF69BD2004ED2A2 /* BWWalkthroughPageViewController.swift */,
@@ -752,7 +752,6 @@
 				502E216F1C0D55EC0073E483 /* VIVRAddNewBrandViewController.swift in Sources */,
 				503848EA1B6FE777000C0B4B /* BWWalkthroughViewController.swift in Sources */,
 				5051C6CA1B443BB800FB5E67 /* JuiceCheckInViewController.swift in Sources */,
-				50C3B45E1A7C59B200EC39D1 /* loginViewController.swift in Sources */,
 				505F1D7F1A9979F50011BCE8 /* profileCell.swift in Sources */,
 				509FDE8F1C112FE0002E7059 /* LoadingScreenViewController.swift in Sources */,
 				50CC19AF1B0AEF490030D06D /* B68UIFloatLabelTextField.swift in Sources */,
@@ -773,6 +772,7 @@
 				505FB85F1A47698600584FF8 /* VIVRProductViewController.swift in Sources */,
 				50FE14E41B6030A9003D6BA3 /* BoxCell.swift in Sources */,
 				500CE6491BFFD11000D612FF /* Authorization.swift in Sources */,
+				5052D5941C1890EF001FB3C4 /* loginViewController.swift in Sources */,
 				5081D4521C13A6C4004DB41D /* VIVRActivityIndicatorProtocol.swift in Sources */,
 				5042272A1B3344B200C1C194 /* userData.xcdatamodeld in Sources */,
 				500CE6571BFFD26F00D612FF /* Tag.swift in Sources */,

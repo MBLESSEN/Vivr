@@ -72,6 +72,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     let screenSize = UIScreen.mainScreen().bounds
     var currentPage:Int = 1
     var helpfulCount:Int?
+    var isFirstLaunch: Bool?
     
     //data object Arrays
     var whatsHot:[SwiftyJSON.JSON]? = []
@@ -89,6 +90,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     var pressDownCell:vivrCell?
     var selectedFeedReview:ActivityFeedReviews?
     var activityIndicator: LoadingScreenViewController?
+    var walkthrough: BWWalkthroughViewController?
     
     //local view/object initializers
     var activeWishlistContainer: UIView?
@@ -122,6 +124,9 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             if isLoadingFeed == false {
                 if activityWrapper != nil {
                     hideActivityIndicator()
+                    if isFirstLaunch == true {
+                        presentWalkthroughViewController()
+                    }
                 }
             }
         }
@@ -153,6 +158,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         instantiateActivityIndicator()
         prepareToLoadData()
         addSwipeGestureRecongnizer()
+    
     }
     
     
@@ -1376,5 +1382,49 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             controller.sendActionsForControlEvents(UIControlEvents.ValueChanged)
         }
     }
-
+    
+    //BW WALKTHROUGH VIEW CONTROLLER
+    //WALKTHROUGH VIEW CONTROLLEr
+    
+    func presentWalkthroughViewController() {
+        let window: UIWindow = UIApplication.sharedApplication().keyWindow!
+        let rect = window.bounds
+        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0.0)
+        let context = UIGraphicsGetCurrentContext()
+        window.layer.renderInContext(context!)
+        let capturedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        let stb = UIStoryboard(name: "Walkthrough", bundle: nil)
+        walkthrough = stb.instantiateViewControllerWithIdentifier("master") as! BWWalkthroughViewController
+        let page_one = stb.instantiateViewControllerWithIdentifier("page1") as UIViewController
+        let page_two = stb.instantiateViewControllerWithIdentifier("page2")as UIViewController
+        let page_three = stb.instantiateViewControllerWithIdentifier("page3") as UIViewController
+        let page_four = stb.instantiateViewControllerWithIdentifier("page4") as UIViewController
+        
+        // Attach the pages to the master
+        walkthrough!.delegate = self
+        walkthrough!.addViewController(page_one)
+        walkthrough!.addViewController(page_two)
+        walkthrough!.addViewController(page_three)
+        walkthrough!.addViewController(page_four)
+        
+        self.presentViewController(walkthrough!, animated: true, completion: nil)
+        walkthrough!.backgroundImage.image = capturedImage
+        
+        
+    }
+    
+    func walkthroughCloseButtonPressed() {
+        walkthrough?.dismissViewControllerAnimated(true, completion: nil)
+        walkthrough!.removeFromParentViewController()
+    }
+    
+    func walkthroughSetupProfilePressed() {
+        walkthrough?.dismissViewControllerAnimated(true, completion: { action in
+            self.walkthrough!.removeFromParentViewController()
+            let stb = UIStoryboard(name: "Main", bundle: nil)
+            let profile = stb.instantiateViewControllerWithIdentifier("editProfile") as! VIVRSettingsEditProfileViewController
+            self.presentViewController(profile, animated: true, completion: nil)
+        })
+    }
 }
