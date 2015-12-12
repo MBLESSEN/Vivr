@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>HanekeSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-vivr.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>2174CAB83AD9B4AC3FF9733D78547F89</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3CF401F8BB87EFB92820549CCFA72F6E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4904123C919FD237884BDA5E7C0D4EA4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>51625BD2EBA6020A51971818AA6069BD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9F7F36850F6519726286D70AEFE13EE1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

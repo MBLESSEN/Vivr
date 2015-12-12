@@ -1,0 +1,6 @@
+framework module Pods_vivr {
+  umbrella header "Pods-vivr-umbrella.h"
+
+  export *
+  module * { export * }
+}
