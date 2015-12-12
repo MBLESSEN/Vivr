@@ -156,6 +156,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     func createAddJuiceView() {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         addJuiceView = storyboard.instantiateViewControllerWithIdentifier("addJuiceView") as! AddNewJuiceView
+        addJuiceView!.viewDelegate = self
         
     }
     
@@ -171,7 +172,9 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func addJuice() {
+        let parentView = parentViewController! as! VIVRJuiceCheckIn
         self.presentViewController(addJuiceView!, animated: true, completion: nil)
+        addJuiceView!.juiceName.text! = parentView.searchBar.text!
     }
     
     func addNewJuiceSuccess() {
@@ -516,11 +519,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     
     func addSearchResultFromWrapper(wrapper: SearchResult?) {
         self.searchWrapper = wrapper
-        if self.products!.count == 0 {
-            self.products = self.searchWrapper?.Products.Products
-        }else if self.searchWrapper != nil && self.searchWrapper!.Products.Products != nil {
-            self.products = self.products! + self.searchWrapper!.Products.Products!
-        }
+        self.products = self.searchWrapper?.Products.Products
         if self.brands!.count == 0{
             self.brands = self.searchWrapper?.Brands.Brands
         }else if self.searchWrapper != nil && self.searchWrapper!.Brands.Brands != nil {

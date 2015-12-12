@@ -22,6 +22,8 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     override func viewDidLoad() {
         instantiateMyReviewsView()
         instantiateSearchView()
+        hideSearchView()
+        showMyReviewsView()
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
@@ -33,7 +35,6 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
-        resetView()
     }
     
     override func viewDidLayoutSubviews() {
@@ -63,10 +64,6 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         }
     }
     
-    func resetView() {
-        hideSearchView()
-        showMyReviewsView()
-    }
     
     //IB  ACTION OUTLETS
     //CANCEL BUTTON
@@ -185,6 +182,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     }
     
     func reloadSearch() {
+        print("reload search called")
         searchView!.loadFirstSearch(searchBar.text!)
     }
     

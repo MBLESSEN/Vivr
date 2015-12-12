@@ -21,6 +21,10 @@ class addFlavorTagsView: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var tagTable: UITableView!
+    @IBOutlet weak var cleatTagsButton: UIButton!
+    
+    
+    @IBOutlet weak var tagCount: UILabel!
     var viewDelegate:flavorTagsDelegate? = nil
     var tagList:Array<Tag>?
     var isLoadingTags = false
@@ -50,6 +54,7 @@ class addFlavorTagsView: UIViewController, UITableViewDataSource, UITableViewDel
         loadFirstTags()
         configureTableView()
         startObservingKeyboardEvents()
+        updateTagCount()
     }
     
     func hideKeyboard() {
@@ -132,21 +137,33 @@ class addFlavorTagsView: UIViewController, UITableViewDataSource, UITableViewDel
 
     @IBAction func submit(sender: AnyObject) {
         self.dismissViewControllerAnimated(true , completion: nil)
-        checkSelectedTags()
         viewDelegate?.didSubmit(self)
     }
     
-    
-    func checkSelectedTags() {
+    @IBAction func clearButtonPressed(sender: AnyObject) {
         selectedTags = []
-        let selectedTagCells:NSArray = tagTable.indexPathsForSelectedRows ?? []
-        for index in selectedTagCells {
-            let cell = tagTable.cellForRowAtIndexPath(index as! NSIndexPath) as! TagCell
-            let tagID = cell.tagID!
-            selectedTags.addObject(tagID)
+        savedTags = []
+        for indexPath:NSIndexPath in tagTable.indexPathsForSelectedRows ?? [] {
+            tagTable.deselectRowAtIndexPath(indexPath, animated: true)
+            tagTable.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: false)
         }
-        print(self.selectedTags, terminator: "")
+        tagCount.text = "0/3"
     }
+    
+    func updateTagCount() {
+        let count = tagTable.indexPathsForSelectedRows?.count ?? 0
+        tagCount.text = "\(count)/3"
+        
+    }
+    
+    func addTagToSelectedTags(id: Int) {
+        selectedTags.addObject(id)
+    }
+    
+    func removeTagFromSelectedTags(id: Int) {
+        selectedTags.removeObject(id)
+    }
+
     
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         if tagTable.indexPathsForSelectedRows != nil{
@@ -155,6 +172,20 @@ class addFlavorTagsView: UIViewController, UITableViewDataSource, UITableViewDel
             }
         }
         return indexPath
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tagTable.cellForRowAtIndexPath(indexPath) as! TagCell
+        let id = Int(cell.tagID!)
+        addTagToSelectedTags(id!)
+        updateTagCount()
+    }
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tagTable.cellForRowAtIndexPath(indexPath) as! TagCell
+        let id = Int(cell.tagID!)
+        removeTagFromSelectedTags(id!)
+        updateTagCount()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -176,8 +207,10 @@ class addFlavorTagsView: UIViewController, UITableViewDataSource, UITableViewDel
                 for id in savedTags! {
                     print(" id == \(id)", terminator: "")
                     print(" tagID == \(tagID)", terminator: "")
-                    if id as! String == "\(tagID)" {
+                    if "\(id)"  == "\(tagID)" {
                         self.tagTable.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
+                    }else {
+                        cell.setSelected(false, animated: false)
                     }
                 }
             }
@@ -242,14 +275,6 @@ class addFlavorTagsView: UIViewController, UITableViewDataSource, UITableViewDel
         
     }
     
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

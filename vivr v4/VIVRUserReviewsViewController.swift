@@ -135,7 +135,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
         if let helpfullCount = review.helpfulCount {
             switch helpfullCount {
             case 0:
-                cell.helpfullLabel.text = "0 people found this helpful?"
+                cell.helpfullLabel.text = "0 people found this helpful"
             default:
                 cell.helpfullLabel.text = "\(helpfullCount) people found this helpful"
             }
