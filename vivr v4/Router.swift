@@ -56,7 +56,7 @@ enum Router: URLRequestConvertible {
     case findSpecificProduct(String, Int)
     case editBox(Int, [String:AnyObject])
     case readBlog(Int)
-    case postProduct(Int, [String:AnyObject])
+    case postProduct([String:AnyObject])
     case createNewBrand([String:AnyObject])
 
     
@@ -243,8 +243,8 @@ enum Router: URLRequestConvertible {
             return "/boxes/\(boxID)"
         case .readBlog(let pID):
             return "/featured?page=\(pID)"
-        case .postProduct(let brandID, _):
-            return "/brands/\(brandID)/products"
+        case .postProduct(_):
+            return "/products"
         case .createNewBrand(_):
             return "/brands"
         }
@@ -282,7 +282,7 @@ enum Router: URLRequestConvertible {
             return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
         case .editBox(_, let parameters):
             return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
-        case .postProduct(_, let parameters):
+        case .postProduct(let parameters):
             return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
         case .createNewBrand(let parameters):
             return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0

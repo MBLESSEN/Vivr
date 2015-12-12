@@ -91,6 +91,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     var selectedFeedReview:ActivityFeedReviews?
     var activityIndicator: LoadingScreenViewController?
     var walkthrough: BWWalkthroughViewController?
+    var emptyStateView: VIVREmptyStateView?
     
     //local view/object initializers
     var activeWishlistContainer: UIView?
@@ -125,7 +126,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 if activityWrapper != nil {
                     hideActivityIndicator()
                     if isFirstLaunch == true {
-                        presentWalkthroughViewController()
+                        isFirstLaunch = false
                     }
                 }
             }
@@ -158,6 +159,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         instantiateActivityIndicator()
         prepareToLoadData()
         addSwipeGestureRecongnizer()
+        instantiateEmptyStateView()
     
     }
     
@@ -177,6 +179,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         if didLayoutSubview == false {
             setupActivityIndicator()
             setupSearchView()
+            setEmptyStateView()
             self.didLayoutSubview = true
         }
     }
@@ -1086,6 +1089,11 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func addReviewFromWrapper(wrapper: ActivityWrapper?) {
         self.activityWrapper = wrapper
+        if wrapper?.count == 0 {
+            showEmptyStateView()
+        }else {
+            hideEmptyStateView()
+        }
         if self.feedReviews == nil {
             self.feedReviews = self.activityWrapper?.ActivityReviews
         }else if self.activityWrapper != nil && self.activityWrapper!.ActivityReviews != nil{
@@ -1352,6 +1360,26 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    func instantiateEmptyStateView() {
+        self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.emptyActivityWithFilters, stringContext: nil)
+    }
+    
+    func setEmptyStateView() {
+        emptyStateView!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+    }
+    
+    func showEmptyStateView() {
+        if emptyStateView != nil {
+            self.mainTable.backgroundView = emptyStateView!
+        }
+    }
+    
+    func hideEmptyStateView() {
+        self.mainTable.backgroundView = nil
+        
+    }
+    
+    
     func reloadViewControllerData() {
         reload()
     }
@@ -1384,7 +1412,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     //BW WALKTHROUGH VIEW CONTROLLER
-    //WALKTHROUGH VIEW CONTROLLEr
+    //WALKTHROUGH VIEW CONTROLLER
     
     func presentWalkthroughViewController() {
         let window: UIWindow = UIApplication.sharedApplication().keyWindow!
@@ -1423,7 +1451,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         walkthrough?.dismissViewControllerAnimated(true, completion: { action in
             self.walkthrough!.removeFromParentViewController()
             let stb = UIStoryboard(name: "Main", bundle: nil)
-            let profile = stb.instantiateViewControllerWithIdentifier("editProfile") as! VIVRSettingsEditProfileViewController
+            let profile = stb.instantiateViewControllerWithIdentifier("editProfile") as! UINavigationController
             self.presentViewController(profile, animated: true, completion: nil)
         })
     }

@@ -21,8 +21,12 @@ class VIVRWishlistViewController: UIViewController, UITableViewDataSource, produ
     
     var isUser:Bool?
     var isLoadingProducts = false
+    
+    var user: User?
     var wish:Array<Wish>?
     var wishWrapper: WishWrapper?
+    
+    var emptyStateView: VIVREmptyStateView?
     
     @IBOutlet weak var wishlistTable: UITableView!
 
@@ -32,6 +36,7 @@ class VIVRWishlistViewController: UIViewController, UITableViewDataSource, produ
         wishlistTable.rowHeight = 100
         self.automaticallyAdjustsScrollViewInsets = false
         configureNavBarTitle()
+        instantiateEmptyStateView()
         // Do any additional setup after loading the view.
     }
     
@@ -199,11 +204,39 @@ class VIVRWishlistViewController: UIViewController, UITableViewDataSource, produ
     func addWishFromWrapper(wrapper: WishWrapper?) {
         self.wishWrapper = wrapper
         wishCount = wishWrapper!.count!
+        if wrapper?.count == 0 {
+            showEmptyStateView()
+            wishlistTable.separatorStyle = UITableViewCellSeparatorStyle.None
+        }else {
+            hideEmptyStateView()
+            wishlistTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        }
         if self.wish == nil {
             self.wish = self.wishWrapper?.Products
         }else if self.wishWrapper != nil && self.wishWrapper!.Products != nil{
             self.wish = self.wish! + self.wishWrapper!.Products!
         }
+    }
+    
+    //EMPTY STATE VIEW CONTROLLER
+    
+    func instantiateEmptyStateView() {
+        self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.emptyUserWishlist, stringContext: self.user!.userName!)
+    }
+    
+    func setEmptyStateView() {
+        emptyStateView!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+    }
+    
+    func showEmptyStateView() {
+        if emptyStateView != nil {
+            self.wishlistTable.backgroundView = emptyStateView!
+        }
+    }
+    
+    func hideEmptyStateView() {
+        self.wishlistTable.backgroundView = nil
+        
     }
     
 

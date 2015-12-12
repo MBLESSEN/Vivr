@@ -29,6 +29,9 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
     var userData:User?
     var userDataWrapper: UserDataWrapper?
     var activityIndicator: LoadingScreenViewController?
+    var emptyStateView: VIVREmptyStateView?
+    
+    var height: CGFloat?
     
     //BOOL INDICATORS FOR LOADING DATA 
     var isLoadingUserData = false
@@ -85,6 +88,9 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
     @IBAction func favoritesTapped(sender: AnyObject) {
         self.segueIdentifier = "anyUserToFavorites"
         performSegueWithIdentifier(segueIdentifier!, sender: self)
+    }
+    @IBAction func settingsPressed(sender: AnyObject) {
+        self.segueIdentifier = "anyUserToSettings"
     }
     
     //TABLEVIEW CELL PROTOCOLS
@@ -155,9 +161,7 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         case 0:
             return 1
         default:
-            if self.userReviews?.count == 0 {
-                return 1
-            }else if self.userReviewsWrapper == nil {
+            if self.userReviewsWrapper == nil {
                 return 0
             }else{
             return self.userReviews!.count
@@ -171,19 +175,10 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         case 0:
             return profileCellAtIndexPath(indexPath)
         default:
-            if userReviews?.count == 0 {
-                return juiceCheckInCell()
-            }else{
             return reviewCellAtIndexPath(indexPath)
-            }
         }
     }
     
-    func juiceCheckInCell() -> UITableViewCell {
-        let cell = profileTable.dequeueReusableCellWithIdentifier("checkInJuiceCell")
-        return cell!
-        
-    }
     
     
     func profileCellAtIndexPath(indexPath:NSIndexPath) -> profileCell {
@@ -198,7 +193,8 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         cell.favoritesCount.text = "\(userData!.favorite_count!)"
         cell.wishCount.text = "\(userData!.wishlist_count!)"
         cell.reviewsCount.text = "\(userData!.review_count!)"
-        
+            height = cell.contentView.frame.height
+            setEmptyStateView()
         }
         cell.preservesSuperviewLayoutMargins = false
         return cell
@@ -317,6 +313,7 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         switch segueIdentifier! {
         case "anyUserToFavorites":
             let favoritesVC: VIVRFavoritesViewController = segue.destinationViewController as! VIVRFavoritesViewController
+            favoritesVC.user = self.userData!
             favoritesVC.userID = Int(selectedUserID!)
             favoritesVC.isUser = false
         case "anyUserToFlavor":
@@ -325,6 +322,7 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
             productVC.selectedProductID = selectedProductID
         case "anyUserToWishlist":
             let wishVC: VIVRWishlistViewController = segue.destinationViewController as! VIVRWishlistViewController
+            wishVC.user = self.userData!
             wishVC.userID = Int(selectedUserID!)
             wishVC.isUser = false
         case "anyUserToComments":
@@ -416,11 +414,6 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
     
     func addReviewFromWrapper(wrapper: ActivityWrapper?) {
         self.userReviewsWrapper = wrapper
-        if wrapper?.count == 0 {
-            profileTable.separatorStyle = UITableViewCellSeparatorStyle.None
-        }else {
-            profileTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-        }
         if self.userReviews == nil {
             self.userReviews = self.userReviewsWrapper?.ActivityReviews
         }else if self.userReviewsWrapper != nil && self.userReviewsWrapper!.ActivityReviews != nil{
@@ -448,6 +441,14 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         if self.userData == nil {
             self.userData = self.userDataWrapper?.UserData![0]
         }
+        instantiateEmptyStateView()
+        if wrapper?.UserData![0].review_count == 0 {
+            showEmptyStateView()
+            profileTable.separatorStyle = UITableViewCellSeparatorStyle.None
+        }else {
+            hideEmptyStateView()
+            profileTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        }
     }
     
     func configureNavBarForMyUser() {
@@ -458,6 +459,31 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
     func configureNavBarForAnyUser() {
         mySettingsButton.tintColor = UIColor.clearColor()
         mySettingsButton.enabled = false
+    }
+    
+    //INSTATIATE CHILD VIEWS
+    //SHOW HIDE CHILD VIEWS
+    
+    func instantiateEmptyStateView() {
+        self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.emptyUserReviews, stringContext: self.userData!.userName!)
+    }
+    
+    func setEmptyStateView() {
+        emptyStateView!.frame = CGRectMake(0, height!, self.view.frame.width, self.view.frame.height - height!)
+        emptyStateView!.layer.zPosition -= 1
+    }
+    
+    func showEmptyStateView() {
+        if emptyStateView != nil {
+            self.view.addSubview(emptyStateView!)
+        }
+    }
+    
+    func hideEmptyStateView() {
+        if emptyStateView != nil {
+            emptyStateView!.removeFromSuperview()
+        }
+        
     }
     
 

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddNewJuiceViewDelegate {
-    func submit()
+    func addNewJuiceSuccess()
 }
 
 class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate, UITextFieldDelegate, VIVRDidAddNewBrandProtocol {
@@ -77,12 +77,20 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     
     @IBAction func addJuicePressed(sender: AnyObject) {
         self.juiceName.endEditing(true)
-        if juiceName.text!.isEmpty || selectedBrandName == nil {
+        if juiceName.text!.isEmpty || selectedBrandID == nil{
             let emptyAlert = UIAlertController(title: "oops!", message: "Please complete all fields", preferredStyle: UIAlertControllerStyle.Alert)
             emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(emptyAlert, animated: true, completion: nil)
         }else{
-        viewDelegate?.submit()
+            let parameters: [String : AnyObject!] = [
+                "name": self.juiceName.text!,
+                "brand_id": selectedBrandID!
+            ]
+            Product.addProductToBrand(parameters, completionHandler: { (productWrapper, error) in
+                if error == nil {
+                    self.viewDelegate?.addNewJuiceSuccess()
+                }
+            })
         self.dismissViewControllerAnimated(false, completion: nil)
         }
     }

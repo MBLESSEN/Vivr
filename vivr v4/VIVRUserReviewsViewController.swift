@@ -22,12 +22,13 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
     @IBOutlet weak var topPanelHeightConstraint: NSLayoutConstraint!
     //SCROLLVIEW DATA VARIABLES
     var initialPoint: CGPoint?
-    
+    var emptyStateView: VIVREmptyStateView?
     
     @IBOutlet weak var juiceCountLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        instantiateEmptyStateView()
         // Do any additional setup after loading the view.
     }
 
@@ -40,6 +41,9 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
         loadFirstReviews()
     }
     
+    override func viewDidLayoutSubviews() {
+        setEmptyStateView()
+    }
     
     func setUserStats() {
         self.juiceCountLabel.text = "\(userReviewsWrapper!.count!)"
@@ -48,7 +52,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
     //UITABLEVIEW DATASOURCE & DELEGATE FUNCTIONS
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return self.userReviews?.count ?? 0
+        return self.userReviews?.count ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -187,8 +191,10 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
             setUserStats()
         }
         if wrapper?.count == 0 {
+            showEmptyStateView()
             reviewTable.separatorStyle = UITableViewCellSeparatorStyle.None
         }else {
+            hideEmptyStateView()
             reviewTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         }
         if self.userReviews == nil {
@@ -197,6 +203,8 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
             self.userReviews = self.userReviews! + self.userReviewsWrapper!.ActivityReviews!
         }
     }
+    
+    
     
     //REVIEW CELL DELEGATE FUNCTIONS
     //TAPPED PRODUCT
@@ -251,15 +259,26 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
     }
     
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //INSTATIATE CHILD VIEWS
+    //SHOW HIDE CHILD VIEWS
+    
+    func instantiateEmptyStateView() {
+        self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.juiceCheckIn, stringContext: nil)
     }
-    */
+    
+    func setEmptyStateView() {
+        emptyStateView!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+    }
+    
+    func showEmptyStateView() {
+        if emptyStateView != nil {
+            self.reviewTable.backgroundView = emptyStateView!
+        }
+    }
+    
+    func hideEmptyStateView() {
+            self.reviewTable.backgroundView = nil
+        
+    }
 
 }

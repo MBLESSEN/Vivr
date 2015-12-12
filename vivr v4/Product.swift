@@ -74,8 +74,8 @@ class Product {
     class func endpointForFindProducts(searchText: String) -> URLRequestConvertible {
         return Router.findSpecificProduct(searchText, 1)
     }
-    class func endpointForPostProductToBrand(brandID: Int, parameters: [String:AnyObject]) -> URLRequestConvertible {
-        return Router.postProduct(brandID, parameters)
+    class func endpointForPostProductToBrand(parameters: [String:AnyObject]) -> URLRequestConvertible {
+        return Router.postProduct(parameters)
     }
     
     private class func getProductAtPath(path: URLRequestConvertible, completionHandler: (ProductWrapper?, NSError?) -> Void) {
@@ -290,8 +290,8 @@ class Product {
         }
         
     }
-    class func addProductToBrand(brandID: Int, parameters: [String:AnyObject], completionHandler : (ProductWrapper?, NSError?) -> Void) {
-        postProductToBrand(Product.endpointForPostProductToBrand(brandID, parameters: parameters), completionHandler: completionHandler)
+    class func addProductToBrand(parameters: [String:AnyObject], completionHandler : (ProductWrapper?, NSError?) -> Void) {
+        postProductToBrand(Product.endpointForPostProductToBrand(parameters), completionHandler: completionHandler)
     }
     
 }

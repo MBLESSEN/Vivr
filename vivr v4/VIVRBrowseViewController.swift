@@ -595,10 +595,9 @@ class VIVRBrowseViewController: UIViewController, UITableViewDataSource, UITable
             cell.boxID = boxAtIndex.boxID
             cell.boxName.text = boxAtIndex.name
             cell.userName.text = boxAtIndex.user?.userName
-            if let urlString = boxAtIndex.user?.image as String? {
-                let url = NSURL(string: urlString)
-                cell.userImage.hnk_setImageFromURL(url!)
-            }
+            let urlString = boxAtIndex.user?.image!
+            let url = NSURL(string: urlString!)
+            cell.userImage.hnk_setImageFromURL(url!)
             cell.juiceCount.text = "\(boxAtIndex.productCount!) Juices"
             cell.userID = boxAtIndex.user?.ID
             let rowsToLoadFromBottom = 5
@@ -624,19 +623,10 @@ class VIVRBrowseViewController: UIViewController, UITableViewDataSource, UITable
             cell.brandID = brandAtIndex.id
             cell.brandLabel.text = brandAtIndex.name
             cell.flavorCount.text = "\(brandAtIndex.productCount!)"
-            if let urlString = brandAtIndex.image as String? {
-                print(urlString, terminator: "")
-                if urlString != "NA" {
-                let url = NSURL(string: urlString)
-                    print("image is being set", terminator: "")
-                cell.brandImage.hnk_setImageFromURL(url!)
-                }else {
-                let placeHolderImage = UIImage(named: "vivrHomeLogo")?.imageWithRenderingMode(.AlwaysTemplate)
-                cell.brandImage.image = placeHolderImage
-                    cell.brandImage.tintColor = UIColor.blackColor()
-                }
-                
-            }
+            let urlString = brandAtIndex.image!
+            let url = NSURL(string: urlString)
+            //cell.brandImage.hnk_setImageFromURL(url!)
+            
         let rowsToLoadFromBottom = 5
         let rowsLoaded = self.brand!.count
         if (!self.isLoadingBrands && (indexPath.row >= (rowsLoaded - rowsToLoadFromBottom))) {

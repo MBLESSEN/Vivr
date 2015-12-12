@@ -20,8 +20,6 @@
             <string>PTSans-Bold</string>
             <string>PTSans-Bold</string>
             <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
-            <string>PTSans-Bold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -233,22 +231,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="THE HOME SCREEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEg-MK-Jg4">
-                                <rect key="frame" x="233" y="189" width="133" height="19"/>
+                                <rect key="frame" x="233" y="208" width="133" height="19"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Typ-5E-KME">
-                                <rect key="frame" x="52" y="272" width="496" height="56.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A live feed of all the juices being checked in." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Typ-5E-KME">
+                                <rect key="frame" x="52" y="291" width="496" height="19"/>
                                 <animations/>
-                                <string key="text">The home screen is where you will discover what everyone in the vivr community is checking in with a live feed of all juices checked in across the world!</string>
                                 <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="first" translatesAutoresizingMaskIntoConstraints="NO" id="5sE-Nw-dA1">
-                                <rect key="frame" x="284" y="224" width="32" height="32"/>
+                                <rect key="frame" x="284" y="243" width="32" height="32"/>
                                 <animations/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -256,13 +253,6 @@
                                     <constraint firstAttribute="height" constant="32" id="iw5-d1-WV9"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure to check out the Featured section for real time content." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ccj-id-yPJ">
-                                <rect key="frame" x="51" y="356" width="496" height="16.5"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -271,10 +261,7 @@
                             <constraint firstItem="5sE-Nw-dA1" firstAttribute="centerX" secondItem="NxF-B2-7jZ" secondAttribute="centerX" id="IRR-KJ-2p1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Typ-5E-KME" secondAttribute="trailing" constant="32" id="N6Q-gV-9TD"/>
                             <constraint firstItem="5sE-Nw-dA1" firstAttribute="top" secondItem="LEg-MK-Jg4" secondAttribute="bottom" constant="16" id="Nei-wX-lhV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ccj-id-yPJ" secondAttribute="trailing" constant="33" id="Qy5-KI-h2e"/>
                             <constraint firstItem="LEg-MK-Jg4" firstAttribute="centerX" secondItem="NxF-B2-7jZ" secondAttribute="centerX" id="Rh1-x1-2Tt"/>
-                            <constraint firstItem="Ccj-id-yPJ" firstAttribute="leading" secondItem="NxF-B2-7jZ" secondAttribute="leadingMargin" constant="31" id="avg-nP-6RE"/>
-                            <constraint firstItem="Ccj-id-yPJ" firstAttribute="top" secondItem="Typ-5E-KME" secondAttribute="bottom" constant="27.5" id="ddq-z7-xN5"/>
                             <constraint firstItem="Typ-5E-KME" firstAttribute="leading" secondItem="NxF-B2-7jZ" secondAttribute="leadingMargin" constant="32" id="tCb-xS-BIJ"/>
                             <constraint firstItem="Typ-5E-KME" firstAttribute="top" secondItem="5sE-Nw-dA1" secondAttribute="bottom" constant="16" id="uwf-fb-Edp"/>
                         </constraints>
@@ -312,14 +299,6 @@
                                     <constraint firstAttribute="height" constant="32" id="yJA-JK-Hbz"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBw-Ye-RcA">
-                                <rect key="frame" x="52" y="351" width="496" height="31"/>
-                                <animations/>
-                                <string key="text">By checking in your juices, you will build your flavor profile, and be able to go back and find those all day vapes that almost got away.</string>
-                                <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="13"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To check in your juice, you simply search our database for it, and then give it your personal rating. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vW3-bA-zQa">
                                 <rect key="frame" x="52" y="281" width="496" height="38"/>
                                 <animations/>
@@ -332,14 +311,11 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vW3-bA-zQa" firstAttribute="top" secondItem="SJ0-R3-Gaz" secondAttribute="bottom" constant="16" id="2j0-Bc-BVX"/>
-                            <constraint firstItem="mBw-Ye-RcA" firstAttribute="trailing" secondItem="vW3-bA-zQa" secondAttribute="trailing" id="B3I-LJ-fwg"/>
                             <constraint firstItem="xde-oJ-MQV" firstAttribute="centerX" secondItem="SJ0-R3-Gaz" secondAttribute="centerX" id="CVG-wZ-tTV"/>
                             <constraint firstItem="vW3-bA-zQa" firstAttribute="leading" secondItem="RDG-dN-323" secondAttribute="leadingMargin" constant="32" id="Ohs-gS-wQS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vW3-bA-zQa" secondAttribute="trailing" constant="32" id="OrU-ab-Kkl"/>
-                            <constraint firstItem="mBw-Ye-RcA" firstAttribute="top" secondItem="vW3-bA-zQa" secondAttribute="bottom" constant="32" id="TAA-U6-8RD"/>
                             <constraint firstItem="vW3-bA-zQa" firstAttribute="centerY" secondItem="RDG-dN-323" secondAttribute="centerY" id="fjo-fH-MlZ"/>
                             <constraint firstItem="SJ0-R3-Gaz" firstAttribute="top" secondItem="xde-oJ-MQV" secondAttribute="bottom" constant="16" id="gW9-xU-PIS"/>
-                            <constraint firstItem="mBw-Ye-RcA" firstAttribute="leading" secondItem="vW3-bA-zQa" secondAttribute="leading" id="jll-dT-0xS"/>
                             <constraint firstItem="SJ0-R3-Gaz" firstAttribute="centerX" secondItem="vW3-bA-zQa" secondAttribute="centerX" id="r0A-h5-hqV"/>
                         </constraints>
                     </view>

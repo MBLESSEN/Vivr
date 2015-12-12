@@ -16,7 +16,6 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var cancelButtonWidthConstraint: NSLayoutConstraint!
     
-    
     var searchView: VIVRSearchViewController?
     var myReviewsView: VIVRUserReviewsViewController?
 
@@ -65,7 +64,6 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     }
     
     func resetView() {
-        searchBar.text = ""
         hideSearchView()
         showMyReviewsView()
     }
@@ -117,6 +115,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         addChildViewController(myReviewsView!)
     }
     
+    
     func setSearchViewFrame() {
         searchView!.view.frame = CGRectMake(0, 0,
             bottomView.frame.width, bottomView.frame.height)
@@ -157,6 +156,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
             myReviewsView!.view.removeFromSuperview()
         }
     }
+
     
     //VIVRSEARCHVIEWCONTROLLER DELEGATE FUNCTIONS
     //DISMISS SEARCH MEANS PRODUCT WAS SELECTED RROM SEARCH TABLE, SEGUE TO PRODUCT 
@@ -185,8 +185,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     }
     
     func reloadSearch() {
-        
-        
+        searchView!.loadFirstSearch(searchBar.text!)
     }
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {

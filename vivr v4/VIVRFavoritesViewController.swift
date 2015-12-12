@@ -19,10 +19,11 @@ class VIVRFavoritesViewController: UIViewController, UITableViewDataSource, prod
     var segueIdentifier:String?
     var selectedProductID:String?
     var isLoadingProducts = false
-    
+    var user: User?
     var isUser:Bool? 
     var favorites:Array<Favorite>?
     var favoritesWrapper:FavoriteWrapper?
+    var emptyStateView: VIVREmptyStateView?
     
     @IBOutlet weak var favoritesTable: UITableView!
     
@@ -32,6 +33,7 @@ class VIVRFavoritesViewController: UIViewController, UITableViewDataSource, prod
         favoritesTable.rowHeight = 100
         self.automaticallyAdjustsScrollViewInsets = false
         configureNavBarTitle()
+        instantiateEmptyStateView()
     }
     
     func configureNavBarTitle() {
@@ -45,6 +47,11 @@ class VIVRFavoritesViewController: UIViewController, UITableViewDataSource, prod
     override func viewWillAppear(animated: Bool) {
         configureNavBar()
     }
+    
+    override func viewDidLayoutSubviews() {
+        setEmptyStateView()
+    }
+    
     
     func configureNavBar(){
         navigationController?.navigationBar.translucent = false
@@ -198,6 +205,13 @@ class VIVRFavoritesViewController: UIViewController, UITableViewDataSource, prod
     func addFavoriteFromWrapper(wrapper: FavoriteWrapper?) {
         self.favoritesWrapper = wrapper
         wishCount = favoritesWrapper!.count!
+        if wrapper?.count == 0 {
+            showEmptyStateView()
+            favoritesTable.separatorStyle = UITableViewCellSeparatorStyle.None
+        }else {
+            hideEmptyStateView()
+            favoritesTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        }
         if self.favorites == nil {
             self.favorites = self.favoritesWrapper?.Products
         }else if self.favoritesWrapper != nil && self.favoritesWrapper!.Products != nil{
@@ -205,14 +219,25 @@ class VIVRFavoritesViewController: UIViewController, UITableViewDataSource, prod
         }
     }
     
-    /*
-    // MARK: - Navigation
+    //EMPTY STATE VIEW CONTROLLER
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
+    func instantiateEmptyStateView() {
+        self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.emptyUserFavorites, stringContext: self.user!.userName!)
     }
-    */
+    
+    func setEmptyStateView() {
+        emptyStateView!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+    }
+    
+    func showEmptyStateView() {
+        if emptyStateView != nil {
+            self.favoritesTable.backgroundView = emptyStateView!
+        }
+    }
+    
+    func hideEmptyStateView() {
+        self.favoritesTable.backgroundView = nil
+        
+    }
     
 }

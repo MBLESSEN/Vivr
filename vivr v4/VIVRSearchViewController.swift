@@ -174,7 +174,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
         self.presentViewController(addJuiceView!, animated: true, completion: nil)
     }
     
-    func submit() {
+    func addNewJuiceSuccess() {
         viewDelegate?.reloadSearch()
     }
     
