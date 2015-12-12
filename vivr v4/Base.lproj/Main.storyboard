@@ -7560,7 +7560,7 @@ Maxwell - founder
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XBh-HH-zQo" customClass="B68UIFloatLabelTextField" customModule="vivr" customModuleProvider="target">
                                                 <rect key="frame" x="42" y="0.0" width="403" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="activeTextColorfloatingLabel">
                                                         <color key="value" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
@@ -7777,7 +7777,7 @@ Maxwell - founder
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="desired password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Yg-Yy-neM" customClass="B68UIFloatLabelTextField" customModule="vivr" customModuleProvider="target">
                                                 <rect key="frame" x="42" y="0.0" width="483" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="activeTextColorfloatingLabel">
                                                         <color key="value" red="0.16862745100000001" green="0.66274509800000003" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -7820,7 +7820,7 @@ Maxwell - founder
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="confirm your password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DuF-Qj-NaZ" customClass="B68UIFloatLabelTextField" customModule="vivr" customModuleProvider="target">
                                                 <rect key="frame" x="42" y="0.0" width="483" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="activeTextColorfloatingLabel">
                                                         <color key="value" red="0.16862745100000001" green="0.66274509800000003" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
