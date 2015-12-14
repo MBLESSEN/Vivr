@@ -103,17 +103,14 @@ class VIVRAddNewBrandViewController: UIViewController {
             let parameters: [String:AnyObject!] = [
                 "name": newBrandTextField.text
             ]
-            Brand.createNewBrand(parameters, completionHandler: { (response, error) in
-                if response != nil {
-                    let alert = UIAlertController(title: "You've created a new brand!", message: "Brand verfication in progress. When your brand is verified you will be able to add products to this brand. Would you like to check in another Juice?", preferredStyle: .Alert)
-                    alert.addAction(UIAlertAction(title: "No", style: .Default, handler: { action in
+            Brand.createNewBrand(parameters, completionHandler: { (brandWrapper, error) in
+                if brandWrapper != nil {
+                    let brand = brandWrapper!.Brands?.first
+                    let alert = UIAlertController(title: "You've created a new brand!", message: "Brand verfication in progress. When your brand is verified, your rating will be made public.", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
                             self.dismissViewControllerAnimated(true, completion: nil)
-                            self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                        
+                            self.addNewBrandDelegate?.brandCreated!(brand!.name!, brandID: brand!.id!)
                         }))
-                    alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { action in
-                        self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                    }))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }else {
                     let alert = UIAlertController(title: "Something went wrong", message: "Your brand could not be created", preferredStyle: UIAlertControllerStyle.Alert)

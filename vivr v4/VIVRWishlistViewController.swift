@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class VIVRWishlistViewController: UIViewController, UITableViewDataSource, productCellDelegate, UITableViewDelegate {
+class VIVRWishlistViewController: UIViewController, UITableViewDataSource, productCellDelegate, UITableViewDelegate, VIVREmptyStateProtocol {
     
     var wishlist:[SwiftyJSON.JSON]? = []
     var wishCount:Int = 0
@@ -221,7 +221,12 @@ class VIVRWishlistViewController: UIViewController, UITableViewDataSource, produ
     //EMPTY STATE VIEW CONTROLLER
     
     func instantiateEmptyStateView() {
+        if isUser == true {
+            self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.emptyMyUserWishlist, stringContext: self.user!.userName!)
+        }else {
         self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.emptyUserWishlist, stringContext: self.user!.userName!)
+        }
+        emptyStateView!.emptyStateDelegate = self
     }
     
     func setEmptyStateView() {
@@ -240,14 +245,11 @@ class VIVRWishlistViewController: UIViewController, UITableViewDataSource, produ
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //VIVR EMPTY STATE PROTOCOL DELEGATE FUNCTIONS
+    //EMPTY STATE BUTTON PRESSED
+    
+    func buttonPressed() {
+        self.tabBarController?.selectedIndex = 0
     }
-    */
 
 }

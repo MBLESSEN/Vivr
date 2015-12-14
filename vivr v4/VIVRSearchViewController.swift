@@ -172,9 +172,12 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func addJuice() {
-        let parentView = parentViewController! as! VIVRJuiceCheckIn
         self.presentViewController(addJuiceView!, animated: true, completion: nil)
-        addJuiceView!.juiceName.text! = parentView.searchBar.text!
+        if let parentView = parentViewController as? VIVRJuiceCheckIn {
+            addJuiceView!.juiceName.text! = parentView.searchBar.text!
+        }else if let parentView = parentViewController as? VIVRHomeViewController {
+            addJuiceView!.juiceName.text! = parentView.search.text!
+        }
     }
     
     func addNewJuiceSuccess() {
@@ -411,7 +414,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
             cell.productID = "\(products![indexPath.row].productID!)"
             if let urlString = products![indexPath.row].image as String? {
                 let url = NSURL(string: urlString)
-                cell.productImage!.hnk_setImageFromURL(url!)
+                cell.productImage!.hnk_setImageFromURL(url!, placeholder: UIImage(named: "vivrLogo"))
             }
         }
         return cell

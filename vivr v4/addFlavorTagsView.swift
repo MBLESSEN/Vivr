@@ -141,6 +141,10 @@ class addFlavorTagsView: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @IBAction func clearButtonPressed(sender: AnyObject) {
+        clearTags()
+    }
+    
+    func clearTags() {
         selectedTags = []
         savedTags = []
         for indexPath:NSIndexPath in tagTable.indexPathsForSelectedRows ?? [] {

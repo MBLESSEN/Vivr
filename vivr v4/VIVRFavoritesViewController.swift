@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class VIVRFavoritesViewController: UIViewController, UITableViewDataSource, productCellDelegate {
+class VIVRFavoritesViewController: UIViewController, UITableViewDataSource, productCellDelegate, VIVREmptyStateProtocol {
     
     var wishlist:[SwiftyJSON.JSON]? = []
     var wishCount:Int = 0
@@ -222,7 +222,12 @@ class VIVRFavoritesViewController: UIViewController, UITableViewDataSource, prod
     //EMPTY STATE VIEW CONTROLLER
     
     func instantiateEmptyStateView() {
+        if isUser == true {
+                self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.emptyMyUserFavorites, stringContext: self.user!.userName!)
+        }else {
         self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.emptyUserFavorites, stringContext: self.user!.userName!)
+        }
+        emptyStateView!.emptyStateDelegate = self
     }
     
     func setEmptyStateView() {
@@ -238,6 +243,13 @@ class VIVRFavoritesViewController: UIViewController, UITableViewDataSource, prod
     func hideEmptyStateView() {
         self.favoritesTable.backgroundView = nil
         
+    }
+    
+    //VIVR EMPTY STATE PROTOCOL DELEGATE FUNCTIONS
+    //EMPTY STATE BUTTON PRESSED
+    
+    func buttonPressed() {
+        self.tabBarController?.selectedIndex = 0
     }
     
 }

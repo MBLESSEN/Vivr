@@ -96,9 +96,9 @@
             <string>PTSans-Bold</string>
             <string>PTSans-Bold</string>
             <string>PTSans-Bold</string>
+            <string>PTSans-Bold</string>
         </mutableArray>
         <mutableArray key="PTSans.ttc">
-            <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
             <string>PTSans-Regular</string>
@@ -2997,16 +2997,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DA4-OR-1Vt">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DA4-OR-1Vt">
+                                <rect key="frame" x="4" y="20" width="592" height="580"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1j8-lJ-yWK">
-                                        <rect key="frame" x="0.0" y="460" width="600" height="60"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1j8-lJ-yWK">
+                                        <rect key="frame" x="0.0" y="460" width="592" height="60"/>
                                         <color key="backgroundColor" red="0.1529411765" green="0.50588235290000005" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="x6t-Dx-IB2"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="15"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Add juice">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3015,9 +3016,12 @@
                                             <action selector="addJuicePressed:" destination="uhR-fL-Fd7" eventType="touchUpInside" id="2dC-gj-tpp"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vp6-6V-hJ1">
-                                        <rect key="frame" x="0.0" y="520" width="600" height="60"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vp6-6V-hJ1">
+                                        <rect key="frame" x="0.0" y="520" width="592" height="60"/>
                                         <color key="backgroundColor" red="0.46274509800000002" green="0.18823529410000001" blue="0.61568627450000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="gj6-Zq-vcP"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="15"/>
                                         <state key="normal" title="cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3027,12 +3031,89 @@
                                             <action selector="cancelPressed:" destination="uhR-fL-Fd7" eventType="touchUpInside" id="eIA-52-PIK"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter juice name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vq7-GX-mvA" customClass="B68UIFloatLabelTextField" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="60" width="568" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New E-Liquid" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1yu-cg-fM6">
+                                        <rect key="frame" x="0.0" y="8" width="592" height="20"/>
+                                        <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view alpha="0.60000002384185791" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nsy-Qy-QpG">
+                                        <rect key="frame" x="16" y="98" width="560" height="1"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="HCo-IC-X5g"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="TuZ-OM-RGT"/>
+                                            <constraint firstAttribute="height" constant="1" id="qs7-XY-5Y5"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    </view>
+                                    <view alpha="0.60000002384185791" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5pq-7C-SCH">
+                                        <rect key="frame" x="16" y="152" width="560" height="1"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="wAp-i3-TuG"/>
+                                            <constraint firstAttribute="height" constant="1" id="x8D-Wa-s4x"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nTa-uN-eJ1">
+                                        <rect key="frame" x="0.0" y="169" width="592" height="291"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add an E-liquid by entering the name and selecting who makes it" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfB-3I-QN7">
+                                                <rect key="frame" x="16" y="8" width="560" height="18"/>
+                                                <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="15"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="GfB-3I-QN7" firstAttribute="leading" secondItem="nTa-uN-eJ1" secondAttribute="leading" constant="16" id="AU2-GA-PMQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="GfB-3I-QN7" secondAttribute="trailing" constant="16" id="I1y-Se-dM6"/>
+                                            <constraint firstItem="GfB-3I-QN7" firstAttribute="top" secondItem="nTa-uN-eJ1" secondAttribute="top" constant="8" id="KKc-yq-iPG"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odu-vY-t1O">
+                                        <rect key="frame" x="16" y="120" width="94" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="oYs-c5-uOS"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="15"/>
+                                        <state key="normal" title="Who makes it?">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="selectBrandPressed:" destination="uhR-fL-Fd7" eventType="touchUpInside" id="9Dh-tH-JC1"/>
+                                        </connections>
+                                    </button>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search brands" translatesAutoresizingMaskIntoConstraints="NO" id="bCm-Pi-bCi">
+                                        <rect key="frame" x="16" y="169" width="560" height="0.0"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="SeR-RR-Uhm"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="uhR-fL-Fd7" id="Kmc-el-kcn"/>
+                                        </connections>
+                                    </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4WH-Lu-yMz">
+                                        <rect key="frame" x="435" y="120" width="141" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="zPE-1q-3G8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="15"/>
+                                        <state key="normal" title="Can't find your brand?">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="pyU-7c-NuW" kind="presentation" identifier="addNewBrandSegue" id="Xv1-yW-8jB"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of E-Liquid" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vq7-GX-mvA" customClass="B68UIFloatLabelTextField" customModule="vivr" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="60" width="560" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="HCo-IC-X5g"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="activeTextColorfloatingLabel">
@@ -3046,145 +3127,38 @@
                                             <outlet property="delegate" destination="uhR-fL-Fd7" id="bdj-Sw-hec"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Add juice" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1yu-cg-fM6">
-                                        <rect key="frame" x="0.0" y="8" width="600" height="20"/>
-                                        <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view alpha="0.60000002384185791" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nsy-Qy-QpG">
-                                        <rect key="frame" x="16" y="98" width="568" height="1"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="TuZ-OM-RGT"/>
-                                            <constraint firstAttribute="height" constant="1" id="qs7-XY-5Y5"/>
-                                        </constraints>
-                                    </view>
-                                    <view alpha="0.60000002384185791" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5pq-7C-SCH">
-                                        <rect key="frame" x="16" y="144" width="568" height="1"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="wAp-i3-TuG"/>
-                                            <constraint firstAttribute="height" constant="1" id="x8D-Wa-s4x"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nTa-uN-eJ1">
-                                        <rect key="frame" x="0.0" y="152" width="600" height="308"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfB-3I-QN7">
-                                                <rect key="frame" x="16" y="16" width="568" height="43"/>
-                                                <string key="text">When you add a juice to our database you are helping us grow our list of juices for everyone to be able to review, favorite, wishlist and use many of the other features. Make sure you spell the name of the juice and brand correctly as it will help us find it easier. </string>
-                                                <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="12"/>
-                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Once you press add juice, your juice will appear in the database and in your search results." lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfJ-IH-58o">
-                                                <rect key="frame" x="16" y="275" width="568" height="17"/>
-                                                <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="14"/>
-                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstItem="GfB-3I-QN7" firstAttribute="leading" secondItem="nTa-uN-eJ1" secondAttribute="leading" constant="16" id="AU2-GA-PMQ"/>
-                                            <constraint firstAttribute="trailing" secondItem="GfB-3I-QN7" secondAttribute="trailing" constant="16" id="I1y-Se-dM6"/>
-                                            <constraint firstItem="GfB-3I-QN7" firstAttribute="top" secondItem="nTa-uN-eJ1" secondAttribute="top" constant="16" id="KKc-yq-iPG"/>
-                                            <constraint firstAttribute="bottom" secondItem="QfJ-IH-58o" secondAttribute="bottom" constant="16" id="Y8o-U7-AQv"/>
-                                            <constraint firstAttribute="trailing" secondItem="QfJ-IH-58o" secondAttribute="trailing" constant="16" id="o3w-1X-xrW"/>
-                                            <constraint firstItem="QfJ-IH-58o" firstAttribute="leading" secondItem="nTa-uN-eJ1" secondAttribute="leading" constant="16" id="pzZ-JY-1bp"/>
-                                        </constraints>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odu-vY-t1O">
-                                        <rect key="frame" x="16" y="106" width="81" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="oYs-c5-uOS"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="15"/>
-                                        <state key="normal" title="Select brand">
-                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="selectBrandPressed:" destination="uhR-fL-Fd7" eventType="touchUpInside" id="9Dh-tH-JC1"/>
-                                        </connections>
-                                    </button>
-                                    <searchBar contentMode="redraw" misplaced="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="bCm-Pi-bCi">
-                                        <rect key="frame" x="16" y="152" width="568" height="0.0"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" id="SeR-RR-Uhm"/>
-                                        </constraints>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="uhR-fL-Fd7" id="Kmc-el-kcn"/>
-                                        </connections>
-                                    </searchBar>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4WH-Lu-yMz">
-                                        <rect key="frame" x="479" y="106" width="105" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="zPE-1q-3G8"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="15"/>
-                                        <state key="normal" title="Enter new brand">
-                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="pyU-7c-NuW" kind="presentation" identifier="addNewBrandSegue" id="Xv1-yW-8jB"/>
-                                        </connections>
-                                    </button>
-                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter brand name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bzz-eT-soF" customClass="B68UIFloatLabelTextField" customModule="vivr" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="112" width="455" height="17"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="activeTextColorfloatingLabel">
-                                                <color key="value" red="0.1529411765" green="0.50588235290000005" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="inactiveTextColorfloatingLabel">
-                                                <color key="value" red="0.1529411765" green="0.50588235290000005" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="uhR-fL-Fd7" id="HHT-iS-tWh"/>
-                                        </connections>
-                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="nTa-uN-eJ1" secondAttribute="trailing" id="346-8A-e9r"/>
                                     <constraint firstAttribute="trailing" secondItem="bCm-Pi-bCi" secondAttribute="trailing" constant="16" id="4F1-VP-GEF"/>
-                                    <constraint firstItem="bCm-Pi-bCi" firstAttribute="top" secondItem="odu-vY-t1O" secondAttribute="bottom" constant="16" id="5IQ-Wc-lEa"/>
                                     <constraint firstItem="1j8-lJ-yWK" firstAttribute="top" secondItem="nTa-uN-eJ1" secondAttribute="bottom" id="5vp-TM-D0y"/>
-                                    <constraint firstItem="bzz-eT-soF" firstAttribute="leading" secondItem="DA4-OR-1Vt" secondAttribute="leading" constant="16" id="7Lu-Ly-azS"/>
                                     <constraint firstItem="Nsy-Qy-QpG" firstAttribute="leading" secondItem="DA4-OR-1Vt" secondAttribute="leading" constant="16" id="7ZS-Og-RLs"/>
                                     <constraint firstAttribute="trailing" secondItem="Nsy-Qy-QpG" secondAttribute="trailing" constant="16" id="83Q-p2-hxV"/>
                                     <constraint firstItem="nTa-uN-eJ1" firstAttribute="leading" secondItem="DA4-OR-1Vt" secondAttribute="leading" id="FCK-YO-KE6"/>
-                                    <constraint firstAttribute="trailing" secondItem="bzz-eT-soF" secondAttribute="trailing" constant="129" id="FDq-EU-3Ge"/>
                                     <constraint firstItem="1j8-lJ-yWK" firstAttribute="leading" secondItem="DA4-OR-1Vt" secondAttribute="leading" id="Gw4-iw-cpI"/>
                                     <constraint firstItem="1yu-cg-fM6" firstAttribute="top" secondItem="DA4-OR-1Vt" secondAttribute="top" constant="8" id="IEe-1t-s8e"/>
                                     <constraint firstItem="nTa-uN-eJ1" firstAttribute="top" secondItem="bCm-Pi-bCi" secondAttribute="bottom" id="KVL-iD-g4a"/>
+                                    <constraint firstItem="bCm-Pi-bCi" firstAttribute="top" secondItem="5pq-7C-SCH" secondAttribute="bottom" constant="16" id="NBc-hv-uT3"/>
                                     <constraint firstItem="bCm-Pi-bCi" firstAttribute="leading" secondItem="DA4-OR-1Vt" secondAttribute="leading" constant="16" id="NQw-qe-myc"/>
-                                    <constraint firstItem="odu-vY-t1O" firstAttribute="centerY" secondItem="4WH-Lu-yMz" secondAttribute="centerY" id="OF1-LN-bvP"/>
                                     <constraint firstAttribute="trailing" secondItem="vp6-6V-hJ1" secondAttribute="trailing" id="Ofd-HS-3pQ"/>
                                     <constraint firstItem="1j8-lJ-yWK" firstAttribute="bottom" secondItem="vp6-6V-hJ1" secondAttribute="top" id="Ogf-Va-aO6"/>
-                                    <constraint firstItem="bzz-eT-soF" firstAttribute="centerY" secondItem="4WH-Lu-yMz" secondAttribute="centerY" id="P5Q-t6-mtU"/>
                                     <constraint firstAttribute="trailing" secondItem="1j8-lJ-yWK" secondAttribute="trailing" id="Vxu-HY-6As"/>
-                                    <constraint firstItem="odu-vY-t1O" firstAttribute="top" secondItem="vq7-GX-mvA" secondAttribute="bottom" constant="16" id="YKy-wF-Yhe"/>
+                                    <constraint firstItem="5pq-7C-SCH" firstAttribute="top" secondItem="Nsy-Qy-QpG" secondAttribute="bottom" constant="53" id="X8A-qQ-in3"/>
                                     <constraint firstItem="vq7-GX-mvA" firstAttribute="top" secondItem="1yu-cg-fM6" secondAttribute="bottom" constant="32" id="c0I-Em-KUU"/>
                                     <constraint firstAttribute="trailing" secondItem="1yu-cg-fM6" secondAttribute="trailing" id="c9h-ZG-lSt"/>
+                                    <constraint firstItem="odu-vY-t1O" firstAttribute="top" secondItem="DA4-OR-1Vt" secondAttribute="top" constant="120" id="dFY-iV-MOh"/>
                                     <constraint firstItem="odu-vY-t1O" firstAttribute="leading" secondItem="DA4-OR-1Vt" secondAttribute="leading" constant="16" id="dTc-7u-Gou"/>
                                     <constraint firstItem="vq7-GX-mvA" firstAttribute="leading" secondItem="DA4-OR-1Vt" secondAttribute="leading" constant="16" id="eoE-aY-lK7"/>
                                     <constraint firstItem="vp6-6V-hJ1" firstAttribute="leading" secondItem="DA4-OR-1Vt" secondAttribute="leading" id="hAv-N4-MdS"/>
                                     <constraint firstItem="5pq-7C-SCH" firstAttribute="leading" secondItem="DA4-OR-1Vt" secondAttribute="leading" constant="16" id="hqz-si-f8O"/>
-                                    <constraint firstItem="odu-vY-t1O" firstAttribute="bottom" secondItem="5pq-7C-SCH" secondAttribute="top" constant="-8" id="jBa-yz-38p"/>
+                                    <constraint firstItem="4WH-Lu-yMz" firstAttribute="top" secondItem="DA4-OR-1Vt" secondAttribute="top" constant="120" id="kMp-wE-d6d"/>
                                     <constraint firstItem="vq7-GX-mvA" firstAttribute="width" secondItem="Nsy-Qy-QpG" secondAttribute="width" id="kuk-1r-oPM"/>
                                     <constraint firstAttribute="trailing" secondItem="4WH-Lu-yMz" secondAttribute="trailing" constant="16" id="mQx-hk-XDr"/>
                                     <constraint firstItem="1yu-cg-fM6" firstAttribute="leading" secondItem="DA4-OR-1Vt" secondAttribute="leading" id="q6b-Sq-YA5"/>
-                                    <constraint firstItem="1j8-lJ-yWK" firstAttribute="height" secondItem="vp6-6V-hJ1" secondAttribute="height" id="syU-fR-TAu"/>
                                     <constraint firstAttribute="trailing" secondItem="vq7-GX-mvA" secondAttribute="trailing" constant="16" id="tbd-8X-7Ic"/>
                                     <constraint firstAttribute="trailing" secondItem="5pq-7C-SCH" secondAttribute="trailing" constant="16" id="uDf-Nq-2PH"/>
-                                    <constraint firstItem="Nsy-Qy-QpG" firstAttribute="top" secondItem="vq7-GX-mvA" secondAttribute="bottom" constant="8" id="xlO-cm-jF4"/>
+                                    <constraint firstItem="Nsy-Qy-QpG" firstAttribute="top" secondItem="vq7-GX-mvA" secondAttribute="bottom" constant="4" id="xlO-cm-jF4"/>
                                     <constraint firstAttribute="bottom" secondItem="vp6-6V-hJ1" secondAttribute="bottom" id="yzh-yH-ops"/>
                                 </constraints>
                             </view>
@@ -3199,12 +3173,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="k2r-fo-9UE"/>
                     <connections>
-                        <outlet property="brandName" destination="bzz-eT-soF" id="cBU-JY-32N"/>
                         <outlet property="brandView" destination="nTa-uN-eJ1" id="gzn-Di-ncA"/>
+                        <outlet property="cancelButton" destination="vp6-6V-hJ1" id="oVs-hT-Nj3"/>
+                        <outlet property="cancelButtonBottom" destination="yzh-yH-ops" id="BXo-P0-JHn"/>
+                        <outlet property="cancelButtonBottomConstraint" destination="gj6-Zq-vcP" id="vYl-HO-PtC"/>
                         <outlet property="juiceName" destination="vq7-GX-mvA" id="Y7R-Ah-zF6"/>
                         <outlet property="newBrandButton" destination="4WH-Lu-yMz" id="VdO-WQ-PrZ"/>
                         <outlet property="searchHeight" destination="SeR-RR-Uhm" id="pTx-OO-Knu"/>
                         <outlet property="selectBrandButton" destination="odu-vY-t1O" id="Edb-hN-adn"/>
+                        <outlet property="submitButton" destination="1j8-lJ-yWK" id="iPx-OK-vXN"/>
+                        <outlet property="submitbuttonHeightConstraint" destination="x6t-Dx-IB2" id="HuK-3s-ISk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFs-zR-I1j" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5061,7 +5039,7 @@
                                     <constraint firstItem="Tr7-Sn-Vja" firstAttribute="centerX" secondItem="e15-Qr-8AC" secondAttribute="centerX" id="NqS-PA-Lz4"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2eC-sf-ofV">
+                            <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2eC-sf-ofV">
                                 <rect key="frame" x="4" y="20" width="592" height="580"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>

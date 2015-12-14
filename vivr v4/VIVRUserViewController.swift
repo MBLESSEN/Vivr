@@ -11,7 +11,8 @@ import Alamofire
 import Haneke
 import SwiftyJSON
 
-class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollViewDelegate, MyBoxControllerDelegate, VIVRActivityIndicatorProtocol {
+class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellDelegate, UIScrollViewDelegate, MyBoxControllerDelegate, VIVRActivityIndicatorProtocol, VIVREmptyStateProtocol {
+    
     var myFavorites:[SwiftyJSON.JSON]? = []
     var myFavoritesData:SwiftyJSON.JSON?
     var myWishlist:[SwiftyJSON.JSON]? = []
@@ -30,6 +31,7 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
     var userDataWrapper: UserDataWrapper?
     var activityIndicator: LoadingScreenViewController?
     var emptyStateView: VIVREmptyStateView?
+    var emptyStateViewActive = false
     
     var height: CGFloat?
     
@@ -178,6 +180,13 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
             return reviewCellAtIndexPath(indexPath)
         }
     }
+
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath == NSIndexPath(forRow: 0, inSection: 0) && self.userDataWrapper != nil {
+            height = cell.contentView.frame.height
+            setEmptyStateView()
+        }
+    }
     
     
     
@@ -193,8 +202,6 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
         cell.favoritesCount.text = "\(userData!.favorite_count!)"
         cell.wishCount.text = "\(userData!.wishlist_count!)"
         cell.reviewsCount.text = "\(userData!.review_count!)"
-            height = cell.contentView.frame.height
-            setEmptyStateView()
         }
         cell.preservesSuperviewLayoutMargins = false
         return cell
@@ -315,7 +322,11 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
             let favoritesVC: VIVRFavoritesViewController = segue.destinationViewController as! VIVRFavoritesViewController
             favoritesVC.user = self.userData!
             favoritesVC.userID = Int(selectedUserID!)
+            if isMyUser == true {
+                favoritesVC.isUser = true
+            }else {
             favoritesVC.isUser = false
+            }
         case "anyUserToFlavor":
             let productVC: VIVRProductViewController = segue.destinationViewController as! VIVRProductViewController
             productVC.boxOrProduct = "product"
@@ -324,7 +335,11 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
             let wishVC: VIVRWishlistViewController = segue.destinationViewController as! VIVRWishlistViewController
             wishVC.user = self.userData!
             wishVC.userID = Int(selectedUserID!)
+            if isMyUser == true {
+                wishVC.isUser = true
+            }else {
             wishVC.isUser = false
+            }
         case "anyUserToComments":
             let reviewVC: VIVRCommentsViewController = segue.destinationViewController as! VIVRCommentsViewController
             reviewVC.review = selectedReview!
@@ -465,25 +480,39 @@ class VIVRUserViewController: UIViewController, reviewCellDelegate, UIScrollView
     //SHOW HIDE CHILD VIEWS
     
     func instantiateEmptyStateView() {
+        if isMyUser == true {
+            self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.emptyMyUserReviews, stringContext: nil)
+        }else {
         self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.emptyUserReviews, stringContext: self.userData!.userName!)
+        }
+        emptyStateView!.emptyStateDelegate = self
     }
     
     func setEmptyStateView() {
-        emptyStateView!.frame = CGRectMake(0, height!, self.view.frame.width, self.view.frame.height - height!)
+        emptyStateView!.frame = CGRectMake(0, height!, self.view.frame.width, self.view.frame.height - height! - 44.0)
         emptyStateView!.layer.zPosition -= 1
     }
     
     func showEmptyStateView() {
-        if emptyStateView != nil {
+        if emptyStateView != nil && self.emptyStateViewActive == false {
             self.view.addSubview(emptyStateView!)
+            self.emptyStateViewActive = true
         }
     }
     
     func hideEmptyStateView() {
-        if emptyStateView != nil {
+        if emptyStateView != nil && self.emptyStateViewActive == true {
             emptyStateView!.removeFromSuperview()
+            self.emptyStateViewActive = false
         }
         
+    }
+    
+    //VIVR EMPTY STATE PROTOCOL DELEGATE FUNCTIONS
+    //EMPTY STATE BUTTON PRESSED
+    
+    func buttonPressed() {
+        self.tabBarController?.selectedIndex = 1
     }
     
 

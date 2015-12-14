@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScrollViewDelegate {
+class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScrollViewDelegate, VIVREmptyStateProtocol {
 
     @IBOutlet weak var reviewTable: UITableView!
     var userReviews:Array<ActivityFeedReviews>?
@@ -264,6 +264,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
     
     func instantiateEmptyStateView() {
         self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.juiceCheckIn, stringContext: nil)
+        emptyStateView!.emptyStateDelegate = self
     }
     
     func setEmptyStateView() {
@@ -279,6 +280,14 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
     func hideEmptyStateView() {
             self.reviewTable.backgroundView = nil
         
+    }
+    
+    //VIVR EMPTY STATE PROTOCOL DELEGATE FUNCTIONS
+    //EMPTY STATE BUTTON PRESSED
+    
+    func buttonPressed() {
+        let parent = parentViewController as! VIVRJuiceCheckIn
+        parent.searchBar.becomeFirstResponder()
     }
 
 }

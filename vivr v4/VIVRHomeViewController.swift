@@ -12,7 +12,7 @@ import SwiftyJSON
 import Haneke
 
 
-class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, VivrCellDelegate, VivrHeaderCellDelegate, UIScrollViewDelegate, flavorTagsDelegate, UISearchBarDelegate, searchDelegate, BWWalkthroughViewControllerDelegate, SWRevealViewControllerDelegate, UIGestureRecognizerDelegate, NSXMLParserDelegate, VIVRActivityIndicatorProtocol {
+class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, VivrCellDelegate, VivrHeaderCellDelegate, UIScrollViewDelegate, flavorTagsDelegate, UISearchBarDelegate, searchDelegate, UIGestureRecognizerDelegate, NSXMLParserDelegate, VIVRActivityIndicatorProtocol, VIVREmptyStateProtocol {
     
     @IBOutlet weak var searchTopConstraint: NSLayoutConstraint!
 
@@ -520,6 +520,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             cellIdentifier = "featuredCell"
             segueIdentifier = "toBlogPost"
             self.beginParsing()
+            hideEmptyStateView()
             featuredLabel.textColor = UIColor.whiteColor()
             featuredLabel.backgroundColor = UIColor(red: 39/255, green: 129/255, blue: 30/255, alpha: 1.0)
             juicesLabel.textColor = UIColor(red: 39/255, green: 129/255, blue: 30/255, alpha: 1.0)
@@ -563,7 +564,9 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             )
             mainTable.rowHeight = UITableViewAutomaticDimension
             mainTable.scrollEnabled = true
-            
+            if feedReviews?.count == 0 {
+                showEmptyStateView()
+            }
             mainTable.reloadData()
         case 2:
             cellIdentifier = "newCell"
@@ -597,7 +600,15 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func filterFeed(sender: AnyObject) {
         if filterActive == false {
-            filterActive = true
+            showTagView()
+        }
+        else {
+            hideTagView()
+        }
+    }
+    
+    func showTagView() {
+        filterActive = true
         self.navigationController?.navigationBar.translucent = true
         self.navigationItem.titleView?.alpha = 0.3
         tags!.viewDelegate = self
@@ -618,25 +629,25 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         )
         searchButton.enabled = false
-        }
-        else {
-            filterActive = false 
-            self.navigationItem.titleView?.alpha = 1.0
-            searchButton.enabled = true
-            UIView.animateWithDuration(
-                // duration
-                0.3,
-                // delay
-                delay: 0.0,
-                options: [],
-                animations: {
-                    self.tags!.view.frame = CGRectMake(0, UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width, self.view.frame.height - 60)
-                    self.tabBarController!.tabBar.hidden = false
-                }, completion: {finished in
-                    self.tags!.view.removeFromSuperview()
-                }
-            )
-        }
+    }
+    
+    func hideTagView() {
+        filterActive = false
+        self.navigationItem.titleView?.alpha = 1.0
+        searchButton.enabled = true
+        UIView.animateWithDuration(
+            // duration
+            0.3,
+            // delay
+            delay: 0.0,
+            options: [],
+            animations: {
+                self.tags!.view.frame = CGRectMake(0, UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width, self.view.frame.height - 60)
+                self.tabBarController!.tabBar.hidden = false
+            }, completion: {finished in
+                self.tags!.view.removeFromSuperview()
+            }
+        )
     }
     
     func didSubmit(view: addFlavorTagsView) {
@@ -1362,6 +1373,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func instantiateEmptyStateView() {
         self.emptyStateView = VIVREmptyStateView.instanceFromNib(VIVREmptyStateView.emptyStateType.emptyActivityWithFilters, stringContext: nil)
+        emptyStateView!.emptyStateDelegate = self
     }
     
     func setEmptyStateView() {
@@ -1377,6 +1389,11 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     func hideEmptyStateView() {
         self.mainTable.backgroundView = nil
         
+    }
+    
+    func buttonPressed() {
+        showTagView()
+        tags!.clearTags()
     }
     
     
@@ -1410,49 +1427,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             controller.sendActionsForControlEvents(UIControlEvents.ValueChanged)
         }
     }
+
     
-    //BW WALKTHROUGH VIEW CONTROLLER
-    //WALKTHROUGH VIEW CONTROLLER
     
-    func presentWalkthroughViewController() {
-        let window: UIWindow = UIApplication.sharedApplication().keyWindow!
-        let rect = window.bounds
-        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0.0)
-        let context = UIGraphicsGetCurrentContext()
-        window.layer.renderInContext(context!)
-        let capturedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        let stb = UIStoryboard(name: "Walkthrough", bundle: nil)
-        walkthrough = stb.instantiateViewControllerWithIdentifier("master") as! BWWalkthroughViewController
-        let page_one = stb.instantiateViewControllerWithIdentifier("page1") as UIViewController
-        let page_two = stb.instantiateViewControllerWithIdentifier("page2")as UIViewController
-        let page_three = stb.instantiateViewControllerWithIdentifier("page3") as UIViewController
-        let page_four = stb.instantiateViewControllerWithIdentifier("page4") as UIViewController
-        
-        // Attach the pages to the master
-        walkthrough!.delegate = self
-        walkthrough!.addViewController(page_one)
-        walkthrough!.addViewController(page_two)
-        walkthrough!.addViewController(page_three)
-        walkthrough!.addViewController(page_four)
-        
-        self.presentViewController(walkthrough!, animated: true, completion: nil)
-        walkthrough!.backgroundImage.image = capturedImage
-        
-        
-    }
-    
-    func walkthroughCloseButtonPressed() {
-        walkthrough?.dismissViewControllerAnimated(true, completion: nil)
-        walkthrough!.removeFromParentViewController()
-    }
-    
-    func walkthroughSetupProfilePressed() {
-        walkthrough?.dismissViewControllerAnimated(true, completion: { action in
-            self.walkthrough!.removeFromParentViewController()
-            let stb = UIStoryboard(name: "Main", bundle: nil)
-            let profile = stb.instantiateViewControllerWithIdentifier("editProfile") as! UINavigationController
-            self.presentViewController(profile, animated: true, completion: nil)
-        })
-    }
 }

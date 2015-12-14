@@ -99,13 +99,18 @@ class Brand {
         getBrandsAtPath(Brand.endpointForFindBrands(searchText), completionHandler: completionHandler)
     }
     
-    class func createNewBrand(parameters: [String:AnyObject], completionHandler: (JSON?, NSError?) -> Void) {
+    class func createNewBrand(parameters: [String:AnyObject], completionHandler: (BrandWrapper?, NSError?) -> Void) {
         Alamofire.request(Router.createNewBrand(parameters)).responseJSON { (response) in
             if response.response?.statusCode != 200 {
                 completionHandler(nil,response.result.error)
                 return
             }
-            completionHandler(JSON(response.result.value!), response.result.error)
+            let brandWrapper = BrandWrapper()
+            var brandArray = Array<Brand>()
+            let brand = Brand(json: JSON(response.result.value!), id: 0)
+            brandArray.append(brand)
+            brandWrapper.Brands = brandArray
+            completionHandler(brandWrapper, response.result.error)
         }
         
     }

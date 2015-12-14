@@ -25,42 +25,52 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     @IBOutlet weak var selectBrandButton: UIButton!
     var tableActive = false
     var newBrandActive = false
+    var keyboardActive = false
     @IBOutlet weak var newBrandButton: UIButton!
     
-    @IBOutlet weak var brandName: B68UIFloatLabelTextField!
-    
-    
-    
+    @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var submitbuttonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cancelButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var juiceName: B68UIFloatLabelTextField!
+    @IBOutlet weak var cancelButtonBottom: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         instantiateSearchView()
         newBrandButton.contentHorizontalAlignment = .Right
         juiceName.returnKeyType = .Done
-        brandName.returnKeyType = .Done
-        // Do any additional setup after loading the view.
+        hideCantFindBrandButton()
+        startObservingKeyboardEvents()
     }
     
     override func viewWillAppear(animated: Bool) {
         juiceName.becomeFirstResponder()
         configureNavBar()
+        hideBrandSearchView()
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        stopObservingKeyboardEvents()
+    }
     //CONFIGURE NAV BAR
     
     func configureNavBar() {
         self.navigationController?.navigationBarHidden = true
     }
     
+    
     func brandSelected(brandID: Int, brandName: String) {
+        setSelectBrandButtonForBrand(brandName, brandID: brandID)
+        
+    }
+    
+    //selectBrandButton functions
+    
+    func setSelectBrandButtonForBrand(brandName: String, brandID: Int) {
         selectedBrandID = brandID
         selectedBrandName = brandName
-        self.selectBrandButton.setTitle(selectedBrandName, forState: .Normal)
-        tableActive = false
-        searchHeight!.constant = 0
-        brandSearch!.view.removeFromSuperview()
-        
+        hideBrandSearchView()
     }
     
     func instantiateSearchView() {
@@ -82,25 +92,39 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
             emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(emptyAlert, animated: true, completion: nil)
         }else{
+            showActivityIndicatorInButton()
             let parameters: [String : AnyObject!] = [
                 "name": self.juiceName.text!,
                 "brand_id": selectedBrandID!
             ]
             Product.addProductToBrand(parameters, completionHandler: { (productWrapper, error) in
                 if error == nil {
-                    self.viewDelegate?.addNewJuiceSuccess()
+                    self.completeAddProduct()
                 }
             })
-        self.dismissViewControllerAnimated(false, completion: nil)
         }
+    }
+    
+    func completeAddProduct() {
+        self.reviewSuccessInButton()
+        UIView.animateWithDuration(0.3, animations: {
+            self.cancelButtonBottomConstraint.constant = 0
+            self.view.layoutIfNeeded()
+        })
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target: self, selector: "callViewDelegateAddNewJuiceSuccess", userInfo: nil, repeats: false)
+        
     }
 
     @IBAction func cancelPressed(sender: AnyObject) {
         self.juiceName.text = ""
-        self.brandName.text = ""
         self.selectedBrandName = nil
         self.selectedBrandID = nil
         self.dismissViewControllerAnimated(false, completion: nil)
+    }
+    
+    func callViewDelegateAddNewJuiceSuccess() {
+        self.dismissViewControllerAnimated(false, completion: nil)
+        self.viewDelegate?.addNewJuiceSuccess()
     }
     /*
     // MARK: - Navigation
@@ -114,68 +138,46 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     @IBAction func selectBrandPressed(sender: AnyObject) {
         self.juiceName.endEditing(true)
         if tableActive == false {
-            tableActive = true
-            searchHeight.constant = 44.0
-            brandSearch!.view.frame = CGRectMake(0, 0, brandView.frame.width, brandView.frame.height)
-            self.addChildViewController(self.brandSearch!)
-    
-            self.brandSearch!.didMoveToParentViewController(self)
-            brandSearch!.brandsTableView.rowHeight = 50.0
-            brandSearch!.controller.selectedSegmentIndex = 0
-            brandSearch!.controller.sendActionsForControlEvents(UIControlEvents.ValueChanged)
-            brandSearch!.tableViewTopConstraint.constant = -46.0
-            brandSearch!.controllerView.hidden = true
-            brandSearch!.controller.userInteractionEnabled = false
-            brandSearch!.controller.hidden = true
-            brandView.addSubview(brandSearch!.view)
-            self.view.layoutIfNeeded()
+            showBrandSearchView()
         }else {
-            tableActive = false
-            searchHeight!.constant = 0
-            brandSearch!.view.removeFromSuperview()
+            hideBrandSearchView()
         }
     }
+    
+    func showBrandSearchView() {
+        self.selectBrandButton.setTitle("Cancel", forState: .Normal)
+        showCantFindBrandButton()
+        tableActive = true
+        searchHeight.constant = 44.0
+        brandSearch!.view.frame = CGRectMake(0, 0, brandView.frame.width, brandView.frame.height)
+        self.addChildViewController(self.brandSearch!)
+        
+        self.brandSearch!.didMoveToParentViewController(self)
+        brandSearch!.brandsTableView.rowHeight = 50.0
+        brandSearch!.controller.selectedSegmentIndex = 0
+        brandSearch!.controller.sendActionsForControlEvents(UIControlEvents.ValueChanged)
+        brandSearch!.tableViewTopConstraint.constant = -46.0
+        brandSearch!.controllerView.hidden = true
+        brandSearch!.controller.userInteractionEnabled = false
+        brandSearch!.controller.hidden = true
+        brandView.addSubview(brandSearch!.view)
+        self.view.layoutIfNeeded()
+    }
+    
+    func hideBrandSearchView() {
+        hideCantFindBrandButton()
+        tableActive = false
+        searchHeight!.constant = 0
+        brandSearch!.view.removeFromSuperview()
+        if selectedBrandName != nil {
+            self.selectBrandButton.setTitle("\(selectedBrandName!)", forState: .Normal)
+        }else {
+            self.selectBrandButton.setTitle("Who makes it?", forState: .Normal)
+        }
+    }
+    
     @IBAction func enterNewBrandPressed(sender: AnyObject) {
         self.performSegueWithIdentifier("addNewBrandSegue", sender: self)
-        
-        
-        /*
-        if tableActive == true {
-            tableActive = false
-            searchHeight!.constant = 0
-            brandSearch!.view.removeFromSuperview()
-        }
-        if newBrandActive == false {
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
-                self.selectBrandButton.alpha = 0
-                self.selectBrandButton.userInteractionEnabled = false
-            }, completion: { finished in
-                UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
-                        self.brandName.alpha = 1.0
-                        self.brandName.userInteractionEnabled = true
-                        self.brandName.becomeFirstResponder()
-                    }, completion: { finished in
-                        self.newBrandButton.setTitle("cancel", forState: .Normal)
-                        self.newBrandActive = true
-                        
-                })
-        })
-        }else {
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
-                self.selectBrandButton.alpha = 1
-                self.selectBrandButton.userInteractionEnabled = true
-                }, completion: { finished in
-                    UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
-                        self.brandName.alpha = 0.0
-                        self.brandName.userInteractionEnabled = false
-                        }, completion: { finished in
-                           self.newBrandButton.setTitle("Enter new brand", forState: .Normal)
-                            self.newBrandActive = false
-                    })
-            })
-            
-            
-        }*/
     }
     
     //PREPARE FOR SEGUE 
@@ -212,13 +214,85 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     //VIVR DID ADD NEW BRAND PROTOCOL FUNCTIONS
     
     func brandCreated(brandName: String, brandID: Int) {
-        
-        
+        brandSelected(brandID, brandName: brandName)
     }
     
     func checkInAnotherJuice() {
         self.dismissViewControllerAnimated(false, completion: nil)
     }
     
+    //ACTIVITY INDICATOR FUNCTIONS
+    func showActivityIndicatorInButton() {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.tag = 1
+        submitButton.titleLabel!.text = ""
+        activityIndicator.center = submitButton.center
+        activityIndicator.center.y = submitButton.frame.minY
+        submitButton.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        
+    }
+    
+    func reviewSuccessInButton() {
+        let checkMark = UIImage(named: "checkmark")
+        submitButton.viewWithTag(1)?.removeFromSuperview()
+        submitButton.setImage(checkMark, forState: .Normal)
+        submitButton.setTitle("New E-liquid added!", forState: .Normal)
+    }
+    
+    //Cant Find brand Show/Hide functions
+    
+    func showCantFindBrandButton() {
+        newBrandButton.hidden = false
+        newBrandButton.userInteractionEnabled = true
+    }
+    
+    func hideCantFindBrandButton() {
+        newBrandButton.hidden = true
+        newBrandButton.userInteractionEnabled = false
+    }
+
+    //KEYBOARD FUNCTIONS
+    private func startObservingKeyboardEvents() {
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:Selector("keyboardWillShow:"),
+            name:UIKeyboardWillShowNotification,
+            object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:Selector("keyboardWillHide:"),
+            name:UIKeyboardWillHideNotification,
+            object:nil)
+    }
+    
+    private func stopObservingKeyboardEvents() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
+                UIView.animateWithDuration(0.1, animations: { () -> Void in
+                    self.cancelButtonBottom.constant = keyboardSize.height
+                    self.submitbuttonHeightConstraint.constant = 0
+                    self.hideBrandSearchView()
+                    self.view.layoutIfNeeded()
+                    self.keyboardActive = true
+                })
+            }
+        }
+    }
+    func keyboardWillHide(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
+                UIView.animateWithDuration(0.1, animations: { () -> Void in
+                    self.cancelButtonBottom.constant = 0
+                    self.submitbuttonHeightConstraint.constant = 60
+                    self.view.layoutIfNeeded()
+                    self.keyboardActive = false
+                })
+            }
+        }
+    }
 
 }
