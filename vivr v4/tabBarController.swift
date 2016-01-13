@@ -27,7 +27,9 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate {
         }else if viewController.title == "userNav" {
             let navController = viewController as? UINavigationController
             let userVC = navController?.viewControllers[0] as? VIVRUserViewController
-            userVC?.selectedUserID = "\(myData.myProfileID!)"
+            if myData.myProfileID != nil {
+                userVC?.selectedUserID = "\(myData.myProfileID!)"
+            }
             userVC?.isMyUser = true
             return true
         }

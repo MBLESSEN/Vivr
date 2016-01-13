@@ -48,10 +48,6 @@ class VIVRFavoritesViewController: UIViewController, UITableViewDataSource, prod
         configureNavBar()
     }
     
-    override func viewDidLayoutSubviews() {
-        setEmptyStateView()
-    }
-    
     
     func configureNavBar(){
         navigationController?.navigationBar.translucent = false

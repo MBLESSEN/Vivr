@@ -250,7 +250,7 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
             let review = userReviews![indexPath.row]
             if let imageString = review.product?.image {
                 let url = NSURL(string: imageString)
-                cell.productImage.hnk_setImageFromURL(url!)
+                cell.productImage.hnk_setImageFromURL(url!, placeholder: UIImage(named: "vivrLogo"))
             }
     }
     func setReviewForCell(cell:myReviewsCell, indexPath:NSIndexPath) {
@@ -262,7 +262,7 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
         cell.productName.text = review.product?.name
         cell.productReview.text = review.description
         cell.brandName.text = review.brand?.name 
-        cell.scoreLabel.text = review.score 
+        cell.scoreLabel.text = "\(review.score!)"
         if let throatHit = review.throat {
             var value:String?
             switch throatHit {
@@ -392,6 +392,7 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
     }
     
     func loadFirstReviews() {
+        if selectedUserID != nil {
         self.userReviews = []
         isLoadingReviews = true
         ActivityFeedReviews.getUserReviews(Int(selectedUserID!)!, completionHandler: { (activityWrapper, error) in
@@ -405,6 +406,7 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
             self.isLoadingReviews = false
             self.profileTable.reloadData()
         })
+        }
     }
     
     func loadMoreReviews() {
@@ -437,6 +439,7 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
     }
     
     func loadUserData() {
+        if selectedUserID != nil {
         isLoadingUserData = true
         User.getUserData(Int(selectedUserID!)!, completionHandler: { (userDataWrapper, error) in
             if error != nil {
@@ -450,6 +453,7 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
             self.profileTable.reloadData()
             
         })
+        }
     }
     func addUserDataFromWrapper(wrapper: UserDataWrapper?) {
         self.userDataWrapper = wrapper

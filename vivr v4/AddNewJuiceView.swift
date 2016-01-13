@@ -28,12 +28,11 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     var keyboardActive = false
     @IBOutlet weak var newBrandButton: UIButton!
     
+    @IBOutlet weak var brandSearchBar: UISearchBar!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var submitbuttonHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var cancelButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var juiceName: B68UIFloatLabelTextField!
-    @IBOutlet weak var cancelButtonBottom: NSLayoutConstraint!
+    @IBOutlet weak var actionBarBottomConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,9 +49,6 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         hideBrandSearchView()
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        stopObservingKeyboardEvents()
-    }
     //CONFIGURE NAV BAR
     
     func configureNavBar() {
@@ -78,6 +74,10 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         brandSearch = storyboard.instantiateViewControllerWithIdentifier("browseView") as? VIVRBrowseViewController
         brandSearch!.brandViewDelegate = self
         brandSearch!.segueActive = false
+    }
+    
+    func resetView() {
+        resetButtons()
     }
 
     override func didReceiveMemoryWarning() {
@@ -108,7 +108,6 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     func completeAddProduct() {
         self.reviewSuccessInButton()
         UIView.animateWithDuration(0.3, animations: {
-            self.cancelButtonBottomConstraint.constant = 0
             self.view.layoutIfNeeded()
         })
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target: self, selector: "callViewDelegateAddNewJuiceSuccess", userInfo: nil, repeats: false)
@@ -145,9 +144,8 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     }
     
     func showBrandSearchView() {
-        self.selectBrandButton.setTitle("Cancel", forState: .Normal)
+        self.selectBrandButton.setTitle("Cancel brand search", forState: .Normal)
         showCantFindBrandButton()
-        tableActive = true
         searchHeight.constant = 44.0
         brandSearch!.view.frame = CGRectMake(0, 0, brandView.frame.width, brandView.frame.height)
         self.addChildViewController(self.brandSearch!)
@@ -162,6 +160,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         brandSearch!.controller.hidden = true
         brandView.addSubview(brandSearch!.view)
         self.view.layoutIfNeeded()
+        tableActive = true
     }
     
     func hideBrandSearchView() {
@@ -174,6 +173,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         }else {
             self.selectBrandButton.setTitle("Who makes it?", forState: .Normal)
         }
+        self.brandSearchBar.endEditing(true)
     }
     
     @IBAction func enterNewBrandPressed(sender: AnyObject) {
@@ -240,6 +240,15 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         submitButton.setTitle("New E-liquid added!", forState: .Normal)
     }
     
+    func resetButtons() {
+        submitButton.setTitle("Submit", forState: .Normal)
+        submitButton.viewWithTag(1)?.removeFromSuperview()
+        selectBrandButton.setTitle("Who makes it?", forState: .Normal)
+        hideBrandSearchView()
+        submitButton.setImage(nil, forState: .Normal)
+        self.view.layoutIfNeeded()
+    }
+    
     //Cant Find brand Show/Hide functions
     
     func showCantFindBrandButton() {
@@ -273,9 +282,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         if let userInfo = notification.userInfo {
             if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
                 UIView.animateWithDuration(0.1, animations: { () -> Void in
-                    self.cancelButtonBottom.constant = keyboardSize.height
-                    self.submitbuttonHeightConstraint.constant = 0
-                    self.hideBrandSearchView()
+                    self.actionBarBottomConstraint.constant = keyboardSize.height
                     self.view.layoutIfNeeded()
                     self.keyboardActive = true
                 })
@@ -286,8 +293,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         if let userInfo = notification.userInfo {
             if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
                 UIView.animateWithDuration(0.1, animations: { () -> Void in
-                    self.cancelButtonBottom.constant = 0
-                    self.submitbuttonHeightConstraint.constant = 60
+                    self.actionBarBottomConstraint.constant = 0
                     self.view.layoutIfNeeded()
                     self.keyboardActive = false
                 })

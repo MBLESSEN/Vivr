@@ -325,7 +325,7 @@ class vivrCell: UITableViewCell, UIScrollViewDelegate {
             self.productImage.hnk_setImageFromURL(purl!)
         }
         if let rating = review!.score {
-            self.totalScore.text = rating
+            self.totalScore.text = "\(rating)"
         }
         if let throatHit = review!.throat {
             var value:String?

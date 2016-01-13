@@ -101,16 +101,40 @@ class Brand {
     
     class func createNewBrand(parameters: [String:AnyObject], completionHandler: (BrandWrapper?, NSError?) -> Void) {
         Alamofire.request(Router.createNewBrand(parameters)).responseJSON { (response) in
-            if response.response?.statusCode != 200 {
-                completionHandler(nil,response.result.error)
+            let error = response.result.error
+            if response.response?.statusCode != 200 || response.response?.statusCode != 201 {
+                DeviceInfo.refreshAuthToken() {
+                    result in
+                    if result.1?.success == true {
+                        Alamofire.request(Router.createNewBrand(parameters)).responseJSON { (response) in
+                            let error = response.result.error
+                            if let err = error {
+                                completionHandler(nil, err)
+                                return
+                            }
+                            let brandWrapper = BrandWrapper()
+                            var brandArray = Array<Brand>()
+                            let brand = Brand(json: JSON(response.result.value!), id: 0)
+                            brandArray.append(brand)
+                            brandWrapper.Brands = brandArray
+                            completionHandler(brandWrapper,nil)
+                        }
+                    }else {
+                        completionHandler(nil, error)
+                        return
+                    }
+                }
+            }else if error != nil {
+                completionHandler(nil, error)
                 return
             }
+            
             let brandWrapper = BrandWrapper()
             var brandArray = Array<Brand>()
             let brand = Brand(json: JSON(response.result.value!), id: 0)
             brandArray.append(brand)
             brandWrapper.Brands = brandArray
-            completionHandler(brandWrapper, response.result.error)
+            completionHandler(brandWrapper, nil)
         }
         
     }

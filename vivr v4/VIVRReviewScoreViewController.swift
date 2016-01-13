@@ -188,7 +188,7 @@ class VIVRReviewScoreViewController: UIViewController {
         ActivityFeedReviews.createNewReview("\(productId!)", parameters: parameters, completionHandler: { (reviewWrapper, error) in
             if error != nil {
                 self.didNotCompleteReview()
-            }else {
+            }else if reviewWrapper != nil {
                 self.completeReview(reviewWrapper!)
             }
         })

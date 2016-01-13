@@ -519,7 +519,7 @@ class productCell: UITableViewCell, UIScrollViewDelegate, UITextViewDelegate {
         }
         let productString = self.product!.image
         let purl = NSURL(string: productString!)
-        self.productImage.hnk_setImageFromURL(purl!)
+        self.productImage.hnk_setImageFromURL(purl!, placeholder: UIImage(named: "vivrLogo"))
 
         if let tags = self.product!.tags {
             var tagString = ""

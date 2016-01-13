@@ -11,6 +11,9 @@ import UIKit
 class blogCell: UITableViewCell {
 
     @IBOutlet weak var blogImageTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var featuredImage: UIImageView!
+    @IBOutlet weak var featuredTitle: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

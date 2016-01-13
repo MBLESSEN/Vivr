@@ -37,15 +37,14 @@ struct ApiError {
 class DeviceInfo {
     class func refreshAuthToken(completionHandler: (RefreshTokenResponse?, ApiError?) -> ()) -> Void {
         let token = KeychainWrapper.stringForKey("refreshToken")
-        let parameters: [String:AnyObject] = [
-            "grant_type" : "refresh_token",
-            "client_id" : "1",
-            "client_secret" : "vapordelivery2015",
-            "refresh_token" : token!
-            
-        ]
-        print("parameters are")
-        print(parameters)
+        if token != nil {
+            let parameters: [String:AnyObject] = [
+                "grant_type" : "refresh_token",
+                "client_id" : "1",
+                "client_secret" : "vapordelivery2015",
+                "refresh_token" : token!
+                
+            ]
         Alamofire.request(Router.requestAccessToken(parameters)).validate().responseJSON { (response) -> Void in
             print(response.response)
             if (response.response?.statusCode == 200) {
@@ -61,7 +60,7 @@ class DeviceInfo {
                 clearance.message = "success"
                 completionHandler(response, clearance)
                 return
-            }else if response.response?.statusCode == 401 {
+            }else if response.response?.statusCode == 401 || response.response?.statusCode == 400 {
                 self.logOutDevice()
             }else {
                 var APIresponse = ApiError()
@@ -69,6 +68,7 @@ class DeviceInfo {
                 APIresponse.error = response.result.error as NSError!
                 completionHandler(nil, APIresponse)
                 return
+            }
             }
             
         }

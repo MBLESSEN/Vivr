@@ -11,12 +11,12 @@ import UIKit
 class VIVRFeaturedPostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var comments: Array<ActivityFeedReviews>?
-    var blog: BlogPost?
     @IBOutlet weak var blogTable: UITableView!
     @IBOutlet weak var commentBottomConstraint: NSLayoutConstraint!
     var keyboardActive = false
     @IBOutlet weak var commentField: UITextField!
     
+    var featuredPost: FeaturedPost?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,16 @@ class VIVRFeaturedPostViewController: UIViewController, UITableViewDataSource, U
     
     override func viewWillAppear(animated: Bool) {
         configureNavBar()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        loadFeaturedPost()
+    }
+    
+    func loadFeaturedPost() {
+        if featuredPost != nil {
+            blogTable.reloadData()
+        }
     }
     
     func hideKeyboard() {
@@ -99,6 +109,10 @@ class VIVRFeaturedPostViewController: UIViewController, UITableViewDataSource, U
     
     func blogCellAtIndexPath() -> blogCell {
         let cell = blogTable.dequeueReusableCellWithIdentifier("postCell") as! blogCell
+        if featuredPost != nil {
+            cell.descriptionLabel.text = featuredPost!.description
+            cell.featuredTitle.text = featuredPost!.title
+        }
         return cell
         
     }

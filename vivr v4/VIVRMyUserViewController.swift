@@ -296,7 +296,7 @@ class VIVRMyUserViewController: UIViewController, reviewCellDelegate, UIScrollVi
         cell.productName.text = review.product?.name
         cell.productReview.text = review.description
         cell.brandName.text = review.brand?.name
-        cell.scoreLabel.text = review.score 
+        cell.scoreLabel.text = "\(review.score!)"
         if let throatHit = review.throat {
             var value:String?
             switch throatHit {

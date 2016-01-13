@@ -73,6 +73,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     var currentPage:Int = 1
     var helpfulCount:Int?
     var isFirstLaunch: Bool?
+    var selectedFeaturedPost: FeaturedPost?
     
     //data object Arrays
     var whatsHot:[SwiftyJSON.JSON]? = []
@@ -83,7 +84,9 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //data objects
     var feedReviews:Array<ActivityFeedReviews>?
+    var featuredPosts:Array<FeaturedPost>?
     var activityWrapper:ActivityWrapper?
+    var featuredWrapper:FeaturedPostWrapper?
     var topHeaderCell:vivrHeaderCell?
     var tags: addFlavorTagsView?
     var searchView: VIVRSearchViewController?
@@ -132,6 +135,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
+    var isLoadingFeatured = false
     var keyboardActive = false
     
     
@@ -319,7 +323,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         }else {
             loadFirstActivity()
         }
-        
+        loadFirstFeatured()
     }
     
     
@@ -695,10 +699,14 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func reload(){
-        if filterTags.count == 0 {
-        loadFirstActivity()
-        }else {
-            loadFirstFilteredActivity(filterTagsString!)
+        if controller.selectedSegmentIndex == 1 {
+            if filterTags.count == 0 {
+            loadFirstActivity()
+            }else {
+                loadFirstFilteredActivity(filterTagsString!)
+            }
+        }else if controller.selectedSegmentIndex == 0 {
+            loadFirstFeatured()
         }
         print("refreshing", terminator: "")
         refreshControl.endRefreshing()
@@ -768,6 +776,11 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
+    
+    func performSegue(segue: String) {
+        segueIdentifier = segue
+        self.performSegueWithIdentifier(segue, sender: self)
+    }
 
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -793,8 +806,9 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             let brandVC: VIVRBrandProductsViewController = segue.destinationViewController as! VIVRBrandProductsViewController
             brandVC.brandImageURL = self.selectedBrandImage
             brandVC.brandID = self.selectedBrandID
-        case "toBlogPost":
-            print("going to post", terminator: "")
+        case "homeToFeaturedSegue":
+            let blogVC: VIVRFeaturedPostViewController = segue.destinationViewController as! VIVRFeaturedPostViewController
+            blogVC.featuredPost = self.selectedFeaturedPost
         default:
             print("noSegue", terminator: "")
             
@@ -810,10 +824,19 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         case "newCell":
             return 1
         case "featuredCell":
-            //return posts.count ?? 0
-            return 1
+           return self.featuredPosts!.count ?? 0
         default:
             return 1
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if controller.selectedSegmentIndex == 0 {
+            let cell = mainTable.cellForRowAtIndexPath(indexPath) as! FeaturedCell
+            if cell.featuredPost != nil {
+                selectedFeaturedPost = cell.featuredPost!
+                performSegue("homeToFeaturedSegue")
+            }
         }
     }
     
@@ -849,10 +872,15 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func featuredCellAtIndexPath(indexPath: NSIndexPath) -> FeaturedCell {
         let cell = mainTable.dequeueReusableCellWithIdentifier("featuredCell", forIndexPath: indexPath) as! FeaturedCell
-        if posts.count > 0 {
-            //let index = posts[indexPath.row]
-            //cell.postTitle.text = index.title!
-        }
+            if self.featuredPosts != nil && self.featuredPosts!.count > indexPath.row {
+                let featured = self.featuredPosts![indexPath.row]
+                cell.featuredPost = featured
+                cell.postTitle.text = featured.title!
+                cell.postDescription.text = featured.description!
+                let urlString = featured.image!
+                let url = NSURL(string: urlString)!
+                cell.postImage.hnk_setImageFromURL(url, placeholder: UIImage(named: "featuredImage_1"))
+            }
         return cell
     }
 
@@ -880,53 +908,22 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     review.appendAttributedString(x)
                     vivrcell.reviewDescription.attributedText = review
                     vivrcell.reviewDescription.sizeToFit()
-                    
                 }
             vivrcell.userName.text = review.user?.userName
             let urlString = review.user!.image!
             let url = NSURL(string: urlString)!
-            vivrcell.userImage!.hnk_setImageFromURL(url)
+            vivrcell.userImage!.hnk_setImageFromURL(url, placeholder: UIImage(named: "user_50"))
             vivrcell.userImage.layer.cornerRadius = vivrcell.userImage.frame.size.width/2
             vivrcell.userImage.clipsToBounds = true
             vivrcell.hardwareLabel!.text = review.user?.hardWare
             vivrcell.flavorName.text = review.product?.name
-            vivrcell.flavorName.sizeToFit()
-            vivrcell.brandName.text = review.brand?.name
-            vivrcell.brandName.sizeToFit()
+            vivrcell.brandName.text = review.brand?.name?.uppercaseString
             vivrcell.layoutIfNeeded()
             let productString = review.product!.image!
             let purl = NSURL(string: productString)!
-            vivrcell.productImage.hnk_setImageFromURL(purl)
+            vivrcell.productImage.hnk_setImageFromURL(purl, placeholder: UIImage(named: "vivrLogo"))
             if let rating = review.score {
-                vivrcell.totalScore.text = rating
-            }
-            if let throatHit = review.throat {
-                var value:String?
-                switch throatHit {
-                case 0:
-                    value = "Light"
-                case 1:
-                    value = "Mild"
-                case 2:
-                    value = "Harsh"
-                default:
-                    value = "invalid"
-                }
-                vivrcell.throat.text = ("\(value!) throat hit")
-            }
-            if let vaporProduction = review.vapor {
-                var value:String?
-                switch vaporProduction {
-                case 0:
-                    value = "Low"
-                case 1:
-                    value = "Average"
-                case 2:
-                    value = "Cloudy"
-                default:
-                    value = "invalid"
-                }
-                vivrcell.vapor.text = ("\(value!) vapor production")
+                vivrcell.totalScore.text = "\(rating)"
             }
             //vivrcell.productDescription.text = review.product?.description
             vivrcell.helpfullState = review.currentHelpful
@@ -1111,6 +1108,48 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             self.feedReviews = self.feedReviews! + self.activityWrapper!.ActivityReviews!
         }
 
+    }
+    
+    func loadFirstFeatured() {
+        self.featuredPosts = []
+        self.isLoadingFeatured = true
+        FeaturedPost.getFeaturedPosts( { (featuredWrapper, error) in
+            if error != nil {
+                self.isLoadingFeatured = false
+                self.activityIndicator?.showRefreshButton()
+            }
+            self.addFeaturedFromWrapper(featuredWrapper)
+            self.isLoadingFeatured = false
+            self.mainTable.reloadData()
+            
+        })
+    }
+    
+    func loadMoreFeatured() {
+        isLoadingFeatured = true
+        if self.featuredPosts != nil && self.featuredWrapper != nil && self.featuredPosts!.count < self.featuredWrapper!.count {
+            FeaturedPost.getMoreFeaturedPosts(self.featuredWrapper, completionHandler: { (moreWrapper, error) in
+                if error != nil {
+                    self.isLoadingFeatured = false
+                    let alert = UIAlertController(title: "oops", message: "We couldn't load the data, try again.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }else {
+                    self.addFeaturedFromWrapper(moreWrapper)
+                    self.isLoadingFeatured = false
+                    self.mainTable.reloadData()
+                }
+            })
+        }
+    }
+    
+    func addFeaturedFromWrapper(wrapper: FeaturedPostWrapper?) {
+        self.featuredWrapper = wrapper
+        if self.featuredPosts == nil {
+            self.featuredPosts = self.featuredWrapper?.featuredPosts
+        }else if self.featuredWrapper != nil && self.featuredWrapper!.featuredPosts != nil {
+            self.featuredPosts = self.featuredPosts! + self.featuredWrapper!.featuredPosts!
+        }
     }
     
     

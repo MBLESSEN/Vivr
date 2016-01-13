@@ -600,6 +600,54 @@ extension Alamofire.Request {
         }
     }
     
+    class func FeaturedArrayResponseSerializer() -> ResponseSerializer<FeaturedPostWrapper, NSError> {
+        return ResponseSerializer {request, response, data, error in
+            guard error == nil else { return .Failure(error!) }
+            
+            guard let validData = data else {
+                let failureReason = "data could not be serialized."
+                let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
+                return .Failure(error)
+            }
+            var jsonData:AnyObject?
+            var jsonError: NSError?
+            do {
+                jsonData = try NSJSONSerialization.JSONObjectWithData(validData, options: [])
+            } catch let error as NSError {
+                jsonError = error
+                jsonData = nil
+            } catch {
+                fatalError()
+            }
+            if jsonData == nil || jsonError != nil {
+                let failureReason = "No data returned"
+                let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
+                return .Failure(error)
+            }
+            
+            let json = JSON(jsonData!)
+            
+            let wrapper:FeaturedPostWrapper = FeaturedPostWrapper()
+            wrapper.count = json["total"].intValue
+            wrapper.currentPage = json["current_page"].intValue
+            if let nextPage = wrapper.currentPage!++ as Int? {
+                wrapper.nextPage = nextPage
+            }
+            wrapper.lastPage = json["last_page"].intValue
+            wrapper.next = json["next_page_url"].stringValue
+            
+            var allFeatured:Array = Array<FeaturedPost>()
+            let results = json["data"]
+            for jsonFeatured in results {
+                let post = FeaturedPost(json: jsonFeatured.1, id: Int(jsonFeatured.0))
+                allFeatured.append(post)
+            }
+            wrapper.featuredPosts = allFeatured
+            return .Success(wrapper)
+        }
+        
+    }
+    
     func responseAuthorization(completionHandler: Response<Authorization, NSError> -> Void) -> Self {
         return response(responseSerializer: Request.authResponseSerializer(), completionHandler: completionHandler)
     }
@@ -636,5 +684,8 @@ extension Alamofire.Request {
     }
     func responseTagsArray(completionHandler: Response<TagWrapper, NSError> -> Void) -> Self {
         return response(responseSerializer: Request.TagsArrayResponseSerializer(), completionHandler: completionHandler)
+    }
+    func responseFeaturedArray(completionHandler: Response<FeaturedPostWrapper, NSError> -> Void) -> Self {
+        return response(responseSerializer: Request.FeaturedArrayResponseSerializer(), completionHandler: completionHandler)
     }
 }

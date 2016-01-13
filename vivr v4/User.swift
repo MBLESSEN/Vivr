@@ -70,7 +70,7 @@ class User {
         Alamofire.request(path).responseUserData() { (response) in
             let data = response.result.value
             let error = response.result.error
-            if response.response?.statusCode != 200
+            if response.result.isFailure
             {
                 print("fetching refresh token")
                 DeviceInfo.refreshAuthToken() {

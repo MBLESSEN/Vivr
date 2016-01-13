@@ -57,7 +57,7 @@ class ActivityFeedReviews {
     var description: String?
     var throat: Int?
     var vapor: Int?
-    var score: String?
+    var score: Double?
     var createdAt: String?
     var updatedAt: String?
     var image: String?
@@ -75,7 +75,7 @@ class ActivityFeedReviews {
         self.description = json[ActivityFeedReviewsFields.description.rawValue].stringValue
         self.throat = json[ActivityFeedReviewsFields.throat.rawValue].intValue
         self.vapor = json[ActivityFeedReviewsFields.vapor.rawValue].intValue
-        self.score = json[ActivityFeedReviewsFields.score.rawValue].stringValue
+        self.score = json[ActivityFeedReviewsFields.score.rawValue].doubleValue
         self.image = json["image"].stringValue
         self.createdAt = json[ActivityFeedReviewsFields.createdAt.rawValue].stringValue
         self.updatedAt = json[ActivityFeedReviewsFields.updatedAt.rawValue].stringValue

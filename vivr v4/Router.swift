@@ -58,6 +58,7 @@ enum Router: URLRequestConvertible {
     case readBlog(Int)
     case postProduct([String:AnyObject])
     case createNewBrand([String:AnyObject])
+    case readFeatured(Int)
 
     
     var method: Alamofire.Method {
@@ -152,6 +153,8 @@ enum Router: URLRequestConvertible {
             return .POST
         case .createNewBrand:
             return .POST
+        case .readFeatured:
+            return .GET
         }
     }
     
@@ -247,6 +250,8 @@ enum Router: URLRequestConvertible {
             return "/products"
         case .createNewBrand(_):
             return "/brands"
+        case .readFeatured(let id):
+            return "/featured?page=\(id)"
         }
     }
     

@@ -173,6 +173,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     
     func addJuice() {
         self.presentViewController(addJuiceView!, animated: true, completion: nil)
+        addJuiceView?.resetView()
         if let parentView = parentViewController as? VIVRJuiceCheckIn {
             addJuiceView!.juiceName.text! = parentView.searchBar.text!
         }else if let parentView = parentViewController as? VIVRHomeViewController {
@@ -188,9 +189,9 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
         if let cell = searchTable.cellForRowAtIndexPath(indexPath) as? searchResultCell {
-        cell.productLabel.textColor = UIColor.whiteColor()
-        cell.contentView.backgroundColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
-        cell.backgroundColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
+            cell.productLabel.textColor = UIColor.whiteColor()
+            cell.contentView.backgroundColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
+            cell.backgroundColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 0.9)
         }
     }
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -199,9 +200,9 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath) {
         if let cell = searchTable.cellForRowAtIndexPath(indexPath) as? searchResultCell {
-        cell.productLabel.textColor = UIColor.blackColor()
-        cell.contentView.backgroundColor = UIColor.whiteColor()
-        cell.backgroundColor = UIColor.whiteColor()
+            cell.productLabel.textColor = UIColor.blackColor()
+            cell.contentView.backgroundColor = UIColor.whiteColor()
+            cell.backgroundColor = UIColor.whiteColor()
         }
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

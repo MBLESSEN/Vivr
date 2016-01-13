@@ -115,9 +115,6 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func viewWillAppear(animated: Bool) {
         configureNavBar()
-        if self.selectedProductID != nil {
-            loadFirstReview(self.selectedProductID!)
-        }
         self.mainTable.reloadData()
     }
     
@@ -348,8 +345,7 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
             return 2
         }
         let count = self.reviews!.count
-        finalCell = 3 + count
-                return 2 + count
+            return 2 + count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -534,7 +530,7 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
                     headerCell.userImage.hnk_setImageFromURL(url!)
                 }
                 headerCell.userHardware.text = review.user?.hardWare
-                headerCell.rating = review.score
+                headerCell.rating = "\(review.score!)"
                 headerCell.userID = review.userID!
                 headerCell.backgroundColor = UIColor.whiteColor()
                 headerCell.cellDelegate = self

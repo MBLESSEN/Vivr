@@ -90,7 +90,7 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
             let review = userReviews![indexPath.row]
             if let imageString = review.product?.image {
                 let url = NSURL(string: imageString)
-                cell.productImage.hnk_setImageFromURL(url!)
+                cell.productImage.hnk_setImageFromURL(url!, placeholder: UIImage(named: "vivrLogo"))
             }
         }
     }
@@ -101,9 +101,8 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
         cell.productID = review.productID
         cell.reviewID = review.reviewID
         cell.productName.text = review.product?.name
-        cell.productReview.text = review.description
         cell.brandName.text = review.brand?.name
-        cell.scoreLabel.text = review.score
+        cell.scoreLabel.text = "\(review.score!)"
         if let throatHit = review.throat {
             var value:String?
             switch throatHit {

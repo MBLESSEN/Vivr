@@ -39,7 +39,7 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate, VIVRProduc
     func setupViewController() {
         if product != nil {
             let url = NSURL(string: product!.image!)
-            self.productImage.hnk_setImageFromURL(url!)
+            self.productImage.hnk_setImageFromURL(url!, placeholder: UIImage(named: "vivrLogo"))
         }
         review.textColor = UIColor.lightGrayColor()
         review.text = "What did it taste like?"
