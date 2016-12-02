@@ -106,7 +106,7 @@ class VIVRAddNewBrandViewController: UIViewController {
             Brand.createNewBrand(parameters, completionHandler: { (brandWrapper, error) in
                 if brandWrapper != nil {
                     let brand = brandWrapper!.Brands?.first
-                    let alert = UIAlertController(title: "You've created a new brand!", message: "Brand verfication in progress. When your brand is verified, your rating will be made public.", preferredStyle: .Alert)
+                    let alert = UIAlertController(title: "You've created a new brand!", message: "Go ahead and check in your E-liquid!", preferredStyle: .Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
                             self.dismissViewControllerAnimated(true, completion: nil)
                             self.addNewBrandDelegate?.brandCreated!(brand!.name!, brandID: brand!.id!)

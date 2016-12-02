@@ -12,12 +12,25 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate, VIVRProduc
 
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var review: UITextView!
+    @IBOutlet weak var reviewTextView: UITextView!
     @IBOutlet weak var productImage: UIImageView!
     
     var keyboardActive = false
     var product:Product?
     var reviewScoreView:VIVRReviewScoreViewController?
+    var delegate: VIVRReviewProtocol? = nil
+    var review: ActivityFeedReviews?
+    var isEditingReview: Bool = false
+    
+    class func editReviewViewWithReview(review: ActivityFeedReviews) -> UINavigationController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let navigation = storyboard.instantiateViewControllerWithIdentifier("reviewViewControllerNavigationController") as! UINavigationController
+        let reviewVC = navigation.viewControllers.first as! VIVRReviewViewController
+        reviewVC.review = review
+        reviewVC.product = review.product!
+        reviewVC.isEditingReview = true
+        return navigation
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,14 +50,19 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate, VIVRProduc
     }
     
     func setupViewController() {
+        switch isEditingReview {
+        case true:
+            self.reviewTextView.text = self.review!.description!
+        case false:
+            reviewTextView.textColor = UIColor.lightGrayColor()
+            reviewTextView.text = "What did it taste like?"
+            reviewTextView.selectedTextRange = reviewTextView.textRangeFromPosition(reviewTextView.beginningOfDocument, toPosition: reviewTextView.beginningOfDocument)
+            reviewTextView.becomeFirstResponder()
+        }
         if product != nil {
             let url = NSURL(string: product!.image!)
             self.productImage.hnk_setImageFromURL(url!, placeholder: UIImage(named: "vivrLogo"))
         }
-        review.textColor = UIColor.lightGrayColor()
-        review.text = "What did it taste like?"
-        review.selectedTextRange = review.textRangeFromPosition(review.beginningOfDocument, toPosition: review.beginningOfDocument)
-        review.becomeFirstResponder()
     }
     
     
@@ -61,12 +79,17 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate, VIVRProduc
     
     func instantiateReviewScoreView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        reviewScoreView = storyboard.instantiateViewControllerWithIdentifier("reviewScore") as! VIVRReviewScoreViewController
+        reviewScoreView = storyboard.instantiateViewControllerWithIdentifier("reviewScore") as? VIVRReviewScoreViewController
         addChildViewController(reviewScoreView!)
         reviewScoreView!.viewDelegate = self
         reviewScoreView!.view.frame = CGRectMake(0, 0, self.bottomView.frame.width, bottomView.frame.height)
         bottomView.addSubview(reviewScoreView!.view)
         reviewScoreView?.didMoveToParentViewController(self)
+        if self.isEditingReview == true {
+            self.reviewScoreView?.scoreSlider.setValue(Float((self.review?.score)!), animated: true)
+            self.reviewScoreView?.vaporController.selectedSegmentIndex = (self.review?.vapor!)!
+            self.reviewScoreView?.throatController.selectedSegmentIndex = (self.review?.throat!)!
+        }
     }
 
 
@@ -75,31 +98,31 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate, VIVRProduc
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
-        let currentText:NSString = review.text
+        let currentText:NSString = reviewTextView.text
         let updatedText = currentText.stringByReplacingCharactersInRange(range, withString:text)
         
         if updatedText.characters.count == 0 {
             
-            review.text = "What did it taste like?"
-            review.textColor = UIColor.lightGrayColor()
+            reviewTextView.text = "What did it taste like?"
+            reviewTextView.textColor = UIColor.lightGrayColor()
             
             
-            review.selectedTextRange = review.textRangeFromPosition(review.beginningOfDocument, toPosition: review.beginningOfDocument)
+            reviewTextView.selectedTextRange = reviewTextView.textRangeFromPosition(reviewTextView.beginningOfDocument, toPosition: reviewTextView.beginningOfDocument)
             
             return false
         }
             
-        else if review.textColor == UIColor.lightGrayColor() && text.characters.count > 0 {
-            review.text = nil
-            review.textColor = UIColor.blackColor()
+        else if reviewTextView.textColor == UIColor.lightGrayColor() && text.characters.count > 0 {
+            reviewTextView.text = nil
+            reviewTextView.textColor = UIColor.blackColor()
         }
         
         return true
     }
     
     func textViewDidChangeSelection(textView: UITextView) {
-        if review.textColor == UIColor.lightGrayColor() {
-            review.selectedTextRange = review.textRangeFromPosition(review.beginningOfDocument, toPosition: review.beginningOfDocument)
+        if reviewTextView.textColor == UIColor.lightGrayColor() {
+            reviewTextView.selectedTextRange = reviewTextView.textRangeFromPosition(reviewTextView.beginningOfDocument, toPosition: reviewTextView.beginningOfDocument)
         }
         
     }
@@ -133,8 +156,8 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate, VIVRProduc
     
     func hideKeyboard() {
         if(keyboardActive == true) {
-            review.becomeFirstResponder()
-            review.endEditing(true)
+            reviewTextView.becomeFirstResponder()
+            reviewTextView.endEditing(true)
         }
     }
     
@@ -143,6 +166,7 @@ class VIVRReviewViewController: UIViewController, UITextViewDelegate, VIVRProduc
     func isReviewSuccessfull(success: Bool) {
         if success == true {
             self.dismissViewControllerAnimated(true, completion: nil)
+            self.delegate?.reviewAddedSuccess()
         }
         
     }

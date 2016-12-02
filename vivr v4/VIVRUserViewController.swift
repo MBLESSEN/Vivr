@@ -11,13 +11,13 @@ import Alamofire
 import Haneke
 import SwiftyJSON
 
-class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellDelegate, UIScrollViewDelegate, MyBoxControllerDelegate, VIVRActivityIndicatorProtocol, VIVREmptyStateProtocol {
+class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellDelegate, UIScrollViewDelegate, MyBoxControllerDelegate, VIVRActivityIndicatorProtocol, VIVREmptyStateProtocol, VIVRActionSheetProtocol {
     
     var myFavorites:[SwiftyJSON.JSON]? = []
     var myFavoritesData:SwiftyJSON.JSON?
     var myWishlist:[SwiftyJSON.JSON]? = []
     var myWishlistData:SwiftyJSON.JSON?
-    var selectedUserID:String?
+    var selectedUserID:String? 
     var selectedProductID:String?
     var segueIdentifier:String?
     var reviewID:String?
@@ -31,13 +31,20 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
     var userDataWrapper: UserDataWrapper?
     var activityIndicator: LoadingScreenViewController?
     var emptyStateView: VIVREmptyStateView?
+    var noNetworkViewController: LoadingScreenViewController?
     var emptyStateViewActive = false
-    
+    var isReloadingView = false
     var height: CGFloat?
     
     //BOOL INDICATORS FOR LOADING DATA 
     var isLoadingUserData = false
-    var isLoadingReviews = false
+    var isLoadingReviews = false {
+        didSet {
+            if isLoadingReviews == false {
+                self.didLoadData()
+            }
+        }
+    }
     var didLayoutSubview = false
     
     
@@ -51,6 +58,9 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
     }
     
     override func viewWillAppear(animated: Bool) {
+        if self.noNetworkViewController == nil {
+            self.noNetworkViewController = LoadingScreenViewController.createNoNetworkLoadingScreen()
+        }
         loadUserData()
         loadFirstReviews()
         configureTableView()
@@ -95,9 +105,25 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
         self.segueIdentifier = "anyUserToSettings"
     }
     
+    //ACTION SHEET PROTOCOLS
+    
+    func editReview(review: ActivityFeedReviews) {
+        let reviewNav = VIVRReviewViewController.editReviewViewWithReview(review)
+        self.presentViewController(reviewNav, animated: true, completion: nil)
+        
+    }
+    
+    func deleteReview(review: ActivityFeedReviews) {
+        
+    }
+    
     //TABLEVIEW CELL PROTOCOLS
     
-    
+    func tappedMoreButton(cell: myReviewsCell) {
+        let actionSheet = VIVRMoreActionSheet.actionSheetWithType(.VIVRMoreActionSheetTypeMyReview, object: cell.review)
+        actionSheet.delegate = self
+        self.presentViewController(actionSheet, animated: true, completion: nil)
+    }
     
     func tappedProductbutton(cell: myReviewsCell) {
         self.segueIdentifier = "anyUserToFlavor"
@@ -141,14 +167,17 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
     }
     
     func reloadAPI(cell: myReviewsCell) {
+        self.isReloadingView = true
         if let row = cell.cellID as Int? {
             let indexPath = NSIndexPath(forRow: row, inSection: 1)
             profileTable.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+            self.isReloadingView = false
+            
         }
     }
     
     func configureTableView() {
-        profileTable.estimatedRowHeight = 100
+        profileTable.estimatedRowHeight = 300
         profileTable.rowHeight = UITableViewAutomaticDimension
 
         self.profileTable.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
@@ -361,34 +390,33 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
         }
     }
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let cellOffset = profileTable.contentOffset.y
-        print(cellOffset, terminator: "")
-        if let topCell = profileTable.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? profileCell {
-        let height = topCell.contentView.frame.height
-        let alpha = height - 120 - cellOffset
-        let percent = alpha/100
-        if (percent > 0) {
-            topCell.contentView.alpha = percent
-        }
-        if (percent <= 0.1 || cellOffset >= height + 120) {
-            navBackground.alpha = 1.0
-        }else {
-            navBackground.alpha = 0
-        }
-            if cellOffset < 0 {
-                topCell.imageTopConstraint.constant = -8 + cellOffset
+        if isReloadingView == false {
+            let cellOffset = profileTable.contentOffset.y
+            print(cellOffset, terminator: "")
+            if let topCell = profileTable.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? profileCell {
+            let height = topCell.contentView.frame.height
+            let alpha = height - 120 - cellOffset
+            let percent = alpha/100
+            if (percent > 0) {
+                topCell.contentView.alpha = percent
             }
-        if (cellOffset >= 20) {
-            self.navigationItem.titleView = userNameLabel
-            topCell.userName.hidden = true
-        }else {
-            self.navigationItem.titleView = UILabel(frame: CGRectMake(0, 0, 0, 0))
-            topCell.userName.hidden = false
+            if (percent <= 0.1 || cellOffset >= height + 120) {
+                navBackground.alpha = 1.0
+            }else {
+                navBackground.alpha = 0
+            }
+                if cellOffset < 0 {
+                    topCell.imageTopConstraint.constant = -8 + cellOffset
+                }
+            if (cellOffset >= 20) {
+                self.navigationItem.titleView = userNameLabel
+                topCell.userName.hidden = true
+            }else {
+                self.navigationItem.titleView = UILabel(frame: CGRectMake(0, 0, 0, 0))
+                topCell.userName.hidden = false
+            }
+            }
         }
-        }
-    }
-    func scrollViewDidScrollToTop(scrollView: UIScrollView) {
-        navBackground.alpha = 0.0
     }
     
     func loadFirstReviews() {
@@ -417,9 +445,7 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
                 if error != nil
                 {
                     self.isLoadingReviews = false
-                    let alert = UIAlertController(title: "Error", message: "Could not load more activity", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.showNoNetworkView()
                 }
                 print("got More")
                 self.addReviewFromWrapper(moreWrapper)
@@ -441,24 +467,28 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
     func loadUserData() {
         if selectedUserID != nil {
         isLoadingUserData = true
-        User.getUserData(Int(selectedUserID!)!, completionHandler: { (userDataWrapper, error) in
-            if error != nil {
-                self.isLoadingUserData = false
-                let alert = UIAlertController(title: "Error", message: "could not load first activity", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
-            self.addUserDataFromWrapper(userDataWrapper)
-            self.isLoadingUserData = false
-            self.profileTable.reloadData()
-            
-        })
+            if let idString = selectedUserID as String? {
+                let id = Int(idString)
+                User.getUserData(id!, completionHandler: { (userDataWrapper, error) in
+                    if error != nil {
+                        self.isLoadingUserData = false
+                        self.showNoNetworkView()
+                    }
+                    self.addUserDataFromWrapper(userDataWrapper)
+                    self.isLoadingUserData = false
+                    self.profileTable.reloadData()
+                    
+                })
+                }
+        }else {
+            self.showNoNetworkView()
         }
     }
     func addUserDataFromWrapper(wrapper: UserDataWrapper?) {
         self.userDataWrapper = wrapper
-        if self.userData == nil {
-            self.userData = self.userDataWrapper?.UserData![0]
+        self.userData = self.userDataWrapper?.UserData![0]
+        if self.userData != nil {
+            myData.user = self.userData!
         }
         instantiateEmptyStateView()
         if wrapper?.UserData![0].review_count == 0 {
@@ -467,6 +497,12 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
         }else {
             hideEmptyStateView()
             profileTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        }
+    }
+    
+    func didLoadData() {
+        if self.userData != nil {
+            self.hideNoNetworkView()
         }
     }
     
@@ -482,6 +518,16 @@ class VIVRUserViewController: UIViewController, UITableViewDelegate, reviewCellD
     
     //INSTATIATE CHILD VIEWS
     //SHOW HIDE CHILD VIEWS
+    
+    func showNoNetworkView() {
+        self.view.addSubview(noNetworkViewController!.view)
+    }
+    
+    func hideNoNetworkView() {
+        if noNetworkViewController!.view != nil {
+            noNetworkViewController!.view.removeFromSuperview()
+        }
+    }
     
     func instantiateEmptyStateView() {
         if isMyUser == true {

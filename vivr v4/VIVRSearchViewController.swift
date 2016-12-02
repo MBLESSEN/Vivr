@@ -10,10 +10,9 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-protocol searchDelegate {
-    func dismissSearch(view: VIVRSearchViewController, cell: ProductTableViewCell?)
-    func hideKeyboard(view: VIVRSearchViewController)
-    func reloadSearch()
+enum VIVRSearchResultState {
+    case VIVRSearchResultNormal
+    case VIVRSearchResultJuiceTagger
 }
 
 class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddJuiceCellDelegate, AddNewJuiceViewDelegate {
@@ -25,6 +24,7 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
 
+    var searchResultState:VIVRSearchResultState = .VIVRSearchResultNormal
     var activityIndicator: LoadingScreenViewController?
     var viewDelegate: searchDelegate? = nil
     var selectedBrandImage: String?
@@ -58,7 +58,6 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createNoResultsView()
         startObservingKeyboardEvents()
         endKeyboardRecongnizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
         endKeyboardRecongnizer.cancelsTouchesInView = false
@@ -66,11 +65,17 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
         createPlaceHolderView()
         createAddJuiceView()
         instantiateActivityIndicator()
+        createNoResultsView()
+        registerTableViewCells()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func registerTableViewCells() {
+        searchTable.registerNib(UINib(nibName: "VIVR_CELL_JuiceTagger", bundle: nil), forCellReuseIdentifier: "juiceTaggerCell")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -80,6 +85,10 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLayoutSubviews() {
         setupActivityIndicator()
+    }
+    
+    func setupForJuiceTagger() {
+        self.searchResultState = VIVRSearchResultState.VIVRSearchResultJuiceTagger
     }
     
     @IBAction func changeData(sender: AnyObject) {
@@ -381,12 +390,17 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch cellIdentifier {
         case "juiceCell":
-            if let count = products?.count {
-                if indexPath.row == count {
-                    return addJuiceAtIndexPath()
+            switch searchResultState{
+            case VIVRSearchResultState.VIVRSearchResultJuiceTagger:
+                return juiceTaggerProductCellAtIndexPAth(indexPath)
+            case VIVRSearchResultState.VIVRSearchResultNormal:
+                if let count = products?.count {
+                    if indexPath.row == count {
+                        return addJuiceAtIndexPath()
+                    }
                 }
+                return productCellAtIndexPath(indexPath)
             }
-            return productCellAtIndexPath(indexPath)
         case "brandCell":
             return brandCellAtIndexPath(indexPath)
         case "userCell":
@@ -401,6 +415,11 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
         let cell = searchTable.dequeueReusableCellWithIdentifier("addJuiceCell") as! AddJuiceCell
         cell.cellDelegate = self
         cell.selectionStyle = .None
+        return cell
+    }
+    
+    func juiceTaggerProductCellAtIndexPAth(indexPath: NSIndexPath) -> VIVR_CELL_JuiceTagger {
+        let cell = searchTable.dequeueReusableCellWithIdentifier("juiceTaggerCell") as! VIVR_CELL_JuiceTagger
         return cell
     }
     
@@ -524,16 +543,8 @@ class VIVRSearchViewController: UIViewController, UITableViewDataSource, UITable
     func addSearchResultFromWrapper(wrapper: SearchResult?) {
         self.searchWrapper = wrapper
         self.products = self.searchWrapper?.Products.Products
-        if self.brands!.count == 0{
-            self.brands = self.searchWrapper?.Brands.Brands
-        }else if self.searchWrapper != nil && self.searchWrapper!.Brands.Brands != nil {
-            self.brands = self.brands! + self.searchWrapper!.Brands.Brands!
-        }
-        if self.users!.count == 0 {
-            self.users = self.searchWrapper?.Users.UserData
-        }else if self.searchWrapper != nil && self.searchWrapper!.Users.UserData != nil {
-            self.users = self.users! + self.searchWrapper!.Users.UserData!
-        }
+        self.brands = self.searchWrapper!.Brands.Brands!
+        self.users = self.searchWrapper!.Users.UserData!
     }
     
     func clearSearch() {

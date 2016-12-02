@@ -21,6 +21,7 @@ class VIVRReviewScoreViewController: UIViewController {
     @IBOutlet weak var throatController: UISegmentedControl!
     var reviewScore: String = "2.5"
     var viewDelegate: VIVRProductReviewProtocol? = nil
+    var parent: VIVRReviewViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,10 @@ class VIVRReviewScoreViewController: UIViewController {
         }
         self.scoreSlider.addSubview(sliderView)
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.parent = parentViewController as? VIVRReviewViewController
     }
     
     
@@ -171,27 +176,50 @@ class VIVRReviewScoreViewController: UIViewController {
         parent.hideKeyboard()
     }
     @IBAction func submitPressed(sender: AnyObject) {
-        let parent = parentViewController as? VIVRReviewViewController
-        let reviewTextView = parent!.review
-        let productId = parent!.product!.productID
-        guard let reviewText = reviewTextView.text where reviewText != "What did it taste like?" else {
-            
-            return
-        }
-        let parameters: [String:AnyObject!] = [
-            "description": reviewText,
-            "throat": throatController.selectedSegmentIndex,
-            "vapor": vaporController.selectedSegmentIndex,
-            "score": scoreSlider.value
-        ]
-        showActivityIndicatorInButton()
-        ActivityFeedReviews.createNewReview("\(productId!)", parameters: parameters, completionHandler: { (reviewWrapper, error) in
-            if error != nil {
-                self.didNotCompleteReview()
-            }else if reviewWrapper != nil {
-                self.completeReview(reviewWrapper!)
+        switch parent!.isEditingReview {
+        case true:
+            let reviewTextView = parent!.reviewTextView
+            let productId = parent!.product!.productID
+            guard let reviewText = reviewTextView.text where reviewText != "What did it taste like?" else {
+                
+                return
             }
-        })
+            let parameters: [String:AnyObject!] = [
+                "description": reviewText,
+                "throat": throatController.selectedSegmentIndex,
+                "vapor": vaporController.selectedSegmentIndex,
+                "score": scoreSlider.value
+            ]
+            showActivityIndicatorInButton()
+            ActivityFeedReviews.editReview("\(productId!)", parameters: parameters, completionHandler: { (reviewWrapper, error) in
+                if error != nil {
+                    self.didNotCompleteReview()
+                }else if reviewWrapper != nil {
+                    self.completeReview(reviewWrapper!)
+                }
+            })
+        case false:
+            let reviewTextView = parent!.reviewTextView
+            let productId = parent!.product!.productID
+            guard let reviewText = reviewTextView.text where reviewText != "What did it taste like?" else {
+                
+                return
+            }
+            let parameters: [String:AnyObject!] = [
+                "description": reviewText,
+                "throat": throatController.selectedSegmentIndex,
+                "vapor": vaporController.selectedSegmentIndex,
+                "score": scoreSlider.value
+            ]
+            showActivityIndicatorInButton()
+            ActivityFeedReviews.createNewReview("\(productId!)", parameters: parameters, completionHandler: { (reviewWrapper, error) in
+                if error != nil {
+                    self.didNotCompleteReview()
+                }else if reviewWrapper != nil {
+                    self.completeReview(reviewWrapper!)
+                }
+            })
+        }
         
     }
     
@@ -199,7 +227,6 @@ class VIVRReviewScoreViewController: UIViewController {
         let review = reviewWrapper.ActivityReviews?.first
             self.reviewSuccessInButton()
             NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target: self, selector: "callViewDelegateIsReviewSuccessfull", userInfo: nil, repeats: false)
-        
     }
     
     func didNotCompleteReview() {
@@ -221,7 +248,12 @@ class VIVRReviewScoreViewController: UIViewController {
         let checkMark = UIImage(named: "checkmark")
         submitButton.viewWithTag(1)?.removeFromSuperview()
         submitButton.setImage(checkMark, forState: .Normal)
-        submitButton.setTitle("Rating submitted!", forState: .Normal)
+        switch self.parent!.isEditingReview {
+        case true:
+            submitButton.setTitle("Edit successful", forState: .Normal)
+        case false:
+            submitButton.setTitle("Rating submitted!", forState: .Normal)
+        }
     }
     
     func callViewDelegateIsReviewSuccessfull() {

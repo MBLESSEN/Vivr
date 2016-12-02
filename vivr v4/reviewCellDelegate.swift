@@ -14,4 +14,5 @@ import Foundation
     optional func reloadAPI(cell: myReviewsCell)
     optional func helpfulTrue(cell: myReviewsCell)
     optional func helpfulFalse(cell: myReviewsCell)
+    optional func tappedMoreButton(cell: myReviewsCell)
 }

@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="PTSans-Bold.ttf">
+        <mutableArray key="PTSans.ttc">
             <string>PTSans-Bold</string>
             <string>PTSans-Bold</string>
             <string>PTSans-Bold</string>
@@ -78,7 +78,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="yP3-hO-PmI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="32" id="0fR-oa-P3e"/>
                 <constraint firstItem="PbH-dl-g8A" firstAttribute="leading" secondItem="igf-o0-LGH" secondAttribute="trailing" id="0ga-Zy-lvU"/>

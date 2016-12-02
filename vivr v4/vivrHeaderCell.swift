@@ -28,7 +28,6 @@ class vivrHeaderCell: UITableViewCell {
     
 
     var productID:String?
-    var colorPicker:DBImageColorPicker?
     var cellDelegate: VivrHeaderCellDelegate?
     var userID:String = ""
     var userName:String = "" 

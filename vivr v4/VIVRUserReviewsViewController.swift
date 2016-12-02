@@ -37,10 +37,6 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
-        loadFirstReviews()
-    }
-    
     override func viewDidLayoutSubviews() {
         setEmptyStateView()
     }
@@ -149,19 +145,21 @@ class VIVRUserReviewsViewController: UIViewController, reviewCellDelegate, UIScr
     //LOAD MORE REVIews
     
     func loadFirstReviews() {
-        self.userReviews = []
-        isLoadingReviews = true
-        ActivityFeedReviews.getUserReviews(Int(selectedUserID!), completionHandler: { (activityWrapper, error) in
-            if error != nil {
+        if selectedUserID != nil {
+            self.userReviews = []
+            isLoadingReviews = true
+            ActivityFeedReviews.getUserReviews(Int(selectedUserID!), completionHandler: { (activityWrapper, error) in
+                if error != nil {
+                    self.isLoadingReviews = false
+                    let alert = UIAlertController(title: "Error", message: "could not load first activity", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                self.addReviewFromWrapper(activityWrapper)
                 self.isLoadingReviews = false
-                let alert = UIAlertController(title: "Error", message: "could not load first activity", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
-            self.addReviewFromWrapper(activityWrapper)
-            self.isLoadingReviews = false
-            self.reviewTable.reloadData()
-        })
+                self.reviewTable.reloadData()
+            })
+        }
     }
     
     func loadMoreReviews() {

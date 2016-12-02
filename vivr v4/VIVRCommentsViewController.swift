@@ -9,8 +9,9 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import NextGrowingTextView
 
-class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, VivrCellDelegate, CommentCellDelegate {
+class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, VivrCellDelegate, CommentCellDelegate, VIVRJuiceTaggerProtocol, UITextViewDelegate{
     
 
     @IBOutlet weak var flavorName: UILabel!
@@ -18,6 +19,8 @@ class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var commentField: UITextField!
     @IBOutlet weak var keyBoardViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var commentView: UIView!
+    @IBOutlet weak var commetTextView: NextGrowingTextView!
+    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     
     var selectedUserID:String?
     var reviewID: String = ""
@@ -32,6 +35,8 @@ class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITable
     var titleLabel:UILabel?
     var activeWishlistContainer:UIView?
     var review: ActivityFeedReviews?
+    var juiceTagger: VIVRSearchViewController?
+    var tagger = VIVRTagger()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +44,13 @@ class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITable
         self.view.addGestureRecognizer(endKeyboardRecongnizer)
         startObservingKeyboardEvents()
         configureNavBarTitle()
-
-        // Do any additional setup after loading the view.
+        tagger.delegate = self
+        commetTextView.maxNumberOfLines = 4
+        commetTextView.textContainer.maximumNumberOfLines = 4
+        self.commetTextView.delegates.shouldChangeTextInRange = { (textView, range, text) -> Bool in
+            self.watchForTagger(textView, text: text, range: range)
+            return textView.text.characters.count + (text.characters.count - range.length) <= 140
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -73,14 +83,65 @@ class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITable
     
     func hideKeyboard() {
         if(keyboardActive == true) {
-        commentField.becomeFirstResponder()
-        commentField.endEditing(true)
         }
     }
     
     func configureTableView() {
         commentsTable.estimatedRowHeight = 700 
         commentsTable.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    func watchForTagger(textView: UITextView, text: String, range: NSRange) {
+        print(text)
+        print(range)
+        tagger.watchForJuiceTag(textView, text: text, range: range, completion: { (taggerActive) in
+            if taggerActive == true {
+                self.presentJuiceTaggerView()
+            }else {
+                self.hideTaggerView()
+            }
+            
+        })
+    }
+    
+//    func textViewDidChange(textView: UITextView) {
+//        tagger.watchForJuiceTag(textView, completion: { (juiceTaggerActive) in
+//            if juiceTaggerActive == true {
+//                let searchText = textView.text.stringByReplacingOccurrencesOfString("@", withString: "")
+//                print(searchText)
+//                self.juiceTagger!.searchTextCount = searchText.characters.count
+//                if searchText.characters.count >= 3 {
+//                    if let searchString = textView.text!.stringByReplacingOccurrencesOfString(" ", withString: "_") as String! {
+//                        if searchString.characters.count >= 3 {
+//                            self.juiceTagger!.loadFirstSearch(searchString)
+//                        }else {
+//                            let emptyAlert = UIAlertController(title: "oops!", message: "search must be atleast 3 letters long", preferredStyle: UIAlertControllerStyle.Alert)
+//                            emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+//                            self.presentViewController(emptyAlert, animated: true, completion: nil)
+//                        }
+//                    }
+//                }
+//                if searchText == "@" {
+//                    self.juiceTagger!.clearSearch()
+//                }else if searchText.characters.count == 0 {
+//                    self.juiceTagger!.clearSearch()
+//                }
+//            }
+//        })
+//        
+//    }
+
+    func presentJuiceTaggerView() {
+        if self.juiceTagger == nil {
+            self.juiceTagger = VIVRTagger.createJuiceTaggerView()
+        }
+        self.addChildViewController(juiceTagger!)
+        self.commentsTable.addSubview((juiceTagger?.view)!)
+    }
+    
+    func hideTaggerView() {
+        self.juiceTagger?.view.removeFromSuperview()
+        self.juiceTagger?.removeFromParentViewController()
     }
     
     private func startObservingKeyboardEvents() {
@@ -103,7 +164,8 @@ class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITable
         if let userInfo = notification.userInfo {
             if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
                 UIView.animateWithDuration(2, animations: { () -> Void in
-                self.keyBoardViewBottomConstraint.constant = keyboardSize.height
+                    self.keyBoardViewBottomConstraint.constant = keyboardSize.height
+                    self.tableViewBottomConstraint.constant = 48 + keyboardSize.height
                     self.view.layoutIfNeeded()
                     self.keyboardActive = true
                 })
@@ -113,6 +175,7 @@ class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITable
     func keyboardWillHide(notification: NSNotification) {
                 UIView.animateWithDuration(2, animations: { () -> Void in
                     self.keyBoardViewBottomConstraint.constant = 0
+                    self.tableViewBottomConstraint.constant = 48
                     self.view.layoutIfNeeded()
                     self.keyboardActive = false
                 })
@@ -125,6 +188,11 @@ class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tappedCommentButton(cell: vivrCell) {
+        
+    }
+    
+    func tappedMoreButton(cell: vivrCell) {
+        
         
     }
     
@@ -343,6 +411,8 @@ class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITable
         self.loadData()
     }
     
+    
+    
     @IBAction func submitCommentTapped(sender: AnyObject) {
         let text = commentField.text
         if (text != nil) {
@@ -453,8 +523,6 @@ class VIVRCommentsViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    
-
     /*
     // MARK: - Navigation
 

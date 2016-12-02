@@ -13,6 +13,9 @@ class LoadingScreenViewController: UIViewController {
     @IBOutlet weak var activityIndicatorView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var noNetworkImage: UIImageView!
+    @IBOutlet weak var noNetworkButton: UIButton!
+    @IBOutlet weak var noNetworkLabel: UILabel!
     
     var viewDelegate: VIVRActivityIndicatorProtocol? = nil
     
@@ -22,7 +25,7 @@ class LoadingScreenViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        showActivityIndicator()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +41,7 @@ class LoadingScreenViewController: UIViewController {
     }
     
     func showActivityIndicator() {
+        self.view.backgroundColor = UIColor.whiteColor()
         self.refreshButton.hidden = true
         self.refreshButton.userInteractionEnabled = false
         self.activityIndicator.hidden = false
@@ -48,7 +52,33 @@ class LoadingScreenViewController: UIViewController {
         viewDelegate?.reloadViewControllerData!()
     }
     
+    @IBAction func tryAgainPressed(sender: AnyObject) {
+        viewDelegate?.reloadViewControllerData!()
+    }
     
+    class func createNoNetworkLoadingScreen() -> LoadingScreenViewController {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyBoard.instantiateViewControllerWithIdentifier("activityIndicator") as! LoadingScreenViewController
+        controller.setupControllerForNoNetwork()
+        return controller
+
+    }
+    
+    func setupControllerForNoNetwork() {
+        self.view.backgroundColor = VIVRConstants.vivrGreen
+        self.noNetworkImage.tintColor = UIColor.whiteColor()
+        self.noNetworkImage.hidden = false
+        self.noNetworkButton.hidden = false
+        self.noNetworkLabel.hidden = false
+        self.activityIndicator.hidden = true
+        self.refreshButton.hidden = true
+    }
+    
+    func setupControllerForLoading() {
+        self.noNetworkImage.hidden = true
+        self.noNetworkButton.hidden = true
+        self.showActivityIndicator()
+    }
 
     /*
     // MARK: - Navigation

@@ -37,6 +37,7 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     var isLoadingFeed = false
     var reviews:Array<ActivityFeedReviews>?
     var reviewsWrapper: ActivityWrapper?
+    var selectedUserReview: ActivityFeedReviews?
     var reviewButtonViewWrapper: UIView = UIView()
     var activeWishlistContainer: UIView?
     var topView: UIView = UIView()
@@ -50,7 +51,7 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     
     var verticalConstraint: NSLayoutConstraint?
     
-    var navBackground = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
+    var navBackground = UIView(frame: CGRectMake(0, -64, UIScreen.mainScreen().bounds.width, 64))
     var boxOrProduct = "product"
     
     var tagPickerView: UIView = UIView(frame: CGRectMake(0, 0, 0, 0))
@@ -59,6 +60,7 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     
     var products: Array<Product>?
     var backButtonIsActive = true
+    var isReloading = false
     
     @IBOutlet weak var mainTable: UITableView!
 
@@ -132,9 +134,9 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     
     func configureNavBar() {
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain , target: nil, action: nil)
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.tintColor = VIVRConstants.vivrGreen
         self.navigationController?.navigationBar.translucent = true
-        navBackground.backgroundColor = UIColor(red: 31.0/255, green: 124.0/255, blue: 29.0/255, alpha: 1.0)
+        navBackground.backgroundColor = UIColor.whiteColor()
         navBackground.alpha = 0.0
         self.view.addSubview(navBackground)
         //self.tabBarController?.tabBar.hidden = true
@@ -212,42 +214,6 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func loadMore(sender: AnyObject) {
 
     }
-    
-    func setTitleLabelForNav(view: Int) {
-        switch view {
-        case 0:
-            titleLabel.text = "Write a review"
-            titleLabel.sizeToFit()
-        case 1:
-            titleLabel.text = "Rate it"
-            titleLabel.sizeToFit()
-        case 2:
-            titleLabel.text = "Vapor Production"
-            titleLabel.sizeToFit()
-        case 3:
-            titleLabel.text = "Throat hit"
-            titleLabel.sizeToFit()
-        case 4:
-            titleLabel.text = "Tastes like"
-            titleLabel.sizeToFit()
-        default:
-            print("rror", terminator: "")
-        }
-        UIView.animateWithDuration(
-            // duration
-            0.3,
-            // delay
-            delay: 0.0,
-            options: [],
-            animations: {
-                
-                self.reviewNavItem.titleView = self.titleLabel
-                self.titleLabel.alpha = 1.0
-            }, completion: {finished in
-                
-            }
-        )
-    }
     func hideKeyboard() {
         if(keyboardActive == true) {
             self.becomeFirstResponder()
@@ -309,15 +275,18 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func reloadAPI(cell: reviewTableViewCell) {
+        self.isReloading = true
         if let section = cell.cellID as Int? {
-            print(section, terminator: "")
             let indexPath = NSIndexPath(forRow: 0, inSection: section)
             mainTable.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+            self.isReloading = false
         }
     }
     func tappedFlavorReviewCommentbutton(cell: reviewTableViewCell) {
         self.segueIdentifier = "flavorToComments"
         selectedReviewID = cell.reviewID
+        selectedProductID = cell.productID
+        selectedUserReview = cell.review
         performSegueWithIdentifier(segueIdentifier, sender: self)
     }
     
@@ -413,7 +382,7 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     
     func generateLabel() {
         productLabel = UILabel(frame: CGRectMake(0, 0, 0, 0))   
-        productLabel!.textColor = UIColor.whiteColor()
+        productLabel!.textColor = VIVRConstants.vivrGreen
         productLabel!.backgroundColor = UIColor.clearColor()
         productLabel!.text = productData!.name!
         productLabel!.font = UIFont(name: "PTSans-Bold", size: 17)
@@ -428,6 +397,7 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
                 reviewCell.cellID = section
             }
             let review = reviews![indexPath.section - 2]
+            reviewCell.review = review
             reviewCell.productID = review.productID
             reviewCell.reviewID = review.reviewID
             if let date = review.createdAt {
@@ -553,9 +523,9 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 600
+            return 300
         }
-        return 40.0
+        return 300
     }
     
     
@@ -568,6 +538,7 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
                 let commentVC: VIVRCommentsViewController = segue.destinationViewController as! VIVRCommentsViewController
                 commentVC.reviewID = selectedReviewID!
                 commentVC.productID = selectedProductID!
+                commentVC.review = selectedUserReview!
             case "addToBox":
                 let destinationNavigationController = segue.destinationViewController as! UINavigationController
                 let boxVC: MyBoxController = destinationNavigationController.topViewController as! MyBoxController
@@ -694,33 +665,35 @@ class VIVRProductViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let cellOffset = mainTable.contentOffset.y
-        if let topCell = mainTable.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? BoxCell {
-            if cellOffset < 0 {
-                topCell.blackBackgroundTopConstraint.constant = CGFloat(64.0) + cellOffset
+        if isReloading == false {
+            let cellOffset = mainTable.contentOffset.y
+            if let topCell = mainTable.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? productCell {
+            let height = topCell.productDetailWrapper.frame.height
+            let alpha = (cellOffset + 44) / height
+            let percent = alpha/100
+            print("height = \(height)")
+            print("offset = \(cellOffset)")
+            print("alpha = \(alpha)")
+            if (percent > 0) {
+                self.navBackground.alpha = percent
+            }
+            if (alpha >= 1.0) {
+                self.navBackground.alpha = 1.0
+                UIView.animateWithDuration(0.8, animations: { () -> Void in
+                    self.productLabel!.alpha = 1
+                    self.navigationItem.titleView = self.productLabel!
+                })
+                }else {
+                if self.productLabel != nil {
+                    UIView.animateWithDuration(0.8, animations: { () -> Void in
+                        self.productLabel!.alpha = 0
+                        self.navigationItem.titleView = nil
+                    })
+                }
+                }
             }
         }
-        if let topCell = mainTable.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? productCell {
-            if cellOffset < 0 {
-                topCell.imageTopConstraint.constant = CGFloat(64.0) + cellOffset
-            }
-        }
-        print(cellOffset, terminator: "")
-        if let height = myData.brandFlavorImageHeight! as CGFloat? {
-        if (cellOffset >= -108 + height) {
-            self.navBackground.alpha = 1.0
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.productLabel!.alpha = 1
-            self.navigationItem.titleView = self.productLabel!
-            })
-        }else {
-            self.navBackground.alpha = 0.0
-            if self.productLabel != nil {
-                self.productLabel!.alpha = 0
-            }
-        }
-        }
-        
+    
     }
     
     

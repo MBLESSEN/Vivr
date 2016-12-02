@@ -33,6 +33,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var juiceName: B68UIFloatLabelTextField!
     @IBOutlet weak var actionBarBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var addJuiceLeadingConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,8 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         self.navigationController?.navigationBarHidden = true
     }
     
+    override func viewDidLayoutSubviews() {
+    }
     
     func brandSelected(brandID: Int, brandName: String) {
         setSelectBrandButtonForBrand(brandName, brandID: brandID)
@@ -67,6 +70,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         selectedBrandID = brandID
         selectedBrandName = brandName
         hideBrandSearchView()
+        animateBrandLabel()
     }
     
     func instantiateSearchView() {
@@ -107,7 +111,9 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     
     func completeAddProduct() {
         self.reviewSuccessInButton()
+        self.cancelButton.enabled = false 
         UIView.animateWithDuration(0.3, animations: {
+            self.addJuiceLeadingConstraint.constant = 0 - UIScreen.mainScreen().bounds.width
             self.view.layoutIfNeeded()
         })
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target: self, selector: "callViewDelegateAddNewJuiceSuccess", userInfo: nil, repeats: false)
@@ -134,8 +140,13 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         // Pass the selected object to the new view controller.
     }
     */
+    func checkIfBrandsAreLoaded() {
+        self.brandSearch?.checkIfDataIsLoaded()
+    }
+    
     @IBAction func selectBrandPressed(sender: AnyObject) {
         self.juiceName.endEditing(true)
+        self.checkIfBrandsAreLoaded()
         if tableActive == false {
             showBrandSearchView()
         }else {
@@ -145,6 +156,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
     
     func showBrandSearchView() {
         self.selectBrandButton.setTitle("Cancel brand search", forState: .Normal)
+        self.selectBrandButton.layoutIfNeeded()
         showCantFindBrandButton()
         searchHeight.constant = 44.0
         brandSearch!.view.frame = CGRectMake(0, 0, brandView.frame.width, brandView.frame.height)
@@ -173,6 +185,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         }else {
             self.selectBrandButton.setTitle("Who makes it?", forState: .Normal)
         }
+        self.selectBrandButton.layoutIfNeeded()
         self.brandSearchBar.endEditing(true)
     }
     
@@ -217,6 +230,32 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         brandSelected(brandID, brandName: brandName)
     }
     
+    func animateBrandLabel() {
+        UIView.animateWithDuration(
+            // duration
+            0.2,
+            // delay
+            delay: 0.3,
+            options: [],
+            animations: {
+                self.selectBrandButton.transform = CGAffineTransformMakeScale(2.0, 2.0)
+            }, completion: {finished in
+                UIView.animateWithDuration(
+                    // duration
+                    0.1,
+                    // delay
+                    delay: 0.1,
+                    options: [],
+                    animations: {
+                        self.selectBrandButton.transform = CGAffineTransformMakeScale(1.0, 1.0)
+                    }, completion: {finished in
+                        
+                    }
+                )
+            }
+        )
+    }
+    
     func checkInAnotherJuice() {
         self.dismissViewControllerAnimated(false, completion: nil)
     }
@@ -244,6 +283,7 @@ class AddNewJuiceView: UIViewController, UISearchBarDelegate, BrowseViewDelegate
         submitButton.setTitle("Submit", forState: .Normal)
         submitButton.viewWithTag(1)?.removeFromSuperview()
         selectBrandButton.setTitle("Who makes it?", forState: .Normal)
+        selectBrandButton.layoutIfNeeded()
         hideBrandSearchView()
         submitButton.setImage(nil, forState: .Normal)
         self.view.layoutIfNeeded()

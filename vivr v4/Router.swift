@@ -59,6 +59,7 @@ enum Router: URLRequestConvertible {
     case postProduct([String:AnyObject])
     case createNewBrand([String:AnyObject])
     case readFeatured(Int)
+    case editReview(String, [String: AnyObject])
 
     
     var method: Alamofire.Method {
@@ -155,6 +156,8 @@ enum Router: URLRequestConvertible {
             return .POST
         case .readFeatured:
             return .GET
+        case .editReview:
+            return .PUT
         }
     }
     
@@ -252,13 +255,15 @@ enum Router: URLRequestConvertible {
             return "/brands"
         case .readFeatured(let id):
             return "/featured?page=\(id)"
+        case .editReview(let id, _):
+            return "/products/\(id)/reviews"
         }
     }
     
     // MARK: URLRequestConvertible
     
     var URLRequest: NSMutableURLRequest {
-        let URL = NSURL(string: Router.baseURLString + path)!
+        let URL = NSURL(string: Router.baseURLString + path.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)!
         let mutableURLRequest = NSMutableURLRequest(URL: URL)
         mutableURLRequest.HTTPMethod = method.rawValue
         
@@ -290,6 +295,8 @@ enum Router: URLRequestConvertible {
         case .postProduct(let parameters):
             return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
         case .createNewBrand(let parameters):
+            return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
+        case .editReview(_, let parameters):
             return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
         default:
             return mutableURLRequest

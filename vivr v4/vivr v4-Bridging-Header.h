@@ -3,8 +3,6 @@
 //
 
 #import "SWRevealViewController.h"
-#import "DBImageColorPicker.h"
-#import "UIImage+Color.h"
 #import "iCarousel.h"
 //#import "Mixpanel.h"
 

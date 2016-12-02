@@ -26,10 +26,11 @@ class VIVRSettingsEditProfileViewController: UITableViewController, UIImagePicke
     var isChangingUserImage = false
     var imageData:NSData?
     
+    var delegate:VIVREditAccountProtocol? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTextFields()
-        readProfile()
         self.tableView.contentInset = UIEdgeInsetsMake(-40, 0 ,0, 0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -39,6 +40,7 @@ class VIVRSettingsEditProfileViewController: UITableViewController, UIImagePicke
     }
     
     override func viewWillAppear(animated: Bool) {
+        readProfile()
         configureNavBar()
     }
     
@@ -85,13 +87,13 @@ class VIVRSettingsEditProfileViewController: UITableViewController, UIImagePicke
         
     }
     func readProfile() {
-        if let bioText = myData.bio as String? {
+        if let bioText = myData.user!.bio as String? {
             self.bio.text = bioText
         }
-        if let hardwareText = myData.hardWare as String? {
+        if let hardwareText = myData.user!.hardWare as String? {
             self.hardWare.text = hardwareText
         }
-        if let userNameText = myData.myProfileName as String? {
+        if let userNameText = myData.user!.userName as String? {
             self.fullName.text = userNameText
         }
         if let image = myData.userImage as UIImage? {
@@ -117,7 +119,7 @@ class VIVRSettingsEditProfileViewController: UITableViewController, UIImagePicke
             nameData = false
         }else if (fullName.text == nil) {
             nameData = false
-        }else if (fullName.text == myData.myProfileName) {
+        }else if (fullName.text == myData.user!.userName) {
             nameData = false
         }else {
             nameData = true
@@ -129,7 +131,7 @@ class VIVRSettingsEditProfileViewController: UITableViewController, UIImagePicke
             hardWareData = false
         }else if (hardWare.text == nil) {
             hardWareData = false
-        }else if (hardWare.text == myData.hardWare) {
+        }else if (hardWare.text == myData.user!.hardWare) {
             hardWareData = false
         }else {
             hardWareData = true
@@ -142,7 +144,7 @@ class VIVRSettingsEditProfileViewController: UITableViewController, UIImagePicke
             bioData = false
         }else if (bio.text == nil) {
             bioData = false
-        }else if (bio.text == myData.bio) {
+        }else if (bio.text == myData.user!.bio) {
             bioData = false
         }else {
             bioData = true
@@ -163,6 +165,7 @@ class VIVRSettingsEditProfileViewController: UITableViewController, UIImagePicke
                 let emptyAlert = UIAlertController(title: "submitted", message: "Your profile was updated", preferredStyle: UIAlertControllerStyle.Alert)
                 emptyAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { action in
                     self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                    self.delegate?.reloadProfile()
                 }))
                 self.presentViewController(emptyAlert, animated: true, completion: nil)
             }

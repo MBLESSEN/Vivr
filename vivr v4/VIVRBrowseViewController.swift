@@ -230,15 +230,10 @@ class VIVRBrowseViewController: UIViewController, UITableViewDataSource, UITable
             print("loading brands", terminator: "")
         }
         if boxes == nil {
-            loadFirstBoxes()
+            //loadFirstBoxes()
             print("loading brands", terminator: "")
         }
         configureNavBar()
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain , target: nil, action: nil)
     }
     
@@ -1073,6 +1068,16 @@ class VIVRBrowseViewController: UIViewController, UITableViewDataSource, UITable
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchView!.clearSearch()
+    }
+    
+    func checkIfDataIsLoaded() -> Bool {
+        let brandCount = self.brand?.count
+        if brandCount == 0 {
+            self.loadFirstBrand()
+            return false
+        }else {
+            return true
+        }
     }
 
     

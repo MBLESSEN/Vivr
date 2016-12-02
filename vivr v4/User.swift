@@ -35,6 +35,7 @@ class User {
     var wishlist_count: Int?
     var box_count: Int?
     
+    static var currentUser: User?
     
     required init(json: JSON) {
         self.ID = json[ActivityFeedReviewsFields.ID.rawValue].intValue
@@ -108,6 +109,38 @@ class User {
     
     class func getMyUserData(userID: Int, completionHandler: (UserDataWrapper?, NSError?) -> Void) {
         getData(userID, path: User.endpointForMyUserData(), completionHandler: completionHandler)
+    }
+    
+    class func setUserDataToMyData(user: User) {
+        myData.user = user
+        myData.myProfileID = user.ID
+        myData.myProfileName = user.userName!
+        if let imageURL = user.image {
+            if imageURL != "" {
+                let url = NSURL(string: imageURL)
+                if let data = NSData(contentsOfURL: url!) {
+                    myData.userImage = UIImage(data: data)!
+                }
+            }else {
+                let image = UIImage(named:"user_100")
+                myData.userImage = image!
+            }
+        }
+        myData.reviewsCount = user.review_count
+        if user.bio == "" {
+            myData.bio = "I am a new user on vivr!"
+        }
+        else{
+            myData.bio = user.bio
+        }
+        if user.hardWare == "" {
+            myData.hardWare =  "Let everyone know what hardware youre using."
+        }else {
+            myData.hardWare = user.hardWare
+        }
+        myData.wishlistCount = user.wishlist_count
+        myData.favoritesCount = user.favorite_count
+        myData.boxes_count = user.box_count
     }
     
     

@@ -102,7 +102,8 @@ class Brand {
     class func createNewBrand(parameters: [String:AnyObject], completionHandler: (BrandWrapper?, NSError?) -> Void) {
         Alamofire.request(Router.createNewBrand(parameters)).responseJSON { (response) in
             let error = response.result.error
-            if response.response?.statusCode != 200 || response.response?.statusCode != 201 {
+            let responseStatus = response.response?.statusCode
+            if response.response?.statusCode != 200 {
                 DeviceInfo.refreshAuthToken() {
                     result in
                     if result.1?.success == true {

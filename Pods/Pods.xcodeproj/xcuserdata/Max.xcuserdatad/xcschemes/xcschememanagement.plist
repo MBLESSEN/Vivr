@@ -3,7 +3,48 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict/>
+	<dict>
+		<key>ActiveLabel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>HanekeSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Kanna.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>NextGrowingTextView-NextGrowingTextView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>NextGrowingTextView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>2174CAB83AD9B4AC3FF9733D78547F89</key>
@@ -11,22 +52,37 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3CF401F8BB87EFB92820549CCFA72F6E</key>
+		<key>2A9B0FB39D27434859A417D3F5F0FBF1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4904123C919FD237884BDA5E7C0D4EA4</key>
+		<key>60137F2EE71F474CC488DF061FE92471</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>51625BD2EBA6020A51971818AA6069BD</key>
+		<key>63BD40C6E2F3A59D666CC692ECFBA8FA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6AB74EF904A5AAA574220DDFF5BE5D66</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9BC1F12496D9807FD94263AF8367EC31</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>9F7F36850F6519726286D70AEFE13EE1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F60FDFAD4ECBC8FF82CB9E0FBA06C910</key>
 		<dict>
 			<key>primary</key>
 			<true/>

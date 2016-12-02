@@ -8,13 +8,14 @@
 
 import UIKit
 
-class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
+class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate, VIVRReviewProtocol {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var cancelButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var checkInButton: UIButton!
     
     var searchView: VIVRSearchViewController?
     var myReviewsView: VIVRUserReviewsViewController?
@@ -31,7 +32,6 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     override func viewWillAppear(animated: Bool) {
         showTitleLogo()
         configureNavBar()
-
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -45,6 +45,11 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func loadReviews() {
+        myReviewsView!.selectedUserID = myData.user!.ID!
+        myReviewsView!.loadFirstReviews()
     }
     
     //NAVIGATION AND VIEW CUSTOMIZATION
@@ -73,6 +78,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         searchBar.resignFirstResponder()
         hideSearchView()
         showMyReviewsView()
+        showCheckInButton()
     }
     
     //CANCEL BUTTON FUNCTIONS
@@ -108,8 +114,10 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
     func instantiateMyReviewsView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         myReviewsView = storyboard.instantiateViewControllerWithIdentifier("myUserReviews") as! VIVRUserReviewsViewController
-        myReviewsView?.selectedUserID = myData.myProfileID
+        myReviewsView?.selectedUserID = myData.user?.ID!
         addChildViewController(myReviewsView!)
+        myReviewsView?.didMoveToParentViewController(self)
+        myReviewsView?.loadFirstReviews()
     }
     
     
@@ -172,6 +180,7 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let navigation = storyboard.instantiateViewControllerWithIdentifier("reviewViewControllerNavigationController") as! UINavigationController
         let reviewVC = navigation.viewControllers.first as! VIVRReviewViewController
+        reviewVC.delegate = self
         reviewVC.product = product
         presentViewController(navigation, animated: true, completion: nil)
     }
@@ -234,6 +243,24 @@ class VIVRJuiceCheckIn: UIViewController, searchDelegate, UISearchBarDelegate {
         searchBar.text = ""
     }
     
+    @IBAction func checkInJuiceTapped(sender: AnyObject) {
+        self.hideCheckInButton()
+    }
+    
+    func hideCheckInButton() {
+        self.checkInButton.hidden = true
+        self.checkInButton.userInteractionEnabled = false
+        self.searchBar.becomeFirstResponder()
+    }
+    
+    func showCheckInButton() {
+        self.checkInButton.hidden = false
+        self.checkInButton.userInteractionEnabled = true
+    }
+    
+    func reviewAddedSuccess() {
+        self.loadReviews()
+    }
 
 
 }

@@ -82,6 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     }
     
     func storeUserData(user: User) {
+        myData.user = user
         myData.myProfileID = user.ID
         myData.myProfileName = user.userName!
         if let imageURL = user.image {
@@ -174,9 +175,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         self.userWrapper = wrapper
         if self.userData == nil {
             self.userData = self.userWrapper?.UserData?.first
-            if userData != nil {
-                storeUserData(self.userData!)
-            }
+        }
+        if userData != nil {
+            storeUserData((self.userWrapper?.UserData?.first)!)
         }
     }
     

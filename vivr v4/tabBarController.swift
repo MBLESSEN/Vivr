@@ -22,18 +22,49 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-        if viewController.title == "checkInView" {
-            return true
-        }else if viewController.title == "userNav" {
+        if viewController.title == "userNav" {
             let navController = viewController as? UINavigationController
             let userVC = navController?.viewControllers[0] as? VIVRUserViewController
+            
             if myData.myProfileID != nil {
                 userVC?.selectedUserID = "\(myData.myProfileID!)"
+            }else{
+                User.getMyUserData(0, completionHandler: { (userWrapper, error) in
+                    if error != nil {
+                        
+                    }else {
+                        let user = userWrapper?.UserData?.first
+                        myData.user = user
+                        if user?.ID != nil {
+                            userVC?.selectedUserID = "\(user!.ID!)"
+                            userVC?.loadUserData()
+                            userVC?.loadFirstReviews()
+                        }
+                    }
+                })
             }
+            
             userVC?.isMyUser = true
             return true
-        }
-        else{
+            
+        }else if viewController.title == "checkInView" {
+            let navController = viewController as? UINavigationController
+            let checkInVC = navController?.viewControllers[0] as? VIVRJuiceCheckIn
+            
+            if myData.user!.ID == nil {
+                User.getMyUserData(0, completionHandler: { (userWrapper, error) in
+                    if error != nil {
+                        
+                    }else {
+                        let user = userWrapper?.UserData?.first
+                        myData.user = user
+                        checkInVC!.loadReviews()
+                    }
+                })
+
+            }
+            return true
+        }else{
             return true
         }
     }

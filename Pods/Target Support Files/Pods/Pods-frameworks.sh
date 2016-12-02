@@ -84,14 +84,26 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods/ActiveLabel.framework"
   install_framework "Pods/Alamofire.framework"
   install_framework "Pods/Haneke.framework"
+  install_framework "Pods/Kanna.framework"
+  install_framework "Pods/NextGrowingTextView.framework"
+  install_framework "Pods/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods/ActiveLabel.framework"
   install_framework "Pods/Alamofire.framework"
   install_framework "Pods/Haneke.framework"
+  install_framework "Pods/Kanna.framework"
+  install_framework "Pods/NextGrowingTextView.framework"
+  install_framework "Pods/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Distribution" ]]; then
+  install_framework "Pods/ActiveLabel.framework"
   install_framework "Pods/Alamofire.framework"
   install_framework "Pods/Haneke.framework"
+  install_framework "Pods/Kanna.framework"
+  install_framework "Pods/NextGrowingTextView.framework"
+  install_framework "Pods/SwiftyJSON.framework"
 fi

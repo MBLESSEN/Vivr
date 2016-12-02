@@ -143,7 +143,7 @@ class VIVRFeaturedPostViewController: UIViewController, UITableViewDataSource, U
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 300
+            return UITableViewAutomaticDimension
         }
         return 40.0
     }

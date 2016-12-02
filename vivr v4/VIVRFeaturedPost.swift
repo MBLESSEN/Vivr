@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+
 class FeaturedPostWrapper {
     var featuredPosts: Array<FeaturedPost>?
     var count: Int?
@@ -27,12 +28,14 @@ class FeaturedPost {
     var image: String?
     var description: String?
     
+    var m: Markdown = Markdown()
+    
     required init(json: JSON, id: Int?) {
         self.ID = id
         self.featuredID = json["id"].intValue
         self.title = json["name"].stringValue
         self.image = json["image"].stringValue
-        self.description = json["description"].stringValue
+        self.description = m.transform(json["description"].stringValue)
     }
     
     class func endpointForAllFeaturedPosts() -> URLRequestConvertible {

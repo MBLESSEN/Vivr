@@ -124,14 +124,8 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         didSet {
             if isLoadingFeed == true {
                 showActivityIndicator()
-            }
-            if isLoadingFeed == false {
-                if activityWrapper != nil {
-                    hideActivityIndicator()
-                    if isFirstLaunch == true {
-                        isFirstLaunch = false
-                    }
-                }
+            }else {
+                didLoadData()
             }
         }
     }
@@ -291,8 +285,10 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // User Interface, show/hide functions
     func configureTableView() {
         mainTable.contentInset = UIEdgeInsetsZero
-        mainTable.estimatedRowHeight = 400
-        mainTable.rowHeight = UITableViewAutomaticDimension
+        if controller.selectedSegmentIndex == 1 {
+            mainTable.estimatedRowHeight = 400
+            mainTable.rowHeight = UITableViewAutomaticDimension
+        }
     }
 
     
@@ -318,12 +314,43 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     func prepareToLoadData() {
-        if filterTags.count != 0 {
-            loadFirstFilteredActivity(filterTagsString!)
-        }else {
-            loadFirstActivity()
+        switch self.controller.selectedSegmentIndex {
+        case 0:
+            if self.featuredPosts == nil {
+                loadFirstFeatured()
+            }
+        case 1:
+            if filterTags.count != 0 {
+                loadFirstFilteredActivity(filterTagsString!)
+            }else {
+                loadFirstActivity()
+            }
+        default:
+            print("no data")
         }
-        loadFirstFeatured()
+    }
+    
+    func didLoadData() {
+        switch self.controller.selectedSegmentIndex {
+        case 0:
+            if self.featuredWrapper != nil {
+                hideActivityIndicator()
+            }else {
+                showNoNetworkView()
+            }
+        case 1:
+            if self.activityWrapper != nil {
+                hideActivityIndicator()
+                if feedReviews?.count == 0 {
+                    showEmptyStateView()
+                }
+            }else {
+                showNoNetworkView()
+            }
+        default:
+            print("no data")
+        }
+        
     }
     
     
@@ -543,6 +570,9 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 }, completion: {finished in
                 }
             )
+            if self.featuredPosts == nil {
+                loadFirstFeatured()
+            }
             mainTable.rowHeight = 200
             mainTable.scrollEnabled = true
             mainTable.reloadData()
@@ -566,11 +596,11 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 }, completion: {finished in
                 }
             )
+            if self.feedReviews == nil {
+                loadFirstActivity()
+            }
             mainTable.rowHeight = UITableViewAutomaticDimension
             mainTable.scrollEnabled = true
-            if feedReviews?.count == 0 {
-                showEmptyStateView()
-            }
             mainTable.reloadData()
         case 2:
             cellIdentifier = "newCell"
@@ -733,6 +763,11 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
     }
     
+    func tappedMoreButton(cell: vivrCell) {
+        let actionSheet = VIVRMoreActionSheet.actionSheetWithType(.VIVRMoreActionSheetTypeOthersReview, object: cell.review)
+        self.presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
     func tappedProductButton(cell: vivrCell) {
         self.segueIdentifier = "buzzToProduct"
         productID = cell.productID
@@ -820,11 +855,11 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch cellIdentifier {
         case "vivrCell":
-            return self.feedReviews!.count ?? 0
+            return self.feedReviews?.count ?? 0
         case "newCell":
             return 1
         case "featuredCell":
-           return self.featuredPosts!.count ?? 0
+           return self.featuredPosts?.count ?? 0
         default:
             return 1
         }
@@ -876,7 +911,6 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 let featured = self.featuredPosts![indexPath.row]
                 cell.featuredPost = featured
                 cell.postTitle.text = featured.title!
-                cell.postDescription.text = featured.description!
                 let urlString = featured.image!
                 let url = NSURL(string: urlString)!
                 cell.postImage.hnk_setImageFromURL(url, placeholder: UIImage(named: "featuredImage_1"))
@@ -955,13 +989,14 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             let rowsToLoadFromBottom = 5
             let rowsLoaded = self.feedReviews!.count
             if (!self.isLoadingFeed && (indexPath.row >= (rowsLoaded - rowsToLoadFromBottom))) {
-                let totalRows = self.activityWrapper!.count!
-                let remainingFeedToLoad = totalRows - rowsLoaded
-                if (remainingFeedToLoad > 0) {
-                    if filterTags.count != 0 {
-                        self.loadMoreFilteredActivity()
-                    } else {
-                    self.loadMoreActivity()
+                if let totalRows = self.activityWrapper?.count {
+                    let remainingFeedToLoad = totalRows - rowsLoaded
+                    if (remainingFeedToLoad > 0) {
+                        if filterTags.count != 0 {
+                            self.loadMoreFilteredActivity()
+                        } else {
+                        self.loadMoreActivity()
+                        }
                     }
                 }
             }
@@ -1034,11 +1069,12 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         ActivityFeedReviews.getFilteredReviews(tags, completionHandler: { (activityWrapper, error) in
             if error != nil {
                 self.isLoadingFeed = false
-                self.activityIndicator!.showRefreshButton()
+                self.activityIndicator?.setupControllerForNoNetwork()
+            }else {
+                self.addReviewFromWrapper(activityWrapper)
+                self.isLoadingFeed = false
+                self.mainTable.reloadData()
             }
-            self.addReviewFromWrapper(activityWrapper)
-            self.isLoadingFeed = false
-            self.mainTable.reloadData()
         })
     }
     func loadMoreFilteredActivity() {
@@ -1067,7 +1103,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         ActivityFeedReviews.getReviews({ (activityWrapper, error) in
             if error != nil {
                 self.isLoadingFeed = false
-                self.activityIndicator!.showRefreshButton()
+                self.activityIndicator?.setupControllerForNoNetwork()
             }
             self.addReviewFromWrapper(activityWrapper)
             self.isLoadingFeed = false
@@ -1112,14 +1148,14 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func loadFirstFeatured() {
         self.featuredPosts = []
-        self.isLoadingFeatured = true
+        self.isLoadingFeed = true
         FeaturedPost.getFeaturedPosts( { (featuredWrapper, error) in
             if error != nil {
-                self.isLoadingFeatured = false
-                self.activityIndicator?.showRefreshButton()
+                self.isLoadingFeed = false
+                self.activityIndicator?.setupControllerForNoNetwork()
             }
             self.addFeaturedFromWrapper(featuredWrapper)
-            self.isLoadingFeatured = false
+            self.isLoadingFeed = false
             self.mainTable.reloadData()
             
         })
@@ -1145,11 +1181,13 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func addFeaturedFromWrapper(wrapper: FeaturedPostWrapper?) {
         self.featuredWrapper = wrapper
-        if self.featuredPosts == nil {
-            self.featuredPosts = self.featuredWrapper?.featuredPosts
-        }else if self.featuredWrapper != nil && self.featuredWrapper!.featuredPosts != nil {
-            self.featuredPosts = self.featuredPosts! + self.featuredWrapper!.featuredPosts!
-        }
+        self.featuredPosts = self.featuredWrapper?.featuredPosts
+        
+//        if self.featuredPosts == nil {
+//            self.featuredPosts = self.featuredWrapper?.featuredPosts
+//        }else if self.featuredWrapper != nil && self.featuredWrapper!.featuredPosts != nil {
+//            self.featuredPosts = self.featuredPosts! + self.featuredWrapper!.featuredPosts!
+//        }
     }
     
     
@@ -1399,7 +1437,7 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         if activityIndicator != nil {
             self.mainTable.addSubview(activityIndicator!.view)
             activityIndicator?.didMoveToParentViewController(self)
-            activityIndicator?.activityIndicator.startAnimating()
+            activityIndicator?.setupControllerForLoading()
         }
     }
     
@@ -1465,6 +1503,10 @@ class VIVRHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             controller.sendActionsForControlEvents(UIControlEvents.ValueChanged)
         }
+    }
+    
+    func showNoNetworkView() {
+        self.activityIndicator?.setupControllerForNoNetwork()
     }
 
     

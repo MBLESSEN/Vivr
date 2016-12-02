@@ -13,19 +13,6 @@ import Haneke
 import Alamofire
 import SwiftyJSON
 
-protocol VivrCellDelegate {
-    
-    func tappedCommentButton(cell: vivrCell)
-    func reloadAPI(cell: vivrCell)
-    func tappedUserButton(cell: vivrCell)
-    func helpfulTrue(cell: vivrCell)
-    func helpfulFalse(cell: vivrCell)
-    func wishlistTrue(cell: vivrCell)
-    func wishlistFalse(cell: vivrCell)
-    func tappedProductButton(cell: vivrCell)
-
-}
-
 class vivrCell: UITableViewCell, UIScrollViewDelegate {
     
     @IBOutlet weak var productImage: UIImageView!
@@ -38,10 +25,10 @@ class vivrCell: UITableViewCell, UIScrollViewDelegate {
     @IBOutlet weak var totalScore: UILabel!
     @IBOutlet weak var throat: UILabel!
     @IBOutlet weak var vapor: UILabel!
-    @IBOutlet weak var helpfull: UIButton?
+    @IBOutlet weak var helpfull: VIVRHelpfulButton!
     @IBOutlet weak var helpfullLabel: UILabel!
     @IBOutlet weak var commentButton: UIButton!
-    @IBOutlet weak var wishlistButton: UIButton?
+    @IBOutlet weak var wishlistButton: VIVRWishlistButton?
     @IBOutlet weak var productButton: UIButton!
     @IBOutlet weak var hardwareLabel: UILabel?
     @IBOutlet weak var productDescription: UILabel!
@@ -68,8 +55,6 @@ class vivrCell: UITableViewCell, UIScrollViewDelegate {
     var reviewID: String = ""
     var cellDelegate: VivrCellDelegate? = nil
     var productID: String = ""
-    var likeImage = UIImage(named: "likeFilled")?.imageWithRenderingMode(.AlwaysTemplate)
-    var wishImage = UIImage(named: "plusWhite")?.imageWithRenderingMode(.AlwaysTemplate)
     
     var descriptionState: Bool? {
         didSet {
@@ -175,22 +160,14 @@ class vivrCell: UITableViewCell, UIScrollViewDelegate {
     
     var helpfullState: Bool? {
         didSet {
-            helpfull!.layer.borderWidth = 1
-            helpfull!.layer.cornerRadius = 4
-            helpfull!.setImage(likeImage, forState: .Normal)
-            helpfull!.imageEdgeInsets = UIEdgeInsetsMake(5,5, 5, 50)
-            helpfulButtonState()
-            
-            
+            self.helpfull?.currentHelpful = helpfullState!
         }
     }
     var wishlistState:Bool? {
         didSet {
-            wishlistButton!.layer.borderWidth = 1
-            wishlistButton!.layer.cornerRadius = 4
-            wishlistButton!.setImage(wishImage, forState: .Normal)
-            wishlistButton!.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 50)
-            wishlistButtonState()
+            if self.wishlistButton != nil {
+                self.wishlistButton!.currentWishlist = wishlistState!
+            }
         }
     }
     
@@ -214,6 +191,9 @@ class vivrCell: UITableViewCell, UIScrollViewDelegate {
         cellDelegate?.tappedUserButton(self)
     }
     
+    @IBAction func moreButtonPressed(sender: AnyObject) {
+        cellDelegate?.tappedMoreButton(self)
+    }
 
     @IBAction func helpfullPressed(sender: AnyObject) {
         executeHelpful()
@@ -229,7 +209,6 @@ class vivrCell: UITableViewCell, UIScrollViewDelegate {
             Alamofire.request(Router.isHelpful(productID, reviewID))
             cellDelegate?.helpfulTrue(self)
         }
-        helpfulButtonState()
     }
 
     @IBAction func wishlistPressed(sender: AnyObject) {
@@ -247,46 +226,8 @@ class vivrCell: UITableViewCell, UIScrollViewDelegate {
             Alamofire.request(Router.addToWish(productID))
             cellDelegate?.wishlistTrue(self)
         }
-        wishlistButtonState()
     }
     
-    func wishlistButtonState(){
-        switch wishlistState! {
-        case true:
-            wishlistButton!.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 5)
-            wishlistButton!.layer.borderColor = (UIColor.purpleColor()).CGColor
-            wishlistButton!.tintColor = UIColor.whiteColor()
-            wishlistButton!.backgroundColor = UIColor.purpleColor()
-            wishlistButton!.setTitle("Wishlist", forState: .Normal)
-        case false:
-            wishlistButton!.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 5)
-            wishlistButton!.layer.borderColor = (UIColor.lightGrayColor()).CGColor
-            wishlistButton!.tintColor = UIColor.lightGrayColor()
-            wishlistButton!.backgroundColor = UIColor.whiteColor()
-            wishlistButton!.setTitle("Wishlist", forState: .Normal)
-            wishlistButton!.sizeToFit()
-        }
-
-    }
-    
-    func helpfulButtonState(){
-        switch helpfullState! {
-        case true:
-            helpfull!.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 5)
-            helpfull!.layer.borderColor = (UIColor.purpleColor()).CGColor
-            helpfull!.tintColor = UIColor.whiteColor()
-            helpfull!.backgroundColor = UIColor.purpleColor()
-            helpfull!.setTitle("Helpful", forState: .Normal)
-        case false:
-            helpfull!.titleEdgeInsets = UIEdgeInsetsMake(5, -2.5, 5, 5)
-            helpfull!.layer.borderColor = (UIColor.lightGrayColor()).CGColor
-            helpfull!.tintColor = UIColor.lightGrayColor()
-            helpfull!.backgroundColor = UIColor.whiteColor()
-            helpfull!.setTitle("Helpful", forState: .Normal)
-            
-        }
-        
-    }
     func loadReviews() {
         self.userID = review!.userID
         self.productID = review!.productID!
@@ -316,9 +257,7 @@ class vivrCell: UITableViewCell, UIScrollViewDelegate {
         self.userImage.clipsToBounds = true
         self.hardwareLabel!.text = review!.user?.hardWare
         self.flavorName.text = review!.product?.name
-        self.flavorName.sizeToFit()
-        self.brandName.text = review!.brand?.name
-        self.brandName.sizeToFit()
+        self.brandName.text = review!.brand?.name!.uppercaseString
         self.layoutIfNeeded()
         if let productString = review!.product!.image as String? {
             let purl = NSURL(string: productString)

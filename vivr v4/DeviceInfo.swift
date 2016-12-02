@@ -60,8 +60,6 @@ class DeviceInfo {
                 clearance.message = "success"
                 completionHandler(response, clearance)
                 return
-            }else if response.response?.statusCode == 401 || response.response?.statusCode == 400 {
-                self.logOutDevice()
             }else {
                 var APIresponse = ApiError()
                 print("refresh failed")

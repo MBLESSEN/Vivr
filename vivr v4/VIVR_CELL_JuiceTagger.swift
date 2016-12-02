@@ -1,14 +1,14 @@
 //
-//  footerCell.swift
-//  vivr v4
+//  VIVR_CELL_JuiceTagger.swift
+//  vivr
 //
-//  Created by max blessen on 3/28/15.
-//  Copyright (c) 2015 max blessen. All rights reserved.
+//  Created by max blessen on 1/21/16.
+//  Copyright © 2016 max blessen. All rights reserved.
 //
 
 import UIKit
 
-class footerCell: UITableViewCell {
+class VIVR_CELL_JuiceTagger: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
